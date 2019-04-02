@@ -4,15 +4,15 @@ import { AuthConsumer } from '../providers/AuthProvider'
 
 class Home extends React.Component {
   render() {
-    const { admin } = this.props.auth.user
+    const { admin, name } = this.props.auth.user
 
     if (admin)
       return (
-        <Header as="h3" textAlign="center">Hour Glass, Hello Admin!</Header>
+        <Header as="h3" textAlign="center">Hour Glass, Hello Admin {name}!</Header>
       )
     else
       return (
-        <div>Not an admin</div>
+        <div>Not an admin, hello {name}</div>
       )
   }
 }
