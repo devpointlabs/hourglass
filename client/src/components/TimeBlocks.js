@@ -1,48 +1,70 @@
-import React from 'react';
-import { AuthConsumer } from '../providers/AuthProvider'
-import { Table } from 'semantic-ui-react'
-import TimeBlock from './TimeBlock'
+import React from "react";
+import { AuthConsumer } from "../providers/AuthProvider";
+import { Table, Form } from "semantic-ui-react";
+import TimeBlock from "./TimeBlock";
+import TimeBlockForm from "./TimeBlockForm";
+import axios from "axios";
 
 class TimeBlocks extends React.Component {
-  state = {timeBlocks: [{start_time: 'Today', end_time: 'Tommorow', billable: '20', unbillable: '10', project_id: 2, user_id: 2, id: 1}]}
+  state = { timeBlocks: [] };
 
-  render () {
+  componentDidMount() {
+    // need to update when routes make more sense
+    const project_id = 1;
+    axios.get(`/api/projects/${project_id}/timeblocks`).then(res =>
+      this.setState({ timeBlocks: res.data }, () => {
+        this.state.timeBlocks === []
+          ? this.state.timeBlocks.map(
+              t =>
+                t.end_time &&
+                this.setState({
+                  timeBlocks: [...this.state.timeBlocks, { editMode: false }]
+                })
+            )
+          : this.setState({ timeBlocks: { editMode: false } });
+      })
+    );
+  }
+
+  updateTimeBlocks = timeBlock => {
+    this.setState({ timeBlocks: [...this.state.timeBlocks, timeBlock] });
+  };
+
+  render() {
     return (
-      <div>
-        <Table basic='very' celled collapsing>
+      <Form>
+        <Table basic="very" celled collapsing>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell />
               <Table.HeaderCell>Date</Table.HeaderCell>
               <Table.HeaderCell>Start Time</Table.HeaderCell>
               <Table.HeaderCell>End Time</Table.HeaderCell>
               <Table.HeaderCell>Total Time</Table.HeaderCell>
               <Table.HeaderCell>Billable Hours</Table.HeaderCell>
               <Table.HeaderCell>UnBillable Hours</Table.HeaderCell>
+              <Table.HeaderCell>Clock In/Clock Out</Table.HeaderCell>
+
+              <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.state.timeBlocks.map( t => 
-            <TimeBlock key={t.id} data={t}/>
-            ) }
+            {this.state.timeBlocks.map(t => (
+              <TimeBlockForm
+                key={t.id}
+                data={t}
+                updateTimeBlocks={this.updateTimeBlocks}
+              />
+            ))}
           </Table.Body>
         </Table>
-
-      </div>
-
-    )
+      </Form>
+    );
   }
 }
 
-const ConnectedTimeBlocks = (props) => (
-  <AuthConsumer>
-    {auth => 
-      <TimeBlocks auth = {auth} {...props} />
-    
-    }
-
-  </AuthConsumer>
-)
-
+const ConnectedTimeBlocks = props => (
+  <AuthConsumer>{auth => <TimeBlocks auth={auth} {...props} />}</AuthConsumer>
+);
 
 export default ConnectedTimeBlocks;
