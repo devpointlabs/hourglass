@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_180015) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["project_id"], name: "index_timeblocks_on_project_id"
   end
 
