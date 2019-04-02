@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { Header } from "semantic-ui-react";
 import { AuthConsumer } from "../providers/AuthProvider";
@@ -6,20 +5,6 @@ import { AuthConsumer } from "../providers/AuthProvider";
 class Home extends React.Component {
   render() {
     const { admin, name } = this.props.auth.user;
-=======
-import React from 'react';
-import { Header, } from 'semantic-ui-react';
-import StopWatch from './StopWatch'
-import TimeBlocks from './TimeBlocks'
-
-const Home = () => (
-  <>
-  <Header as="h3" textAlign="center">Hour Glass, Get er Done</Header>
-  <TimeBlocks />
-  {/* <StopWatch /> */}
-  </>
-)
->>>>>>> add time entry table with stopWatch component
 
     if (admin)
       return (
