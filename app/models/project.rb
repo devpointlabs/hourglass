@@ -1,4 +1,7 @@
 class Project < ApplicationRecord
-  has_many :users, through: :assignments, dependent: :destroy
-  has_many :timeblocks, dependent: :destroy
+
+  has_many :assignments
+  has_many :users, through: :assignments 
+  has_many :timeblocks
+  
 end
