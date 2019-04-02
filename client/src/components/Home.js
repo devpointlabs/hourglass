@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "semantic-ui-react";
 import { AuthConsumer } from "../providers/AuthProvider";
+import TimeBlocks from "./TimeBlocks";
 
 class Home extends React.Component {
   render() {
@@ -12,7 +13,13 @@ class Home extends React.Component {
           Hour Glass, Hello Admin {name}!
         </Header>
       );
-    else return <div>Not an admin, hello {name}</div>;
+    else
+      return (
+        <div>
+          Not an admin, hello {name}
+          <TimeBlocks />
+        </div>
+      );
   }
 }
 
