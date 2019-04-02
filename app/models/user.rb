@@ -7,6 +7,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :assignments, :through => :assignment_projects 
+  has_many :projects, through: :assignments
   
 end
