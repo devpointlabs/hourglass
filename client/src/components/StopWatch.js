@@ -1,24 +1,32 @@
 import React from 'react';
 import { Button, Header } from 'semantic-ui-react'
 import moment from 'moment'
+import axios from 'axios';
 
 class StopWatch extends React.Component {
   state = {timeTotal: '',
-           startTimeFull: '',
-           endTimeFull: '',
+           startTime: '',
+           endTime: '',
            timeEntry: {startEntry: '', endEntry: '', totalTime: ''}}
 
 
   startButton = () => {
   const createNewDate = new moment()
-  this.setState({startTimeFull: createNewDate})
+    axios.post('/api', createNewDate)
+      .then( res => {
+        this.setState({startTime: res.data})
+      })
   //   //The Start Button should not be able to setState if the stopButton has not been clicked
   // axios post start time to entry object
 }
 
-stopButton = () => {
-  const createNewDate = new moment()
-  this.setState({endTimeFull: createNewDate}, () => this.calculateTimeTotal())
+  stopButton = () => {
+    const createNewDate = new moment()
+      axios.put('/api', {end_time: createNewDate, billable: '', unbillable: '',})
+        .then( res => {
+
+        })
+  this.setState({endTime: createNewDate}, () => this.calculateTimeTotal())
   //   //prevent stop button from triggering if startButton value is null
   // axios get start time,
   // calculate difference
@@ -26,13 +34,13 @@ stopButton = () => {
 }
 
   calculateTimeTotal = () => {
-    const newTimeTotal = moment.utc(moment.duration(this.state.endTimeFull.diff(this.state.startTimeFull)).asMilliseconds()).format('HH:mm:ss')
+    const newTimeTotal = moment.utc(moment.duration(this.state.endTime.diff(this.state.startTime)).asMilliseconds()).format('HH:mm:ss')
     this.setState({timeTotal: newTimeTotal}, () => this.createTimeEntry())
   }
         
   createTimeEntry = () => {
-    const start = this.state.startTimeFull
-    const end = this.state.endTimeFull
+    const start = this.state.startTime
+    const end = this.state.endTime
     this.setState({timeEntry: {startEntry: start, endEntry: end, timeEntry: this.state.timeTotal}})
     //setState for startTime and endTime to Null when you create a time entry
 
@@ -43,25 +51,16 @@ stopButton = () => {
 
 
   render () {
-    const { startTimeFull, endTimeFull, timeTotal } = this.state
+    const { startTime, endTime, timeTotal } = this.state
    
     return (
       <Header as="h1" style={{textAlign: 'center'}}>
-      PlaceHolder Project Name: 
-        <br />
-        Total Time:
         {timeTotal}
         <br />
         <Button color="green" size="mini" onClick={() => this.startButton()}>Start</Button>
         <Button color="red" size="mini" onClick={() => this.stopButton()}>Stop</Button>
         <div>
-          Start Time
-          <br />
-            {moment(startTimeFull).format('HH:mm:ss')}
-          <br />
-          End Time
-          <br />
-          {moment(endTimeFull).format('HH:mm:ss')}
+       
         </div>
       </Header>
     )
