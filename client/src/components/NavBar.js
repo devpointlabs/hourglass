@@ -43,6 +43,7 @@ class Navbar extends React.Component {
 
   render() {
     return (
+      
       <div>
         <Menu pointing secondary>
           <Link to="/">
@@ -51,6 +52,34 @@ class Navbar extends React.Component {
               id="home"
               active={this.props.location.pathname === "/"}
             />
+          </Link>
+          <Link to="/projects">
+            <Menu.Item
+              name="projects"
+              id="projects"
+              active={this.props.location.pathname === "/projects"}
+            />
+          </Link>
+          <Link to="/timeblock">
+            <Menu.Item
+              name="timeblock"
+              id="timeblock"
+              active={this.props.location.pathname === "/timeblock"}
+            />
+          </Link>
+          <Link to="/assignments">
+            <Menu.Item
+              name="assignments"
+              id="assignments"
+              active={this.props.location.pathname === "/assignments"}
+            />
+          </Link>
+          <Link to="/dashboard">
+            <Menu.Item
+              name="dashboard"
+              id="dashboard"
+              active={this.props.location.pathname === "/dashboard"}
+              />
           </Link>
           {this.rightNavItems()}
         </Menu>
