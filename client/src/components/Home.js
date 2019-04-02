@@ -1,12 +1,27 @@
-import React from 'react';
-import { Header, } from 'semantic-ui-react';
-import StopWatch from './StopWatch'
+import React from "react";
+import { Header } from "semantic-ui-react";
+import { AuthConsumer } from "../providers/AuthProvider";
 
-const Home = () => (
-  <>
-  <Header as="h3" textAlign="center">Hour Glass, Get er Done</Header>
-  <StopWatch />
-  </>
-)
+class Home extends React.Component {
+  render() {
+    const { admin, name } = this.props.auth.user;
 
-export default Home;
+    if (admin)
+      return (
+        <Header as="h3" textAlign="center">
+          Hour Glass, Hello Admin {name}!
+        </Header>
+      );
+    else return <div>Not an admin, hello {name}</div>;
+  }
+}
+
+export default class ConnectedHome extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <Home {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}

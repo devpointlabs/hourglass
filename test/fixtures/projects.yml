@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  client_name: MyString
+  planned_start: 2019-04-01
+  planned_end: 2019-04-01
+  notes: MyText
+
+two:
+  name: MyString
+  client_name: MyString
+  planned_start: 2019-04-01
+  planned_end: 2019-04-01
+  notes: MyText
