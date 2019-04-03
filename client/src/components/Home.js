@@ -13,13 +13,7 @@ class Home extends React.Component {
           Hour Glass, Hello Admin {name}!
         </Header>
       );
-    else
-      return (
-        <div>
-          Not an admin, hello {name}
-          <TimeBlocks />
-        </div>
-      );
+    else return <div>Not an admin, hello {name}</div>;
   }
 }
 
