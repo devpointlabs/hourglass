@@ -46,7 +46,7 @@ class TimeBlockForm extends React.Component {
   };
 
   startButton = () => {
-    const { project_id } = this.state;
+    const project_id = 1;
     let t = new moment();
     const timeBlock = { project_id, start_time: t };
     axios

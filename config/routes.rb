@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :projects, only: [:index, :update] do
-      resources :timeboards
+      resources :timeblocks
     end
   end
 end
