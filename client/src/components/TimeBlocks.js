@@ -122,6 +122,15 @@ class TimeBlocks extends React.Component {
                 addTimeBlock={this.addTimeBlock}
                 deleteTimeBlock={this.deleteTimeBlock}
               />
+              {this.state.timeBlocks.map(t => (
+                <TimeBlockForm
+                  key={t.id}
+                  data={t}
+                  updateTimeBlocks={this.updateTimeBlocks}
+                  addTimeBlock={this.addTimeBlock}
+                  deleteTimeBlock={this.deleteTimeBlock}
+                />
+              ))}
             </Table.Body>
           </Table>
         </Form>
