@@ -10,9 +10,8 @@ import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import AdminDashboard from './components/AdminDashboard'
+import AdminDashboard from "./components/AdminDashboard";
 import TimeBlocks from "./components/TimeBlocks";
-
 
 const App = () => (
   <Fragment>
