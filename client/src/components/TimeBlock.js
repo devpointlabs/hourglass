@@ -20,7 +20,7 @@ const TimeBlock = ({
   start
 }) => (
   <Table.Row style={{ padding: 0 }}>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       <Header as="h4" image>
         <Image
           src="https://react.semantic-ui.com/images/avatar/small/lena.png"
@@ -33,16 +33,16 @@ const TimeBlock = ({
         </Header.Content>
       </Header>
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       {start_time && moment(start_time).format("MM/DD")}
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       {start_time && moment(start_time).format("h:mm a")}
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       {end_time && moment(end_time).format("h:mm a")}
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       {end_time &&
         moment
           .utc(
@@ -52,13 +52,9 @@ const TimeBlock = ({
           )
           .format("HH.mm.ss")}
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
-      {billable}
-    </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
-      {unbillable}
-    </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>{billable}</Table.Cell>
+    <Table.Cell style={styles.cell}>{unbillable}</Table.Cell>
+    <Table.Cell style={styles.cell}>
       {!start_time && (
         <Button color="green" inverted onClick={() => start()}>
           Start
@@ -70,10 +66,17 @@ const TimeBlock = ({
         </Button>
       )}
     </Table.Cell>
-    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+    <Table.Cell style={styles.cell}>
       <Button onClick={() => toggleEditMode()}>Edit</Button>
     </Table.Cell>
   </Table.Row>
 );
+
+const styles = {
+  cell: {
+    paddingTop: "3px",
+    paddingBottom: "3px"
+  }
+};
 
 export default TimeBlock;

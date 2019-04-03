@@ -118,7 +118,7 @@ class TimeBlockForm extends React.Component {
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <div>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
@@ -126,7 +126,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>/</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
@@ -137,7 +137,7 @@ class TimeBlockForm extends React.Component {
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <div style={{ display: "flex" }}>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
@@ -146,7 +146,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>:</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
@@ -171,7 +171,7 @@ class TimeBlockForm extends React.Component {
             <Table.Cell style={{ padding: "3px 2px 3px 2px" }}>
               <div style={{ display: "flex" }}>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="endTimeHour"
                   value={this.state.endTimeHour}
                   onChange={this.handleChange}
@@ -180,7 +180,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>:</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="endTimeMinute"
                   value={this.state.endTimeMinute}
                   onChange={this.handleChange}
@@ -205,7 +205,7 @@ class TimeBlockForm extends React.Component {
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }} />
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <input
-                style={{ width: "4ch", padding: 0 }}
+                style={{ width: "4ch", padding: 0, borderRadius: 0 }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
