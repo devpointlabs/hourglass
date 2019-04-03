@@ -86,6 +86,23 @@ class TimeBlockForm extends React.Component {
     return calcs;
   };
 
+  editButtons = () => {
+    return (
+      <>
+        <Button color="green" inverted onClick={() => this.handleSubmit()}>
+          Save
+        </Button>
+        <Button
+          color="red"
+          inverted
+          onCLick={() => this.props.deleteTimeBlock()}
+        >
+          Delete
+        </Button>
+      </>
+    );
+  };
+
   render() {
     return (
       <Fragment>
@@ -214,15 +231,20 @@ class TimeBlockForm extends React.Component {
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               {this.state.unbillable}
             </Table.Cell>
-            <Table.Cell style={{ padding: "3px 2px 3px 5px" }} />
-            <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
-              <Button
-                color="green"
-                inverted
-                onClick={() => this.handleSubmit()}
-              >
-                Save
-              </Button>
+            <Table.Cell />
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" )}>
+              {this.state.editMode ? (
+                this.editButtons()
+              ) : (
+                <Button
+                  color="yellow"
+                  inverted
+                  onClick={() => this.toggleEditMode()}
+                >
+                  Edit
+                </Button>
+              )}
+
             </Table.Cell>
           </Table.Row>
         ) : (

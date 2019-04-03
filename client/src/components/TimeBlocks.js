@@ -53,6 +53,16 @@ class TimeBlocks extends React.Component {
     return result;
   };
 
+  deleteTimeBlock = id => {
+    let project_id = 1;
+    axios.delete(`/api/projects/${project_id}/timeblocks/${id}`).then(res => {
+      const { items } = this.state;
+      this.setState({
+        timeBlocks: this.state.timeBlocks.filter(t => t.id !== id)
+      });
+    });
+  };
+
   render() {
     return (
       <>
@@ -93,6 +103,7 @@ class TimeBlocks extends React.Component {
                   data={t}
                   updateTimeBlocks={this.updateTimeBlocks}
                   addTimeBlock={this.addTimeBlock}
+                  deleteTimeBlock={this.deleteTimeBlock}
                 />
               ))}
             </Table.Body>
