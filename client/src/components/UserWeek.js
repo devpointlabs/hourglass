@@ -20,7 +20,7 @@ const UserWeek = ({
           }}
         >
           <Icon name="sort down" />
-          'week of 4/1/2019-4/8/2019
+          'week of 4/1/2019-4/8/2019'
           <div
             style={{
               width: "55%",
