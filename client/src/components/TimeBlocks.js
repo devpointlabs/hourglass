@@ -82,8 +82,8 @@ class TimeBlocks extends React.Component {
                 <Table.HeaderCell>Start Time</Table.HeaderCell>
                 <Table.HeaderCell>End Time</Table.HeaderCell>
                 <Table.HeaderCell>Total Time</Table.HeaderCell>
-                <Table.HeaderCell>Billable Hours</Table.HeaderCell>
-                <Table.HeaderCell>UnBillable Hours</Table.HeaderCell>
+                <Table.HeaderCell>Billable</Table.HeaderCell>
+                <Table.HeaderCell>UnBillable</Table.HeaderCell>
                 <Table.HeaderCell>Clock In/Out</Table.HeaderCell>
                 <Table.HeaderCell style={{ paddingTop: "10px" }}>
                   <Button
