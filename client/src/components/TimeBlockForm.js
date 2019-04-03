@@ -116,7 +116,6 @@ class TimeBlockForm extends React.Component {
               <Form.Group>
                 <Form.Input
                   style={{ width: "6ch" }}
-
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
@@ -129,7 +128,7 @@ class TimeBlockForm extends React.Component {
                   onChange={this.handleChange}
                   placeholder="Mo"
                 />
-              </div>
+              </Form.Group>
             </Table.Cell>
             <Table.Cell>
               <Form.Group>
@@ -156,7 +155,6 @@ class TimeBlockForm extends React.Component {
                     ]}
                     value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
-                    label="Am/Pm"
                   />
                 </SelectStyler>
               </Form.Group>
@@ -186,7 +184,6 @@ class TimeBlockForm extends React.Component {
                     ]}
                     value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
-                    label="Am/Pm"
                   />
                 </SelectStyler>
               </Form.Group>
@@ -198,7 +195,7 @@ class TimeBlockForm extends React.Component {
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
-              /> */}
+              />{" "}
             </Table.Cell>
             <Table.Cell style={{ padding: 0 }}>
               {/* {this.state.unbillable} */}
