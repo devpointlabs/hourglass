@@ -1,8 +1,9 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Table, Form, Button, Icon, Image } from "semantic-ui-react";
+import { Table, Form, Button, Icon, Accordion } from "semantic-ui-react";
 import TimeBlockForm from "./TimeBlockForm";
 import axios from "axios";
+import UserWeek from "./UserWeek";
 
 class TimeBlocks extends React.Component {
   state = { timeBlocks: [] };
@@ -12,12 +13,17 @@ class TimeBlocks extends React.Component {
   }
 
   getTimeBlocks = () => {
-    const project_id = 1;
-    axios.get(`/api/projects/${project_id}/timeblocks`).then(res =>
+    axios.get(`/api/timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
+        this.groupTimeBlocksByWeek();
         !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
       })
     );
+  };
+
+  groupTimeBlocksByWeek = () => {
+    this.setState({ week1: this.state.timeBlocks.slice(0, 5) });
+    this.setState({ week2: this.state.timeBlocks.slice(6, 10) });
   };
 
   addTimeBlock = () => {
@@ -53,7 +59,24 @@ class TimeBlocks extends React.Component {
     return result;
   };
 
+  deleteTimeBlock = (id, project_id) => {
+    axios.delete(`/api/projects/${project_id}/timeblocks/${id}`).then(res => {
+      this.setState({
+        timeBlocks: this.state.timeBlocks.filter(t => t.id !== id)
+      });
+    });
+  };
+
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+
+    this.setState({ activeIndex: newIndex });
+  };
+
   render() {
+    const { activeIndex } = this.state;
     return (
       <>
         <div
@@ -72,8 +95,8 @@ class TimeBlocks extends React.Component {
                 <Table.HeaderCell>Start Time</Table.HeaderCell>
                 <Table.HeaderCell>End Time</Table.HeaderCell>
                 <Table.HeaderCell>Total Time</Table.HeaderCell>
-                <Table.HeaderCell>Billable Hours</Table.HeaderCell>
-                <Table.HeaderCell>UnBillable Hours</Table.HeaderCell>
+                <Table.HeaderCell>Billable</Table.HeaderCell>
+                <Table.HeaderCell>UnBillable</Table.HeaderCell>
                 <Table.HeaderCell>Clock In/Out</Table.HeaderCell>
                 <Table.HeaderCell style={{ paddingTop: "10px" }}>
                   <Button
@@ -87,12 +110,25 @@ class TimeBlocks extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
+              <UserWeek
+                week={this.state.week1}
+                updateTimeBlocks={this.updateTimeBlocks}
+                addTimeBlock={this.addTimeBlock}
+                deleteTimeBlock={this.deleteTimeBlock}
+              />
+              <UserWeek
+                week={this.state.week2}
+                updateTimeBlocks={this.updateTimeBlocks}
+                addTimeBlock={this.addTimeBlock}
+                deleteTimeBlock={this.deleteTimeBlock}
+              />
               {this.state.timeBlocks.map(t => (
                 <TimeBlockForm
                   key={t.id}
                   data={t}
                   updateTimeBlocks={this.updateTimeBlocks}
                   addTimeBlock={this.addTimeBlock}
+                  deleteTimeBlock={this.deleteTimeBlock}
                 />
               ))}
             </Table.Body>
@@ -108,3 +144,27 @@ const ConnectedTimeBlocks = props => (
 );
 
 export default ConnectedTimeBlocks;
+
+{
+  /* <Accordion>
+<Accordion.Title
+  active={activeIndex === 0}
+  index={0}
+  onClick={this.handleClick}
+>
+  <Icon name="dropdown" />
+  04/01/2019 - 04/30/2019
+</Accordion.Title>
+<Accordion.Content active={activeIndex === 0}>
+  {this.state.timeBlocks.map(t => (
+    <TimeBlockForm
+      key={t.id}
+      data={t}
+      updateTimeBlocks={this.updateTimeBlocks}
+      addTimeBlock={this.addTimeBlock}
+      deleteTimeBlock={this.deleteTimeBlock}
+    />
+  ))}
+</Accordion.Content>
+</Accordion> */
+}
