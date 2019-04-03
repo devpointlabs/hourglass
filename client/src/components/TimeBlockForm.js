@@ -23,7 +23,7 @@ class TimeBlockForm extends React.Component {
     totalTime: "",
     billable: "",
     unbillable: "",
-    editMode: false
+    editMode: this.props.data.editMode
   };
 
   componentDidMount = () => {
@@ -99,7 +99,7 @@ class TimeBlockForm extends React.Component {
       <Fragment>
         {this.state.editMode ? (
           <Table.Row>
-            <Table.Cell>
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
               <Header as="h4" image>
                 <Image
                   src="https://react.semantic-ui.com/images/avatar/small/lena.png"
@@ -112,42 +112,47 @@ class TimeBlockForm extends React.Component {
                 </Header.Content>
               </Header>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "6ch" }}
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+              <div>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
                   placeholder="dd"
                 />
-                <Form.Input
-                  style={{ width: "6ch" }}
+                <span>/</span>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
                   placeholder="Mo"
                 />
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "6ch" }}
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+              <div style={{ display: "flex" }}>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
-                  placeholder="Hr"
+                  placeholder="hh"
+                  maxLength="2"
                 />
-                <Form.Input
-                  style={{ width: "6ch" }}
+                <span>:</span>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
-                  placeholder="Min"
+                  placeholder="mm"
+                  maxLength="2"
                 />
                 <SelectStyler>
-                  <Form.Select
+                  <Dropdown
+                    inline
                     name="endTimeAmPM"
                     options={[
                       { key: 1, text: "am", value: "am" },
@@ -155,28 +160,33 @@ class TimeBlockForm extends React.Component {
                     ]}
                     value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
+                    defaultValue={"am"}
                   />
                 </SelectStyler>
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "6ch" }}
+            <Table.Cell style={{ paddingLeft: "2px", paddingRight: "2px" }}>
+              <div style={{ display: "flex" }}>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="endTimeHour"
                   value={this.state.endTimeHour}
                   onChange={this.handleChange}
-                  placeholder="Hr"
+                  placeholder="hh"
+                  maxLength="2"
                 />
-                <Form.Input
-                  style={{ width: "6ch" }}
+                <span>:</span>
+                <input
+                  style={{ width: "2.5ch", padding: "1px" }}
                   name="endTimeMinute"
                   value={this.state.endTimeMinute}
                   onChange={this.handleChange}
-                  placeholder="Min"
+                  placeholder="mm"
+                  maxLength="2"
                 />
                 <SelectStyler>
-                  <Form.Select
+                  <Dropdown
+                    inline
                     name="endTimeAmPM"
                     options={[
                       { key: 1, text: "am", value: "am" },
@@ -184,24 +194,25 @@ class TimeBlockForm extends React.Component {
                     ]}
                     value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
+                    defaultValue="pm"
                   />
                 </SelectStyler>
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>4</Table.Cell>
-            <Table.Cell>
-              <Form.Input
-                style={{ width: "6ch" }}
+            <Table.Cell />
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+              <input
+                style={{ width: "4ch", padding: 0 }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
               />{" "}
             </Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
               {/* {this.state.unbillable} */}
             </Table.Cell>
             <Table.Cell />
-            <Table.Cell style={{ padding: 0 }}>
+            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
               {this.state.editMode ? (
                 <Button
                   color="green"
@@ -236,7 +247,8 @@ class TimeBlockForm extends React.Component {
 
 const SelectStyler = styled.div`
   .ui.selection.dropdown {
-    min-width: 4em;
+    min-width: 3px;
+    padding: 0;
   }
 `;
 

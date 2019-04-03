@@ -44,7 +44,7 @@ const TimeBlock = ({
               .duration(moment(end_time).diff(moment(start_time)))
               .asMilliseconds()
           )
-          .format("HH.H")}
+          .format("HH.mm.ss")}
     </Table.Cell>
     <Table.Cell>{billable}</Table.Cell>
     <Table.Cell>{unbillable}</Table.Cell>
