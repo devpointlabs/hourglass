@@ -6,7 +6,8 @@ class hoursTable extends React.Component {
     state = { }
 
     componentDidMount() {
-        axios.get('/')
+        axios.get('/api/dashboard')
+            .then( response => this.setState({timeboards: response.data}))
     }
 
     render() {
@@ -32,6 +33,7 @@ class hoursTable extends React.Component {
                 </Header>
               </Table.Cell>
               <Table.Cell>22</Table.Cell>
+              <Table.Cell>$9.00</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>
@@ -44,6 +46,7 @@ class hoursTable extends React.Component {
                 </Header>
               </Table.Cell>
               <Table.Cell>15</Table.Cell>
+              <Table.Cell>$9.00</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>
@@ -56,6 +59,7 @@ class hoursTable extends React.Component {
                 </Header>
               </Table.Cell>
               <Table.Cell>12</Table.Cell>
+              <Table.Cell>$9.00</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>
@@ -68,6 +72,7 @@ class hoursTable extends React.Component {
                 </Header>
               </Table.Cell>
               <Table.Cell>11</Table.Cell>
+              <Table.Cell>$9.00</Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>

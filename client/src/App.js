@@ -9,6 +9,7 @@ import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import AdminDashboard from './components/AdminDashboard'
 
 const App = () => (
   <Fragment>
@@ -20,6 +21,7 @@ const App = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/projects" component={Projects} />
+          <Route exact path="/dashboard" component={AdminDashboard} />
           <Route component={NoMatch} />
         </Switch>
       </Container>
