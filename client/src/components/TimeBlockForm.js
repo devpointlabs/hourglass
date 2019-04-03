@@ -11,6 +11,7 @@ import {
 import moment from "moment";
 import axios from "axios";
 import TimeBlock from "./TimeBlock";
+import styled from "styled-components";
 
 class TimeBlockForm extends React.Component {
   state = {
@@ -23,6 +24,16 @@ class TimeBlockForm extends React.Component {
     billable: "",
     unbillable: "",
     editMode: false
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      project_id: this.props.project_id,
+      startTime: this.props.startTime,
+      endTime: this.props.endTime,
+      billable: this.props.billable,
+      unbillable: this.props.unbillable
+    });
   };
 
   handleSubmit = e => {
@@ -101,17 +112,18 @@ class TimeBlockForm extends React.Component {
                 </Header.Content>
               </Header>
             </Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>
-              <div style={{ display: "flex", paddingLeft: "5px" }}>
-                <input
-                  style={{ width: "3ch", padding: 0 }}
+            <Table.Cell>
+              <Form.Group>
+                <Form.Input
+                  style={{ width: "6ch" }}
+
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
                   placeholder="dd"
                 />
-                <input
-                  style={{ width: "3ch", padding: 0 }}
+                <Form.Input
+                  style={{ width: "6ch" }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
@@ -119,70 +131,70 @@ class TimeBlockForm extends React.Component {
                 />
               </div>
             </Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>
-              <div style={{ display: "flex" }}>
-                <input
-                  style={{ display: "inline", width: "3ch", padding: 0 }}
+            <Table.Cell>
+              <Form.Group>
+                <Form.Input
+                  style={{ width: "6ch" }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
                   placeholder="Hr"
                 />
-                <input
-                  style={{ display: "inline", width: "4ch", padding: 0 }}
+                <Form.Input
+                  style={{ width: "6ch" }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
                   placeholder="Min"
                 />
-                <Dropdown
-                  inline
-                  style={{ display: "inline", width: "4ch", padding: 0 }}
-                  name="endTimeAmPm"
-                  options={[
-                    { key: 1, text: "am", value: "am" },
-                    { key: 2, text: "pm", value: "pm" }
-                  ]}
-                  value={this.state.endTimeAmPm}
-                  onChange={this.handleChange}
-                  placeholder="am"
-                />
-              </div>
+                <SelectStyler>
+                  <Form.Select
+                    name="endTimeAmPM"
+                    options={[
+                      { key: 1, text: "am", value: "am" },
+                      { key: 2, text: "pm", value: "pm" }
+                    ]}
+                    value={this.state.endTimeAmPm}
+                    onChange={this.handleChange}
+                    label="Am/Pm"
+                  />
+                </SelectStyler>
+              </Form.Group>
             </Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>
-              <div style={{ display: "flex" }}>
-                <input
-                  style={{ display: "inline", width: "3ch", padding: 0 }}
-                  name="startTimeHour"
-                  value={this.state.startTimeHour}
+            <Table.Cell>
+              <Form.Group>
+                <Form.Input
+                  style={{ width: "6ch" }}
+                  name="endTimeHour"
+                  value={this.state.endTimeHour}
                   onChange={this.handleChange}
                   placeholder="Hr"
                 />
-                <input
-                  style={{ display: "inline", width: "4ch", padding: 0 }}
-                  name="startTimeMinute"
-                  value={this.state.startTimeMinute}
+                <Form.Input
+                  style={{ width: "6ch" }}
+                  name="endTimeMinute"
+                  value={this.state.endTimeMinute}
                   onChange={this.handleChange}
                   placeholder="Min"
                 />
-                <Dropdown
-                  inline
-                  style={{ display: "inline", width: "4ch", padding: 0 }}
-                  name="endTimeAmPm"
-                  options={[
-                    { key: 1, text: "am", value: "am" },
-                    { key: 2, text: "pm", value: "pm" }
-                  ]}
-                  value={this.state.endTimeAmPm}
-                  onChange={this.handleChange}
-                  placeholder="pm"
-                />
-              </div>
+                <SelectStyler>
+                  <Form.Select
+                    name="endTimeAmPM"
+                    options={[
+                      { key: 1, text: "am", value: "am" },
+                      { key: 2, text: "pm", value: "pm" }
+                    ]}
+                    value={this.state.endTimeAmPm}
+                    onChange={this.handleChange}
+                    label="Am/Pm"
+                  />
+                </SelectStyler>
+              </Form.Group>
             </Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>4</Table.Cell>
-            <Table.Cell style={{ padding: 0 }}>
-              {/* <input
-                style={{ display: "inline", width: "4ch", padding: 0 }}
+            <Table.Cell>4</Table.Cell>
+            <Table.Cell>
+              <Form.Input
+                style={{ width: "6ch" }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
@@ -224,5 +236,11 @@ class TimeBlockForm extends React.Component {
     );
   }
 }
+
+const SelectStyler = styled.div`
+  .ui.selection.dropdown {
+    min-width: 4em;
+  }
+`;
 
 export default TimeBlockForm;
