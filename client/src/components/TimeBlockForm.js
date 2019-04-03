@@ -1,5 +1,12 @@
 import React, { Fragment } from "react";
-import { Form, Table, Image, Header, Button } from "semantic-ui-react";
+import {
+  Form,
+  Table,
+  Image,
+  Header,
+  Button,
+  Dropdown
+} from "semantic-ui-react";
 //import StopWatch from './StopWatch'
 import moment from "moment";
 import axios from "axios";
@@ -89,57 +96,48 @@ class TimeBlockForm extends React.Component {
                   size="mini"
                 />
                 <Header.Content>
-                  <Form.Select
-                    name="projectName"
-                    options={[
-                      { key: 1, text: "Project 1", value: "Project 1" },
-                      { key: 2, text: "Project 2", value: "Project 2" },
-                      { key: 3, text: "Project 3", value: "Project 3" }
-                    ]}
-                    value={this.state.projectName}
-                    onChange={this.handleChange}
-                  />
+                  Project Name
                   <Header.Subheader>Team Name</Header.Subheader>
                 </Header.Content>
               </Header>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
+            <Table.Cell style={{ padding: 0 }}>
+              <div style={{ display: "flex", paddingLeft: "5px" }}>
+                <input
+                  style={{ width: "3ch", padding: 0 }}
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
-                  label="dd"
+                  placeholder="dd"
                 />
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
+                <input
+                  style={{ width: "3ch", padding: 0 }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
-                  label="Mo"
+                  placeholder="Mo"
                 />
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
+            <Table.Cell style={{ padding: 0 }}>
+              <div style={{ display: "flex" }}>
+                <input
+                  style={{ display: "inline", width: "3ch", padding: 0 }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
-                  label="Hr"
+                  placeholder="Hr"
                 />
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
+                <input
+                  style={{ display: "inline", width: "4ch", padding: 0 }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
-                  label="Min"
+                  placeholder="Min"
                 />
-
-                <Form.Select
-                  style={{ width: "5ch", padding: 0 }}
+                <Dropdown
+                  inline
+                  style={{ display: "inline", width: "4ch", padding: 0 }}
                   name="endTimeAmPm"
                   options={[
                     { key: 1, text: "am", value: "am" },
@@ -147,51 +145,54 @@ class TimeBlockForm extends React.Component {
                   ]}
                   value={this.state.endTimeAmPm}
                   onChange={this.handleChange}
-                  label="Am/Pm"
+                  placeholder="am"
                 />
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>
-              <Form.Group>
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
-                  name="endTimeHour"
-                  value={this.state.endTimeHour}
+            <Table.Cell style={{ padding: 0 }}>
+              <div style={{ display: "flex" }}>
+                <input
+                  style={{ display: "inline", width: "3ch", padding: 0 }}
+                  name="startTimeHour"
+                  value={this.state.startTimeHour}
                   onChange={this.handleChange}
-                  label="Hr"
+                  placeholder="Hr"
                 />
-                <Form.Input
-                  style={{ width: "5ch", padding: 0 }}
-                  name="endTimeMinute"
-                  value={this.state.endTimeMinute}
+                <input
+                  style={{ display: "inline", width: "4ch", padding: 0 }}
+                  name="startTimeMinute"
+                  value={this.state.startTimeMinute}
                   onChange={this.handleChange}
-                  label="Min"
+                  placeholder="Min"
                 />
-                <Form.Select
-                  style={{ width: "5ch", padding: 0 }}
-                  name="endTimeAmPM"
+                <Dropdown
+                  inline
+                  style={{ display: "inline", width: "4ch", padding: 0 }}
+                  name="endTimeAmPm"
                   options={[
                     { key: 1, text: "am", value: "am" },
                     { key: 2, text: "pm", value: "pm" }
                   ]}
                   value={this.state.endTimeAmPm}
                   onChange={this.handleChange}
-                  label="Am/Pm"
+                  placeholder="pm"
                 />
-              </Form.Group>
+              </div>
             </Table.Cell>
-            <Table.Cell>4</Table.Cell>
-            <Table.Cell>
-              <Form.Input
-                style={{ width: "2ch", padding: 0 }}
+            <Table.Cell style={{ padding: 0 }}>4</Table.Cell>
+            <Table.Cell style={{ padding: 0 }}>
+              {/* <input
+                style={{ display: "inline", width: "4ch", padding: 0 }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
-              />
+              /> */}
             </Table.Cell>
-            <Table.Cell>{this.state.unbillable}</Table.Cell>
+            <Table.Cell style={{ padding: 0 }}>
+              {/* {this.state.unbillable} */}
+            </Table.Cell>
             <Table.Cell />
-            <Table.Cell>
+            <Table.Cell style={{ padding: 0 }}>
               {this.state.editMode ? (
                 <Button
                   color="green"

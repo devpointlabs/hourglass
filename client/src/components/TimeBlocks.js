@@ -67,8 +67,7 @@ class TimeBlocks extends React.Component {
               <Table.HeaderCell>Total Time</Table.HeaderCell>
               <Table.HeaderCell>Billable Hours</Table.HeaderCell>
               <Table.HeaderCell>UnBillable Hours</Table.HeaderCell>
-              <Table.HeaderCell>Clock In/Clock Out</Table.HeaderCell>
-
+              <Table.HeaderCell>Clock In/Out</Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>
           </Table.Header>

@@ -7,7 +7,7 @@ const TimeBlock = ({
   data: {
     id,
     project_id,
-    project_name,
+    name,
     date,
     start_time,
     end_time,
@@ -28,7 +28,7 @@ const TimeBlock = ({
           size="mini"
         />
         <Header.Content>
-          {project_name}
+          Project Name
           <Header.Subheader>Team Name</Header.Subheader>
         </Header.Content>
       </Header>
