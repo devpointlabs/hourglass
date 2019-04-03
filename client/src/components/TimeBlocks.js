@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Table, Form, Button } from "semantic-ui-react";
+import { Table, Form, Button, Icon, Image } from "semantic-ui-react";
 import TimeBlockForm from "./TimeBlockForm";
 import axios from "axios";
 
@@ -56,7 +56,14 @@ class TimeBlocks extends React.Component {
   render() {
     return (
       <>
-        <Form>
+        <div
+          style={{
+            backgroundImage: "linear-gradient(to right, grey, white)",
+            width: "100%",
+            height: "10px"
+          }}
+        />
+        <Form style={{ paddingLeft: "20px" }}>
           <Table basic="very" celled collapsing>
             <Table.Header>
               <Table.Row>
@@ -68,7 +75,15 @@ class TimeBlocks extends React.Component {
                 <Table.HeaderCell>Billable Hours</Table.HeaderCell>
                 <Table.HeaderCell>UnBillable Hours</Table.HeaderCell>
                 <Table.HeaderCell>Clock In/Out</Table.HeaderCell>
-                <Table.HeaderCell />
+                <Table.HeaderCell style={{ paddingTop: "10px" }}>
+                  <Button
+                    style={{ background: "#723186", color: "white" }}
+                    onClick={() => this.addNewTimeBlock(true)}
+                  >
+                    <Icon style={{ color: "white" }} name="add" />
+                    Manual
+                  </Button>
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -83,7 +98,6 @@ class TimeBlocks extends React.Component {
             </Table.Body>
           </Table>
         </Form>
-        <Button onClick={() => this.addNewTimeBlock(true)}>Add Manual</Button>
       </>
     );
   }

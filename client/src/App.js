@@ -13,9 +13,9 @@ import TimeBlocks from "./components/TimeBlocks";
 
 const App = () => (
   <Fragment>
-    <Navbar />
     <FetchUser>
-      <Container>
+      <Container style={{ background: "white", minHeight: "100vh" }}>
+        <Navbar />
         <Switch>
           <ProtectedRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />

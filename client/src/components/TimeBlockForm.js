@@ -16,7 +16,7 @@ import styled from "styled-components";
 class TimeBlockForm extends React.Component {
   state = {
     project_id: 1,
-    projectName: "",
+    projectName: "Project 1",
     date: "",
     startTime: null,
     endTime: "",
@@ -107,7 +107,17 @@ class TimeBlockForm extends React.Component {
                   size="mini"
                 />
                 <Header.Content>
-                  Project Name
+                  <Dropdown
+                    inline
+                    name="projectName"
+                    options={[
+                      { key: 1, text: "Project 1", value: "Project 1" },
+                      { key: 2, text: "Project 2", value: "Project 2" }
+                    ]}
+                    value={this.state.projectName}
+                    onChange={this.handleChange}
+                    defaultValue={"ProjectName"}
+                  />
                   <Header.Subheader>Team Name</Header.Subheader>
                 </Header.Content>
               </Header>
