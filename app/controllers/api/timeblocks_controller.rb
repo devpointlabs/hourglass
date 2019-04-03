@@ -46,6 +46,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :billable, :unbillable,)
+    params.require(:timeblock).permit(:start_time, :end_time, :billable, :unbillable)
   end
 end
