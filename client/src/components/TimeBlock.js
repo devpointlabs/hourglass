@@ -1,6 +1,5 @@
 import React from "react";
-import { Table, Header, Image, Button } from "semantic-ui-react";
-import StopWatch from "./StopWatch";
+import { Table, Header, Image, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
 
 const TimeBlock = ({
@@ -67,7 +66,14 @@ const TimeBlock = ({
       )}
     </Table.Cell>
     <Table.Cell style={styles.cell}>
-      <Button onClick={() => toggleEditMode()}>Edit</Button>
+      <Button
+        onClick={() => toggleEditMode()}
+        name="edit"
+        color="blue"
+        circular
+        size="tiny"
+        icon="edit"
+      />
     </Table.Cell>
   </Table.Row>
 );
