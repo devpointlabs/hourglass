@@ -1,5 +1,12 @@
 import React, { Fragment } from "react";
-import { Form, Table, Image, Header, Button } from "semantic-ui-react";
+import {
+  Form,
+  Table,
+  Image,
+  Header,
+  Button,
+  Dropdown
+} from "semantic-ui-react";
 //import StopWatch from './StopWatch'
 import moment from "moment";
 import axios from "axios";
@@ -45,7 +52,7 @@ class TimeBlockForm extends React.Component {
     axios
       .post(`/api/projects/${project_id}/timeblocks`, timeBlock)
       .then(res => {
-        this.props.updateTimeBlocks(res.data);
+        this.props.addTimeBlock(res.data);
       });
     //   //The Start Button should not be able to setState if the stopButton has not been clicked
     // axios post start time to entry object
@@ -55,23 +62,37 @@ class TimeBlockForm extends React.Component {
     this.setState({ editMode: !this.state.editMode });
   };
 
-  stopButton = () => {
+  stopButton = id => {
     const createNewDate = new moment();
+    const calcs = this.calculateTimeBlock(
+      this.props.data.startTime,
+      createNewDate,
+      this.state.billable
+    );
     axios
-      .put(`/api/projects/${1}/timeblocks/${1}`, {
+      .put(`/api/projects/${1}/timeblocks/${id}`, {
         end_time: createNewDate,
-        billable: "",
-        unbillable: ""
+        billable: this.state.billable,
+        unbillable: calcs.unbillable
       })
-      .then(res => {});
-    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
+      .then(res =>
+        this.props.updateTimeBlocks({ totalTime: calcs.totalTime, ...res.data })
+      );
+    //    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
     //   //prevent stop button from triggering if startButton value is null
     // axios get start time,
     // calculate difference
     // axios put difference, and end time to entry object
   };
 
-  calculateTimeBlock = () => {};
+  calculateTimeBlock = (start, stop, billable) => {
+    const totalTime = moment
+      .utc(moment.duration(stop.diff(start)).asMilliseconds())
+      .format("HH.H");
+    const unbillable = totalTime - billable;
+    const calcs = { totalTime, unbillable };
+    return calcs;
+  };
 
   render() {
     return (
@@ -95,20 +116,20 @@ class TimeBlockForm extends React.Component {
               <Form.Group>
                 <Form.Input
                   style={{ width: "6ch" }}
+
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
-                  label="dd"
+                  placeholder="dd"
                 />
-
                 <Form.Input
                   style={{ width: "6ch" }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
-                  label="Mo"
+                  placeholder="Mo"
                 />
-              </Form.Group>
+              </div>
             </Table.Cell>
             <Table.Cell>
               <Form.Group>
@@ -117,15 +138,14 @@ class TimeBlockForm extends React.Component {
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
-                  label="Hr"
+                  placeholder="Hr"
                 />
-
                 <Form.Input
                   style={{ width: "6ch" }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
-                  label="Min"
+                  placeholder="Min"
                 />
                 <SelectStyler>
                   <Form.Select
@@ -148,14 +168,14 @@ class TimeBlockForm extends React.Component {
                   name="endTimeHour"
                   value={this.state.endTimeHour}
                   onChange={this.handleChange}
-                  label="Hr"
+                  placeholder="Hr"
                 />
                 <Form.Input
                   style={{ width: "6ch" }}
                   name="endTimeMinute"
                   value={this.state.endTimeMinute}
                   onChange={this.handleChange}
-                  label="Min"
+                  placeholder="Min"
                 />
                 <SelectStyler>
                   <Form.Select
@@ -178,26 +198,13 @@ class TimeBlockForm extends React.Component {
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
-              />
+              /> */}
             </Table.Cell>
-            <Table.Cell>6</Table.Cell>
-            <Table.Cell>
-              {this.state.startTime ? (
-                <Button color="red" inverted onClick={() => this.stopButton()}>
-                  Stop
-                </Button>
-              ) : (
-                <Button
-                  color="green"
-                  inverted
-                  onClick={() => this.startButton()}
-                >
-                  Start
-                </Button>
-              )}
+            <Table.Cell style={{ padding: 0 }}>
+              {/* {this.state.unbillable} */}
             </Table.Cell>
-
-            <Table.Cell>
+            <Table.Cell />
+            <Table.Cell style={{ padding: 0 }}>
               {this.state.editMode ? (
                 <Button
                   color="green"
