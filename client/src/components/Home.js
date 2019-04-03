@@ -10,10 +10,15 @@ class Home extends React.Component {
     if (admin)
       return (
         <Header as="h3" textAlign="center">
-          Hour Glass, Hello Admin {name}!
+          Hello {name}!
         </Header>
       );
-    else return <div>Not an admin, hello {name}</div>;
+    else
+      return (
+        <Header as="h3" textAlign="center">
+          Hello {name}
+        </Header>
+      );
   }
 }
 

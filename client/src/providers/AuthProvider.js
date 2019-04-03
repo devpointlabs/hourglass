@@ -32,7 +32,8 @@ export class AuthProvider extends React.Component {
   };
 
   handleLogout = history => {
-    axios.delete("/api/auth/sign_out")
+    axios
+      .delete("/api/auth/sign_out")
       .then(res => {
         this.setState({ user: null });
         history.push("/login");
@@ -40,6 +41,21 @@ export class AuthProvider extends React.Component {
       .catch(res => {
         console.log(res);
       });
+  };
+
+  handleEdit = (id, user) => {
+    let data = new FormData();
+    data.append("file", user.file);
+    axios
+      .put(
+        `/api/users/${id}?name=${user.name}&email=${user.email}&nickname=${
+          user.nickname
+        }&password=${user.password}&passwordConfirmation=${
+          user.passwordConfirmation
+        }`,
+        data
+      )
+      .then(res => this.setState({ user: res.data }));
   };
 
   render() {
@@ -51,6 +67,7 @@ export class AuthProvider extends React.Component {
           handleRegister: this.handleRegister,
           handleLogin: this.handleLogin,
           handleLogout: this.handleLogout,
+          handleEdit: this.handleEdit,
           setUser: user => this.setState({ user })
         }}
       >

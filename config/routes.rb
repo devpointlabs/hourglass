@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :timeblocks
 
     end
+
+    resources :users, only: :update
   end
   get '/api/timeblocks' => 'api/timeblocks#all_timeblocks'
 
