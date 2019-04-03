@@ -3,18 +3,35 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header } from "semantic-ui-react";
 
 class Register extends React.Component {
-  state = { email: "", password: "", passwordConfirmation: "" };
+  state = {
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    name: "",
+    nickname: "",
+    image: ""
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password, passwordConfirmation } = this.state;
+    const {
+      email,
+      password,
+      passwordConfirmation,
+      name,
+      nickname,
+      image
+    } = this.state;
     const {
       auth: { handleRegister },
       history
     } = this.props;
 
     if (password === passwordConfirmation)
-      handleRegister({ email, password, passwordConfirmation }, history);
+      handleRegister(
+        { email, password, passwordConfirmation, name, nickname, image },
+        history
+      );
     else alert("Passwords Do Not Match!");
   };
 
@@ -24,7 +41,14 @@ class Register extends React.Component {
   };
 
   render() {
-    const { email, password, passwordConfirmation } = this.state;
+    const {
+      email,
+      password,
+      passwordConfirmation,
+      name,
+      nickname,
+      image
+    } = this.state;
 
     return (
       <Segment basic>
@@ -39,6 +63,33 @@ class Register extends React.Component {
             name="email"
             value={email}
             placeholder="Email"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            label="Name"
+            required
+            autoFocus
+            name="name"
+            value={name}
+            placeholder="Name"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            label="Nickname"
+            required
+            autoFocus
+            name="nickname"
+            value={nickname}
+            placeholder="Username"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            label="Image"
+            required
+            autoFocus
+            name="image"
+            value={image}
+            placeholder="Avatar"
             onChange={this.handleChange}
           />
           <Form.Input

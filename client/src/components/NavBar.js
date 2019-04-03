@@ -52,11 +52,32 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/"}
             />
           </Link>
-          <Link to="/user/TimeSheet">
+          <Link to="/projects">
             <Menu.Item
-              name="TimeSheet"
-              id="TimeSheet"
-              active={this.props.location.pathname === "/user/TimeSheet"}
+              name="projects"
+              id="projects"
+              active={this.props.location.pathname === "/projects"}
+            />
+          </Link>
+          <Link to="/timeblock">
+            <Menu.Item
+              name="timeblock"
+              id="timeblock"
+              active={this.props.location.pathname === "/timeblock"}
+            />
+          </Link>
+          <Link to="/assignments">
+            <Menu.Item
+              name="assignments"
+              id="assignments"
+              active={this.props.location.pathname === "/assignments"}
+            />
+          </Link>
+          <Link to="/dashboard">
+            <Menu.Item
+              name="dashboard"
+              id="dashboard"
+              active={this.props.location.pathname === "/dashboard"}
             />
           </Link>
           {this.rightNavItems()}
