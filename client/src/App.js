@@ -4,6 +4,7 @@ import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Projects from "./components/Projects";
+import ProjectView from "./components/ProjectView";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
@@ -20,6 +21,7 @@ const App = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/projects" component={Projects} />
+          <Route exact path="/projectview/:id" component={ProjectView} />
           <Route component={NoMatch} />
         </Switch>
       </Container>
