@@ -5,6 +5,7 @@ import moment from "moment";
 
 const TimeBlock = ({
   data: {
+    id,
     project_id,
     project_name,
     date,
@@ -45,7 +46,7 @@ const TimeBlock = ({
         </Button>
       )}
       {!end_time && start_time && (
-        <Button color="red" inverted onClick={() => stop()}>
+        <Button color="red" inverted onClick={() => stop(id)}>
           End
         </Button>
       )}

@@ -34,7 +34,7 @@ class TimeBlockForm extends React.Component {
     axios
       .post(`/api/projects/${project_id}/timeblocks`, timeBlock)
       .then(res => {
-        this.props.updateTimeBlocks(res.data);
+        this.props.addTimeBlock(res.data);
       });
     //   //The Start Button should not be able to setState if the stopButton has not been clicked
     // axios post start time to entry object
@@ -44,16 +44,16 @@ class TimeBlockForm extends React.Component {
     this.setState({ editMode: !this.state.editMode });
   };
 
-  stopButton = () => {
+  stopButton = id => {
     const createNewDate = new moment();
     axios
-      .put(`/api/projects/${1}/timeblocks/${1}`, {
+      .put(`/api/projects/${1}/timeblocks/${id}`, {
         end_time: createNewDate,
         billable: "",
         unbillable: ""
       })
-      .then(res => {});
-    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
+      .then(res => this.props.updateTimeBlocks(res.data));
+    //    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
     //   //prevent stop button from triggering if startButton value is null
     // axios get start time,
     // calculate difference
@@ -166,23 +166,8 @@ class TimeBlockForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Table.Cell>
-            <Table.Cell>6</Table.Cell>
-            <Table.Cell>
-              {this.state.startTime ? (
-                <Button color="red" inverted onClick={() => this.stopButton()}>
-                  Stop
-                </Button>
-              ) : (
-                <Button
-                  color="green"
-                  inverted
-                  onClick={() => this.startButton()}
-                >
-                  Start
-                </Button>
-              )}
-            </Table.Cell>
-
+            <Table.Cell>{this.state.unbillable}</Table.Cell>
+            <Table.Cell />
             <Table.Cell>
               {this.state.editMode ? (
                 <Button

@@ -9,25 +9,49 @@ class TimeBlocks extends React.Component {
   state = { timeBlocks: [] };
 
   componentDidMount() {
-    // need to update when routes make more sense
+    this.getTimeBlocks();
+  }
+
+  getTimeBlocks = () => {
     const project_id = 1;
     axios.get(`/api/projects/${project_id}/timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
-        this.state.timeBlocks === []
-          ? this.state.timeBlocks.map(
-              t =>
-                t.end_time &&
-                this.setState({
-                  timeBlocks: [...this.state.timeBlocks, { editMode: false }]
-                })
-            )
-          : this.setState({ timeBlocks: { editMode: false } });
+        !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
       })
     );
-  }
+  };
+
+  addTimeBlock = () => {
+    this.getTimeBlocks();
+  };
 
   updateTimeBlocks = timeBlock => {
-    this.setState({ timeBlocks: [...this.state.timeBlocks, timeBlock] });
+    this.setState(
+      {
+        timeBlocks: this.state.timeBlocks.map(t => {
+          if (t.id === timeBlock.id) return { ...t, ...timeBlock };
+          return t;
+        })
+      },
+      () => {
+        !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
+      }
+    );
+  };
+
+  addNewTimeBlock = editMode => {
+    this.setState({
+      timeBlocks: [...this.state.timeBlocks, { editMode: editMode }]
+    });
+  };
+
+  checkForActiveTimeBlock = () => {
+    let result = false;
+    this.state.timeBlocks.map(t => {
+      if (!t.editMode) if (t.start_time && !t.end_time) result = true;
+    });
+    console.log(result);
+    return result;
   };
 
   render() {
@@ -54,6 +78,7 @@ class TimeBlocks extends React.Component {
                 key={t.id}
                 data={t}
                 updateTimeBlocks={this.updateTimeBlocks}
+                addTimeBlock={this.addTimeBlock}
               />
             ))}
           </Table.Body>
