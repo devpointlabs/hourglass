@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:index, :update] do
       resources :timeblocks
     end
+
+    resources :users, only: :update
   end
 end
