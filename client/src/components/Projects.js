@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Card, Grid, CardMeta, GridColumn,  } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Card, Grid, Button, Container, Icon, CardMeta,  } from 'semantic-ui-react';
 
 
 class Projects extends React.Component{
@@ -51,17 +52,23 @@ showProjects = () => {
 
   render(){
     return(
-      <>
+      <Container>
+        <Button style={{marginTop: "15px"}} inverted color='violet'>
+          <Link to="/projects/new">
+            <Icon name="add" />
+                Add New Poject
+          </Link>
+        </Button>
         <Grid>
           <Grid.Row>
-            <Grid.Column columns={4} style={{marginTop: "30px"}}>
+            <Grid.Column columns={3} style={{marginTop: "30px"}}>
               <Card.Group>
                 {this.showProjects()}
               </Card.Group>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </>
+      </Container>
     )
   }
 }

@@ -79,7 +79,7 @@ class Navbar extends React.Component {
               name="dashboard"
               id="dashboard"
               active={this.props.location.pathname === "/dashboard"}
-              />
+            />
           </Link>
           {this.rightNavItems()}
         </Menu>

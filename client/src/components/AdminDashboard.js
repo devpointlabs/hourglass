@@ -1,9 +1,10 @@
-import React from 'react'
-import axios from'axios'
-import {Table, Header, Image, } from 'semantic-ui-react'
+
+import React from "react";
+import axios from "axios";
+import { Table, Header, Image } from "semantic-ui-react";
 
 class hoursTable extends React.Component {
-    state = { }
+  state = {};
 
     componentDidMount() {
         axios.get('/api/dashboard')
@@ -76,10 +77,6 @@ class hoursTable extends React.Component {
             </Table.Row>
           </Table.Body>
         </Table>
+          
 
-        )
-    }
-}
-
-
-export default hoursTable
+export default hoursTable;
