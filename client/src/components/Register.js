@@ -54,7 +54,7 @@ class Register extends React.Component {
       <Segment basic>
         <Header as="h1" textAlign="center">
           Register
-        </Header>
+          </Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label="Email"
