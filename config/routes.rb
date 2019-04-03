@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :projects, only: [:index, :update] do
       resources :timeblocks
+
+ 
     end
   end
+  get '/api/timeblocks' => 'api/timeblocks#all_timeblocks'
+
 end
