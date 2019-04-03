@@ -4,7 +4,7 @@ import axios from "axios";
 import { Table, Header, Image } from "semantic-ui-react";
 
 class hoursTable extends React.Component {
-  state = {};
+  state = { timeboards: [] };
 
     componentDidMount() {
         axios.get('/api/dashboard')
