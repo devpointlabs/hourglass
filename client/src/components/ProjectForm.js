@@ -24,8 +24,8 @@ class ProjectForm extends React.Component {
     const { project } = this.state;
     e.preventDefault();
     axios.post(`/api/projects`, project).then(res => {
-      this.props.resetState(project);
-      this.props.history.push(`/projects`);
+      this.props.resetState();
+      this.props.toggleEdit();
     });
   };
 
