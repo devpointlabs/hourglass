@@ -3,18 +3,35 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header } from "semantic-ui-react";
 
 class Register extends React.Component {
-  state = { email: "", password: "", passwordConfirmation: "", name: "", nickname: "", image: "" };
+  state = {
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    name: "",
+    nickname: "",
+    image: ""
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { email, password, passwordConfirmation, name, nickname, image } = this.state;
+    const {
+      email,
+      password,
+      passwordConfirmation,
+      name,
+      nickname,
+      image
+    } = this.state;
     const {
       auth: { handleRegister },
       history
     } = this.props;
 
     if (password === passwordConfirmation)
-      handleRegister({ email, password, passwordConfirmation, name, nickname, image }, history);
+      handleRegister(
+        { email, password, passwordConfirmation, name, nickname, image },
+        history
+      );
     else alert("Passwords Do Not Match!");
   };
 
@@ -24,7 +41,14 @@ class Register extends React.Component {
   };
 
   render() {
-    const { email, password, passwordConfirmation, name, nickname, image } = this.state;
+    const {
+      email,
+      password,
+      passwordConfirmation,
+      name,
+      nickname,
+      image
+    } = this.state;
 
     return (
       <Segment basic>

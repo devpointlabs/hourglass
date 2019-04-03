@@ -9,17 +9,19 @@ import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import TimeBlocks from "./components/TimeBlocks";
 
 const App = () => (
   <Fragment>
-    <Navbar />
     <FetchUser>
-      <Container>
+      <Container style={{ background: "white", minHeight: "100vh" }}>
+        <Navbar />
         <Switch>
           <ProtectedRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/projects" component={Projects} />
+          <Route exact path="/timeblock" component={TimeBlocks} />
           <Route component={NoMatch} />
         </Switch>
       </Container>
