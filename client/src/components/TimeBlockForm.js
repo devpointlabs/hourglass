@@ -5,7 +5,8 @@ import {
   Image,
   Header,
   Button,
-  Dropdown
+  Dropdown,
+  Icon
 } from "semantic-ui-react";
 import moment from "moment";
 import axios from "axios";
@@ -89,21 +90,26 @@ class TimeBlockForm extends React.Component {
   editButtons = () => {
     return (
       <>
-        <Button color="green" inverted onClick={() => this.handleSubmit()}>
-          Save
-        </Button>
         <Button
+          circular
+          icon="checkmark"
+          inverted
+          onClick={() => this.handleSubmit()}
+          name="checkmark"
+          color="green"
+          size="tiny"
+        />
+        <Button
+          circular
+          icon="delete"
           color="red"
           inverted
-          onClick={() =>
-            this.props.deleteTimeBlock(
+          onClick={() => this.props.deleteTimeBlock(
               this.props.data.id,
-              this.props.data.project_id
-            )
-          }
-        >
-          Delete
-        </Button>
+              this.props.data.project_id)}
+          name="delete"
+          size="tiny"
+        />
       </>
     );
   };
@@ -235,17 +241,7 @@ class TimeBlockForm extends React.Component {
             </Table.Cell>
             <Table.Cell />
             <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
-              {this.state.editMode ? (
-                this.editButtons()
-              ) : (
-                <Button
-                  color="yellow"
-                  inverted
-                  onClick={() => this.toggleEditMode()}
-                >
-                  Edit
-                </Button>
-              )}
+              {this.editButtons()}
             </Table.Cell>
           </Table.Row>
         ) : (
