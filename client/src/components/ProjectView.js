@@ -14,11 +14,11 @@ class ProjectView extends React.Component {
   }
 
   showProject = () => {
-    const { id, name, client_name } = this.props.match.params;
+    const { id, name, client_name, notes } = this.props.match.params;
     return (
       <div
         style={{
-          marginTop: "40px",
+          marginTop: "30px",
           padding: "20px",
           border: "1px solid black"
         }}
@@ -27,8 +27,17 @@ class ProjectView extends React.Component {
           <Card
             style={{ height: "300px", width: "300px", textAlign: "center" }}
           >
-            <h3>{name}</h3>
-            <Card.Description>{client_name}</Card.Description>
+            <h2>{name}</h2>
+            <Card.Header>{client_name}</Card.Header>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                marginTop: "20px"
+              }}
+            />
+            <Card.Description>{notes}</Card.Description>
             <div
               style={{
                 display: "flex",
@@ -55,13 +64,17 @@ class ProjectView extends React.Component {
     const { id, name } = this.state.project;
     return (
       <Container style={{ paddingTop: "20px", marginBottom: "40px" }}>
-        <Link to={"/projects"}>
-          <Button color="black" style={{ marginBottom: "20px" }}>
-            <Icon name="arrow alternate circle left outline" />
-            Go Back
-          </Button>
-        </Link>
+        <h1>{name}</h1>
+        {this.showProject()}
+        <br />
+        <br />
         <div>
+          <Link to={"/projects"}>
+            <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+              <Icon name="arrow alternate circle left outline" />
+              Go Back
+            </Button>
+          </Link>
           <Link to={`/project/${id}/edit`}>
             <Button inverted color="blue">
               <Icon name="pencil" /> Update Project
@@ -71,8 +84,6 @@ class ProjectView extends React.Component {
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
-        <h1>{name}</h1>
-        {this.showProject()}
       </Container>
     );
   }
