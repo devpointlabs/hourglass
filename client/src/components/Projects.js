@@ -19,6 +19,12 @@ class Projects extends React.Component {
       .then(res => this.setState({ projects: res.data }));
   }
 
+  resetState = () => {
+    axios
+      .get("/api/projects")
+      .then(res => this.setState({ projects: res.data }));
+  };
+
   toggleEdit = () => {
     this.setState({ editing: !this.state.editing });
   };
@@ -82,7 +88,14 @@ class Projects extends React.Component {
           <Icon name={this.state.editing ? "caret up" : "add"} />
           {this.state.editing ? "Hide Form" : "Add New Poject"}
         </Button>
-        {this.state.editing ? <ProjectForm /> : <br />}
+        {this.state.editing ? (
+          <ProjectForm
+            toggleEdit={this.toggleEdit}
+            resetState={this.resetState}
+          />
+        ) : (
+          <br />
+        )}
         <Grid>
           <Grid.Row>
             <Grid.Column columns={3} style={{ marginTop: "30px" }}>
