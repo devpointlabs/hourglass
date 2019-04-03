@@ -95,7 +95,12 @@ class TimeBlockForm extends React.Component {
         <Button
           color="red"
           inverted
-          onClick={() => this.props.deleteTimeBlock(this.props.data.id)}
+          onClick={() =>
+            this.props.deleteTimeBlock(
+              this.props.data.id,
+              this.props.data.project_id
+            )
+          }
         >
           Delete
         </Button>
@@ -124,7 +129,6 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "Project 1", value: "Project 1" },
                       { key: 2, text: "Project 2", value: "Project 2" }
                     ]}
-                    value={this.state.projectName}
                     onChange={this.handleChange}
                     defaultValue={"ProjectName"}
                   />
@@ -178,7 +182,6 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
                     defaultValue={"am"}
                   />
@@ -212,7 +215,6 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
                     defaultValue="pm"
                   />
