@@ -48,7 +48,7 @@ class TimeBlocks extends React.Component {
   checkForActiveTimeBlock = () => {
     let result = false;
     this.state.timeBlocks.map(t => {
-      if (!t.editMode) if (t.start_time && !t.end_time) result = true;
+      if (t.start_time && !t.end_time) result = true;
     });
     console.log(result);
     return result;

@@ -46,13 +46,20 @@ class TimeBlockForm extends React.Component {
 
   stopButton = id => {
     const createNewDate = new moment();
+    const calcs = this.calculateTimeBlock(
+      this.props.data.startTime,
+      createNewDate,
+      this.state.billable
+    );
     axios
       .put(`/api/projects/${1}/timeblocks/${id}`, {
         end_time: createNewDate,
-        billable: "",
-        unbillable: ""
+        billable: this.state.billable,
+        unbillable: calcs.unbillable
       })
-      .then(res => this.props.updateTimeBlocks(res.data));
+      .then(res =>
+        this.props.updateTimeBlocks({ totalTime: calcs.totalTime, ...res.data })
+      );
     //    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
     //   //prevent stop button from triggering if startButton value is null
     // axios get start time,
@@ -60,7 +67,14 @@ class TimeBlockForm extends React.Component {
     // axios put difference, and end time to entry object
   };
 
-  calculateTimeBlock = () => {};
+  calculateTimeBlock = (start, stop, billable) => {
+    const totalTime = moment
+      .utc(moment.duration(stop.diff(start)).asMilliseconds())
+      .format("HH.H");
+    const unbillable = totalTime - billable;
+    const calcs = { totalTime, unbillable };
+    return calcs;
+  };
 
   render() {
     return (
@@ -75,7 +89,16 @@ class TimeBlockForm extends React.Component {
                   size="mini"
                 />
                 <Header.Content>
-                  Project Name
+                  <Form.Select
+                    name="projectName"
+                    options={[
+                      { key: 1, text: "Project 1", value: "Project 1" },
+                      { key: 2, text: "Project 2", value: "Project 2" },
+                      { key: 3, text: "Project 3", value: "Project 3" }
+                    ]}
+                    value={this.state.projectName}
+                    onChange={this.handleChange}
+                  />
                   <Header.Subheader>Team Name</Header.Subheader>
                 </Header.Content>
               </Header>
@@ -83,14 +106,14 @@ class TimeBlockForm extends React.Component {
             <Table.Cell>
               <Form.Group>
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
                   label="dd"
                 />
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
@@ -101,14 +124,14 @@ class TimeBlockForm extends React.Component {
             <Table.Cell>
               <Form.Group>
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
                   label="Hr"
                 />
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
@@ -116,8 +139,8 @@ class TimeBlockForm extends React.Component {
                 />
 
                 <Form.Select
-                  style={{ width: "ch" }}
-                  name="endTimeAmPM"
+                  style={{ width: "5ch", padding: 0 }}
+                  name="endTimeAmPm"
                   options={[
                     { key: 1, text: "am", value: "am" },
                     { key: 2, text: "pm", value: "pm" }
@@ -131,21 +154,21 @@ class TimeBlockForm extends React.Component {
             <Table.Cell>
               <Form.Group>
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="endTimeHour"
                   value={this.state.endTimeHour}
                   onChange={this.handleChange}
                   label="Hr"
                 />
                 <Form.Input
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="endTimeMinute"
                   value={this.state.endTimeMinute}
                   onChange={this.handleChange}
                   label="Min"
                 />
                 <Form.Select
-                  style={{ width: "2ch" }}
+                  style={{ width: "5ch", padding: 0 }}
                   name="endTimeAmPM"
                   options={[
                     { key: 1, text: "am", value: "am" },
@@ -160,7 +183,7 @@ class TimeBlockForm extends React.Component {
             <Table.Cell>4</Table.Cell>
             <Table.Cell>
               <Form.Input
-                style={{ width: "2ch" }}
+                style={{ width: "2ch", padding: 0 }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}

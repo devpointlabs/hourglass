@@ -36,7 +36,16 @@ const TimeBlock = ({
     <Table.Cell>{start_time && moment(start_time).format("MM/DD")}</Table.Cell>
     <Table.Cell>{start_time && moment(start_time).format("h:mm a")}</Table.Cell>
     <Table.Cell>{end_time && moment(end_time).format("h:mm a")}</Table.Cell>
-    <Table.Cell>{totalTime}</Table.Cell>
+    <Table.Cell>
+      {end_time &&
+        moment
+          .utc(
+            moment
+              .duration(moment(end_time).diff(moment(start_time)))
+              .asMilliseconds()
+          )
+          .format("HH.H")}
+    </Table.Cell>
     <Table.Cell>{billable}</Table.Cell>
     <Table.Cell>{unbillable}</Table.Cell>
     <Table.Cell>
