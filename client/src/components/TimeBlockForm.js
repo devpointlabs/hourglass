@@ -5,9 +5,9 @@ import {
   Image,
   Header,
   Button,
-  Dropdown
+  Dropdown,
+  Icon
 } from "semantic-ui-react";
-//import StopWatch from './StopWatch'
 import moment from "moment";
 import axios from "axios";
 import TimeBlock from "./TimeBlock";
@@ -54,8 +54,6 @@ class TimeBlockForm extends React.Component {
       .then(res => {
         this.props.addTimeBlock(res.data);
       });
-    //   //The Start Button should not be able to setState if the stopButton has not been clicked
-    // axios post start time to entry object
   };
 
   toggleEditMode = () => {
@@ -78,11 +76,6 @@ class TimeBlockForm extends React.Component {
       .then(res =>
         this.props.updateTimeBlocks({ totalTime: calcs.totalTime, ...res.data })
       );
-    //    this.setState({ endTime: createNewDate }, () => this.calculateTimeBlock());
-    //   //prevent stop button from triggering if startButton value is null
-    // axios get start time,
-    // calculate difference
-    // axios put difference, and end time to entry object
   };
 
   calculateTimeBlock = (start, stop, billable) => {
@@ -94,14 +87,42 @@ class TimeBlockForm extends React.Component {
     return calcs;
   };
 
+  editButtons = () => {
+    return (
+      <>
+        <Button
+          circular
+          icon="checkmark"
+          inverted
+          onClick={() => this.handleSubmit()}
+          name="checkmark"
+          color="green"
+          size="tiny"
+        />
+        <Button
+          circular
+          icon="delete"
+          color="red"
+          inverted
+          onClick={() => this.props.deleteTimeBlock(
+              this.props.data.id,
+              this.props.data.project_id)}
+          name="delete"
+          size="tiny"
+        />
+      </>
+    );
+  };
+
   render() {
     return (
       <Fragment>
         {this.state.editMode ? (
-          <Table.Row>
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+          <Table.Row style={{ padding: 0 }}>
+            <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
               <Header as="h4" image>
                 <Image
+                  style={{ paddingTop: "3px", paddingBottom: "3px" }}
                   src="https://react.semantic-ui.com/images/avatar/small/lena.png"
                   rounded
                   size="mini"
@@ -114,7 +135,6 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "Project 1", value: "Project 1" },
                       { key: 2, text: "Project 2", value: "Project 2" }
                     ]}
-                    value={this.state.projectName}
                     onChange={this.handleChange}
                     defaultValue={"ProjectName"}
                   />
@@ -122,10 +142,10 @@ class TimeBlockForm extends React.Component {
                 </Header.Content>
               </Header>
             </Table.Cell>
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <div>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeDay"
                   value={this.state.startTimeDay}
                   onChange={this.handleChange}
@@ -133,7 +153,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>/</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeMonth"
                   value={this.state.startTimeMonth}
                   onChange={this.handleChange}
@@ -141,10 +161,10 @@ class TimeBlockForm extends React.Component {
                 />
               </div>
             </Table.Cell>
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <div style={{ display: "flex" }}>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeHour"
                   value={this.state.startTimeHour}
                   onChange={this.handleChange}
@@ -153,7 +173,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>:</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="startTimeMinute"
                   value={this.state.startTimeMinute}
                   onChange={this.handleChange}
@@ -168,17 +188,16 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
                     defaultValue={"am"}
                   />
                 </SelectStyler>
               </div>
             </Table.Cell>
-            <Table.Cell style={{ paddingLeft: "2px", paddingRight: "2px" }}>
+            <Table.Cell style={{ padding: "3px 2px 3px 2px" }}>
               <div style={{ display: "flex" }}>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="endTimeHour"
                   value={this.state.endTimeHour}
                   onChange={this.handleChange}
@@ -187,7 +206,7 @@ class TimeBlockForm extends React.Component {
                 />
                 <span>:</span>
                 <input
-                  style={{ width: "2.5ch", padding: "1px" }}
+                  style={{ width: "2.5ch", padding: "1px", borderRadius: 0 }}
                   name="endTimeMinute"
                   value={this.state.endTimeMinute}
                   onChange={this.handleChange}
@@ -202,44 +221,27 @@ class TimeBlockForm extends React.Component {
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    value={this.state.endTimeAmPm}
                     onChange={this.handleChange}
                     defaultValue="pm"
                   />
                 </SelectStyler>
               </div>
             </Table.Cell>
-            <Table.Cell />
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }} />
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               <input
-                style={{ width: "4ch", padding: 0 }}
+                style={{ width: "4ch", padding: 0, borderRadius: 0 }}
                 name="billable"
                 value={this.state.billabe}
                 onChange={this.handleChange}
               />{" "}
             </Table.Cell>
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
-              {/* {this.state.unbillable} */}
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
+              {this.state.unbillable}
             </Table.Cell>
             <Table.Cell />
-            <Table.Cell style={{ paddingLeft: "5px", paddingRight: "2px" }}>
-              {this.state.editMode ? (
-                <Button
-                  color="green"
-                  inverted
-                  onClick={() => this.handleSubmit()}
-                >
-                  Save
-                </Button>
-              ) : (
-                <Button
-                  color="yellow"
-                  inverted
-                  onClick={() => this.toggleEditMode()}
-                >
-                  Edit
-                </Button>
-              )}
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
+              {this.editButtons()}
             </Table.Cell>
           </Table.Row>
         ) : (
@@ -255,11 +257,11 @@ class TimeBlockForm extends React.Component {
   }
 }
 
+export default TimeBlockForm;
+
 const SelectStyler = styled.div`
   .ui.selection.dropdown {
     min-width: 3px;
     padding: 0;
   }
 `;
-
-export default TimeBlockForm;

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ProjectForm from "./ProjectForm";
+import { Link } from "react-router-dom";
 import {
   Card,
   Grid,
@@ -11,7 +12,9 @@ import {
 } from "semantic-ui-react";
 
 class Projects extends React.Component {
+
   state = { projects: [], editing: false };
+
 
   componentDidMount() {
     axios
@@ -73,12 +76,14 @@ class Projects extends React.Component {
           </Card.Description>
         </Card>
       </div>
+
     ));
   };
 
   render() {
     return (
       <Container>
+
         <Button
           style={{ marginTop: "15px" }}
           inverted
@@ -87,6 +92,7 @@ class Projects extends React.Component {
         >
           <Icon name={this.state.editing ? "caret up" : "add"} />
           {this.state.editing ? "Hide Form" : "Add New Poject"}
+
         </Button>
         {this.state.editing ? (
           <ProjectForm

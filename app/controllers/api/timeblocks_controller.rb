@@ -1,9 +1,13 @@
 class Api::TimeblocksController < ApplicationController
-  before_action :set_project
+  before_action :set_project, except: [:all_timeblocks]
   before_action :set_timeblock, only: [:show, :update, :destroy]
 
   def index
     render json: @project.timeblocks
+  end
+
+  def all_timeblocks
+    render json: Timeblock.all
   end
 
   def show

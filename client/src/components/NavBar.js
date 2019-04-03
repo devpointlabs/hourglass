@@ -17,6 +17,9 @@ class Navbar extends React.Component {
             name="logout"
             onClick={() => handleLogout(this.props.history)}
           />
+          <Link to="/profile">
+            <Menu.Item name="profile" />
+          </Link>
         </Menu.Menu>
       );
     } else {
@@ -43,7 +46,6 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      
       <div>
         <Menu pointing secondary>
           <Link to="/">
