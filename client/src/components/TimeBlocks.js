@@ -11,19 +11,9 @@ class TimeBlocks extends React.Component {
   componentDidMount() {
     // need to update when routes make more sense
     const project_id = 1;
-    axios.get(`/api/projects/${project_id}/timeblocks`).then(res =>
-      this.setState({ timeBlocks: res.data }, () => {
-        this.state.timeBlocks === []
-          ? this.state.timeBlocks.map(
-              t =>
-                t.end_time &&
-                this.setState({
-                  timeBlocks: [...this.state.timeBlocks, { editMode: false }]
-                })
-            )
-          : this.setState({ timeBlocks: { editMode: false } });
-      })
-    );
+    axios
+      .get(`/api/projects/${project_id}/timeblocks`)
+      .then(res => this.setState({ timeBlocks: res.data }));
   }
 
   updateTimeBlocks = timeBlock => {
