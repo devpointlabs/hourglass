@@ -95,7 +95,7 @@ class TimeBlockForm extends React.Component {
         <Button
           color="red"
           inverted
-          onCLick={() => this.props.deleteTimeBlock()}
+          onClick={() => this.props.deleteTimeBlock(this.props.data.id)}
         >
           Delete
         </Button>
@@ -232,7 +232,7 @@ class TimeBlockForm extends React.Component {
               {this.state.unbillable}
             </Table.Cell>
             <Table.Cell />
-            <Table.Cell style={{ padding: "3px 2px 3px 5px" )}>
+            <Table.Cell style={{ padding: "3px 2px 3px 5px" }}>
               {this.state.editMode ? (
                 this.editButtons()
               ) : (
@@ -244,7 +244,6 @@ class TimeBlockForm extends React.Component {
                   Edit
                 </Button>
               )}
-
             </Table.Cell>
           </Table.Row>
         ) : (
