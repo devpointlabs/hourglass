@@ -19,8 +19,8 @@ const TimeBlock = ({
   stop,
   start
 }) => (
-  <Table.Row>
-    <Table.Cell>
+  <Table.Row style={{ padding: 0 }}>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
       <Header as="h4" image>
         <Image
           src="https://react.semantic-ui.com/images/avatar/small/lena.png"
@@ -33,10 +33,16 @@ const TimeBlock = ({
         </Header.Content>
       </Header>
     </Table.Cell>
-    <Table.Cell>{start_time && moment(start_time).format("MM/DD")}</Table.Cell>
-    <Table.Cell>{start_time && moment(start_time).format("h:mm a")}</Table.Cell>
-    <Table.Cell>{end_time && moment(end_time).format("h:mm a")}</Table.Cell>
-    <Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+      {start_time && moment(start_time).format("MM/DD")}
+    </Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+      {start_time && moment(start_time).format("h:mm a")}
+    </Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+      {end_time && moment(end_time).format("h:mm a")}
+    </Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
       {end_time &&
         moment
           .utc(
@@ -46,9 +52,13 @@ const TimeBlock = ({
           )
           .format("HH.mm.ss")}
     </Table.Cell>
-    <Table.Cell>{billable}</Table.Cell>
-    <Table.Cell>{unbillable}</Table.Cell>
-    <Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+      {billable}
+    </Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
+      {unbillable}
+    </Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
       {!start_time && (
         <Button color="green" inverted onClick={() => start()}>
           Start
@@ -60,7 +70,7 @@ const TimeBlock = ({
         </Button>
       )}
     </Table.Cell>
-    <Table.Cell>
+    <Table.Cell style={{ paddingTop: "3px", paddingBottom: "3px" }}>
       <Button onClick={() => toggleEditMode()}>Edit</Button>
     </Table.Cell>
   </Table.Row>
