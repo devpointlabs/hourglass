@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Container, Card, Icon, Header } from "semantic-ui-react";
+import { Button, Container, Card, Icon } from "semantic-ui-react";
+import TaskView from "./TaskView";
+
 
 class ProjectView extends React.Component {
   state = { project: {} };
@@ -36,29 +38,28 @@ class ProjectView extends React.Component {
       >
         <Card.Group>
           <Card
-            style={{
-              height: "200px",
-              width: "200px",
-              display: "flex",
-              textAlign: "center"
-            }}
+            style={{ height: "300px", width: "2800px", textAlign: "center" }}
           >
-            <br />
-            <h2>{project.client_name}</h2>
-            <Card.Header>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  marginTop: "20px"
-                }}
-              />
-            </Card.Header>
-            <Card.Description>
-              Start Date: {project.planned_start}
-            </Card.Description>
-            <Card.Description>End Date: {project.planned_end}</Card.Description>
+            <TaskView id={this.props.match.params.id} />
+            <h2>{name}</h2>
+            <Card.Header>{client_name}</Card.Header>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                marginTop: "20px"
+              }}
+            />
+            <Card.Description>{notes}</Card.Description>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                marginTop: "20px"
+              }}
+            />
           </Card>
 
           <Card
