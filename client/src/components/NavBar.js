@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
 class Navbar extends React.Component {
@@ -18,7 +18,8 @@ class Navbar extends React.Component {
             onClick={() => handleLogout(this.props.history)}
           />
           <Link to="/profile">
-            <Menu.Item name="profile" />
+            <Image size="mini" src={this.props.auth.user.image} />
+            <Menu.Item name={this.props.auth.user.name} />
           </Link>
         </Menu.Menu>
       );
@@ -47,7 +48,12 @@ class Navbar extends React.Component {
   render() {
     return (
       <div>
-        <Menu pointing secondary>
+        <Menu
+          pointing
+          secondary
+          color="white"
+          style={{ backgroundColor: "RebeccaPurple" }}
+        >
           <Link to="/">
             <Menu.Item
               name="home"
