@@ -7,9 +7,11 @@ Rails.application.routes.draw do
       resources :tasks
     end
 
-    resources :tasks, :timeblocks  
-
     resources :users, only: [:update, :index]
+
+    resources :tasks do
+      resources :timeblocks, only: [:index, :show]
+    end
   end
   get '/api/:task_id/timeblocks' => 'api/timeblocks#task_timeblocks'
 

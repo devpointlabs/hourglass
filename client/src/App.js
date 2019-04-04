@@ -13,6 +13,8 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import AdminDashboard from "./components/AdminDashboard";
 import TimeBlocks from "./components/TimeBlocks";
 import EditForm from "./components/EditForm";
+import AssignmentForm from "./components/AssignmentForm";
+import TaskView from "./components/TaskView";
 
 const App = () => (
   <Fragment>
@@ -26,8 +28,14 @@ const App = () => (
           <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
+          <ProtectedRoute
+            exact
+            path="/assignments"
+            component={AssignmentForm}
+          />
           <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
           <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
+          <ProtectedRoute exact path="/taskview" component={TaskView} />
           <Route component={NoMatch} />
         </Switch>
       </Container>
