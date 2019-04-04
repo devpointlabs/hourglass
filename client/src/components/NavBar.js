@@ -2,6 +2,7 @@ import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import HourGlass from "./hourglass.png";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
@@ -69,12 +70,9 @@ class Navbar extends React.Component {
         >
           <Image src={require("../images/hourglass.png")} size="tiny" />
           <Link to="/">
-            <Menu.Item
-              name="home"
-              style={{ color: "white" }}
-              id="home"
-              active={this.props.location.pathname === "/"}
-            />
+            <Menu.Item id="home" active={this.props.location.pathname === "/"}>Home
+      {/*     <img src={HourGlass} height="35px" /> */}
+            </Menu.Item>
           </Link>
           <Link to="/projects">
             <Menu.Item
@@ -84,7 +82,7 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/projects"}
             />
           </Link>
-          <Link to="/timeblock">
+          <Link to="user/timesheet">
             <Menu.Item
               name="timeblock"
               id="timeblock"

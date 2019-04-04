@@ -5,16 +5,21 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Projects from "./components/Projects";
 import ProjectView from "./components/ProjectView";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import AdminDashboard from "./components/AdminDashboard";
-import TimeBlocks from "./components/TimeBlocks";
+import TimeBlocks from "./components/timeblocks/TimeBlocks";
 import EditForm from "./components/EditForm";
 import AssignmentForm from "./components/AssignmentForm";
+import TimeSheet from "./components/timeblocks/TimeSheet";
+import Pending from "./components/timeblocks/Pending";
+import Unsubmitted from "./components/timeblocks/Unsubmitted";
+import TimeBlockNavbar from "./components/timeblocks/TimeBlockNavbar";
 import TaskView from "./components/TaskView";
+
 
 const App = () => (
   <Fragment>
@@ -33,9 +38,18 @@ const App = () => (
             path="/assignments"
             component={AssignmentForm}
           />
+          <Route exact path="/profile" component={EditForm} />
+          <Route exact path="/projects/:id" component={ProjectView} />
+          <Route exact path="/dashboard" component={AdminDashboard} />
+
+          <Route exact path="/user/timesheet" component={TimeSheet} />
+          <Route exact path="/user/pending" component={Pending} />
+          <Route exact path="/user/unsubmitted" component={Unsubmitted} />
+
           <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
           <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
           <ProtectedRoute exact path="/taskview" component={TaskView} />
+
           <Route component={NoMatch} />
         </Switch>
       </Container>

@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthConsumer } from "../providers/AuthProvider";
+import { AuthConsumer } from "../../providers/AuthProvider";
 import { Table, Form, Button, Icon } from "semantic-ui-react";
 import TimeBlockForm from "./TimeBlockForm";
 import axios from "axios";
@@ -7,6 +7,7 @@ import UserWeek from "./UserWeek";
 import DateRange from "./DateRange";
 import moment from "moment";
 import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
+import TimeBlockNavbar from "./TimeBlockNavbar.js";
 
 class TimeBlocks extends React.Component {
   state = { timeBlocks: [], startDate: "", endDate: "" };
@@ -16,6 +17,7 @@ class TimeBlocks extends React.Component {
   }
 
   getTimeBlocks = () => {
+    //user_id!!! not always 8
     axios.get(`/api/timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
         !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
@@ -39,7 +41,7 @@ class TimeBlocks extends React.Component {
     this.getTimeBlocks();
   };
 
-  updateTimeBlocks = timeBlock => {
+  updateBlocks = timeBlock => {
     this.setState(
       {
         timeBlocks: this.state.timeBlocks.map(t => {
@@ -62,6 +64,18 @@ class TimeBlocks extends React.Component {
     );
   };
 
+  updateTimeBlock = timeblock => {
+    this.setState(
+      {
+        timeblocks: this.state.timeBlocks.map(t => {
+          if (t.id === timeblock.id) return timeblock;
+          return t;
+        })
+      },
+      () => this.setWeeks()
+    );
+  };
+
   checkForActiveTimeBlock = () => {
     let result = false;
     this.state.timeBlocks.map(t => {
@@ -72,7 +86,7 @@ class TimeBlocks extends React.Component {
   };
 
   deleteTimeBlock = (id, project_id) => {
-    axios.delete(`/api/projects/${project_id}/timeblocks/${id}`).then(res => {
+    axios.delete(`/api/timeblocks/${id}`).then(res => {
       this.setState({
         timeBlocks: this.state.timeBlocks.filter(t => t.id !== id)
       });
@@ -83,13 +97,8 @@ class TimeBlocks extends React.Component {
   render() {
     return (
       <>
-        <div
-          style={{
-            backgroundImage: "linear-gradient(to right, grey, white)",
-            width: "100%",
-            height: "10px"
-          }}
-        />
+        <TimeBlockNavbar />
+
         <div style={{ padding: "5px 20px 5px 20px" }}>
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <Table.Header>
@@ -129,9 +138,10 @@ class TimeBlocks extends React.Component {
                   <UserWeek
                     key={w.title}
                     week={w}
-                    updateTimeBlocks={this.updateTimeBlocks}
+                    updateBlocks={this.updateBlocks}
                     addTimeBlock={this.addTimeBlock}
                     deleteTimeBlock={this.deleteTimeBlock}
+                    updateTimeBlock={this.updateTimeBlock}
                   />
                 ))}
             </Table.Body>

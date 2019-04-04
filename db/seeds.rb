@@ -1,5 +1,4 @@
 5.times do
-  
   @user = User.create(
     name: Faker::Name.name,
     nickname: Faker::Superhero.name,
@@ -8,13 +7,13 @@
     image: Faker::Avatar.image
   )
 
-  2.times do 
+  2.times do
     @project = Project.create(
       name: Faker::App.name,
       client_name: Faker::App.author,
       planned_start: Faker::Date.between(20.days.ago, Date.today),
-      planned_end:  Faker::Date.between(Date.today, 30.days.from_now),
-      notes: Faker::Lorem.paragraph
+      planned_end: Faker::Date.between(Date.today, 30.days.from_now),
+      notes: Faker::Lorem.paragraph,
     )
     @task = Task.create(
       name: Faker::Marketing.buzzwords,
@@ -29,6 +28,7 @@
     user_id: @user.id,
     task_id: @task.id
   )
+
 
 end
 
