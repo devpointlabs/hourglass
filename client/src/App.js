@@ -18,6 +18,8 @@ import TimeSheet from "./components/timeblocks/TimeSheet";
 import Pending from "./components/timeblocks/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TimeBlockNavbar from "./components/timeblocks/TimeBlockNavbar";
+import TaskView from "./components/TaskView";
+
 
 const App = () => (
   <Fragment>
@@ -31,7 +33,6 @@ const App = () => (
           <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
-          <Route exact path="/dashboard" component={AdminDashboard} />
           <ProtectedRoute
             exact
             path="/assignments"
@@ -44,6 +45,10 @@ const App = () => (
           <Route exact path="/user/timesheet" component={TimeSheet} />
           <Route exact path="/user/pending" component={Pending} />
           <Route exact path="/user/unsubmitted" component={Unsubmitted} />
+
+          <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
+          <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
+          <ProtectedRoute exact path="/taskview" component={TaskView} />
 
           <Route component={NoMatch} />
         </Switch>
