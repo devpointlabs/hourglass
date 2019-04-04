@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button, Header, Checkbox } from "semantic-ui-react";
+import AddUserToTask from "./AddUserToTask";
 
 class TaskForm extends React.Component {
   state = {
@@ -57,6 +58,8 @@ class TaskForm extends React.Component {
             <Checkbox label="Billable" onClick={this.handleBillable} />
           </Form.Group>
         </Form>
+
+        <AddUserToTask />
       </>
     );
   }
