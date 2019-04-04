@@ -16,7 +16,8 @@ class TimeBlocks extends React.Component {
   }
 
   getTimeBlocks = () => {
-    axios.get(`/api/timeblocks`).then(res =>
+    //user_id!!! not always 8
+    axios.get(`/api/8/my_timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
         !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
         this.updateDateRange(this.state.startDate, this.state.endDate);

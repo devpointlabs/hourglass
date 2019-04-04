@@ -51,11 +51,16 @@ class TimeBlockForm extends React.Component {
       }:${this.state.startTimeMinute} ${this.state.startTimeAmPm}`
     );
 
+    const end_time = moment(
+      `2019-${this.state.endTimeMonth}-${this.state.endTimeDay} ${
+        this.state.endTimeHour
+      }:${this.state.endTimeMinute} ${this.state.endTimeAmPm}`
+    );
+
     console.log(start_time);
-    debugger;
     const timeblock = {
       start_time,
-      //      end_time,
+      end_time,
       //      billable,
       //      unbillable,
       project_id: 1
@@ -103,7 +108,7 @@ class TimeBlockForm extends React.Component {
       this.state.billable
     );
     axios
-      .put(`/api/projects/${1}/timeblocks/${id}`, {
+      .put(`/api/timeblocks/${id}`, {
         end_time: createNewDate,
         billable: this.state.billable,
         unbillable: calcs.unbillable
