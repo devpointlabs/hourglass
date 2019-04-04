@@ -64,14 +64,14 @@ class ProjectForm extends React.Component {
               label="Start Date"
               name="planned_start"
               value={planned_start}
-              placeholder="YYYY-DD-MM"
+              placeholder="YYYY-MM-DD"
               onChange={this.handleChange}
             />
             <Form.Input
               label="End Date"
               name="planned_end"
               value={planned_end}
-              placeholder="YYYY"
+              placeholder="YYYY-MM-DD"
               onChange={this.handleChange}
             />
           </Form.Group>

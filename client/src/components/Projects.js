@@ -1,14 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ProjectForm from "./ProjectForm";
-import {
-  Card,
-  Grid,
-  Button,
-  Container,
-  Icon,
-  CardMeta
-} from "semantic-ui-react";
+import { Card, Grid, Button, Container, Icon } from "semantic-ui-react";
 
 class Projects extends React.Component {
   state = { projects: [], editing: false };
@@ -49,7 +42,7 @@ class Projects extends React.Component {
           >
             {p.name}
           </Card.Header>
-          <CardMeta
+          <Card.Meta
             style={{
               fontSize: "20px",
               height: "40px",
@@ -59,7 +52,13 @@ class Projects extends React.Component {
             }}
           >
             {p.client_name}
-          </CardMeta>
+          </Card.Meta>
+          <Card.Meta style={{ alignItems: "center", justifyContent: "center" }}>
+            <div>
+              {" "}
+              {p.planned_start} - {p.planned_end}{" "}
+            </div>
+          </Card.Meta>
           <Card.Description
             style={{
               fontSize: "20px",
