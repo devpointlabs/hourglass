@@ -1,12 +1,15 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Table, Form, Button, Icon, Accordion } from "semantic-ui-react";
+import { Table, Form, Button, Icon } from "semantic-ui-react";
 import TimeBlockForm from "./TimeBlockForm";
 import axios from "axios";
 import UserWeek from "./UserWeek";
+import DateRange from "./DateRange";
+import moment from "moment";
+import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 
 class TimeBlocks extends React.Component {
-  state = { timeBlocks: [] };
+  state = { timeBlocks: [], startDate: "", endDate: "" };
 
   componentDidMount() {
     this.getTimeBlocks();
@@ -15,15 +18,21 @@ class TimeBlocks extends React.Component {
   getTimeBlocks = () => {
     axios.get(`/api/timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
-        this.groupTimeBlocksByWeek();
         !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
+        this.updateDateRange(this.state.startDate, this.state.endDate);
       })
     );
   };
 
-  groupTimeBlocksByWeek = () => {
-    this.setState({ week1: this.state.timeBlocks.slice(0, 5) });
-    this.setState({ week2: this.state.timeBlocks.slice(6, 10) });
+  updateDateRange = (startDate, endDate) => {
+    this.setState({ startDate, endDate }, () => this.setWeeks());
+  };
+
+  setWeeks = () => {
+    const { startDate, endDate, timeBlocks } = this.state;
+    this.setState({
+      weeks: groupTimeBlocksByWeek(timeBlocks, startDate, endDate)
+    });
   };
 
   addTimeBlock = () => {
@@ -45,9 +54,12 @@ class TimeBlocks extends React.Component {
   };
 
   addNewTimeBlock = editMode => {
-    this.setState({
-      timeBlocks: [...this.state.timeBlocks, { editMode: editMode }]
-    });
+    this.setState(
+      {
+        timeBlocks: [...this.state.timeBlocks, { editMode: editMode }]
+      },
+      () => this.setWeeks()
+    );
   };
 
   checkForActiveTimeBlock = () => {
@@ -64,19 +76,11 @@ class TimeBlocks extends React.Component {
       this.setState({
         timeBlocks: this.state.timeBlocks.filter(t => t.id !== id)
       });
+      this.setWeeks();
     });
   };
 
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-
-    this.setState({ activeIndex: newIndex });
-  };
-
   render() {
-    const { activeIndex } = this.state;
     return (
       <>
         <div
@@ -86,11 +90,17 @@ class TimeBlocks extends React.Component {
             height: "10px"
           }}
         />
-        <Form style={{ paddingLeft: "20px" }}>
-          <Table basic="very" celled collapsing>
+        <div style={{ padding: "5px 20px 5px 20px" }}>
+          <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell />
+                <Table.HeaderCell style={{ width: "20%" }}>
+                  <DateRange
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    updateDateRange={this.updateDateRange}
+                  />
+                </Table.HeaderCell>
                 <Table.HeaderCell>Date</Table.HeaderCell>
                 <Table.HeaderCell>Start Time</Table.HeaderCell>
                 <Table.HeaderCell>End Time</Table.HeaderCell>
@@ -100,7 +110,11 @@ class TimeBlocks extends React.Component {
                 <Table.HeaderCell>Clock In/Out</Table.HeaderCell>
                 <Table.HeaderCell style={{ paddingTop: "10px" }}>
                   <Button
-                    style={{ background: "#723186", color: "white" }}
+                    style={{
+                      background: "#723186",
+                      color: "white",
+                      width: "100%"
+                    }}
                     onClick={() => this.addNewTimeBlock(true)}
                   >
                     <Icon style={{ color: "white" }} name="add" />
@@ -110,30 +124,19 @@ class TimeBlocks extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              <UserWeek
-                week={this.state.week1}
-                updateTimeBlocks={this.updateTimeBlocks}
-                addTimeBlock={this.addTimeBlock}
-                deleteTimeBlock={this.deleteTimeBlock}
-              />
-              <UserWeek
-                week={this.state.week2}
-                updateTimeBlocks={this.updateTimeBlocks}
-                addTimeBlock={this.addTimeBlock}
-                deleteTimeBlock={this.deleteTimeBlock}
-              />
-              {this.state.timeBlocks.map(t => (
-                <TimeBlockForm
-                  key={t.id}
-                  data={t}
-                  updateTimeBlocks={this.updateTimeBlocks}
-                  addTimeBlock={this.addTimeBlock}
-                  deleteTimeBlock={this.deleteTimeBlock}
-                />
-              ))}
+              {this.state.weeks &&
+                this.state.weeks.map(w => (
+                  <UserWeek
+                    key={w.title}
+                    week={w}
+                    updateTimeBlocks={this.updateTimeBlocks}
+                    addTimeBlock={this.addTimeBlock}
+                    deleteTimeBlock={this.deleteTimeBlock}
+                  />
+                ))}
             </Table.Body>
           </Table>
-        </Form>
+        </div>
       </>
     );
   }
@@ -144,27 +147,3 @@ const ConnectedTimeBlocks = props => (
 );
 
 export default ConnectedTimeBlocks;
-
-{
-  /* <Accordion>
-<Accordion.Title
-  active={activeIndex === 0}
-  index={0}
-  onClick={this.handleClick}
->
-  <Icon name="dropdown" />
-  04/01/2019 - 04/30/2019
-</Accordion.Title>
-<Accordion.Content active={activeIndex === 0}>
-  {this.state.timeBlocks.map(t => (
-    <TimeBlockForm
-      key={t.id}
-      data={t}
-      updateTimeBlocks={this.updateTimeBlocks}
-      addTimeBlock={this.addTimeBlock}
-      deleteTimeBlock={this.deleteTimeBlock}
-    />
-  ))}
-</Accordion.Content>
-</Accordion> */
-}
