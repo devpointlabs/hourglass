@@ -89,6 +89,7 @@ const calculatedHours = week => {
     let filtered = week.weekBlocks.filter(b => b.billable);
     let filteredConvertToFloat = filtered.map(b => parseFloat(b));
     console.log(filteredConvertToFloat);
+
     // console.log(filteredConvertToFloat && filteredConvertToFloat.reduce());
     // const weekTotalHours = week.weekBlocks
     //   .map(b => (b.totalHours ? parseFloat(b.totalHours) : 0))

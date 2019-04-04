@@ -39,7 +39,7 @@ class TimeBlocks extends React.Component {
     this.getTimeBlocks();
   };
 
-  updateTimeBlocks = timeBlock => {
+  updateBlocks = timeBlock => {
     this.setState(
       {
         timeBlocks: this.state.timeBlocks.map(t => {
@@ -57,6 +57,18 @@ class TimeBlocks extends React.Component {
     this.setState(
       {
         timeBlocks: [...this.state.timeBlocks, { editMode: editMode }]
+      },
+      () => this.setWeeks()
+    );
+  };
+
+  updateTimeBlock = timeblock => {
+    this.setState(
+      {
+        timeblocks: this.state.timeBlocks.map(t => {
+          if (t.id === timeblock.id) return timeblock;
+          return t;
+        })
       },
       () => this.setWeeks()
     );
@@ -129,9 +141,10 @@ class TimeBlocks extends React.Component {
                   <UserWeek
                     key={w.title}
                     week={w}
-                    updateTimeBlocks={this.updateTimeBlocks}
+                    updateBlocks={this.updateBlocks}
                     addTimeBlock={this.addTimeBlock}
                     deleteTimeBlock={this.deleteTimeBlock}
+                    updateTimeBlock={this.updateTimeBlock}
                   />
                 ))}
             </Table.Body>
