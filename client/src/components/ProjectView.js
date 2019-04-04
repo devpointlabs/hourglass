@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, Container, Card, Icon } from "semantic-ui-react";
+import TaskView from "./TaskView";
 
 class ProjectView extends React.Component {
   state = { project: {} };
@@ -25,8 +26,9 @@ class ProjectView extends React.Component {
       >
         <Link to={`/project/${id}`}>
           <Card
-            style={{ height: "300px", width: "300px", textAlign: "center" }}
+            style={{ height: "300px", width: "2800px", textAlign: "center" }}
           >
+            <TaskView id={this.props.match.params.id} />
             <h2>{name}</h2>
             <Card.Header>{client_name}</Card.Header>
             <div
