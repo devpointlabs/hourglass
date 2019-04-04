@@ -5,6 +5,7 @@ import {
   Header,
   Segment,
   Grid,
+  Label,
   Divider,
   Container,
   Image
@@ -65,12 +66,16 @@ class EditForm extends React.Component {
     return (
       <Fragment>
         <Grid.Column width={4}>
+          <Label color="violet" ribbon>
+            {user.email}
+          </Label>
           <Image src={user.image || defaultImage} />
         </Grid.Column>
         <Grid.Column width={8}>
-          <Header as="h1">{user.name}</Header>
-          <Header as="h3">{user.email}</Header>
-          <Header as="h4">{user.nickname}</Header>
+          <Header as="h1">
+            <Header.Content>{user.name}</Header.Content>
+            <Header.Subheader>{user.nickname}</Header.Subheader>
+          </Header>
         </Grid.Column>
       </Fragment>
     );
@@ -109,7 +114,6 @@ class EditForm extends React.Component {
           <Form.Input
             label="New Email"
             autoFocus
-            required
             name="email"
             value={email}
             placeholder="Email"
@@ -117,7 +121,6 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="New Name"
-            required
             name="name"
             value={name}
             placeholder="Name"
@@ -125,7 +128,6 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="New Nickname"
-            required
             name="nickname"
             value={nickname}
             placeholder="Nickname"
@@ -133,7 +135,6 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="New Password"
-            required
             name="password"
             type="password"
             value={password}
@@ -142,7 +143,6 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="Confirm New Password"
-            required
             name="passwordConfirmation"
             type="password"
             value={passwordConfirmation}
@@ -194,7 +194,7 @@ class EditForm extends React.Component {
   render() {
     const { editing } = this.state;
     return (
-      <Container>
+      <Container style={{ display: "flex", justifyContent: "center" }}>
         <Divider hidden />
         <Grid>
           <Grid.Row>{editing ? this.editView() : this.profileView()}</Grid.Row>
