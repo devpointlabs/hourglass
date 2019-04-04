@@ -16,7 +16,8 @@ class TimeBlocks extends React.Component {
   }
 
   getTimeBlocks = () => {
-    axios.get(`/api/timeblocks`).then(res =>
+    //user_id!!! not always 8
+    axios.get(`/api/8/my_timeblocks`).then(res =>
       this.setState({ timeBlocks: res.data }, () => {
         !this.checkForActiveTimeBlock() && this.addNewTimeBlock(false);
         this.updateDateRange(this.state.startDate, this.state.endDate);
@@ -84,7 +85,7 @@ class TimeBlocks extends React.Component {
   };
 
   deleteTimeBlock = (id, project_id) => {
-    axios.delete(`/api/projects/${project_id}/timeblocks/${id}`).then(res => {
+    axios.delete(`/api/timeblocks/${id}`).then(res => {
       this.setState({
         timeBlocks: this.state.timeBlocks.filter(t => t.id !== id)
       });
