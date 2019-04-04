@@ -61,7 +61,7 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/projects"}
             />
           </Link>
-          <Link to="/time">
+          <Link to="user/timesheet">
             <Menu.Item
               name="timeblock"
               id="timeblock"

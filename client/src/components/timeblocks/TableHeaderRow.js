@@ -22,16 +22,19 @@ const TableHeaderRow = () => (
         updateDateRange={this.updateDateRange}
       /> */}
     </Table.HeaderCell>
-    {/* {tableheaderlabels.forEach(cell =>
-      <Table.HeaderCell>{cell.dayofweek}here</Table.HeaderCell>
-    )} */}
-    <Table.HeaderCell />
+    {tableheaderlabels.map(cell => (
+      <Table.HeaderCell>
+        <div>{cell.dayofweek}</div>
+        {cell.date}
+      </Table.HeaderCell>
+    ))}
+    {/* <Table.HeaderCell />
     <Table.HeaderCell>T</Table.HeaderCell>
     <Table.HeaderCell>W</Table.HeaderCell>
     <Table.HeaderCell>Th</Table.HeaderCell>
     <Table.HeaderCell>F</Table.HeaderCell>
     <Table.HeaderCell>S</Table.HeaderCell>
-    <Table.HeaderCell>Su</Table.HeaderCell>
+    <Table.HeaderCell>Su</Table.HeaderCell> */}
 
     <Table.HeaderCell />
     <Table.HeaderCell />
