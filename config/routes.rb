@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   namespace :api do
 
     resources :projects do
-      resources :timeblocks
-
+      resources :tasks
     end
+
+    resources :tasks, :timeblocks  
 
     resources :users, only: [:update, :index]
   end
-  get '/api/timeblocks' => 'api/timeblocks#all_timeblocks'
+  get '/api/:task_id/timeblocks' => 'api/timeblocks#task_timeblocks'
 
 end

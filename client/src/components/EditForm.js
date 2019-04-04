@@ -192,20 +192,30 @@ class EditForm extends React.Component {
   };
 
   render() {
+    const {
+      auth: { handleLogout, user }
+    } = this.props;
     const { editing } = this.state;
-    return (
-      <Container style={{ display: "flex", justifyContent: "center" }}>
-        <Divider hidden />
-        <Grid>
-          <Grid.Row>{editing ? this.editView() : this.profileView()}</Grid.Row>
-          <Grid.Column>
-            <Button onClick={this.toggleEdit} color="violet">
-              {editing ? "Cancel" : "Edit"}
-            </Button>
-          </Grid.Column>
-        </Grid>
-      </Container>
-    );
+    if (user)
+      return (
+        <Container style={{ display: "flex", justifyContent: "center" }}>
+          <Divider hidden />
+          <Grid>
+            <Grid.Row>
+              {editing ? this.editView() : this.profileView()}
+            </Grid.Row>
+            <Grid.Column>
+              <Button onClick={this.toggleEdit} color="violet">
+                {editing ? "Cancel" : "Edit"}
+              </Button>
+              <Button onClick={() => handleLogout(this.props.history)}>
+                Logout
+              </Button>
+            </Grid.Column>
+          </Grid>
+        </Container>
+      );
+    else return <div>nothing</div>;
   }
 }
 
