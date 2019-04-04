@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Container, Card, Icon } from "semantic-ui-react";
+import { Header, Button, Container, Card, Icon } from "semantic-ui-react";
 import TaskView from "./TaskView";
-
 
 class ProjectView extends React.Component {
   state = { project: {} };
