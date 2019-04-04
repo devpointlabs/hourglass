@@ -23,6 +23,8 @@ class TimeBlockForm extends React.Component {
     totalTime: "",
     billable: "",
     unbillable: "",
+    startTimeAmPm: "",
+    endTimeAmPm: "",
     editMode: this.props.data.editMode
   };
 
@@ -38,6 +40,30 @@ class TimeBlockForm extends React.Component {
 
   handleSubmit = e => {
     e && e.preventDefault();
+    const {
+      project_id,
+      data: { id }
+    } = this.props;
+
+    const start_time = moment(
+      `2019-${this.state.startTimeMonth}-${this.state.startTimeDay} ${
+        this.state.startTimeHour
+      }:${this.state.startTimeMinute} ${this.state.startTimeAmPm}`
+    );
+
+    console.log(start_time);
+    debugger;
+    const timeblock = {
+      start_time,
+      //      end_time,
+      //      billable,
+      //      unbillable,
+      project_id: 1
+    };
+
+    axios.put(`/api/projects/1/timeblocks/${id}`, timeblock).then(res => {
+      this.props.updateTimeBlock(res.data);
+    });
     this.toggleEditMode();
   };
 
@@ -45,8 +71,17 @@ class TimeBlockForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleChange1 = e => {
+    this.setState({ startTimeAmPm: e.target.textContent });
+  };
+
+  handleChange2 = e => {
+    this.setState({ endTimeAmPm: e.target.textContent });
+  };
+
   startButton = () => {
     const project_id = 1;
+    // const { project_id } = this.props;
     let t = new moment();
     const timeBlock = { project_id, start_time: t };
     axios
@@ -74,7 +109,7 @@ class TimeBlockForm extends React.Component {
         unbillable: calcs.unbillable
       })
       .then(res =>
-        this.props.updateTimeBlocks({ totalTime: calcs.totalTime, ...res.data })
+        this.props.updateBlocks({ totalTime: calcs.totalTime, ...res.data })
       );
   };
 
@@ -191,14 +226,15 @@ class TimeBlockForm extends React.Component {
                 />
                 <SelectStyler>
                   <Dropdown
+                    id="startTimeAmPm"
                     inline
-                    name="endTimeAmPM"
+                    name="startTimeAmPm"
                     options={[
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    onChange={this.handleChange}
-                    defaultValue={"am"}
+                    onChange={this.handleChange1}
+                    value={this.state.startTimeAmPm}
                   />
                 </SelectStyler>
               </div>
@@ -225,13 +261,13 @@ class TimeBlockForm extends React.Component {
                 <SelectStyler>
                   <Dropdown
                     inline
-                    name="endTimeAmPM"
+                    name="endTimeAmPm"
                     options={[
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    onChange={this.handleChange}
-                    defaultValue="pm"
+                    onChange={this.handleChange2}
+                    value={this.state.endTimeAmPm}
                   />
                 </SelectStyler>
               </div>
