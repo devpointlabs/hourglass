@@ -3,7 +3,7 @@ class Api::TasksController < ApplicationController
   before_action :set_task, only: [ :show, :update, :destroy]
   
   def index
-    render json: Tasks.all 
+    render json: Task.all 
   end
 
   def show
@@ -42,6 +42,6 @@ class Api::TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:tass).permit(:name, :description, :billable, :price_per_hour)
+    params.require(:task).permit(:name, :description, :billable, :price_per_hour)
   end  
 end
