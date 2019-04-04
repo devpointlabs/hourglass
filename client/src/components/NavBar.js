@@ -50,8 +50,8 @@ class Navbar extends React.Component {
       <div>
         <Menu pointing secondary>
           <Link to="/">
-            <Menu.Item id="home" active={this.props.location.pathname === "/"}>
-              <img src={HourGlass} height="35px" />
+            <Menu.Item id="home" active={this.props.location.pathname === "/"}>Home
+      {/*     <img src={HourGlass} height="35px" /> */}
             </Menu.Item>
           </Link>
           <Link to="/projects">
