@@ -14,6 +14,6 @@ Rails.application.routes.draw do
       resources :timeblocks, only: [:index, :show]
     end
   end
-  get '/api/:user_id/timeblocks' => 'api/timeblocks#my_timeblocks'
+  get '/api/:task_id/timeblocks' => 'api/timeblocks#task_timeblocks'
 
 end
