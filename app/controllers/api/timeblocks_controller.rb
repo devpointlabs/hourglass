@@ -1,13 +1,13 @@
 class Api::TimeblocksController < ApplicationController
-  before_action :set_task, only: [:index, ]
+  before_action :set_task, only: [:task_timeblocks ]
   before_action :set_timeblock, only: [:show, :update, :destroy]
 
   def index
-    render json: @task.timeblocks
+    render json: current_user.timeblocks
   end
 
-  def my_timeblocks
-    render json: current_user.timeblocks
+  def task_timeblocks
+    render json: @task.timeblocks
   end
 
   def show
