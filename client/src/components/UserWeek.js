@@ -4,37 +4,48 @@ import { Table, Icon } from "semantic-ui-react";
 
 const UserWeek = ({
   week,
-  data,
   updateTimeBlocks,
   addTimeBlock,
   deleteTimeBlock
 }) => (
   <>
     <Table.Row>
-      <Table.Cell colSpan="9">
+      <Table.Cell
+        colSpan="9"
+        style={{ paddingTop: "2px", paddingBottom: "2px" }}
+      >
         <div
           style={{
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
             alignItems: "center"
           }}
         >
-          <Icon name="sort down" />
-          'week of 4/1/2019-4/8/2019'
+          <div>
+            <Icon name="sort down" />
+            {week && week.title}
+          </div>
           <div
             style={{
               width: "55%",
-              background: "green",
-              height: "12px",
-              borderRadius: "10px"
+              background: "grey",
+              height: "10px"
             }}
-          />
+          >
+            <div
+              style={{
+                width: "30%",
+                background: "green",
+                height: "10px"
+              }}
+            />
+          </div>
           40 hrs
         </div>
       </Table.Cell>
     </Table.Row>
     {week &&
-      week.map(t => (
+      week.weekBlocks.map(t => (
         <TimeBlockForm
           key={t.id}
           data={t}

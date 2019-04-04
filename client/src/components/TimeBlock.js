@@ -19,7 +19,7 @@ const TimeBlock = ({
   start
 }) => (
   <Table.Row style={{ padding: 0 }}>
-    <Table.Cell style={styles.cell}>
+    <Table.Cell style={{ ...styles.cell, paddingLeft: "4%" }}>
       <Header as="h4" image>
         <Image
           src="https://react.semantic-ui.com/images/avatar/small/lena.png"
