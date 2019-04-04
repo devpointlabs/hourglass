@@ -85,15 +85,13 @@ class TimeBlockForm extends React.Component {
   };
 
   startButton = () => {
-    const project_id = 1;
+    const task_id = 1;
     // const { project_id } = this.props;
     let t = new moment();
-    const timeBlock = { project_id, start_time: t };
-    axios
-      .post(`/api/projects/${project_id}/timeblocks`, timeBlock)
-      .then(res => {
-        this.props.addTimeBlock(res.data);
-      });
+    const timeBlock = { task_id, start_time: t, user_id: 8 }; ///////need to pull from auth
+    axios.post(`/api/timeblocks`, timeBlock).then(res => {
+      this.props.addTimeBlock(res.data);
+    });
   };
 
   toggleEditMode = () => {

@@ -1,5 +1,5 @@
 class Api::TimeblocksController < ApplicationController
-  before_action :set_task, only: [:task_timeblocks ]
+  before_action :set_task, only: [:task_timeblocks]
   before_action :set_timeblock, only: [:show, :update, :destroy]
 
   def index
@@ -15,7 +15,7 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def create
-    timeblock = current_user.timeblocks.new(timeblock_params)
+    timeblock = Timeblock.new(timeblock_params)
     if timeblock.save
       render json: timeblock
     else
