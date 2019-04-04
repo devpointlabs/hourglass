@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Container, Card, Icon } from "semantic-ui-react";
+import { Button, Container, Card, Icon, Header } from "semantic-ui-react";
 
 class ProjectView extends React.Component {
   state = { project: {} };
@@ -14,40 +14,67 @@ class ProjectView extends React.Component {
   }
 
   showProject = () => {
-    const { id, name, client_name, notes } = this.props.match.params;
+    const {
+      id,
+      name,
+      client_name,
+      planned_start,
+      planned_end,
+      notes
+    } = this.props.match.params;
+    const { project } = this.state;
     return (
       <div
         style={{
-          marginTop: "30px",
+          marginTop: "20px",
           padding: "20px",
-          border: "1px solid black"
+          border: "4px solid grey",
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
-        <Link to={`/project/${id}`}>
+        <Card.Group>
           <Card
-            style={{ height: "300px", width: "300px", textAlign: "center" }}
+            style={{
+              height: "200px",
+              width: "200px",
+              display: "flex",
+              textAlign: "center"
+            }}
           >
-            <h2>{name}</h2>
-            <Card.Header>{client_name}</Card.Header>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
-              }}
-            />
-            <Card.Description>{notes}</Card.Description>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
-              }}
-            />
+            <br />
+            <h2>{project.client_name}</h2>
+            <Card.Header>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  marginTop: "20px"
+                }}
+              />
+            </Card.Header>
+            <Card.Description>
+              Start Date: {project.planned_start}
+            </Card.Description>
+            <Card.Description>End Date: {project.planned_end}</Card.Description>
           </Card>
-        </Link>
+
+          <Card
+            style={{
+              height: "200px",
+              width: "400px",
+              display: "flex",
+              textAlign: "center",
+              text: "15px"
+            }}
+          >
+            <br />
+            <h2> Notes:</h2>
+            <h3>{project.notes}</h3>
+          </Card>
+        </Card.Group>
       </div>
     );
   };
@@ -63,7 +90,12 @@ class ProjectView extends React.Component {
   render() {
     const { id, name } = this.state.project;
     return (
-      <Container style={{ paddingTop: "20px", marginBottom: "40px" }}>
+      <Container
+        style={{
+          paddingTop: "20px",
+          margin: "40px"
+        }}
+      >
         <h1>{name}</h1>
         {this.showProject()}
         <br />
@@ -84,6 +116,15 @@ class ProjectView extends React.Component {
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
+
+        <Header>
+          <div className="wrapper">
+            <Button.Group widths="2">
+              <Button>Tasks</Button>
+              <Button>Team</Button>
+            </Button.Group>
+          </div>
+        </Header>
       </Container>
     );
   }
