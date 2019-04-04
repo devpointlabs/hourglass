@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
 import axios from "axios";
+import TaskForm from "./TaskForm";
 
 class ProjectForm extends React.Component {
   state = {
@@ -64,14 +65,14 @@ class ProjectForm extends React.Component {
               label="Start Date"
               name="planned_start"
               value={planned_start}
-              placeholder="YYYY-DD-MM"
+              placeholder="YYYY-MM-DD"
               onChange={this.handleChange}
             />
             <Form.Input
               label="End Date"
               name="planned_end"
               value={planned_end}
-              placeholder="YYYY"
+              placeholder="YYYY-MM-DD"
               onChange={this.handleChange}
             />
           </Form.Group>
@@ -86,6 +87,8 @@ class ProjectForm extends React.Component {
           </Form.Group>
           <Form.Button>Save</Form.Button>
         </Form>
+
+        <TaskForm />
       </>
     );
   }
