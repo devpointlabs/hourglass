@@ -62,7 +62,7 @@ class TimeBlockForm extends React.Component {
       start_time,
       end_time,
       //      billable,
-      //      unbillable,
+      user_id: 8,
       project_id: 1
     };
 
