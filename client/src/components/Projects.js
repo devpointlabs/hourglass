@@ -8,13 +8,12 @@ import {
   Button,
   Container,
   Icon,
-  CardMeta
+  CardMeta,
+  Header
 } from "semantic-ui-react";
 
 class Projects extends React.Component {
-
   state = { projects: [], editing: false };
-
 
   componentDidMount() {
     axios
@@ -50,7 +49,9 @@ class Projects extends React.Component {
               alignItems: "center"
             }}
           >
-            {p.name}
+            <Header as={Link} to={`/projects/${p.id}`}>
+              {p.name}
+            </Header>
           </Card.Header>
           <CardMeta
             style={{
@@ -76,14 +77,12 @@ class Projects extends React.Component {
           </Card.Description>
         </Card>
       </div>
-
     ));
   };
 
   render() {
     return (
       <Container>
-
         <Button
           style={{ marginTop: "15px" }}
           inverted
@@ -92,7 +91,6 @@ class Projects extends React.Component {
         >
           <Icon name={this.state.editing ? "caret up" : "add"} />
           {this.state.editing ? "Hide Form" : "Add New Poject"}
-
         </Button>
         {this.state.editing ? (
           <ProjectForm
