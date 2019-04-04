@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import ProjectForm from "./ProjectForm";
 import { Link } from "react-router-dom";
-import { Card, Grid, Button, Container, Icon } from "semantic-ui-react";
+import { Card, Grid, Button, Container, Icon, Header } from "semantic-ui-react";
 
 class Projects extends React.Component {
   state = { projects: [], editing: false };
@@ -41,7 +41,9 @@ class Projects extends React.Component {
               alignItems: "center"
             }}
           >
-            {p.name}
+            <Header as={Link} to={`/projects/${p.id}`}>
+              {p.name}
+            </Header>
           </Card.Header>
           <Card.Meta
             style={{
@@ -96,6 +98,7 @@ class Projects extends React.Component {
         ) : (
           <br />
         )}
+
         <Grid>
           <Grid.Row>
             <Grid.Column columns={3} style={{ marginTop: "30px" }}>

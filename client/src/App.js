@@ -24,7 +24,7 @@ const App = () => (
           <ProtectedRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/projects" component={Projects} />
+          <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
           <Route exact path="/dashboard" component={AdminDashboard} />

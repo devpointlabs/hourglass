@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
 import axios from "axios";
+import TaskForm from "./TaskForm";
 
 class ProjectForm extends React.Component {
   state = {
@@ -86,6 +87,8 @@ class ProjectForm extends React.Component {
           </Form.Group>
           <Form.Button>Save</Form.Button>
         </Form>
+
+        <TaskForm />
       </>
     );
   }
