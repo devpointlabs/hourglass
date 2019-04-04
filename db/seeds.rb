@@ -5,6 +5,7 @@
     nickname: Faker::Superhero.name,
     email: Faker::Internet.email,
     password: "password",
+    image: Faker::Avatar.image
   )
 
   2.times do 
