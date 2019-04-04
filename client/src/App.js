@@ -12,8 +12,8 @@ import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import AdminDashboard from "./components/AdminDashboard";
 import TimeBlocks from "./components/TimeBlocks";
-import AssignmentForm from "./components/AssignmentForm";
 import EditForm from "./components/EditForm";
+import AssignmentForm from "./components/AssignmentForm";
 
 const App = () => (
   <Fragment>
@@ -24,7 +24,10 @@ const App = () => (
           <ProtectedRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <ProtectedRoute exact path="/projects" component={Projects} />
+          <Route exact path="/projects" component={Projects} />
+          <Route exact path="/profile" component={EditForm} />
+          <Route exact path="/projects/:id" component={ProjectView} />
+          <Route exact path="/dashboard" component={AdminDashboard} />
           <ProtectedRoute
             exact
             path="/assignments"
