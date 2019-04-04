@@ -14,7 +14,6 @@ import AdminDashboard from "./components/AdminDashboard";
 import TimeBlocks from "./components/TimeBlocks";
 import EditForm from "./components/EditForm";
 
-
 const App = () => (
   <Fragment>
     <FetchUser>
@@ -24,11 +23,11 @@ const App = () => (
           <ProtectedRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/projects" component={Projects} />
+          <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
-          <Route exact path="/dashboard" component={AdminDashboard} />
-          <Route exact path="/timeblock" component={TimeBlocks} />
+          <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
+          <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
           <Route component={NoMatch} />
         </Switch>
       </Container>
