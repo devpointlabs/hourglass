@@ -26,7 +26,7 @@ class Projects extends React.Component {
     return this.state.projects.map(p => (
       <div
         style={{
-          padding: "30px",
+          padding: "35px",
           border: "3px solid grey",
           margin: "5px 5px 5px 5px"
         }}
@@ -48,7 +48,7 @@ class Projects extends React.Component {
           <Card.Meta
             style={{
               fontSize: "20px",
-              height: "40px",
+              height: "30px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
@@ -56,7 +56,7 @@ class Projects extends React.Component {
           >
             {p.client_name}
           </Card.Meta>
-          <Card.Meta style={{ alignItems: "center", justifyContent: "center" }}>
+          {/* <Card.Meta style={{ alignItems: "center", justifyContent: "center" }}>
             <div>
               {" "}
               {p.planned_start} - {p.planned_end}{" "}
@@ -64,7 +64,7 @@ class Projects extends React.Component {
           </Card.Meta>
           <Card.Description
             style={{
-              fontSize: "20px",
+              fontSize: "12px",
               height: "40px",
               display: "flex",
               justifyContent: "center",
@@ -72,7 +72,7 @@ class Projects extends React.Component {
             }}
           >
             {p.notes}
-          </Card.Description>
+          </Card.Description> */}
         </Card>
       </div>
     ));

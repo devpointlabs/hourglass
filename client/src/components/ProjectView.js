@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Container, Card, Icon } from "semantic-ui-react";
 import TaskView from "./TaskView";
 
+
 class ProjectView extends React.Component {
   state = { project: {} };
 
@@ -15,16 +16,27 @@ class ProjectView extends React.Component {
   }
 
   showProject = () => {
-    const { id, name, client_name, notes } = this.props.match.params;
+    const {
+      id,
+      name,
+      client_name,
+      planned_start,
+      planned_end,
+      notes
+    } = this.props.match.params;
+    const { project } = this.state;
     return (
       <div
         style={{
-          marginTop: "30px",
+          marginTop: "20px",
           padding: "20px",
-          border: "1px solid black"
+          border: "4px solid grey",
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
-        <Link to={`/project/${id}`}>
+        <Card.Group>
           <Card
             style={{ height: "300px", width: "2800px", textAlign: "center" }}
           >
@@ -49,7 +61,21 @@ class ProjectView extends React.Component {
               }}
             />
           </Card>
-        </Link>
+
+          <Card
+            style={{
+              height: "200px",
+              width: "400px",
+              display: "flex",
+              textAlign: "center",
+              text: "15px"
+            }}
+          >
+            <br />
+            <h2> Notes:</h2>
+            <h3>{project.notes}</h3>
+          </Card>
+        </Card.Group>
       </div>
     );
   };
@@ -65,7 +91,12 @@ class ProjectView extends React.Component {
   render() {
     const { id, name } = this.state.project;
     return (
-      <Container style={{ paddingTop: "20px", marginBottom: "40px" }}>
+      <Container
+        style={{
+          paddingTop: "20px",
+          margin: "40px"
+        }}
+      >
         <h1>{name}</h1>
         {this.showProject()}
         <br />
@@ -86,6 +117,15 @@ class ProjectView extends React.Component {
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
+
+        <Header>
+          <div className="wrapper">
+            <Button.Group widths="2">
+              <Button>Tasks</Button>
+              <Button>Team</Button>
+            </Button.Group>
+          </div>
+        </Header>
       </Container>
     );
   }

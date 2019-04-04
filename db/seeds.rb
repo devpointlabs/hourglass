@@ -5,6 +5,7 @@
     nickname: Faker::Superhero.name,
     email: Faker::Internet.email,
     password: "password",
+    image: Faker::Avatar.image
   )
 
   2.times do 
@@ -15,11 +16,18 @@
       planned_end:  Faker::Date.between(Date.today, 30.days.from_now),
       notes: Faker::Lorem.paragraph
     )
+    @task = Task.create(
+      name: Faker::Marketing.buzzwords,
+      description: Faker::Quotes::Shakespeare.hamlet_quote,
+      billable: Faker::Boolean.boolean,
+      price_per_hour: Faker::Commerce.price,
+      project_id: @project.id
+    )
   end
 
   Assignment.create(
     user_id: @user.id,
-    project_id: @project.id
+    task_id: @task.id
   )
 
 end
@@ -32,4 +40,4 @@ User.create(
   admin: true,
 )
 
-puts "Users Seeded!"
+puts "Data Seeded!"
