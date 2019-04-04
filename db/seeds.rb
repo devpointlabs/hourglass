@@ -35,7 +35,7 @@ end
 User.create(
   email: "admin@admin.com",
   name: 'Admin',
-  nickname: 'the adman',
+  nickname: 'The Adman',
   password: "password",
   admin: true,
 )

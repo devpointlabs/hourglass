@@ -46,8 +46,7 @@ class Register extends React.Component {
       password,
       passwordConfirmation,
       name,
-      nickname,
-      image
+      nickname
     } = this.state;
 
     return (

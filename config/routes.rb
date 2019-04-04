@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
     resources :projects do
       resources :tasks
-
     end
 
     resources :users, only: [:update, :index]
