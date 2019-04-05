@@ -12,7 +12,7 @@ import TableHeaderRow from "./TableHeaderRow";
 class TimeSheet extends React.Component {
   state = {
     view: "day",
-    selectedDate: "Wednesday 12 Oct 2019",
+    selectedDate: "Wednesday 12 Oct",
 
     timeBlocks: [],
     startDate: "",
