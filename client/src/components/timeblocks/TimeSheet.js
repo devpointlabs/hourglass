@@ -119,7 +119,11 @@ class TimeSheet extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
-        <TimeSheetNavbar view={view} selectedDate={selectedDate} />
+        <TimeSheetNavbar
+          view={view}
+          selectedDate={selectedDate}
+          setSelectedDate={this.setSelectedDate}
+        />
         <Table basic="very" celled collapsing style={{ width: "100%" }}>
           <Table.Header>
             <TableHeaderRow />

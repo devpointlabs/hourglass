@@ -1,10 +1,10 @@
 import React from "react";
 import { Menu, Icon, Button, Select } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import clickHandler from "./TimeSheetNavbarClickHandler";
 
 class TimeSheetNavbar extends React.Component {
   render() {
-    const { view, selectedDate } = this.props;
+    const { view, selectedDate, setSelectedDate } = this.props;
     return (
       <>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -15,6 +15,9 @@ class TimeSheetNavbar extends React.Component {
           </Button>
           <span>
             <Button
+              onClick={() =>
+                clickHandler(selectedDate, "dayLeft", setSelectedDate)
+              }
               style={{
                 background: "white",
                 border: "solid gray 1px",
@@ -39,6 +42,9 @@ class TimeSheetNavbar extends React.Component {
               Today
             </Button>
             <Button
+              onClick={() =>
+                clickHandler(selectedDate, "dayRight", setSelectedDate)
+              }
               style={{
                 background: "white",
                 border: "solid gray 1px",
