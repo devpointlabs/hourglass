@@ -70,8 +70,9 @@ class Navbar extends React.Component {
         >
           <Image src={require("../images/hourglass.png")} size="tiny" />
           <Link to="/">
-            <Menu.Item id="home" active={this.props.location.pathname === "/"}>Home
-      {/*     <img src={HourGlass} height="35px" /> */}
+            <Menu.Item id="home" active={this.props.location.pathname === "/"}>
+              Home
+              {/*     <img src={HourGlass} height="35px" /> */}
             </Menu.Item>
           </Link>
           <Link to="/projects">
