@@ -11,3 +11,6 @@ class User < ActiveRecord::Base
   has_many :tasks, through: :assignments
   has_many :timeblocks
 end
+
+
+# find teams based on task_id, which a user and a project will have
