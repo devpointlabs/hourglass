@@ -4,7 +4,7 @@
     nickname: Faker::Superhero.name,
     email: Faker::Internet.email,
     password: "password",
-    image: Faker::Avatar.image
+    image: Faker::Avatar.image,
   )
 
   2.times do
@@ -20,22 +20,20 @@
       description: Faker::Quotes::Shakespeare.hamlet_quote,
       billable: Faker::Boolean.boolean,
       price_per_hour: Faker::Commerce.price,
-      project_id: @project.id
+      project_id: @project.id,
     )
   end
 
   Assignment.create(
     user_id: @user.id,
-    task_id: @task.id
+    task_id: @task.id,
   )
-
-
 end
 
 User.create(
   email: "admin@admin.com",
-  name: 'Admin',
-  nickname: 'The Adman',
+  name: "Admin",
+  nickname: "The Adman",
   password: "password",
   admin: true,
 )
