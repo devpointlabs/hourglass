@@ -2,11 +2,12 @@ import React from "react";
 import TimeSheetNavbar from "./TimeSheetNavbar";
 import TimeBlockNavbar from "./TimeBlockNavbar";
 import { Table, Button, Icon } from "semantic-ui-react";
+import AddTimeBlockButton from "./AddTimeBlockButton";
+import TableData from "./TableData";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import axios from "axios";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
-import TableHeaderRow from "./TableHeaderRow";
 //import convertMomentDateToSelectedDateString from "./convertMomentToSelectedDateString"
 
 class TimeSheet extends React.Component {
@@ -42,29 +43,9 @@ class TimeSheet extends React.Component {
           setView={this.setView}
         />
         <div style={{ display: "flex", padding: "10px" }}>
-          <Button
-            style={{
-              background: "RebeccaPurple",
-              color: "white",
-              borderRadius: 0,
-              paddingLeft: "0",
-              width: "4em",
-              height: "4em",
-              textAlign: "center"
-            }}
-            size="large"
-            onClick={() => console.log("click")}
-          >
-            <Icon
-              size="large"
-              style={{ color: "white", paddingLeft: "22px" }}
-              name="add"
-            />
-          </Button>
+          <AddTimeBlockButton />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
-            <Table.Header>
-              <TableHeaderRow selectedDate={selectedDate} />
-            </Table.Header>
+            <TableData view={view} />
           </Table>
         </div>
         <hr />
