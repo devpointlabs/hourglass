@@ -3,6 +3,7 @@ import { Icon, Button, Select } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
+import moment from "moment";
 import DatePicker from "./DatePicker";
 
 class TimeSheetNavbar extends React.Component {
@@ -13,7 +14,9 @@ class TimeSheetNavbar extends React.Component {
       <>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ width: "8%" }} />
-          <h1 style={{ margin: 0, width: "30%" }}>{selectedDate}</h1>
+          <h1 style={{ margin: 0, width: "30%" }}>
+            {moment(selectedDate).format("dddd MMM DD")}
+          </h1>
           <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
           </Button>
@@ -72,7 +75,7 @@ class TimeSheetNavbar extends React.Component {
           >
             <Icon name="calendar" />
           </Button>
-          <DatePicker />
+          {/* <DatePicker /> */}
           <span>
             <Button
               onClick={() => clickHandler(null, "day", setView)}

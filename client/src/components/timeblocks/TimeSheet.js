@@ -4,21 +4,25 @@ import TimeBlockNavbar from "./TimeBlockNavbar";
 import { Table, Button, Icon } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
+import moment from "moment";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import axios from "axios";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
-//import convertMomentDateToSelectedDateString from "./convertMomentToSelectedDateString"
 
 class TimeSheet extends React.Component {
   state = {
     view: "day",
-    selectedDate: "Wednesday 12 Oct",
+    selectedDate: "",
 
     timeBlocks: [],
     startDate: "",
     endDate: ""
   };
+
+  componentDidMount() {
+    this.setState({ selectedDate: moment() });
+  }
 
   setSelectedDate = date => {
     const { view } = this.state;
