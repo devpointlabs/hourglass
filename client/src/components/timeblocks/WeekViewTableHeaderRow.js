@@ -1,12 +1,12 @@
 import React from "react";
 import { Table, Button, Icon } from "semantic-ui-react";
-import TableHeaderLabels from "./TableHeaderLabels";
+import WeekViewTableHeaderLabels from "./WeekViewTableHeaderLabels";
 
 const WeekViewTableHeaderRow = ({ selectedDate }) => (
   <Table.Row style={{ background: "lightgray" }}>
     <Table.HeaderCell style={{ paddingTop: "10px", paddingLeft: "1%" }} />
     <Table.HeaderCell style={{ width: "20%" }} />
-    <TableHeaderLabels selectedDate={selectedDate} />
+    <WeekViewTableHeaderLabels selectedDate={selectedDate} />
     <Table.HeaderCell />
     <Table.HeaderCell />
   </Table.Row>

@@ -19,11 +19,10 @@ const DayViewTableData = ({ selectedDate }) => (
         <Table.Cell clSpan="10" />
       </Table.Row>
       <Table.Row style={{ background: "lightgray" }}>
-        <Table.Cell>
+        <Table.Cell colSpan="2">
           <Button>New Row</Button>
           <Button>Save</Button>
         </Table.Cell>
-        <Table.Cell>1</Table.Cell>
         <Table.Cell>total</Table.Cell>
         <Table.Cell>total</Table.Cell>
         <Table.Cell>total</Table.Cell>

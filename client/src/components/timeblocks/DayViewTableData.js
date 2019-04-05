@@ -13,6 +13,11 @@ const DayViewTableData = ({ selectedDate }) => (
         <Table.Cell colSpan="10" />
       </Table.Row>
       <DayViewTableRow />
+      <Table.Row>
+        <Table.Cell colSpan="10">
+          <hr />
+        </Table.Cell>
+      </Table.Row>
       Daily total
       <Table.Row />
     </Table.Body>

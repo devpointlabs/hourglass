@@ -3,6 +3,7 @@ import { Icon, Button, Select } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
+import DatePicker from "./DatePicker";
 
 class TimeSheetNavbar extends React.Component {
   render() {
@@ -71,6 +72,7 @@ class TimeSheetNavbar extends React.Component {
           >
             <Icon name="calendar" />
           </Button>
+          <DatePicker />
           <span>
             <Button
               onClick={() => clickHandler(null, "day", setView)}
