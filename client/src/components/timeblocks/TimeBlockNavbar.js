@@ -10,17 +10,17 @@ class TimeBlockNavbar extends React.Component {
           style={{
             backgroundImage: "linear-gradient(to right, grey, white)",
             width: "100%",
-            height: "10px"
+            height: "5px"
           }}
         />
         <Menu style={{ marginTop: "0" }}>
-          <Link to="/user/timesheet">
+          <Link to="/timesheet">
             <Menu.Item>Time Sheet</Menu.Item>
           </Link>
-          <Link to="/user/pending">
+          <Link to="/timesheet/pending">
             <Menu.Item>Pending Approval</Menu.Item>
           </Link>
-          <Link to="/user/unsubmitted">
+          <Link to="/timesheet/unsubmitted">
             <Menu.Item>Unsubmitted</Menu.Item>
           </Link>
         </Menu>

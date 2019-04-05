@@ -2,7 +2,6 @@ import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import HourGlass from "./hourglass.png";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
@@ -57,6 +56,7 @@ class Navbar extends React.Component {
   };
 
   render() {
+    const { pathname } = this.props.location;
     return (
       <div>
         <Menu
@@ -68,26 +68,31 @@ class Navbar extends React.Component {
             alignItems: "center"
           }}
         >
-          <Image src={require("../images/hourglass.png")} size="tiny" />
           <Link to="/">
-            <Menu.Item id="home" active={this.props.location.pathname === "/"}>Home
-      {/*     <img src={HourGlass} height="35px" /> */}
-            </Menu.Item>
+            <Image
+              src={require("../images/hourglass_white_inside.png")}
+              size="tiny"
+              style={{ height: "40px", width: "40px", margin: "5px" }}
+            />
           </Link>
           <Link to="/projects">
             <Menu.Item
               name="projects"
               id="projects"
               style={{ color: "white" }}
-              active={this.props.location.pathname === "/projects"}
+              active={pathname === "/projects"}
             />
           </Link>
-          <Link to="user/timesheet">
+          <Link to="/timesheet">
             <Menu.Item
-              name="timeblock"
-              id="timeblock"
+              name="timesheet"
+              id="timesheet"
               style={{ color: "white" }}
-              active={this.props.location.pathname === "/timeblock"}
+              active={
+                pathname === "/timesheet" ||
+                pathname === "/timesheet/pending" ||
+                pathname === "/timesheet/unsubmitted"
+              }
             />
           </Link>
           <Link to="/assignments">
@@ -95,7 +100,7 @@ class Navbar extends React.Component {
               name="assignments"
               style={{ color: "white" }}
               id="assignments"
-              active={this.props.location.pathname === "/assignments"}
+              active={pathname === "/assignments"}
             />
           </Link>
           <Link to="/dashboard">
@@ -103,7 +108,7 @@ class Navbar extends React.Component {
               name="dashboard"
               id="dashboard"
               style={{ color: "white" }}
-              active={this.props.location.pathname === "/dashboard"}
+              active={pathname === "/dashboard"}
             />
           </Link>
           {this.rightNavItems()}
