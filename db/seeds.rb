@@ -26,7 +26,7 @@
 
   Assignment.create(
     user_id: @user.id,
-    task_id: @task.id,
+    project_id: @project.id,
   )
 end
 
