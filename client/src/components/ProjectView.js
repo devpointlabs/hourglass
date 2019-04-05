@@ -37,7 +37,7 @@ class ProjectView extends React.Component {
       >
         <Card.Group>
           <Card
-            style={{ height: "300px", width: "2800px", textAlign: "center" }}
+            style={{ height: "300px", width: "1100px", textAlign: "center" }}
           >
             <TaskView id={this.props.match.params.id} />
             <h2>{name}</h2>
