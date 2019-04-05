@@ -22,20 +22,20 @@ class EditForm extends React.Component {
       name: "",
       nickname: "",
       email: "",
-      file: "",
-      password: "",
-      passwordConfirmation: ""
+      file: ""
+      // password: "",
+      // passwordConfirmation: ""
     }
   };
 
   componentDidMount() {
     const {
       auth: {
-        user: { name, nickname, email, password, passwordConfirmation }
+        user: { name, nickname, email }
       }
     } = this.props;
     this.setState({
-      formValues: { name, nickname, email, password, passwordConfirmation }
+      formValues: { name, nickname, email }
     });
   }
 
@@ -133,7 +133,7 @@ class EditForm extends React.Component {
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <Form.Input
+          {/* <Form.Input
             label="New Password"
             name="password"
             type="password"
@@ -148,7 +148,7 @@ class EditForm extends React.Component {
             value={passwordConfirmation}
             placeholder="Confirm Password"
             onChange={this.handleChange}
-          />
+          /> */}
           <Segment textAlign="center">
             <Button primary type="submit" color="violet">
               Submit
