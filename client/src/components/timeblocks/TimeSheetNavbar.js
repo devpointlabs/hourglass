@@ -1,6 +1,8 @@
 import React from "react";
 import { Icon, Button, Select } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
+import styled from "styled-components";
+import Drop from "./TimeSheetNavBarDropdown";
 
 class TimeSheetNavbar extends React.Component {
   render() {
@@ -10,7 +12,7 @@ class TimeSheetNavbar extends React.Component {
       <>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ width: "8%" }} />
-          <h1>{selectedDate}</h1>
+          <h1 style={{ margin: 0, width: "30%" }}>{selectedDate}</h1>
           <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
           </Button>
@@ -97,12 +99,22 @@ class TimeSheetNavbar extends React.Component {
               Week
             </Button>
           </span>
-          <select style={{ width: "10%", height: "3em" }}>Team Mates</select>
-          <div style={{ width: "8%" }} />
+
+          <div style={{ width: "20%" }} />
         </div>
+        <SelectStyler>
+          <Drop />
+        </SelectStyler>
       </>
     );
   }
 }
 
 export default TimeSheetNavbar;
+
+const SelectStyler = styled.div`
+  .ui.selection.dropdown {
+    min-width: 7em;
+    padding: 0;
+  }
+`;
