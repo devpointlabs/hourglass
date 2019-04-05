@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :assignments
-  has_many :tasks, through: :assignments
+  has_many :projects, through: :assignments
   has_many :timeblocks
 end
 
