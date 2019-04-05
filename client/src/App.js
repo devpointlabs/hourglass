@@ -20,7 +20,6 @@ import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TimeBlockNavbar from "./components/timeblocks/TimeBlockNavbar";
 import TaskView from "./components/TaskView";
 
-
 const App = () => (
   <Fragment>
     <FetchUser>
