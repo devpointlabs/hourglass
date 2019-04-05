@@ -1,10 +1,11 @@
 import React from "react";
-import { Menu, Icon, Button, Select } from "semantic-ui-react";
+import { Icon, Button, Select } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 
 class TimeSheetNavbar extends React.Component {
   render() {
-    const { view, selectedDate, setSelectedDate } = this.props;
+    const { view, selectedDate, setSelectedDate, setView } = this.props;
+
     return (
       <>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -70,8 +71,9 @@ class TimeSheetNavbar extends React.Component {
           </Button>
           <span>
             <Button
+              onClick={() => clickHandler(null, "day", setView)}
               style={{
-                background: view === "day" ? "light gray" : "white",
+                background: view === "day" ? "lightgrey" : "white",
                 border: "solid gray 1px",
                 marginRight: 0,
                 borderRadius: 0,
@@ -82,8 +84,9 @@ class TimeSheetNavbar extends React.Component {
               Day
             </Button>
             <Button
+              onClick={() => clickHandler(null, "week", setView)}
               style={{
-                background: view === "week" ? "light gray" : "white",
+                background: view === "week" ? "lightgrey" : "white",
                 border: "solid gray 1px",
                 marginLeft: 0,
                 borderRadius: 0,
@@ -94,7 +97,7 @@ class TimeSheetNavbar extends React.Component {
               Week
             </Button>
           </span>
-          <select>Team Mates</select>
+          <select style={{ width: "10%", height: "3em" }}>Team Mates</select>
           <div style={{ width: "8%" }} />
         </div>
       </>

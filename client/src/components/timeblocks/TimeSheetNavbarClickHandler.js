@@ -7,10 +7,17 @@ const TimeSheetNavbarClickHandler = (date, event, task) => {
     case "dayLeft":
       newDate = moment(date).add(-1, "days");
       task(convertMomentToSelectedDateString(newDate));
-
+      break;
     case "dayRight":
       newDate = moment(date).add(1, "days");
       task(convertMomentToSelectedDateString(newDate));
+      break;
+    case "day":
+      task("day");
+      break;
+    case "week":
+      task("week");
+      break;
   }
 };
 

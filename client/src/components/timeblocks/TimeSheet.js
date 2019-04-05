@@ -28,6 +28,8 @@ class TimeSheet extends React.Component {
     ////get timeblocks from the server based on date, view, user
   };
 
+  setView = view => this.setState({ view });
+
   ////// old code below this line ////////
   ////////////////////////////////////////
   ////////////////////////////////////////
@@ -123,6 +125,7 @@ class TimeSheet extends React.Component {
           view={view}
           selectedDate={selectedDate}
           setSelectedDate={this.setSelectedDate}
+          setView={this.setView}
         />
         <Table basic="very" celled collapsing style={{ width: "100%" }}>
           <Table.Header>
