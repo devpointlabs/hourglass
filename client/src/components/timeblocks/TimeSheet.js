@@ -7,9 +7,30 @@ import UserWeek from "./UserWeek";
 import axios from "axios";
 import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 import TableHeaderRow from "./TableHeaderRow";
+//import convertMomentDateToSelectedDateString from "./convertMomentToSelectedDateString"
 
 class TimeSheet extends React.Component {
-  state = { timeBlocks: [], startDate: "", endDate: "" };
+  state = {
+    view: "day",
+    selectedDate: "Wednesday 12 Oct 2019",
+
+    timeBlocks: [],
+    startDate: "",
+    endDate: ""
+  };
+
+  setSelectedDate = date => {
+    const { view } = this.state;
+    this.setState({ selectedDate: date }, () => this.setTimeBlocks(date, view));
+  };
+
+  setTimeBlocks = (date, view) => {
+    ////get timeblocks from the server based on date, view, user
+  };
+
+  ////// old code below this line ////////
+  ////////////////////////////////////////
+  ////////////////////////////////////////
 
   componentDidMount() {
     this.getTimeBlocks();
@@ -94,16 +115,19 @@ class TimeSheet extends React.Component {
   };
 
   render() {
+    const { view, selectedDate } = this.state;
     return (
       <>
         <TimeBlockNavbar />
-        <TimeSheetNavbar />
+        <TimeSheetNavbar view={view} selectedDate={selectedDate} />
         <Table basic="very" celled collapsing style={{ width: "100%" }}>
           <Table.Header>
             <TableHeaderRow />
           </Table.Header>
         </Table>
 
+        <hr />
+        <hr />
         <hr />
 
         <div>
