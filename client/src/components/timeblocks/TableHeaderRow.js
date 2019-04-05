@@ -1,7 +1,8 @@
 import React from "react";
 import { Table, Button, Icon } from "semantic-ui-react";
+import TableHeaderLabels from "./TableHeaderLabels";
 
-const TableHeaderRow = () => (
+const TableHeaderRow = ({ selectedDate }) => (
   <Table.Row>
     <Table.HeaderCell style={{ paddingTop: "10px" }}>
       <Button
@@ -22,32 +23,10 @@ const TableHeaderRow = () => (
         updateDateRange={this.updateDateRange}
       /> */}
     </Table.HeaderCell>
-    {tableheaderlabels.map(cell => (
-      <Table.HeaderCell>
-        <div>{cell.dayofweek}</div>
-        {cell.date}
-      </Table.HeaderCell>
-    ))}
-    {/* <Table.HeaderCell />
-    <Table.HeaderCell>T</Table.HeaderCell>
-    <Table.HeaderCell>W</Table.HeaderCell>
-    <Table.HeaderCell>Th</Table.HeaderCell>
-    <Table.HeaderCell>F</Table.HeaderCell>
-    <Table.HeaderCell>S</Table.HeaderCell>
-    <Table.HeaderCell>Su</Table.HeaderCell> */}
+    <TableHeaderLabels selectedDate={selectedDate} />
 
     <Table.HeaderCell />
     <Table.HeaderCell />
   </Table.Row>
 );
 export default TableHeaderRow;
-
-const tableheaderlabels = [
-  { dayofweek: "M", date: "11 Feb" },
-  { dayofweek: "T", date: "12 Feb" },
-  { dayofweek: "W", date: "13 Feb" },
-  { dayofweek: "Th", date: "14 Feb" },
-  { dayofweek: "F", date: "15 Feb" },
-  { dayofweek: "S", date: "16 Feb" },
-  { dayofweek: "Su", date: "17 Feb" }
-];

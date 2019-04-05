@@ -129,7 +129,7 @@ class TimeSheet extends React.Component {
         />
         <Table basic="very" celled collapsing style={{ width: "100%" }}>
           <Table.Header>
-            <TableHeaderRow />
+            <TableHeaderRow selectedDate={selectedDate} />
           </Table.Header>
         </Table>
 
