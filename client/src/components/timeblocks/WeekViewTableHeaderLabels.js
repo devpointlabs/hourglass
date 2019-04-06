@@ -3,18 +3,6 @@ import moment from "moment";
 import { Table } from "semantic-ui-react";
 
 class TableHeaderLabels extends React.Component {
-  state = {
-    days: [
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" },
-      { dayofweek: "", date: "" }
-    ]
-  };
-
   render() {
     const mondayDay = moment(this.props.monday).format("dd");
     const mondayDate = moment(this.props.monday).format("L");
