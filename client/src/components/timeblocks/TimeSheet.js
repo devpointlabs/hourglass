@@ -5,6 +5,8 @@ import { Table, Button, Icon } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
+import axios from "axios";
+import { CalculateHours } from "./Calculations";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import axios from "axios";
@@ -22,21 +24,28 @@ class TimeSheet extends React.Component {
 
   componentDidMount() {
     this.setState({ selectedDate: moment() });
+    this.getCurrentUserTimeBlocks();
   }
+
+  getCurrentUserTimeBlocks = () => {
+    axios
+      .get("api/timeblocks")
+      .then(res =>
+        this.setState({ timeBlocks: CalculateHours(res.data) }, () =>
+          console.log(this.state.timeBlocks)
+        )
+      );
+  };
 
   setSelectedDate = date => {
     const { view } = this.state;
-    this.setState({ selectedDate: date }, () => this.setTimeBlocks(date, view));
-  };
-
-  setTimeBlocks = (date, view) => {
-    ////get timeblocks from the server based on date, view, user
+    this.setState({ selectedDate: date });
   };
 
   setView = view => this.setState({ view });
 
   render() {
-    const { view, selectedDate } = this.state;
+    const { view, selectedDate, timeBlocks } = this.state;
     return (
       <>
         <TimeBlockNavbar />
@@ -49,11 +58,13 @@ class TimeSheet extends React.Component {
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
-            <TableData view={view} />
+            <TableData
+              view={view}
+              timeBlocks={timeBlocks}
+              selectedDate={selectedDate}
+            />
           </Table>
         </div>
-        <hr />
-        <hr />
         <hr />
       </>
     );
@@ -61,6 +72,13 @@ class TimeSheet extends React.Component {
 }
 
 export default TimeSheet;
+
+// get blocks
+// add hours to blocks
+// add user_name, project_name, task_name to blocks
+// setup blocks by week
+
+//blocksByWeek = [{week_start: "", week_end: "", date2019-04-01: [blocks with hours]}]
 
 ///////////////////////previous version for reference
 /////////////////////////////////////////////////////////

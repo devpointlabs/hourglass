@@ -1,11 +1,11 @@
 import React from "react";
 import { Table, Button, Icon } from "semantic-ui-react";
 
-const DayViewTableRow = () => (
+const DayViewTableRow = ({ timeBlock }) => (
   <Table.Row>
     <Table.Cell>DayViewTableRow</Table.Cell>
-    <Table.Cell colSpan="5">a</Table.Cell>
-    <Table.Cell>j</Table.Cell>
+    <Table.Cell colSpan="5">{timeBlock.task_id}</Table.Cell>
+    <Table.Cell>{parseFloat(timeBlock.hours).toFixed(2)}</Table.Cell>
     <Table.Cell>
       <div style={{ display: "flex" }}>
         <Button>
