@@ -4,7 +4,7 @@ const TimeSheetNavbarClickHandler = (date, event, task) => {
   let newDate;
   switch (event) {
     case "dayLeft":
-      newDate = moment(date).add(-1, "days");
+      newDate = moment(date).subtract(1, "days");
       task(newDate);
       break;
     case "dayRight":
@@ -16,6 +16,14 @@ const TimeSheetNavbarClickHandler = (date, event, task) => {
       break;
     case "week":
       task("week");
+      break;
+    case "weekLeft":
+      newDate = moment(date).subtract(7, "days");
+      task(newDate);
+      break;
+    case "weekRight":
+      newDate = moment(date).add(7, "days");
+      task(newDate);
       break;
   }
 };

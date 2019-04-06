@@ -23,6 +23,21 @@ class TimeSheetNavbar extends React.Component {
           <span>
             <Button
               onClick={() =>
+                clickHandler(selectedDate, "weekLeft", setSelectedDate)
+              }
+              style={{
+                background: "white",
+                border: "solid gray 1px",
+                marginRight: 0,
+                borderRadius: 0,
+                padding: "4px",
+                height: "3em"
+              }}
+            >
+              <Icon name="angle double left" />
+            </Button>
+            <Button
+              onClick={() =>
                 clickHandler(selectedDate, "dayLeft", setSelectedDate)
               }
               style={{
@@ -56,12 +71,28 @@ class TimeSheetNavbar extends React.Component {
                 background: "white",
                 border: "solid gray 1px",
                 marginLeft: 0,
+                marginRight: 0,
                 borderRadius: 0,
                 padding: "4px",
                 height: "3em"
               }}
             >
               <Icon name="right chevron" />
+            </Button>
+            <Button
+              onClick={() =>
+                clickHandler(selectedDate, "weekRight", setSelectedDate)
+              }
+              style={{
+                background: "white",
+                border: "solid gray 1px",
+                marginLeft: 0,
+                borderRadius: 0,
+                padding: "4px",
+                height: "3em"
+              }}
+            >
+              <Icon name="angle double right" />
             </Button>
           </span>
           <Button
