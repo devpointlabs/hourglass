@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_04_04_232953) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +20,8 @@ ActiveRecord::Schema.define(version: 2019_04_04_232953) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "task_id"
-    t.index ["task_id"], name: "index_assignments_on_task_id"
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_assignments_on_project_id"
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
@@ -87,7 +88,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_232953) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "assignments", "tasks"
+  add_foreign_key "assignments", "projects"
   add_foreign_key "assignments", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "timeblocks", "tasks"

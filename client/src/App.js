@@ -20,7 +20,6 @@ import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TimeBlockNavbar from "./components/timeblocks/TimeBlockNavbar";
 import TaskView from "./components/TaskView";
 
-
 const App = () => (
   <Fragment>
     <FetchUser>
@@ -42,9 +41,9 @@ const App = () => (
           <Route exact path="/projects/:id" component={ProjectView} />
           <Route exact path="/dashboard" component={AdminDashboard} />
 
-          <Route exact path="/user/timesheet" component={TimeSheet} />
-          <Route exact path="/user/pending" component={Pending} />
-          <Route exact path="/user/unsubmitted" component={Unsubmitted} />
+          <Route exact path="/timesheet" component={TimeSheet} />
+          <Route exact path="/timesheet/pending" component={Pending} />
+          <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
 
           <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
           <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
