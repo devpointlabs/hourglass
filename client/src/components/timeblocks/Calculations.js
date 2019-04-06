@@ -10,3 +10,14 @@ export const CalculateHours = blocks => {
     };
   });
 };
+
+export const AddProjectInfoToTasks = (projects, tasks) => {
+  return tasks.map(t => {
+    return {
+      ...t,
+      projectInfo: projects
+        .filter(p => p.id === t.project_id)
+        .reduce((acc, project) => acc + project)
+    };
+  });
+};

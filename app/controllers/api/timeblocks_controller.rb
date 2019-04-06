@@ -3,7 +3,17 @@ class Api::TimeblocksController < ApplicationController
   before_action :set_timeblock, only: [:show, :update, :destroy]
 
   def index
-    render json: current_user.timeblocks
+    projects = current_user.projects
+    tasks = []
+    projects.each do |project|
+      tasks += Project.find(project.id).tasks
+    end
+
+    data = { timeBlocks: current_user.timeblocks,
+             projects: projects,
+             tasks: tasks }
+
+    render json: data
   end
 
   def task_timeblocks
