@@ -31,11 +31,45 @@
 end
 
 User.create(
+  id: 311,
   email: "admin@admin.com",
   name: "Admin",
   nickname: "The Adman",
   password: "password",
   admin: true,
 )
+
+Timeblock.create(start_time: "2019-03-23 08:53", end_time: "2019-03-23 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-24 08:54", end_time: "2019-03-24 10:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-25 08:55", end_time: "2019-03-25 11:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 12:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 12:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 20:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-27 08:57", end_time: "2019-03-27 13:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-28 08:58", end_time: "2019-03-28 14:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-29 08:59", end_time: "2019-03-29 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-29 08:59", end_time: "2019-03-29 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-01 09:01", end_time: "2019-04-01 15:01", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-02 09:02", end_time: "2019-04-02 14:02", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-03 09:03", end_time: "2019-04-03 15:03", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-23 08:53", end_time: "2019-03-23 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-24 08:54", end_time: "2019-03-24 10:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-25 08:55", end_time: "2019-03-25 11:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 12:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 12:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-26 08:56", end_time: "2019-03-26 20:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-27 08:57", end_time: "2019-03-27 13:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-28 08:58", end_time: "2019-03-28 14:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-29 08:59", end_time: "2019-03-29 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-03-29 08:59", end_time: "2019-03-29 09:55", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-01 09:01", end_time: "2019-04-01 15:01", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-02 09:02", end_time: "2019-04-02 14:02", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-03 09:03", end_time: "2019-04-03 15:03", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
+Timeblock.create(start_time: "2019-04-04 09:03", end_time: "2019-04-04 15:04", user_id: 311, task_id: 1)
 
 puts "Data Seeded!"
