@@ -1,10 +1,28 @@
 import React from "react";
 import { Form, Button, Header, Checkbox } from "semantic-ui-react";
 import AddUserToTask from "./AddUserToTask";
+import axios from "axios";
 
 class TaskForm extends React.Component {
   state = {
-    task: { name: "", description: "", billable: false, price_per_hour: "" }
+    task: { name: "", description: "", billable: false, price_per_hour: "" },
+    usersShown: false,
+    task_id: ""
+  };
+
+  toggleUsers = () => (
+    this.setState({
+      usersShown: { ...this.state, usersShown: !this.state.usersShown }
+    }),
+    this.handleSubmit()
+  );
+
+  handleSubmit = () => {
+    const { task } = this.state;
+    const { project_id } = this.props;
+    axios.post(`/api/projects/${project_id}/tasks`, task).then(res => {
+      this.setState({ ...this.state, task_id: res.data.id });
+    });
   };
 
   handleBillable = () => {
@@ -20,14 +38,12 @@ class TaskForm extends React.Component {
     this.setState({ task: { ...this.state.task, [name]: value } });
   };
 
-  handleSubmit = e => {};
-
   render() {
     const { name, description, price_per_hour } = this.state.task;
     return (
       <>
-        <Header>Add Task to Project</Header>
-        <Form on Submit={this.handleChange}>
+        <Header>Tasks</Header>
+        <Form>
           <Form.Group>
             <Form.Input
               name="name"
@@ -58,8 +74,6 @@ class TaskForm extends React.Component {
             <Checkbox label="Billable" onClick={this.handleBillable} />
           </Form.Group>
         </Form>
-
-        <AddUserToTask />
       </>
     );
   }
