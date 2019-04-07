@@ -6,7 +6,7 @@ import moment from "moment";
 
 class DayViewTableData extends React.Component {
   render() {
-    const { selectedDate, timeBlocks } = this.props;
+    const { selectedDate, timeBlocks, tasks } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
         moment(b.start_time).format("YYYY-MM-DD") ===
@@ -18,6 +18,15 @@ class DayViewTableData extends React.Component {
       0
     );
 
+    const currentDayBlocksWithTaskInfo = currentDayBlocks.map(b => {
+      return {
+        ...b,
+        taskInfo: tasks
+          .filter(t => t.id === b.task_id)
+          .reduce((acc, task) => acc + task)
+      };
+    });
+
     return (
       <>
         <Table.Header>
@@ -27,17 +36,31 @@ class DayViewTableData extends React.Component {
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
-          {currentDayBlocks.map(b => (
-            <DayViewTableRow timeBlock={b} />
+          {currentDayBlocksWithTaskInfo.map(b => (
+            <DayViewTableRow key={b.id} timeBlock={b} />
           ))}
           <Table.Row>
             <Table.Cell colSpan="10">
               <hr />
             </Table.Cell>
           </Table.Row>
-          <Table.Cell colSpan="6">Daily Total:</Table.Cell>
-          <Table.Cell>{dailyTotal.toFixed(2)}</Table.Cell>
-          <Table.Row />
+          <Table.Row>
+            <Table.Cell
+              colSpan="6"
+              style={{ fontWeight: "bold", fontSize: "1.2em" }}
+            >
+              Daily Total:
+            </Table.Cell>
+            <Table.Cell
+              style={{
+                fontWeight: "bold",
+                textAlign: "center",
+                fontSize: "1.2em"
+              }}
+            >
+              {dailyTotal.toFixed(2)}
+            </Table.Cell>
+          </Table.Row>
         </Table.Body>
       </>
     );

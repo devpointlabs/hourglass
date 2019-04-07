@@ -6,7 +6,7 @@ import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
-import { CalculateHours } from "./Calculations";
+import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import axios from "axios";
@@ -28,13 +28,13 @@ class TimeSheet extends React.Component {
   }
 
   getCurrentUserTimeBlocks = () => {
-    axios
-      .get("api/timeblocks")
-      .then(res =>
-        this.setState({ timeBlocks: CalculateHours(res.data) }, () =>
-          console.log(this.state.timeBlocks)
-        )
-      );
+    axios.get("api/timeblocks").then(res =>
+      this.setState({
+        projects: res.data.projects,
+        tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+        timeBlocks: CalculateHours(res.data.timeBlocks)
+      })
+    );
   };
 
   setSelectedDate = date => {
@@ -45,7 +45,7 @@ class TimeSheet extends React.Component {
   setView = view => this.setState({ view });
 
   render() {
-    const { view, selectedDate, timeBlocks } = this.state;
+    const { view, selectedDate, timeBlocks, tasks } = this.state;
     return (
       <>
         <TimeBlockNavbar />
@@ -62,6 +62,7 @@ class TimeSheet extends React.Component {
               view={view}
               timeBlocks={timeBlocks}
               selectedDate={selectedDate}
+              tasks={tasks}
             />
           </Table>
         </div>
