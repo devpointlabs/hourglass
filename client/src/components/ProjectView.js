@@ -16,12 +16,12 @@ class ProjectView extends React.Component {
 
   showProject = () => {
     const {
-      id,
+      // id,
       name,
       client_name,
-      planned_start,
-      planned_end,
-      notes
+      planned_start
+      // planned_end,
+      // notes
     } = this.props.match.params;
     const { project } = this.state;
     return (

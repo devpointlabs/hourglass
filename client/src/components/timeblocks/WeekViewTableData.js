@@ -1,7 +1,7 @@
 import React from "react";
 import WeekViewTableHeaderRow from "./WeekViewTableHeaderRow";
 import WeekViewTableRow from "./WeekViewTableRow";
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 
 const DayViewTableData = ({ selectedDate }) => (
   <>

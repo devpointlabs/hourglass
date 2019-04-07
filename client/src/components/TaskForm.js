@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Header, Checkbox } from "semantic-ui-react";
+import { Form, Header, Checkbox } from "semantic-ui-react";
 import AddUserToTask from "./AddUserToTask";
 
 class TaskForm extends React.Component {

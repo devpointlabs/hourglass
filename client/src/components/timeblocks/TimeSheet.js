@@ -1,7 +1,7 @@
 import React from "react";
 import TimeSheetNavbar from "./TimeSheetNavbar";
 import TimeBlockNavbar from "./TimeBlockNavbar";
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
@@ -38,7 +38,7 @@ class TimeSheet extends React.Component {
   };
 
   setSelectedDate = date => {
-    const { view } = this.state;
+    // const { view } = this.state;
     this.setState({ selectedDate: date });
   };
 

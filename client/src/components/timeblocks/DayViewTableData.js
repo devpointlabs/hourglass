@@ -1,7 +1,7 @@
 import React from "react";
 import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import moment from "moment";
 
 class DayViewTableData extends React.Component {

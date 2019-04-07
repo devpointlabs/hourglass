@@ -25,6 +25,11 @@ const TimeSheetNavbarClickHandler = (date, event, task) => {
       newDate = moment(date).add(7, "days");
       task(newDate);
       break;
+    case "today":
+      newDate = moment();
+      task(newDate);
+      break;
+    //no default
   }
 };
 

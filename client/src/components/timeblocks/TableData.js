@@ -23,6 +23,7 @@ class TableData extends React.Component {
             tasks={tasks}
           />
         );
+      // no default
     }
   }
 }

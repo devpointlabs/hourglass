@@ -3,7 +3,7 @@ import { Table } from "semantic-ui-react";
 
 const WeekViewTableRow = () => (
   <Table.Row>
-    <Table.Cell>WeekViewTableRow</Table.Cell>
+    <Table.Cell>Project</Table.Cell>
     <Table.Cell>1</Table.Cell>
     <Table.Cell>2</Table.Cell>
     <Table.Cell>3</Table.Cell>
