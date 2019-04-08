@@ -6,18 +6,23 @@ class AddUserToTask extends React.Component {
   state = { users: [], assignment: { user_id: "" } };
   componentDidMount = () => {
     axios.get("/api/users").then(res => this.setState({ users: res.data }));
+    console.log(this.props);
   };
 
   handleChange = (e, { name, value }) => {
     this.setState({ assignment: { ...this.state.assignment, user_id: value } });
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { user_id } = this.state.assignment;
-    const { project_id } = this.props;
-    axios
-      .post(`/api/projects/${project_id}/assignments`, { user_id: user_id })
-      .then(res => console.log(res));
+    const { project_id, resetState } = this.props;
+    let addedUser = {};
+    axios.post(`/api/projects/${project_id}/assignments`, { user_id: user_id });
+    this.state.users.forEach(user => {
+      if (user.id === user_id) addedUser = user;
+    });
+    resetState(addedUser);
   };
 
   employeeDropdown = () => {
@@ -46,7 +51,7 @@ class AddUserToTask extends React.Component {
         <Header>Team</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Select control={this.employeeDropdown} />
-          <Button onClick={() => this.handleSubmit()}>Save</Button>
+          <Button>Save</Button>
         </Form>
       </>
     );

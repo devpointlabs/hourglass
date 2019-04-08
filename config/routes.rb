@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for "User", at: "api/auth"
 
 
-  
- 
-
   namespace :api do
     resources :projects do
       resources :tasks
@@ -24,4 +21,5 @@ Rails.application.routes.draw do
     end
   end
   get "/api/:task_id/timeblocks" => "api/timeblocks#task_timeblocks"
+  get "/api/:project_id/view_tasks", to: 'api/tasks#tasks_of_project'
 end

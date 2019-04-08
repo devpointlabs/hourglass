@@ -1,13 +1,12 @@
 import React from "react";
 import { Form, Button, Header, Checkbox } from "semantic-ui-react";
-import AddUserToTask from "./AddUserToTask";
 import axios from "axios";
+import UsersArray from "./UsersArray";
 
 class TaskForm extends React.Component {
   state = {
     task: { name: "", description: "", billable: false, price_per_hour: "" },
-    usersShown: false,
-    task_id: ""
+    usersShown: false
   };
 
   toggleUsers = () => (
@@ -20,8 +19,8 @@ class TaskForm extends React.Component {
   handleSubmit = () => {
     const { task } = this.state;
     const { project_id } = this.props;
-    axios.post(`/api/projects/${project_id}/tasks`, task).then(res => {
-      this.setState({ ...this.state, task_id: res.data.id });
+    axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
+      this.props.resetState(res.data);
     });
   };
 
@@ -42,7 +41,6 @@ class TaskForm extends React.Component {
     const { name, description, price_per_hour } = this.state.task;
     return (
       <>
-        <Header>Tasks</Header>
         <Form>
           <Form.Group>
             <Form.Input
@@ -72,8 +70,10 @@ class TaskForm extends React.Component {
               onChange={this.handleChange}
             />
             <Checkbox label="Billable" onClick={this.handleBillable} />
+            <Button onClick={() => this.handleSubmit()}>Add Task</Button>
           </Form.Group>
         </Form>
+        <UsersArray project_id={this.props.project_id} />
       </>
     );
   }
