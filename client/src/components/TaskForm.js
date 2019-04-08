@@ -4,7 +4,6 @@ import { Form, Button, Header, Checkbox } from "semantic-ui-react";
 import axios from "axios";
 import UsersArray from "./UsersArray";
 
-
 class TaskForm extends React.Component {
   state = {
     task: { name: "", description: "", billable: false, price_per_hour: "" },

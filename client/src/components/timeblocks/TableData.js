@@ -10,7 +10,8 @@ class TableData extends React.Component {
       selectedDate,
       timeBlocks,
       tasks,
-      currentWeekTimeBlocks
+      currentWeekTimeBlocks,
+      weekHours
     } = this.props;
 
     switch (view) {
@@ -21,6 +22,7 @@ class TableData extends React.Component {
               selectedDate={selectedDate}
               timeBlocks={timeBlocks}
               tasks={tasks}
+              weekHours={weekHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
             />
           </>
@@ -33,6 +35,7 @@ class TableData extends React.Component {
               timeBlocks={timeBlocks}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              weekHours={weekHours}
             />
           </>
         );
