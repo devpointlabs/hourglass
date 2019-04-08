@@ -88,7 +88,7 @@ class Projects extends React.Component {
           onClick={this.toggleEdit}
         >
           <Icon name={this.state.editing ? "caret up" : "add"} />
-          {this.state.editing ? "Hide Form" : "Add New Poject"}
+          {this.state.editing ? "Hide Form" : "Add New Project"}
         </Button>
         {this.state.editing ? (
           <ProjectForm
