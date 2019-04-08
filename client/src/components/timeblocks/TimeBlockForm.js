@@ -1,13 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  Form,
-  Table,
-  Image,
-  Header,
-  Button,
-  Dropdown,
-  Icon
-} from "semantic-ui-react";
+import { Table, Image, Header, Button, Dropdown } from "semantic-ui-react";
 import moment from "moment";
 import axios from "axios";
 import TimeBlock from "./TimeBlock";
@@ -23,6 +15,8 @@ class TimeBlockForm extends React.Component {
     totalTime: "",
     billable: "",
     unbillable: "",
+    startTimeAmPm: "",
+    endTimeAmPm: "",
     editMode: this.props.data.editMode
   };
 
@@ -38,6 +32,35 @@ class TimeBlockForm extends React.Component {
 
   handleSubmit = e => {
     e && e.preventDefault();
+    const {
+      // project_id,
+      data: { id }
+    } = this.props;
+
+    const start_time = moment(
+      `2019-${this.state.startTimeMonth}-${this.state.startTimeDay} ${
+        this.state.startTimeHour
+      }:${this.state.startTimeMinute} ${this.state.startTimeAmPm}`
+    );
+
+    const end_time = moment(
+      `2019-${this.state.endTimeMonth}-${this.state.endTimeDay} ${
+        this.state.endTimeHour
+      }:${this.state.endTimeMinute} ${this.state.endTimeAmPm}`
+    );
+
+    console.log(start_time);
+    const timeblock = {
+      start_time,
+      end_time,
+      //      billable,
+      user_id: 8,
+      project_id: 1
+    };
+
+    axios.put(`/api/timeblocks/${id}`, timeblock).then(res => {
+      this.props.updateTimeBlock(res.data);
+    });
     this.toggleEditMode();
   };
 
@@ -45,15 +68,22 @@ class TimeBlockForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleChange1 = e => {
+    this.setState({ startTimeAmPm: e.target.textContent });
+  };
+
+  handleChange2 = e => {
+    this.setState({ endTimeAmPm: e.target.textContent });
+  };
+
   startButton = () => {
-    const project_id = 1;
+    const task_id = 1;
+    // const { project_id } = this.props;
     let t = new moment();
-    const timeBlock = { project_id, start_time: t };
-    axios
-      .post(`/api/projects/${project_id}/timeblocks`, timeBlock)
-      .then(res => {
-        this.props.addTimeBlock(res.data);
-      });
+    const timeBlock = { task_id, start_time: t, user_id: 8 }; ///////need to pull from auth
+    axios.post(`/api/timeblocks`, timeBlock).then(res => {
+      this.props.addTimeBlock(res.data);
+    });
   };
 
   toggleEditMode = () => {
@@ -68,13 +98,13 @@ class TimeBlockForm extends React.Component {
       this.state.billable
     );
     axios
-      .put(`/api/projects/${1}/timeblocks/${id}`, {
+      .put(`/api/timeblocks/${id}`, {
         end_time: createNewDate,
         billable: this.state.billable,
         unbillable: calcs.unbillable
       })
       .then(res =>
-        this.props.updateTimeBlocks({ totalTime: calcs.totalTime, ...res.data })
+        this.props.updateBlocks({ totalTime: calcs.totalTime, ...res.data })
       );
   };
 
@@ -191,14 +221,15 @@ class TimeBlockForm extends React.Component {
                 />
                 <SelectStyler>
                   <Dropdown
+                    id="startTimeAmPm"
                     inline
-                    name="endTimeAmPM"
+                    name="startTimeAmPm"
                     options={[
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    onChange={this.handleChange}
-                    defaultValue={"am"}
+                    onChange={this.handleChange1}
+                    value={this.state.startTimeAmPm}
                   />
                 </SelectStyler>
               </div>
@@ -225,13 +256,13 @@ class TimeBlockForm extends React.Component {
                 <SelectStyler>
                   <Dropdown
                     inline
-                    name="endTimeAmPM"
+                    name="endTimeAmPm"
                     options={[
                       { key: 1, text: "am", value: "am" },
                       { key: 2, text: "pm", value: "pm" }
                     ]}
-                    onChange={this.handleChange}
-                    defaultValue="pm"
+                    onChange={this.handleChange2}
+                    value={this.state.endTimeAmPm}
                   />
                 </SelectStyler>
               </div>

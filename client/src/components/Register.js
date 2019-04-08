@@ -46,15 +46,14 @@ class Register extends React.Component {
       password,
       passwordConfirmation,
       name,
-      nickname,
-      image
+      nickname
     } = this.state;
 
     return (
       <Segment basic>
         <Header as="h1" textAlign="center">
           Register
-          </Header>
+        </Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label="Email"
@@ -81,15 +80,6 @@ class Register extends React.Component {
             name="nickname"
             value={nickname}
             placeholder="Username"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Image"
-            required
-            autoFocus
-            name="image"
-            value={image}
-            placeholder="Avatar"
             onChange={this.handleChange}
           />
           <Form.Input

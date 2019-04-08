@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_200416) do
+ActiveRecord::Schema.define(version: 2019_04_04_232953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assignments", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id"
     t.index ["project_id"], name: "index_assignments_on_project_id"
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
@@ -34,15 +34,26 @@ ActiveRecord::Schema.define(version: 2019_04_02_200416) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "billable"
+    t.bigint "project_id"
+    t.string "price_per_hour"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+  end
+
   create_table "timeblocks", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "billable"
-    t.integer "unbillable"
-    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_timeblocks_on_project_id"
+    t.bigint "user_id"
+    t.bigint "task_id"
+    t.index ["task_id"], name: "index_timeblocks_on_task_id"
+    t.index ["user_id"], name: "index_timeblocks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,5 +89,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_200416) do
 
   add_foreign_key "assignments", "projects"
   add_foreign_key "assignments", "users"
-  add_foreign_key "timeblocks", "projects"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "timeblocks", "tasks"
+  add_foreign_key "timeblocks", "users"
 end

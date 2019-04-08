@@ -5,6 +5,7 @@ import {
   Header,
   Segment,
   Grid,
+  Label,
   Divider,
   Container,
   Image
@@ -21,20 +22,18 @@ class EditForm extends React.Component {
       name: "",
       nickname: "",
       email: "",
-      file: "",
-      password: "",
-      passwordConfirmation: ""
+      file: ""
     }
   };
 
   componentDidMount() {
     const {
       auth: {
-        user: { name, nickname, email, password, passwordConfirmation }
+        user: { name, nickname, email }
       }
     } = this.props;
     this.setState({
-      formValues: { name, nickname, email, password, passwordConfirmation }
+      formValues: { name, nickname, email }
     });
   }
 
@@ -65,12 +64,16 @@ class EditForm extends React.Component {
     return (
       <Fragment>
         <Grid.Column width={4}>
+          <Label color="violet" ribbon>
+            {user.email}
+          </Label>
           <Image src={user.image || defaultImage} />
         </Grid.Column>
         <Grid.Column width={8}>
-          <Header as="h1">{user.name}</Header>
-          <Header as="h3">{user.email}</Header>
-          <Header as="h4">{user.nickname}</Header>
+          <Header as="h1">
+            <Header.Content>{user.name}</Header.Content>
+            <Header.Subheader>{user.nickname}</Header.Subheader>
+          </Header>
         </Grid.Column>
       </Fragment>
     );
@@ -78,7 +81,7 @@ class EditForm extends React.Component {
 
   editView = () => {
     const {
-      formValues: { name, nickname, email, password, passwordConfirmation }
+      formValues: { name, nickname, email }
     } = this.state;
     return (
       <Form
@@ -89,7 +92,7 @@ class EditForm extends React.Component {
           alignItems: "center"
         }}
       >
-        <Grid.Column width={4}>
+        <Grid.Column width={4} style={{ margin: "2em" }}>
           <Dropzone onDrop={this.onDrop} multiple={false}>
             {({ getRootProps, getInputProps, isDragActive }) => {
               return (
@@ -109,7 +112,6 @@ class EditForm extends React.Component {
           <Form.Input
             label="New Email"
             autoFocus
-            required
             name="email"
             value={email}
             placeholder="Email"
@@ -117,7 +119,6 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="New Name"
-            required
             name="name"
             value={name}
             placeholder="Name"
@@ -125,35 +126,14 @@ class EditForm extends React.Component {
           />
           <Form.Input
             label="New Nickname"
-            required
             name="nickname"
             value={nickname}
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <Form.Input
-            label="New Password"
-            required
-            name="password"
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Confirm New Password"
-            required
-            name="passwordConfirmation"
-            type="password"
-            value={passwordConfirmation}
-            placeholder="Confirm Password"
-            onChange={this.handleChange}
-          />
-          <Segment textAlign="center">
-            <Button primary type="submit" color="violet">
-              Submit
-            </Button>
-          </Segment>
+          <Button type="submit" color="violet">
+            Submit
+          </Button>
         </Grid.Column>
       </Form>
     );
@@ -192,20 +172,33 @@ class EditForm extends React.Component {
   };
 
   render() {
+    const {
+      auth: { handleLogout, user }
+    } = this.props;
     const { editing } = this.state;
-    return (
-      <Container>
-        <Divider hidden />
-        <Grid>
-          <Grid.Row>{editing ? this.editView() : this.profileView()}</Grid.Row>
-          <Grid.Column>
-            <Button onClick={this.toggleEdit} color="violet">
-              {editing ? "Cancel" : "Edit"}
-            </Button>
-          </Grid.Column>
-        </Grid>
-      </Container>
-    );
+    if (user)
+      return (
+        <Container style={{ display: "flex", justifyContent: "center" }}>
+          <Divider hidden />
+          <Grid>
+            <Grid.Row>
+              {editing ? this.editView() : this.profileView()}
+            </Grid.Row>
+            <Grid.Column textAlign="center">
+              <Button.Group>
+                <Button onClick={this.toggleEdit} color="violet">
+                  {editing ? "Cancel" : "Edit"}
+                </Button>
+                <Button.Or />
+                <Button onClick={() => handleLogout(this.props.history)}>
+                  Logout
+                </Button>
+              </Button.Group>
+            </Grid.Column>
+          </Grid>
+        </Container>
+      );
+    else return <div>nothing</div>;
   }
 }
 

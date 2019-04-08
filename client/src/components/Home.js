@@ -1,7 +1,6 @@
 import React from "react";
 import { Header } from "semantic-ui-react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import TimeBlocks from "./TimeBlocks";
 
 class Home extends React.Component {
   render() {

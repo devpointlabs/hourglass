@@ -4,9 +4,10 @@ import { Table, Icon } from "semantic-ui-react";
 
 const UserWeek = ({
   week,
-  updateTimeBlocks,
+  updateBlocks,
   addTimeBlock,
-  deleteTimeBlock
+  deleteTimeBlock,
+  updateTimeBlock
 }) => (
   <>
     <Table.Row>
@@ -49,9 +50,10 @@ const UserWeek = ({
         <TimeBlockForm
           key={t.id}
           data={t}
-          updateTimeBlocks={updateTimeBlocks}
+          updateBlocks={updateBlocks}
           addTimeBlock={addTimeBlock}
           deleteTimeBlock={deleteTimeBlock}
+          updateTimeBlock={updateTimeBlock}
         />
       ))}
   </>

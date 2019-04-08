@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: User.current_project(current_user.projects)
+    render json: User.all
   end
 
   def update
@@ -10,12 +10,10 @@ class Api::UsersController < ApplicationController
     user.name = params[:name] ? params[:name] : user.name
     user.nickname = params[:nickname] ? params[:nickname] : user.nickname
     user.email = params[:email] ? params[:email] : user.email
-    user.password = params[:password] ? params[:password] : user.password
-    user.password_confirmation = params[:password_confirmation] ? params[:password_confirmation] : user.password_confirmation
-
+    
     file = params[:file]
-
-    if file 
+    
+    if (file != "undefined" && file != "")
       begin
         ext = File.extname(file.tempfile)
         cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true )

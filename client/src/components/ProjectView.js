@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Container, Card, Icon } from "semantic-ui-react";
+import { Header, Button, Container, Card, Icon } from "semantic-ui-react";
+import TaskView from "./TaskView";
+import TeamView from "./TeamView";
 
 class ProjectView extends React.Component {
-  state = { project: {} };
+  state = { project: {}, taskview: true };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -14,16 +16,27 @@ class ProjectView extends React.Component {
   }
 
   showProject = () => {
-    const { id, name, client_name, notes } = this.props.match.params;
+    const {
+      // id,
+      name,
+      client_name,
+      planned_start
+      // planned_end,
+      // notes
+    } = this.props.match.params;
+    const { project } = this.state;
     return (
       <div
         style={{
-          marginTop: "30px",
+          marginTop: "20px",
           padding: "20px",
-          border: "1px solid black"
+          border: "4px solid grey",
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
-        <Link to={`/project/${id}`}>
+        <Card.Group>
           <Card
             style={{ height: "300px", width: "300px", textAlign: "center" }}
           >
@@ -37,7 +50,8 @@ class ProjectView extends React.Component {
                 marginTop: "20px"
               }}
             />
-            <Card.Description>{notes}</Card.Description>
+            <Card.Description>START DATE:{planned_start}</Card.Description>
+
             <div
               style={{
                 display: "flex",
@@ -47,23 +61,53 @@ class ProjectView extends React.Component {
               }}
             />
           </Card>
-        </Link>
+
+          <Card
+            style={{
+              height: "300px",
+              width: "300px",
+              display: "flex",
+              textAlign: "center",
+              text: "15px"
+            }}
+          >
+            <br />
+            <h2> Notes:</h2>
+            <h3>{project.notes}</h3>
+          </Card>
+        </Card.Group>
       </div>
     );
   };
 
   handleDelete = () => {
     const { id } = this.props.match.params;
-    debugger;
     axios.delete(`/api/projects/${id}`).then(res => {
       this.props.history.push("/projects");
     });
   };
 
+  toggleTasks = number => {
+    console.log(`Button ${number} was clicked`);
+    if (number === 2) {
+      return this.setState({ taskview: false });
+    }
+    if (number === 1) {
+      return this.setState({ taskview: true });
+    } else {
+      return console.log("errors");
+    }
+  };
+
   render() {
     const { id, name } = this.state.project;
     return (
-      <Container style={{ paddingTop: "20px", marginBottom: "40px" }}>
+      <Container
+        style={{
+          paddingTop: "20px",
+          margin: "40px"
+        }}
+      >
         <h1>{name}</h1>
         {this.showProject()}
         <br />
@@ -84,6 +128,24 @@ class ProjectView extends React.Component {
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
+
+        <Header>
+          <div className="wrapper">
+            <Button.Group widths="2">
+              <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
+                Tasks
+              </Button>
+              <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
+                Team
+              </Button>
+            </Button.Group>
+          </div>
+        </Header>
+        {this.state.taskview ? (
+          <TaskView id={this.props.match.params.id} />
+        ) : (
+          <TeamView id={this.props.match.params.id} />
+        )}
       </Container>
     );
   }

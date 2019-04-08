@@ -1,13 +1,23 @@
 class Api::TimeblocksController < ApplicationController
-  before_action :set_project, except: [:all_timeblocks]
+  before_action :set_task, only: [:task_timeblocks]
   before_action :set_timeblock, only: [:show, :update, :destroy]
 
   def index
-    render json: @project.timeblocks
+    projects = current_user.projects
+    tasks = []
+    projects.each do |project|
+      tasks += Project.find(project.id).tasks
+    end
+
+    data = { timeBlocks: current_user.timeblocks,
+             projects: projects,
+             tasks: tasks }
+
+    render json: data
   end
 
-  def all_timeblocks
-    render json: Timeblock.all
+  def task_timeblocks
+    render json: @task.timeblocks
   end
 
   def show
@@ -15,7 +25,7 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def create
-    timeblock = @project.timeblocks.new(timeblock_params)
+    timeblock = Timeblock.new(timeblock_params)
     if timeblock.save
       render json: timeblock
     else
@@ -37,8 +47,8 @@ class Api::TimeblocksController < ApplicationController
 
   private
 
-  def set_project
-    @project = Project.find(params[:project_id])
+  def set_task
+    @task = Task.find(params[:task_id])
   end
 
   def set_timeblock
@@ -46,6 +56,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :billable, :unbillable)
+    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id)
   end
 end

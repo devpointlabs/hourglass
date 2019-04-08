@@ -1,24 +1,45 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+
+const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
     const {
-      auth: { user, handleLogout },
+      auth: {
+        user
+        //  handleLogout
+      },
       location
     } = this.props;
 
     if (user) {
       return (
-        <Menu.Menu position="right">
-          <Menu.Item
-            name="logout"
-            onClick={() => handleLogout(this.props.history)}
-          />
+        <Menu.Menu
+          position="right"
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <Link to="/profile">
-            <Menu.Item name="profile" />
+            <Menu.Item
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: ".5em"
+              }}
+            >
+              <div style={{ paddingRight: "1em" }}>
+                <Image
+                  size="mini"
+                  src={this.props.auth.user.image || defaultImage}
+                  avatar
+                />
+              </div>
+              <span style={{ color: "white" }}>
+                {this.props.auth.user.name}
+              </span>
+            </Menu.Item>
           </Link>
         </Menu.Menu>
       );
@@ -28,6 +49,7 @@ class Navbar extends React.Component {
           <Link to="/login">
             <Menu.Item
               id="login"
+              style={{ color: "white" }}
               name="login"
               active={location.pathname === "/login"}
             />
@@ -35,6 +57,7 @@ class Navbar extends React.Component {
           <Link to="/register">
             <Menu.Item
               id="register"
+              style={{ color: "white" }}
               name="register"
               active={location.pathname === "/register"}
             />
@@ -45,42 +68,51 @@ class Navbar extends React.Component {
   };
 
   render() {
+    const { pathname } = this.props.location;
     return (
       <div>
-        <Menu pointing secondary>
+        <Menu
+          pointing
+          secondary
+          style={{
+            backgroundColor: "RebeccaPurple",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
           <Link to="/">
-            <Menu.Item
-              name="home"
-              id="home"
-              active={this.props.location.pathname === "/"}
+            <Image
+              src={require("../images/hourglass_white_inside.png")}
+              size="tiny"
+              style={{ height: "40px", width: "40px", margin: "5px" }}
             />
           </Link>
           <Link to="/projects">
             <Menu.Item
               name="projects"
               id="projects"
-              active={this.props.location.pathname === "/projects"}
+              style={{ color: "white" }}
+              active={pathname === "/projects"}
             />
           </Link>
-          <Link to="/timeblock">
+          <Link to="/timesheet">
             <Menu.Item
-              name="timeblock"
-              id="timeblock"
-              active={this.props.location.pathname === "/timeblock"}
-            />
-          </Link>
-          <Link to="/assignments">
-            <Menu.Item
-              name="assignments"
-              id="assignments"
-              active={this.props.location.pathname === "/assignments"}
+              name="timesheet"
+              id="timesheet"
+              style={{ color: "white" }}
+              active={
+                pathname === "/timesheet" ||
+                pathname === "/timesheet/pending" ||
+                pathname === "/timesheet/unsubmitted"
+              }
             />
           </Link>
           <Link to="/dashboard">
             <Menu.Item
               name="dashboard"
               id="dashboard"
-              active={this.props.location.pathname === "/dashboard"}
+              style={{ color: "white" }}
+              active={pathname === "/dashboard"}
             />
           </Link>
           {this.rightNavItems()}

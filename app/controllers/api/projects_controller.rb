@@ -1,4 +1,5 @@
 class Api::ProjectsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project, only: [ :show, :update, :destroy]
   
   def index
@@ -19,7 +20,7 @@ class Api::ProjectsController < ApplicationController
   end
 
   def update
-    if @project.update(project_parmas)
+    if @project.update(project_params)
       render json: @project
     else   
       render json: @project.errors, status: 422
@@ -37,6 +38,6 @@ class Api::ProjectsController < ApplicationController
   end
 
   def project_params 
-    params.require(:projects).permit(:name, :client_name, :planned_start, :planned_end, :notes)
+    params.require(:project).permit(:name, :client_name, :planned_start, :planned_end, :notes)
   end  
 end

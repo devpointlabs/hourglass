@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  billable: false
+  project: one
+  price_per_hour: MyString
+
+two:
+  name: MyString
+  description: MyString
+  billable: false
+  project: two
+  price_per_hour: MyString
