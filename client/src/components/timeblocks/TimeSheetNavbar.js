@@ -119,12 +119,13 @@ class TimeSheetNavbar extends React.Component {
               background: "white",
               border: "solid gray 1px",
               borderRadius: 0,
-              padding: "4px",
+              padding: 0,
+              margin: 0,
               height: "3em",
               width: "2.5em"
             }}
           >
-            <Icon name="calendar" />
+            <Icon style={{ margin: 0 }} name="calendar alternate outline" />
           </Button>
           {/* <DatePicker /> */}
           <span>

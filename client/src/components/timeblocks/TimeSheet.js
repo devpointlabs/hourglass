@@ -7,6 +7,7 @@ import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
 import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
+import DatePicker from "./DatePicker";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import axios from "axios";
@@ -49,6 +50,7 @@ class TimeSheet extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
+        <DatePicker />
         <TimeSheetNavbar
           view={view}
           selectedDate={selectedDate}
