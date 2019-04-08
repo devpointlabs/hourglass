@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Header, Image, Button, Icon } from "semantic-ui-react";
+import { Table, Header, Image, Button } from "semantic-ui-react";
 import moment from "moment";
 
 const TimeBlock = ({

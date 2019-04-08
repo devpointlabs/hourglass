@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Projects from "./components/Projects";
 import ProjectView from "./components/ProjectView";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
@@ -17,7 +17,6 @@ import AssignmentForm from "./components/AssignmentForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
 import Pending from "./components/timeblocks/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
-import TimeBlockNavbar from "./components/timeblocks/TimeBlockNavbar";
 import TaskView from "./components/TaskView";
 
 const App = () => (
@@ -41,7 +40,7 @@ const App = () => (
           <Route exact path="/projects/:id" component={ProjectView} />
           <Route exact path="/dashboard" component={AdminDashboard} />
 
-          <Route exact path="/timesheet" component={TimeSheet} />
+          <Route exact path="/timesheet" render={() => <TimeSheet />} />
           <Route exact path="/timesheet/pending" component={Pending} />
           <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
 
