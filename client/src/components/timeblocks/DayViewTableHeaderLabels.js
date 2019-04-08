@@ -5,62 +5,92 @@ import { returnHoursSplitByDay } from "./Calculations";
 
 class TableHeaderLabels extends React.Component {
   state = {
-    mondayHours: "",
-    tuesdayHours: "",
-    wednesdayHours: "",
-    thursdayHours: "",
-    fridayHours: "",
-    saturdayHours: "",
-    sundayHours: ""
+    hours: {
+      mondayHours: 0,
+      tuesdayHours: 0,
+      wednesdayHours: 0,
+      thursdayHours: 0,
+      fridayHours: 0,
+      saturdayHours: 0,
+      sundayHours: 0,
+      total: 40
+    }
+  };
+
+  componentDidMount = () => {
+    const { currentWeekTimeBlocks, monday } = this.props;
+    this.setState({
+      hours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
+    });
+  };
+
+  componentDidUpdate = prevProps => {
+    const { currentWeekTimeBlocks, monday } = this.props;
+    if (prevProps.currentWeekTimeBlocks !== this.props.currentWeekTimeBlocks)
+      this.setState({
+        hours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
+      });
   };
 
   render() {
-    const { currentWeekTimeBlocks } = this.props;
-
-    const mondayDay = moment(this.props.monday).format("dd L");
+    const mondayDay = moment(this.props.monday).format("dd ");
 
     const tuesdayDay = moment(this.props.monday)
       .add(1, "days")
-      .format("dd L");
+      .format("dd ");
 
     const wednesdayDay = moment(this.props.monday)
       .add(2, "days")
-      .format("dd L");
+      .format("dd ");
 
     const thursdayDay = moment(this.props.monday)
       .add(3, "days")
-      .format("dd L");
+      .format("dd ");
 
     const fridayDay = moment(this.props.monday)
       .add(4, "days")
-      .format("dd L");
+      .format("dd ");
 
     const saturdayDay = moment(this.props.monday)
       .add(5, "days")
-      .format("dd L");
+      .format("dd ");
 
     const sundayDay = moment(this.props.monday)
       .add(6, "days")
-      .format("dd L");
+      .format("dd ");
 
+    const {
+      mondayHours,
+      tuesdayHours,
+      wednesdayHours,
+      thursdayHours,
+      fridayHours,
+      saturdayHours,
+      sundayHours
+    } = this.state.hours;
     const days = [
-      { dayofweek: mondayDay, totalHours: this.state.mondayHours },
-      { dayofweek: tuesdayDay, totalHours: this.state.tuesdayHours },
-      { dayofweek: wednesdayDay, totalHours: this.state.wednesdayHours },
-      { dayofweek: thursdayDay, totalHours: this.state.thursdayHours },
-      { dayofweek: fridayDay, totalHours: this.state.fridayHours },
-      { dayofweek: saturdayDay, totalHours: this.state.saturdayHours },
-      { dayofweek: sundayDay, totalHours: this.state.sundayHours }
+      { dayofweek: mondayDay, totalHours: mondayHours.toFixed(1) },
+      { dayofweek: tuesdayDay, totalHours: tuesdayHours.toFixed(1) },
+      { dayofweek: wednesdayDay, totalHours: wednesdayHours.toFixed(1) },
+      { dayofweek: thursdayDay, totalHours: thursdayHours.toFixed(1) },
+      { dayofweek: fridayDay, totalHours: fridayHours.toFixed(1) },
+      { dayofweek: saturdayDay, totalHours: saturdayHours.toFixed(1) },
+      { dayofweek: sundayDay, totalHours: sundayHours.toFixed(1) },
+      {
+        dayofweek: "Weekly Total",
+        totalHours: this.state.hours.total.toFixed(1)
+      }
     ];
 
     return (
       <>
-        {days.map(cell => (
-          <Table.HeaderCell>
-            <div>{cell.dayofweek}</div>
-            {cell.totalHours}
-          </Table.HeaderCell>
-        ))}
+        {days &&
+          days.map(cell => (
+            <Table.HeaderCell>
+              <div>{cell.dayofweek}</div>
+              {cell.totalHours}
+            </Table.HeaderCell>
+          ))}
       </>
     );
   }

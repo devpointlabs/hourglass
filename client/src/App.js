@@ -38,9 +38,9 @@ const App = () => (
           />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
-          <Route exact path="/dashboard" component={AdminDashboard} />
+          <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
 
-          <Route exact path="/timesheet" render={() => <TimeSheet />} />
+          <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
           <Route exact path="/timesheet/pending" component={Pending} />
           <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
 
