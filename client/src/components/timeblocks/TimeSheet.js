@@ -8,7 +8,6 @@ import moment from "moment";
 import axios from "axios";
 import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
 import DatePicker2 from "./DatePicker2";
-import DatePicker from "./DatePicker";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
