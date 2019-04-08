@@ -23,8 +23,6 @@ class EditForm extends React.Component {
       nickname: "",
       email: "",
       file: ""
-      // password: "",
-      // passwordConfirmation: ""
     }
   };
 
@@ -94,7 +92,7 @@ class EditForm extends React.Component {
           alignItems: "center"
         }}
       >
-        <Grid.Column width={4}>
+        <Grid.Column width={4} style={{ margin: "2em" }}>
           <Dropzone onDrop={this.onDrop} multiple={false}>
             {({ getRootProps, getInputProps, isDragActive }) => {
               return (
@@ -133,11 +131,9 @@ class EditForm extends React.Component {
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <Segment textAlign="center">
-            <Button primary type="submit" color="violet">
-              Submit
-            </Button>
-          </Segment>
+          <Button type="submit" color="violet">
+            Submit
+          </Button>
         </Grid.Column>
       </Form>
     );
@@ -188,13 +184,16 @@ class EditForm extends React.Component {
             <Grid.Row>
               {editing ? this.editView() : this.profileView()}
             </Grid.Row>
-            <Grid.Column>
-              <Button onClick={this.toggleEdit} color="violet">
-                {editing ? "Cancel" : "Edit"}
-              </Button>
-              <Button onClick={() => handleLogout(this.props.history)}>
-                Logout
-              </Button>
+            <Grid.Column textAlign="center">
+              <Button.Group>
+                <Button onClick={this.toggleEdit} color="violet">
+                  {editing ? "Cancel" : "Edit"}
+                </Button>
+                <Button.Or />
+                <Button onClick={() => handleLogout(this.props.history)}>
+                  Logout
+                </Button>
+              </Button.Group>
             </Grid.Column>
           </Grid>
         </Container>

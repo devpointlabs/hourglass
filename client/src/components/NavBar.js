@@ -3,6 +3,8 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
+const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
+
 class Navbar extends React.Component {
   rightNavItems = () => {
     const {
@@ -28,7 +30,11 @@ class Navbar extends React.Component {
               }}
             >
               <div style={{ paddingRight: "1em" }}>
-                <Image size="mini" src={this.props.auth.user.image} avatar />
+                <Image
+                  size="mini"
+                  src={this.props.auth.user.image || defaultImage}
+                  avatar
+                />
               </div>
               <span style={{ color: "white" }}>
                 {this.props.auth.user.name}
