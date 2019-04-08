@@ -95,7 +95,6 @@ class TimeSheet extends React.Component {
               selectedDate={selectedDate}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
-              weekHours={weekHours}
             />
           </Table>
         </div>
