@@ -21,6 +21,7 @@ class DayViewTableData extends React.Component {
     const currentDayBlocksWithTaskInfo = currentDayBlocks.map(b => {
       return {
         ...b,
+        // {start: '', end: '', taskInfo: tasks}
         taskInfo: tasks
           .filter(t => t.id === b.task_id)
           .reduce((acc, task) => acc + task)

@@ -7,7 +7,13 @@ import moment from "moment";
 
 class TimeSheetNavbar extends React.Component {
   render() {
-    const { view, selectedDate, setSelectedDate, setView } = this.props;
+    const {
+      view,
+      selectedDate,
+      setSelectedDate,
+      setView,
+      setSelectedWeek
+    } = this.props;
 
     return (
       <>
@@ -29,7 +35,12 @@ class TimeSheetNavbar extends React.Component {
           <div style={{ display: "flex", alignItems: "flex-start" }}>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "weekLeft", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "weekLeft",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -49,7 +60,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "dayLeft", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "dayLeft",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -65,7 +81,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "today", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "today",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 border: "solid gray 1px",
@@ -80,7 +101,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "dayRight", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "dayRight",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -97,7 +123,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "weekRight", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "weekRight",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",

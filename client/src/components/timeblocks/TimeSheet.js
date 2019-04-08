@@ -9,22 +9,23 @@ import axios from "axios";
 import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
-// import axios from "axios";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 
 class TimeSheet extends React.Component {
   state = {
     view: "day",
     selectedDate: "",
-
+    tasks: "",
     timeBlocks: [],
     startDate: "",
-    endDate: ""
+    endDate: "",
+    currentWeekTimeBlocks: []
   };
 
   componentDidMount() {
     this.setState({ selectedDate: moment() });
     this.getCurrentUserTimeBlocks();
+    this.getWeekTimeBlocks();
   }
 
   getCurrentUserTimeBlocks = () => {
@@ -37,6 +38,18 @@ class TimeSheet extends React.Component {
     );
   };
 
+  getWeekTimeBlocks = week => {
+    let grabCurrentWeek = this.state.timeBlocks.filter(
+      tb => moment(week).format("W") === moment(tb.start_time).format("W")
+    );
+    this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
+    console.log(grabCurrentWeek);
+  };
+
+  setSelectedWeek = week => {
+    this.getWeekTimeBlocks(week);
+  };
+
   setSelectedDate = date => {
     // const { view } = this.state;
     this.setState({ selectedDate: date });
@@ -45,7 +58,13 @@ class TimeSheet extends React.Component {
   setView = view => this.setState({ view });
 
   render() {
-    const { view, selectedDate, timeBlocks, tasks } = this.state;
+    const {
+      view,
+      selectedDate,
+      timeBlocks,
+      tasks,
+      currentWeekTimeBlocks
+    } = this.state;
     return (
       <>
         <TimeBlockNavbar />
@@ -54,6 +73,7 @@ class TimeSheet extends React.Component {
           selectedDate={selectedDate}
           setSelectedDate={this.setSelectedDate}
           setView={this.setView}
+          setSelectedWeek={this.setSelectedWeek}
         />
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton />
@@ -63,6 +83,7 @@ class TimeSheet extends React.Component {
               timeBlocks={timeBlocks}
               selectedDate={selectedDate}
               tasks={tasks}
+              currentWeekTimeBlocks={currentWeekTimeBlocks}
             />
           </Table>
         </div>
