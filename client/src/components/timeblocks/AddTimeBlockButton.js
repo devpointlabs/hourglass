@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Icon, Modal, Image, Header, Form } from "semantic-ui-react";
+import {
+  Button,
+  Icon,
+  Modal,
+  Image,
+  Header,
+  Form,
+  Checkbox
+} from "semantic-ui-react";
 import Select from "react-select";
 
 class addTimeBlockButton extends React.Component {
@@ -45,12 +53,13 @@ class addTimeBlockButton extends React.Component {
         <Modal.Header>Add Timesheet Entry</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Form>
+            <Form style={{ padding: "10px" }}>
               <Header>
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column"
+                    flexDirection: "column",
+                    padding: "10px"
                   }}
                 >
                   Project
@@ -65,7 +74,8 @@ class addTimeBlockButton extends React.Component {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column"
+                    flexDirection: "column",
+                    padding: "10px"
                   }}
                 >
                   Task
@@ -77,7 +87,25 @@ class addTimeBlockButton extends React.Component {
                     }))}
                   />
                 </div>
+                <div>
+                  <Form.Group>
+                    <Form.Input label="Start Time" name="startTime" />
+                    <Form.Input label="End Time" name="endTime" />
+                    <Form.Input label="Hours" name="hours" />
+                    <button color="white" style={{ padding: "10px" }}>
+                      <Icon name="clock" size="huge" style={{ margin: 0 }} />
+                    </button>
+                  </Form.Group>
+                  <Checkbox
+                    label="manually entered"
+                    name="manualEnterCheckbox"
+                  />
+                </div>
               </Header>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button>Cancel</Button>
+                <Button>Submit</Button>
+              </div>
             </Form>
           </Modal.Description>
         </Modal.Content>
