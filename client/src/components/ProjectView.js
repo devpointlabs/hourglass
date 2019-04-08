@@ -1,8 +1,16 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Header, Button, Container, Card, Icon } from "semantic-ui-react";
+import {
+  Header,
+  Button,
+  Container,
+  Card,
+  Icon,
+  ButtonGroup
+} from "semantic-ui-react";
 import TaskView from "./TaskView";
+import NoteEditor from "./NoteEditor";
 
 class ProjectView extends React.Component {
   state = { project: {}, taskview: true };
@@ -64,15 +72,21 @@ class ProjectView extends React.Component {
           <Card
             style={{
               height: "300px",
-              width: "300px",
+              width: "600px",
               display: "flex",
               textAlign: "center",
               text: "15px"
             }}
           >
-            <br />
-            <h2> Notes:</h2>
-            <h3>{project.notes}</h3>
+            <h4> Notes:</h4>
+            <NoteEditor />
+            <h2>{project.notes}</h2>
+            <Button.Group>
+              <Button color="violet" floated="left">
+                Save
+              </Button>
+              <Button color="red">Edit</Button>
+            </Button.Group>
           </Card>
         </Card.Group>
       </div>
