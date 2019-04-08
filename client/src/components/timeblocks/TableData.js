@@ -23,6 +23,7 @@ class TableData extends React.Component {
               timeBlocks={timeBlocks}
               tasks={tasks}
               weekHours={weekHours}
+              currentWeekTimeBlocks={currentWeekTimeBlocks}
             />
           </>
         );

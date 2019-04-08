@@ -28,33 +28,30 @@ class TimeSheet extends React.Component {
 
   getCurrentUserTimeBlocks = () => {
     axios.get("api/timeblocks").then(res =>
-      this.setState({
-        projects: res.data.projects,
-        tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-        timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
-      })
+      this.setState(
+        {
+          projects: res.data.projects,
+          tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+          timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
+        },
+
+        () => {
+          console.log(this.state.timeBlocks);
+          this.getWeekTimeBlocks(this.state.selectedDate);
+        }
+      )
     );
   };
 
   //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?
-  getWeek = week => {
+  getWeekTimeBlocks = week => {
     const { timeBlocks } = this.state;
-    if (week) {
-      let grabCurrentWeek = timeBlocks.filter(
-        tb =>
-          moment(week).format("YYYY w") ===
-          moment(tb.start_time).format("YYYY w")
-      );
-      this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
-    } else {
-      axios.get("api/timeblocks").then(res => {
-        let initializeCurrentWeek = res.data.timeBlocks.filter(
-          tb =>
-            moment(tb.start_time).format("YYYY w") === moment().format("YYYY w")
-        );
-        this.setState({ currentWeekTimeBlocks: initializeCurrentWeek });
-      });
-    }
+
+    let grabCurrentWeek = timeBlocks.filter(
+      tb =>
+        moment(week).format("YYYY w") === moment(tb.start_time).format("YYYY w")
+    );
+    this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
 
   setSelectedWeek = week => {

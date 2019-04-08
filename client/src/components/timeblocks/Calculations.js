@@ -24,64 +24,89 @@ export const AddProjectInfoToTasks = (projects, tasks) => {
 };
 
 //needs some work
-export const returnHoursSplitByDay = (week, selectedDay, setHoursFunction) => {
-  let mondayTimeBlocks;
-  let tuesdayTimeBlocks;
-  let wednesdayTimeBlocks;
-  let thursdayTimeBlocks;
-  let fridayTimeBlocks;
-  let saturdayTimeBlocks;
-  let sundayTimeBlocks;
-  debugger;
-  if (week)
-    mondayTimeBlocks = week.start_time.filter(
-      wtb => moment(wtb).format("dd") === moment(selectedDay).format("dd")
-    );
-  tuesdayTimeBlocks = week.start_time.filter(
+export const returnHoursSplitByDay = (week, monday) => {
+  let mondayTimeBlocks = week.filter(
+    wtb => moment(wtb.start_time).format("dd") === moment(monday).format("dd")
+  );
+  let tuesdayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(1, "days")
         .format("dd")
   );
-  wednesdayTimeBlocks = week.start_time.filter(
+  let wednesdayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(2, "days")
         .format("dd")
   );
-  thursdayTimeBlocks = week.start_time.filter(
+  let thursdayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(3, "days")
         .format("dd")
   );
-  fridayTimeBlocks = week.start_time.filter(
+  let fridayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(4, "days")
         .format("dd")
   );
-  saturdayTimeBlocks = week.start_time.filter(
+  let saturdayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(5, "days")
         .format("dd")
   );
-  sundayTimeBlocks = week.start_time.filter(
+  let sundayTimeBlocks = week.filter(
     wtb =>
-      moment(wtb).format("dd") ===
-      moment(selectedDay)
+      moment(wtb.start_time).format("dd") ===
+      moment(monday)
         .add(6, "days")
         .format("dd")
   );
-  debugger;
-  // let mondayHours = mondayTimeBlocks.reduce((sum, ))
-  // setHoursFunction(mondayHours, tuesdayHours, wednesdayHours, thursdayHours, fridayHours, saturdayHours, sundayHours)
+  let mondayHours = mondayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let tuesdayHours = tuesdayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let wednesdayHours = wednesdayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let thursdayHours = thursdayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let fridayHours = fridayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let saturdayHours = saturdayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  let sundayHours = sundayTimeBlocks.reduce(
+    (sum, block) => sum + parseFloat(block.hours),
+    0
+  );
+  return {
+    mondayHours,
+    tuesdayHours,
+    wednesdayHours,
+    thursdayHours,
+    fridayHours,
+    saturdayHours,
+    sundayHours
+  };
 };
 
 // const totalYears = pilots.reduce((acc, pilot) => acc + pilot.years, 0);
