@@ -1,12 +1,15 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Image, Divider } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
     const {
-      auth: { user, handleLogout },
+      auth: {
+        user
+        //  handleLogout
+      },
       location
     } = this.props;
 
@@ -42,7 +45,6 @@ class Navbar extends React.Component {
               id="login"
               style={{ color: "white" }}
               name="login"
-              style={{ color: "white" }}
               active={location.pathname === "/login"}
             />
           </Link>

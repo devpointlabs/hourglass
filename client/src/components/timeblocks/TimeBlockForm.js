@@ -1,13 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  Form,
-  Table,
-  Image,
-  Header,
-  Button,
-  Dropdown,
-  Icon
-} from "semantic-ui-react";
+import { Table, Image, Header, Button, Dropdown } from "semantic-ui-react";
 import moment from "moment";
 import axios from "axios";
 import TimeBlock from "./TimeBlock";
@@ -41,7 +33,7 @@ class TimeBlockForm extends React.Component {
   handleSubmit = e => {
     e && e.preventDefault();
     const {
-      project_id,
+      // project_id,
       data: { id }
     } = this.props;
 
