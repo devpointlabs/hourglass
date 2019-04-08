@@ -6,7 +6,7 @@ import moment from "moment";
 
 class DayViewTableData extends React.Component {
   render() {
-    const { selectedDate, timeBlocks, tasks } = this.props;
+    const { selectedDate, timeBlocks, tasks, weekHours } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
         moment(b.start_time).format("YYYY-MM-DD") ===
@@ -31,7 +31,10 @@ class DayViewTableData extends React.Component {
     return (
       <>
         <Table.Header>
-          <DayViewTableHeaderRow selectedDate={selectedDate} />
+          <DayViewTableHeaderRow
+            selectedDate={selectedDate}
+            weekHours={weekHours}
+          />
         </Table.Header>
         <Table.Body>
           <Table.Row>

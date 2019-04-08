@@ -101,7 +101,11 @@ class Register extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-            <Button primary type="submit">
+            <Button
+              primary
+              type="submit"
+              style={{ backgroundColor: "RebeccaPurple" }}
+            >
               Submit
             </Button>
           </Segment>

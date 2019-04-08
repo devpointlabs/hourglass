@@ -32,13 +32,14 @@ class DayViewTableHeaderRow extends React.Component {
         break;
       // no default
     }
-    const { currentWeekTimeBlocks } = this.props;
+    const { currentWeekTimeBlocks, weekHours } = this.props;
     return (
       <Table.Row style={{ background: "lightgray" }}>
         <DayViewTableHeaderLabels
           selectedDate={this.props.selectedDate}
           monday={monday}
           currentWeekTimeBlocks={currentWeekTimeBlocks}
+          weekHours={weekHours}
         />
         <Table.HeaderCell>Weekly Total</Table.HeaderCell>
         <Table.HeaderCell />

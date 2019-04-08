@@ -6,7 +6,7 @@ import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
-import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
+import { CalculateHoursAndWeek, AddProjectInfoToTasks } from "./Calculations";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
@@ -15,10 +15,8 @@ class TimeSheet extends React.Component {
   state = {
     view: "day",
     selectedDate: "",
-    tasks: "",
     timeBlocks: [],
-    startDate: "",
-    endDate: "",
+
     currentWeekTimeBlocks: []
   };
 
@@ -33,18 +31,30 @@ class TimeSheet extends React.Component {
       this.setState({
         projects: res.data.projects,
         tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-        timeBlocks: CalculateHours(res.data.timeBlocks)
+        timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
       })
     );
   };
 
   //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?
-  getWeekTimeBlocks = week => {
-    let grabCurrentWeek = this.state.timeBlocks.filter(
-      tb => moment(week).format("W") === moment(tb.start_time).format("W")
-    );
-    this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
-    console.log(grabCurrentWeek);
+  getWeek = week => {
+    const { timeBlocks } = this.state;
+    if (week) {
+      let grabCurrentWeek = timeBlocks.filter(
+        tb =>
+          moment(week).format("YYYY w") ===
+          moment(tb.start_time).format("YYYY w")
+      );
+      this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
+    } else {
+      axios.get("api/timeblocks").then(res => {
+        let initializeCurrentWeek = res.data.timeBlocks.filter(
+          tb =>
+            moment(tb.start_time).format("YYYY w") === moment().format("YYYY w")
+        );
+        this.setState({ currentWeekTimeBlocks: initializeCurrentWeek });
+      });
+    }
   };
 
   setSelectedWeek = week => {
@@ -64,7 +74,8 @@ class TimeSheet extends React.Component {
       selectedDate,
       timeBlocks,
       tasks,
-      currentWeekTimeBlocks
+      currentWeekTimeBlocks,
+      weekHours
     } = this.state;
     return (
       <>
@@ -85,6 +96,7 @@ class TimeSheet extends React.Component {
               selectedDate={selectedDate}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              weekHours={weekHours}
             />
           </Table>
         </div>

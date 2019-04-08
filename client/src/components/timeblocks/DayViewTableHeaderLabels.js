@@ -15,7 +15,15 @@ class TableHeaderLabels extends React.Component {
   };
 
   render() {
-    const { currentWeekTimeBlocks } = this.props;
+    const {
+      mondayHours,
+      tuesdayHours,
+      wednesdayHours,
+      thursdayHours,
+      fridayHours,
+      saturdayHours,
+      sundayHours
+    } = this.props.weekHours;
 
     const mondayDay = moment(this.props.monday).format("dd L");
 
@@ -44,13 +52,13 @@ class TableHeaderLabels extends React.Component {
       .format("dd L");
 
     const days = [
-      { dayofweek: mondayDay, totalHours: this.state.mondayHours },
-      { dayofweek: tuesdayDay, totalHours: this.state.tuesdayHours },
-      { dayofweek: wednesdayDay, totalHours: this.state.wednesdayHours },
-      { dayofweek: thursdayDay, totalHours: this.state.thursdayHours },
-      { dayofweek: fridayDay, totalHours: this.state.fridayHours },
-      { dayofweek: saturdayDay, totalHours: this.state.saturdayHours },
-      { dayofweek: sundayDay, totalHours: this.state.sundayHours }
+      { dayofweek: mondayDay, totalHours: mondayHours },
+      { dayofweek: tuesdayDay, totalHours: tuesdayHours },
+      { dayofweek: wednesdayDay, totalHours: wednesdayHours },
+      { dayofweek: thursdayDay, totalHours: thursdayHours },
+      { dayofweek: fridayDay, totalHours: fridayHours },
+      { dayofweek: saturdayDay, totalHours: saturdayHours },
+      { dayofweek: sundayDay, totalHours: sundayHours }
     ];
 
     return (
