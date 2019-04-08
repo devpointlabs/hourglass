@@ -4,6 +4,7 @@ import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
+import DatePicker2 from "./DatePicker2";
 
 class TimeSheetNavbar extends React.Component {
   render() {
@@ -147,6 +148,7 @@ class TimeSheetNavbar extends React.Component {
               />
             </Button>
           </div>
+          <DatePicker2 />
           {/* <Button
             style={{
               background: "white",
