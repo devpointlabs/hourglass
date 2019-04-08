@@ -147,7 +147,7 @@ class TimeSheetNavbar extends React.Component {
               />
             </Button>
           </div>
-          <Button
+          {/* <Button
             style={{
               background: "white",
               border: "solid gray 1px",
@@ -159,7 +159,7 @@ class TimeSheetNavbar extends React.Component {
             }}
           >
             <Icon style={{ margin: 0 }} name="calendar alternate outline" />
-          </Button>
+          </Button> */}
           {/* <DatePicker /> */}
           <span>
             <Button
