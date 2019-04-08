@@ -38,6 +38,7 @@ class TimeSheet extends React.Component {
     );
   };
 
+  //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?
   getWeekTimeBlocks = week => {
     let grabCurrentWeek = this.state.timeBlocks.filter(
       tb => moment(week).format("W") === moment(tb.start_time).format("W")
