@@ -7,19 +7,14 @@ import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
 import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
-import DatePicker2 from "./DatePicker2";
-// import DateRange from "./DateRange";
-// import UserWeek from "./UserWeek";
-// import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 
 class TimeSheet extends React.Component {
   state = {
     view: "day",
     selectedDate: "",
-    tasks: "",
+    tasks: [],
+    projects: [],
     timeBlocks: [],
-    startDate: "",
-    endDate: "",
     currentWeekTimeBlocks: []
   };
 
@@ -64,6 +59,7 @@ class TimeSheet extends React.Component {
       selectedDate,
       timeBlocks,
       tasks,
+      projects,
       currentWeekTimeBlocks
     } = this.state;
     return (
@@ -78,7 +74,7 @@ class TimeSheet extends React.Component {
           setSelectedWeek={this.setSelectedWeek}
         />
         <div style={{ display: "flex", padding: "10px" }}>
-          <AddTimeBlockButton />
+          <AddTimeBlockButton projects={projects} tasks={tasks} />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
               view={view}
