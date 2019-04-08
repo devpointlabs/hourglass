@@ -1,3 +1,4 @@
+import "./calendarPicker_DevpointColors.css";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Flatpickr from "flatpickr";
