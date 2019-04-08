@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Select } from "semantic-ui-react";
+import { Form, Select } from "semantic-ui-react";
 import axios from "axios";
 
 class AddUserToTask extends React.Component {

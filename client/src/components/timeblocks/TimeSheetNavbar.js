@@ -1,14 +1,19 @@
 import React from "react";
-import { Icon, Button, Select } from "semantic-ui-react";
+import { Icon, Button } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
-import DatePicker from "./DatePicker";
 
 class TimeSheetNavbar extends React.Component {
   render() {
-    const { view, selectedDate, setSelectedDate, setView } = this.props;
+    const {
+      view,
+      selectedDate,
+      setSelectedDate,
+      setView,
+      setSelectedWeek
+    } = this.props;
 
     return (
       <>
@@ -30,7 +35,12 @@ class TimeSheetNavbar extends React.Component {
           <div style={{ display: "flex", alignItems: "flex-start" }}>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "weekLeft", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "weekLeft",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -50,7 +60,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "dayLeft", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "dayLeft",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -65,6 +80,14 @@ class TimeSheetNavbar extends React.Component {
               <Icon name="angle left" size="large" style={{ margin: 0 }} />
             </Button>
             <Button
+              onClick={() =>
+                clickHandler(
+                  selectedDate,
+                  "today",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
+              }
               style={{
                 border: "solid gray 1px",
                 marginRight: 0,
@@ -78,7 +101,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "dayRight", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "dayRight",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",
@@ -95,7 +123,12 @@ class TimeSheetNavbar extends React.Component {
             </Button>
             <Button
               onClick={() =>
-                clickHandler(selectedDate, "weekRight", setSelectedDate)
+                clickHandler(
+                  selectedDate,
+                  "weekRight",
+                  setSelectedDate,
+                  setSelectedWeek
+                )
               }
               style={{
                 background: "white",

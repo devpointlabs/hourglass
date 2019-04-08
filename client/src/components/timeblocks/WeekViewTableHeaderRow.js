@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import WeekViewTableHeaderLabels from "./WeekViewTableHeaderLabels";
 import moment from "moment";
 
@@ -9,19 +9,31 @@ class WeekViewTableHeaderRow extends React.Component {
   render() {
     let todayDay = moment(this.props.selectedDate).format("dd");
     let todayDate = moment(this.props.selectedDate);
-    if ((todayDay = "Mo")) var monday = moment(todayDate);
-    else if ((todayDay = "Tu"))
-      var monday = moment(todayDate).subtract(1, "days");
-    else if ((todayDay = "We"))
-      var monday = moment(todayDate).subtract(2, "days");
-    else if ((todayDay = "Th"))
-      var monday = moment(todayDate).subtract(3, "days");
-    else if ((todayDay = "Fr"))
-      var monday = moment(todayDate).subtract(4, "days");
-    else if ((todayDay = "Sa"))
-      var monday = moment(todayDate).subtract(5, "days");
-    else todayDay = "Su";
-    var monday = moment(todayDate).subtract(6, "days");
+    let monday;
+    switch (todayDay) {
+      case "Mo":
+        monday = moment(todayDate);
+        break;
+      case "Tu":
+        monday = moment(todayDate).subtract(1, "days");
+        break;
+      case "We":
+        monday = moment(todayDate).subtract(2, "days");
+        break;
+      case "Th":
+        monday = moment(todayDate).subtract(3, "days");
+        break;
+      case "Fr":
+        monday = moment(todayDate).subtract(4, "days");
+        break;
+      case "Sa":
+        monday = moment(todayDate).subtract(5, "days");
+        break;
+      case "Su":
+        monday = moment(todayDate).subtract(6, "days");
+        break;
+      // no default
+    }
 
     return (
       <Table.Row style={{ background: "lightgray" }}>
@@ -43,11 +55,3 @@ export default WeekViewTableHeaderRow;
 ////////////////////////////////
 ///////previous version
 ///////////////////////
-
-{
-  /* <DateRange
-  startDate={this.state.startDate}
-  endDate={this.state.endDate}
-  updateDateRange={this.updateDateRange}
-/> */
-}
