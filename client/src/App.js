@@ -13,7 +13,6 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import AdminDashboard from "./components/AdminDashboard";
 import TimeBlocks from "./components/timeblocks/TimeBlocks";
 import EditForm from "./components/EditForm";
-import AssignmentForm from "./components/AssignmentForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
 import Pending from "./components/timeblocks/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
@@ -31,11 +30,7 @@ const App = () => (
           <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
-          <ProtectedRoute
-            exact
-            path="/assignments"
-            component={AssignmentForm}
-          />
+
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
           <Route exact path="/dashboard" component={AdminDashboard} />
