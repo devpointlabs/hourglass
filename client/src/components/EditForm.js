@@ -83,7 +83,7 @@ class EditForm extends React.Component {
 
   editView = () => {
     const {
-      formValues: { name, nickname, email, password, passwordConfirmation }
+      formValues: { name, nickname, email }
     } = this.state;
     return (
       <Form
@@ -133,22 +133,6 @@ class EditForm extends React.Component {
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          {/* <Form.Input
-            label="New Password"
-            name="password"
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Confirm New Password"
-            name="passwordConfirmation"
-            type="password"
-            value={passwordConfirmation}
-            placeholder="Confirm Password"
-            onChange={this.handleChange}
-          /> */}
           <Segment textAlign="center">
             <Button primary type="submit" color="violet">
               Submit

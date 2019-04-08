@@ -12,7 +12,14 @@ class TimeSheetNavbar extends React.Component {
 
     return (
       <>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            wrap: "nowrap"
+          }}
+        >
           <div style={{ width: "8%" }} />
           <h1 style={{ margin: 0, width: "30%" }}>
             {moment(selectedDate).format("dddd MMM DD")}
@@ -20,7 +27,27 @@ class TimeSheetNavbar extends React.Component {
           <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
           </Button>
-          <span>
+          <div style={{ display: "flex", alignItems: "flex-start" }}>
+            <Button
+              onClick={() =>
+                clickHandler(selectedDate, "weekLeft", setSelectedDate)
+              }
+              style={{
+                background: "white",
+                border: "solid gray 1px",
+                marginRight: 0,
+                borderRadius: 0,
+                padding: "4px",
+                height: "3em",
+                width: "2.5em"
+              }}
+            >
+              <Icon
+                name="angle double left"
+                size="large"
+                style={{ margin: 0 }}
+              />
+            </Button>
             <Button
               onClick={() =>
                 clickHandler(selectedDate, "dayLeft", setSelectedDate)
@@ -31,10 +58,11 @@ class TimeSheetNavbar extends React.Component {
                 marginRight: 0,
                 borderRadius: 0,
                 padding: "4px",
-                height: "3em"
+                height: "3em",
+                width: "2.5em"
               }}
             >
-              <Icon name="left chevron" />
+              <Icon name="angle left" size="large" style={{ margin: 0 }} />
             </Button>
             <Button
               style={{
@@ -56,21 +84,44 @@ class TimeSheetNavbar extends React.Component {
                 background: "white",
                 border: "solid gray 1px",
                 marginLeft: 0,
+                marginRight: 0,
                 borderRadius: 0,
                 padding: "4px",
-                height: "3em"
+                height: "3em",
+                width: "2.5em"
               }}
             >
-              <Icon name="right chevron" />
+              <Icon name="angle right" size="large" style={{ margin: 0 }} />
             </Button>
-          </span>
+            <Button
+              onClick={() =>
+                clickHandler(selectedDate, "weekRight", setSelectedDate)
+              }
+              style={{
+                background: "white",
+                border: "solid gray 1px",
+                marginLeft: 0,
+                borderRadius: 0,
+                padding: "4px",
+                height: "3em",
+                width: "2.5em"
+              }}
+            >
+              <Icon
+                name="angle double right"
+                size="large"
+                style={{ margin: 0 }}
+              />
+            </Button>
+          </div>
           <Button
             style={{
               background: "white",
               border: "solid gray 1px",
               borderRadius: 0,
               padding: "4px",
-              height: "3em"
+              height: "3em",
+              width: "2.5em"
             }}
           >
             <Icon name="calendar" />

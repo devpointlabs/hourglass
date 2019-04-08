@@ -5,7 +5,7 @@ import { Header, Button, Container, Card, Icon } from "semantic-ui-react";
 import TaskView from "./TaskView";
 
 class ProjectView extends React.Component {
-  state = { project: {} };
+  state = { project: {}, taskview: true };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -37,9 +37,8 @@ class ProjectView extends React.Component {
       >
         <Card.Group>
           <Card
-            style={{ height: "300px", width: "2800px", textAlign: "center" }}
+            style={{ height: "300px", width: "300px", textAlign: "center" }}
           >
-            <TaskView id={this.props.match.params.id} />
             <h2>{name}</h2>
             <Card.Header>{client_name}</Card.Header>
             <div
@@ -50,7 +49,8 @@ class ProjectView extends React.Component {
                 marginTop: "20px"
               }}
             />
-            <Card.Description>{notes}</Card.Description>
+            <Card.Description>START DATE:{planned_start}</Card.Description>
+
             <div
               style={{
                 display: "flex",
@@ -63,8 +63,8 @@ class ProjectView extends React.Component {
 
           <Card
             style={{
-              height: "200px",
-              width: "400px",
+              height: "300px",
+              width: "300px",
               display: "flex",
               textAlign: "center",
               text: "15px"
@@ -81,10 +81,21 @@ class ProjectView extends React.Component {
 
   handleDelete = () => {
     const { id } = this.props.match.params;
-    debugger;
     axios.delete(`/api/projects/${id}`).then(res => {
       this.props.history.push("/projects");
     });
+  };
+
+  toggleTasks = number => {
+    console.log(`Button ${number} was clicked`);
+    if (number === 2) {
+      return this.setState({ taskview: false });
+    }
+    if (number === 1) {
+      return this.setState({ taskview: true });
+    } else {
+      return console.log("errors");
+    }
   };
 
   render() {
@@ -120,11 +131,20 @@ class ProjectView extends React.Component {
         <Header>
           <div className="wrapper">
             <Button.Group widths="2">
-              <Button>Tasks</Button>
-              <Button>Team</Button>
+              <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
+                Tasks
+              </Button>
+              <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
+                Team
+              </Button>
             </Button.Group>
           </div>
         </Header>
+        {this.state.taskview ? (
+          <TaskView id={this.props.match.params.id} />
+        ) : (
+          <h1> This is the team stuff</h1>
+        )}
       </Container>
     );
   }
