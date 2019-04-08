@@ -1,11 +1,11 @@
 import React from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
-import { Table, Form, Button, Icon } from "semantic-ui-react";
-import TimeBlockForm from "./TimeBlockForm";
+import { Table, Button, Icon } from "semantic-ui-react";
+
 import axios from "axios";
 import UserWeek from "./UserWeek";
 import DateRange from "./DateRange";
-import moment from "moment";
+
 import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 import TimeBlockNavbar from "./TimeBlockNavbar.js";
 
@@ -80,9 +80,9 @@ class TimeBlocks extends React.Component {
     let result = false;
     this.state.timeBlocks.map(t => {
       if (t.start_time && !t.end_time) result = true;
+      return result;
     });
     console.log(result);
-    return result;
   };
 
   deleteTimeBlock = (id, project_id) => {

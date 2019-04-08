@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Header, Button, Container, Card, Icon } from "semantic-ui-react";
 import TaskView from "./TaskView";
+import TeamView from "./TeamView";
 
 class ProjectView extends React.Component {
   state = { project: {}, taskview: true };
@@ -16,12 +17,12 @@ class ProjectView extends React.Component {
 
   showProject = () => {
     const {
-      id,
+      // id,
       name,
       client_name,
-      planned_start,
-      planned_end,
-      notes
+      planned_start
+      // planned_end,
+      // notes
     } = this.props.match.params;
     const { project } = this.state;
     return (
@@ -143,7 +144,7 @@ class ProjectView extends React.Component {
         {this.state.taskview ? (
           <TaskView id={this.props.match.params.id} />
         ) : (
-          <h1> This is the team stuff</h1>
+          <TeamView id={this.props.match.params.id} />
         )}
       </Container>
     );

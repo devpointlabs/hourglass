@@ -1,5 +1,5 @@
 class Api::TasksController < ApplicationController
-  before_action :set_project
+  before_action :set_project, except: [:destroy]
   before_action :set_task, only: [ :show, :update, :destroy]
   
   def index
@@ -11,7 +11,7 @@ class Api::TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
+    task = @project.tasks.new(task_params)
     if task.save 
       render json: task
     else  
@@ -20,7 +20,7 @@ class Api::TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_parmas)
+    if @task.update(task_params)
       render json: @task
     else   
       render json: @task.errors, status: 422
@@ -29,6 +29,10 @@ class Api::TasksController < ApplicationController
 
   def destroy
     @task.destroy
+  end
+
+  def tasks_of_project
+   render json: @project.tasks
   end
 
   private 

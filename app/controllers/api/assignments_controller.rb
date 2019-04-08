@@ -19,7 +19,8 @@ before_action :set_assignment, only: [:update, :show, :destroy]
   end
 
   def create
-    assignment = Assignment.new(assignment_params)
+    @project = Project.find(params[:project_id])
+    assignment = @project.assignments.new(assignment_params)
     if assignment.save
       render json: assignment
     else 
@@ -39,6 +40,6 @@ before_action :set_assignment, only: [:update, :show, :destroy]
   end
 
   def assignment_params
-    params.require(:assignment).permit(:project_id, :user_id)
+    params.require(:assignment).permit(:user_id, :project_id)
   end
 end

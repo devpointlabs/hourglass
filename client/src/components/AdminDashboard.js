@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Table, Header, Image, Input } from "semantic-ui-react";
 
+const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
+
 class hoursTable extends React.Component {
   state = { users: [] };
 
@@ -26,7 +28,11 @@ class hoursTable extends React.Component {
             <Table.Row>
               <Table.Cell>
                 <Header as="h4" image>
-                  <Image src={user.image} rounded size="massive" />
+                  <Image
+                    src={user.image || defaultImage}
+                    rounded
+                    size="massive"
+                  />
                   <Header.Content>
                     {user.name}
                     <Header.Subheader>{user.nickname}</Header.Subheader>

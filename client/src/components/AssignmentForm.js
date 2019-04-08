@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Dropdown } from "semantic-ui-react";
+import { Form, Dropdown } from "semantic-ui-react";
 import axios from "axios";
 
 class AssignmentForm extends React.Component {

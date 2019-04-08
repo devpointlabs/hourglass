@@ -1,7 +1,7 @@
 import React from "react";
 import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import moment from "moment";
 
 class DayViewTableData extends React.Component {
@@ -21,6 +21,7 @@ class DayViewTableData extends React.Component {
     const currentDayBlocksWithTaskInfo = currentDayBlocks.map(b => {
       return {
         ...b,
+        // {start: '', end: '', taskInfo: tasks}
         taskInfo: tasks
           .filter(t => t.id === b.task_id)
           .reduce((acc, task) => acc + task)
