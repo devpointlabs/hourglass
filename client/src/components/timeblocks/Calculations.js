@@ -98,6 +98,15 @@ export const returnHoursSplitByDay = (week, monday) => {
     (sum, block) => sum + parseFloat(block.hours),
     0
   );
+
+  let total =
+    mondayHours +
+    tuesdayHours +
+    wednesdayHours +
+    thursdayHours +
+    fridayHours +
+    saturdayHours +
+    sundayHours;
   return {
     mondayHours,
     tuesdayHours,
@@ -105,8 +114,7 @@ export const returnHoursSplitByDay = (week, monday) => {
     thursdayHours,
     fridayHours,
     saturdayHours,
-    sundayHours
+    sundayHours,
+    total
   };
 };
-
-// const totalYears = pilots.reduce((acc, pilot) => acc + pilot.years, 0);

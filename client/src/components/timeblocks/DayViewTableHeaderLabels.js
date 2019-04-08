@@ -12,7 +12,8 @@ class TableHeaderLabels extends React.Component {
       thursdayHours: 0,
       fridayHours: 0,
       saturdayHours: 0,
-      sundayHours: 0
+      sundayHours: 0,
+      total: 40
     }
   };
 
@@ -74,7 +75,11 @@ class TableHeaderLabels extends React.Component {
       { dayofweek: thursdayDay, totalHours: thursdayHours.toFixed(1) },
       { dayofweek: fridayDay, totalHours: fridayHours.toFixed(1) },
       { dayofweek: saturdayDay, totalHours: saturdayHours.toFixed(1) },
-      { dayofweek: sundayDay, totalHours: sundayHours.toFixed(1) }
+      { dayofweek: sundayDay, totalHours: sundayHours.toFixed(1) },
+      {
+        dayofweek: "Weekly Total",
+        totalHours: this.state.hours.total.toFixed(1)
+      }
     ];
 
     return (

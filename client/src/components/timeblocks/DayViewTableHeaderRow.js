@@ -40,7 +40,6 @@ class DayViewTableHeaderRow extends React.Component {
           monday={monday}
           currentWeekTimeBlocks={currentWeekTimeBlocks}
         />
-        <Table.HeaderCell>Weekly Total</Table.HeaderCell>
         <Table.HeaderCell />
       </Table.Row>
     );
