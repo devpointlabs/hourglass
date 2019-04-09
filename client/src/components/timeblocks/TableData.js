@@ -49,6 +49,7 @@ class TableData extends React.Component {
               timeBlocks={timeBlocks}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              monday={monday}
             />
           </>
         );
