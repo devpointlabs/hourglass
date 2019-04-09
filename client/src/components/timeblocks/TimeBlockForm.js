@@ -33,7 +33,6 @@ class TimeBlockForm extends React.Component {
   handleSubmit = e => {
     e && e.preventDefault();
     const {
-      // project_id,
       data: { id }
     } = this.props;
 

@@ -3,10 +3,17 @@ import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
 import { Table } from "semantic-ui-react";
 import moment from "moment";
+import { returnDayHours, returnDayInfo } from "./Calculations";
 
 class DayViewTableData extends React.Component {
   render() {
-    const { selectedDate, timeBlocks, tasks } = this.props;
+    const {
+      selectedDate,
+      timeBlocks,
+      tasks,
+      currentWeekTimeBlocks,
+      monday
+    } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
         moment(b.start_time).format("YYYY-MM-DD") ===
@@ -31,14 +38,18 @@ class DayViewTableData extends React.Component {
     return (
       <>
         <Table.Header>
-          <DayViewTableHeaderRow selectedDate={selectedDate} />
+          <DayViewTableHeaderRow
+            selectedDate={selectedDate}
+            currentWeekTimeBlocks={currentWeekTimeBlocks}
+            monday={monday}
+          />
         </Table.Header>
         <Table.Body>
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
           {currentDayBlocksWithTaskInfo.map(b => (
-            <DayViewTableRow key={b.id} timeBlock={b} />
+            <DayViewTableRow key={b.id} timeBlock={b} monday={monday} />
           ))}
           <Table.Row>
             <Table.Cell colSpan="10">

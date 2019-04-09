@@ -6,12 +6,19 @@ import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
-import { CalculateHours, AddProjectInfoToTasks } from "./Calculations";
+import {
+  CalculateHoursAndWeek,
+  AddProjectInfoToTasks,
+  AddTaskInfoToTimeBlocks
+} from "./Calculations";
+// import DateRange from "./DateRange";
+// import UserWeek from "./UserWeek";
+// import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 
 class TimeSheet extends React.Component {
   state = {
     view: "day",
-    selectedDate: "",
+    selectedDate: moment(),
     tasks: [],
     projects: [],
     timeBlocks: [],
@@ -26,20 +33,28 @@ class TimeSheet extends React.Component {
 
   getCurrentUserTimeBlocks = () => {
     axios.get("api/timeblocks").then(res =>
-      this.setState({
-        projects: res.data.projects,
-        tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-        timeBlocks: CalculateHours(res.data.timeBlocks)
-      })
+      this.setState(
+        {
+          projects: res.data.projects,
+          tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+          timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
+        },
+        () => {
+          this.getWeekTimeBlocks(this.state.selectedDate);
+        }
+      )
     );
   };
 
+  //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?
   getWeekTimeBlocks = week => {
-    let grabCurrentWeek = this.state.timeBlocks.filter(
-      tb => moment(week).format("W") === moment(tb.start_time).format("W")
+    const { timeBlocks } = this.state;
+
+    let grabCurrentWeek = timeBlocks.filter(
+      tb =>
+        moment(week).format("YYYY w") === moment(tb.start_time).format("YYYY w")
     );
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
-    console.log(grabCurrentWeek);
   };
 
   setSelectedWeek = week => {
@@ -65,7 +80,6 @@ class TimeSheet extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
-
         <TimeSheetNavbar
           view={view}
           selectedDate={selectedDate}
@@ -74,7 +88,11 @@ class TimeSheet extends React.Component {
           setSelectedWeek={this.setSelectedWeek}
         />
         <div style={{ display: "flex", padding: "10px" }}>
-          <AddTimeBlockButton projects={projects} tasks={tasks} />
+          <AddTimeBlockButton
+            projects={projects}
+            tasks={tasks}
+            selectedDate={selectedDate}
+          />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
               view={view}

@@ -6,8 +6,6 @@ class DatePicker extends React.Component {
   state = { date: this.props.selectedDate };
 
   handleSubmit = e => {
-    // e && e.preventDefault();
-    // debugger;
     clickHandler(
       this.state.date[0],
       "calendarDayPicked",
