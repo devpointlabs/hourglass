@@ -31,7 +31,7 @@ class Projects extends React.Component {
   render() {
     return (
       <Container>
-        <Button
+        {/* <Button
           style={{ marginTop: "15px" }}
           inverted
           color="violet"
@@ -47,7 +47,7 @@ class Projects extends React.Component {
           />
         ) : (
           <br />
-        )}
+        )} */}
         <br />
         <Link to="/projects/new">
           <Button

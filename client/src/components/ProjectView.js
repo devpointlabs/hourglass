@@ -28,8 +28,8 @@ class ProjectView extends React.Component {
       // id,
       name,
       client_name,
-      planned_start
-      // planned_end,
+      planned_start,
+      planned_end
       // notes
     } = this.props.match.params;
     const { project } = this.state;
@@ -48,8 +48,6 @@ class ProjectView extends React.Component {
           <Card
             style={{ height: "300px", width: "300px", textAlign: "center" }}
           >
-            <h2>{name}</h2>
-            <Card.Header>{client_name}</Card.Header>
             <div
               style={{
                 display: "flex",
@@ -58,7 +56,13 @@ class ProjectView extends React.Component {
                 marginTop: "20px"
               }}
             />
+            <Card.Description>CLIENT:{client_name}</Card.Description>
+            <br />
+            <br />
             <Card.Description>START DATE:{planned_start}</Card.Description>
+            <br />
+            <br />
+            <Card.Description>END DATE:{planned_end}</Card.Description>
 
             <div
               style={{
@@ -73,7 +77,7 @@ class ProjectView extends React.Component {
           <Card
             style={{
               height: "300px",
-              width: "600px",
+              width: "700px",
               display: "flex",
               textAlign: "center",
               text: "15px"
