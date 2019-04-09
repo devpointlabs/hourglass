@@ -2,8 +2,9 @@ import React from "react";
 import WeekViewTableHeaderRow from "./WeekViewTableHeaderRow";
 import WeekViewTableRow from "./WeekViewTableRow";
 import { Table, Button } from "semantic-ui-react";
-import moment from "moment";
 import { returnHoursSplitByDay } from "./Calculations";
+import AddTimeBlockButton from "./AddTimeBlockButton";
+import NewRowForm from "./NewRowForm";
 
 class WeekViewTableData extends React.Component {
   state = {
@@ -16,7 +17,8 @@ class WeekViewTableData extends React.Component {
       saturdayHours: 0,
       sundayHours: 0,
       total: 0
-    }
+    },
+    showNewRow: false
   };
 
   componentDidMount = () => {
@@ -34,6 +36,14 @@ class WeekViewTableData extends React.Component {
       });
   };
 
+  addRow = () => {
+    this.setState({ showNewRow: true });
+  };
+
+  submitRow = () => {
+    this.setState({ showNewRow: false });
+  };
+
   render() {
     const { currentWeekTimeBlocks, tasks, selectedDate, monday } = this.props;
     const {
@@ -46,16 +56,6 @@ class WeekViewTableData extends React.Component {
       sundayHours,
       total
     } = this.state.dayHours;
-
-    const currentWeekBlocksWithTaskInfo = currentWeekTimeBlocks.map(b => {
-      return {
-        ...b,
-        // {start: '', end: '', taskInfo: tasks}
-        taskInfo: tasks
-          .filter(t => t.id === b.task_id)
-          .reduce((acc, task) => acc + task)
-      };
-    });
 
     return (
       <>
@@ -76,13 +76,16 @@ class WeekViewTableData extends React.Component {
               currentWeekTimeBlocks={currentWeekTimeBlocks}
             />
           ))}
+
+          {this.state.showNewRow && <NewRowForm />}
+
           <Table.Row>
-            <Table.Cell clSpan="10" />
+            <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "lightgray" }}>
             <Table.Cell colSpan="2">
-              <Button>New Row</Button>
-              <Button>Save</Button>
+              <Button onClick={() => this.addRow()}>New Row</Button>
+              <Button onClick={() => this.submitRow()}>Save</Button>
             </Table.Cell>
             <Table.Cell>{mondayHours.toFixed(2)}</Table.Cell>
             <Table.Cell>{tuesdayHours.toFixed(2)}</Table.Cell>
