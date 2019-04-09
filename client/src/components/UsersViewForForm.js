@@ -1,8 +1,17 @@
 import React from "react";
 import { Segment, Button } from "semantic-ui-react";
+import axios from "axios";
 
 class UsersViewForForm extends React.Component {
-  state = {};
+  state = { assignment: {} };
+
+  componentDidMount = () => {
+    const { project_id, user } = this.props;
+    axios
+      .get(`/api/projects/${project_id}/users/${user.id}`)
+      .then(res => this.setState({ assignment: res.data }));
+    debugger;
+  };
 
   render() {
     return (

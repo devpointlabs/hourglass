@@ -12,11 +12,10 @@ class AddUserToTask extends React.Component {
 
   handleChange = (e, { name, value }) => {
     this.setState({ assignment: { ...this.state.assignment, user_id: value } });
-    this.handleSubmit(e);
   };
 
   handleSubmit = e => {
-    e.preventDefault();
+    // e.preventDefault();
     const { user_id } = this.state.assignment;
     const { project_id, resetState } = this.props;
     let addedUser = {};
@@ -52,7 +51,7 @@ class AddUserToTask extends React.Component {
       <>
         <Form onSubmit={this.handleSubmit}>
           <Form.Select control={this.employeeDropdown} />
-          <Button>Save</Button>
+          <Button onClick={() => this.handleSubmit()}>Save</Button>
         </Form>
       </>
     );

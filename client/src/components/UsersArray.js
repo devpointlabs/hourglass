@@ -19,7 +19,7 @@ class UsersArray extends React.Component {
   showUsers = () => {
     return this.state.addedUsers.map(user => (
       <>
-        <UsersViewForForm user={user} />
+        <UsersViewForForm user={user} project_id={this.props.project_id} />
       </>
     ));
   };
