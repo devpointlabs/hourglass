@@ -31,15 +31,6 @@ class Projects extends React.Component {
   render() {
     return (
       <Container>
-        <Button
-          style={{ marginTop: "15px" }}
-          inverted
-          color="violet"
-          onClick={this.toggleEdit}
-        >
-          <Icon name={this.state.editing ? "caret up" : "add"} />
-          {this.state.editing ? "Hide Form" : "Add New Project"}
-        </Button>
         {this.state.editing ? (
           <ProjectForm
             toggleEdit={this.toggleEdit}
