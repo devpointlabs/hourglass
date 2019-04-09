@@ -2,6 +2,7 @@ import React from "react";
 import ReactQuill from "react-quill";
 // import ReactDOM from 'react-dom'
 import PropTypes from "react-quill";
+import { Button } from "semantic-ui-react";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -21,38 +22,40 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          height: "150px",
-          display: "flex",
-          width: "600px"
-        }}
-      >
-        <ReactQuill
-          theme={this.state.theme}
-          onChange={this.handleChange}
-          value={this.state.editorHtml}
-          modules={Editor.modules}
-          formats={Editor.formats}
-          bounds={".app"}
-          placeholder={this.props.placeholder}
-        />
-        <br />
+      <>
         <div
-          className="themeSwitcher"
           style={{
-            height: "1px"
+            height: "201px",
+            display: "flex",
+            width: "600px"
           }}
         >
-          {/* <label>Theme </label>
+          <ReactQuill
+            theme={this.state.theme}
+            onChange={this.handleChange}
+            defaultValue={this.props.notes}
+            modules={Editor.modules}
+            formats={Editor.formats}
+            bounds={".app"}
+            placeholder={this.props.notes}
+          />
+          <br />
+          <div
+            className="themeSwitcher"
+            style={{
+              height: "1px"
+            }}
+          >
+            {/* <label>Theme </label>
             <select onChange={(e) => 
                 this.handleThemeChange(e.target.value)}>
               <option value="snow">Snow</option>
               <option value="bubble">Bubble</option>
               <option value="core">Core</option>
             </select> */}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

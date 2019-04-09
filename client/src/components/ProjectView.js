@@ -34,63 +34,72 @@ class ProjectView extends React.Component {
     } = this.props.match.params;
     const { project } = this.state;
     return (
-      <div
-        style={{
-          marginTop: "20px",
-          padding: "20px",
-          border: "4px solid grey",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center"
-        }}
-      >
-        <Card.Group>
-          <Card
-            style={{ height: "300px", width: "300px", textAlign: "center" }}
-          >
-            <h2>{name}</h2>
-            <Card.Header>{client_name}</Card.Header>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
-              }}
-            />
-            <Card.Description>START DATE:{planned_start}</Card.Description>
+      <>
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "20px",
+            border: "4px solid grey",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center"
+          }}
+        >
+          <Card.Group>
+            <Card
+              style={{ height: "300px", width: "300px", textAlign: "center" }}
+            >
+              <h2>{name}</h2>
+              <Card.Header>{client_name}</Card.Header>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  marginTop: "20px"
+                }}
+              />
+              <Card.Description>START DATE:{planned_start}</Card.Description>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
-              }}
-            />
-          </Card>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  marginTop: "20px"
+                }}
+              />
+            </Card>
 
-          <Card
-            style={{
-              height: "300px",
-              width: "600px",
-              display: "flex",
-              textAlign: "center",
-              text: "15px"
-            }}
-          >
-            <h4> Notes:</h4>
-            <NoteEditor />
-            <h2>{project.notes}</h2>
-            <Button.Group>
-              <Button color="violet" floated="left">
-                Save
-              </Button>
-              <Button color="red">Edit</Button>
-            </Button.Group>
-          </Card>
-        </Card.Group>
-      </div>
+            <Card
+              style={{
+                height: "300px",
+                width: "600px",
+                display: "flex",
+                textAlign: "center",
+                text: "15px"
+              }}
+            >
+              <h4> Notes:</h4>
+              <NoteEditor notes={this.state.project.notes} />
+              {/* <h2>{project.notes}</h2> */}
+            </Card>
+          </Card.Group>
+        </div>
+        <div
+          styles={{
+            display: "flex",
+            justifyContent: "right"
+          }}
+        >
+          <Button.Group>
+            <Button color="violet" floated="right">
+              Save
+            </Button>
+            <Button color="red">Edit</Button>
+          </Button.Group>
+        </div>
+      </>
     );
   };
 
