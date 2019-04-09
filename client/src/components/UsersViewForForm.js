@@ -8,7 +8,6 @@ class UsersViewForForm extends React.Component {
   componentDidMount = () => {
     const { project_id, user } = this.props;
     axios.get(`/api/projects/${project_id}/users/${user.id}`).then(res => {
-      debugger;
       this.setState({ assignment: res.data });
     });
   };

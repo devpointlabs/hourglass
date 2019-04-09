@@ -9,10 +9,18 @@ class TeamView extends React.Component {
     project: {}
   };
 
+  // componentDidMount() {
+  //   const { id } = this.props;
+  //   axios.post("/api/projects/users", { id: id }).then(res => {
+  //     this.setState({ users: res.data });
+  //   });
+  // }
+
   componentDidMount() {
-    axios
-      .get("/api/users")
-      .then(res => this.setState({ ...this.state, users: res.data }));
+    const { id } = this.props;
+    axios.get(`/api/projects/${id}/users`).then(res => {
+      this.setState({ users: res.data });
+    });
   }
 
   componentDidUpdate(prevprops) {
