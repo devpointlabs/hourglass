@@ -34,58 +34,57 @@ class ProjectView extends React.Component {
     } = this.props.match.params;
     const { project } = this.state;
     return (
-      <div
-        style={{
-          marginTop: "20px",
-          padding: "20px",
-          border: "4px solid grey",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center"
-        }}
-      >
-        <Card.Group>
-          <Card
-            style={{ height: "300px", width: "300px", textAlign: "center" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
-              }}
-            />
-            <Card.Description>CLIENT:{client_name}</Card.Description>
-            <br />
-            <br />
-            <Card.Description>START DATE:{planned_start}</Card.Description>
-            <br />
-            <br />
-            <Card.Description>END DATE:{planned_end}</Card.Description>
+      <>
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "20px",
+            border: "4px solid grey",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center"
+          }}
+        >
+          <Card.Group>
+            <Card
+              style={{ height: "300px", width: "300px", textAlign: "center" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  marginTop: "20px"
+                }}
+              />
+              <Card.Description>CLIENT:{client_name}</Card.Description>
+              <br />
+              <br />
+              <Card.Description>START DATE:{planned_start}</Card.Description>
+              <br />
+              <br />
+              <Card.Description>END DATE:{planned_end}</Card.Description>
 
+              <Card
+                style={{
+                  height: "300px",
+                  width: "600px",
+                  display: "flex",
+                  textAlign: "center",
+                  text: "15px"
+                }}
+              />
+            </Card>
 
             <Card
               style={{
                 height: "300px",
-                width: "600px",
+                width: "700px",
                 display: "flex",
                 textAlign: "center",
                 text: "15px"
               }}
-            />
-          </Card>
-
-          <Card
-            style={{
-              height: "300px",
-              width: "700px",
-              display: "flex",
-              textAlign: "center",
-              text: "15px"
-            }}
-          >
-
+            >
               <h4> Notes:</h4>
               <NoteEditor notes={this.state.project.notes} />
               {/* <h2>{project.notes}</h2> */}
