@@ -51,7 +51,7 @@ class AddUserToTask extends React.Component {
       <>
         <Form>
           <Form.Select control={this.employeeDropdown} />
-          <Button onClick={() => this.handleSubmit()}>Add Memeber</Button>
+          <Button onClick={() => this.handleSubmit()}>Add Member</Button>
           <Link to={"/projects"}>
             <Button inverted color="violet" style={{ marginBottom: "20px" }}>
               <Icon name="arrow alternate circle left outline" />
