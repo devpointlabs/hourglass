@@ -34,6 +34,9 @@ const TimeSheetNavbarClickHandler = (date, event, task, week) => {
       task(newDate);
       week(newDate);
       break;
+    case "calendarDayPicked":
+      task(date);
+      break;
     //no default
   }
 };
