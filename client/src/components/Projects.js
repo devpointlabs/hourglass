@@ -31,12 +31,14 @@ class Projects extends React.Component {
   render() {
     return (
       <Container>
+
         {this.state.editing ? (
           <ProjectForm
             toggleEdit={this.toggleEdit}
             resetState={this.resetState}
           />
         ) : (
+
           ""
         )}
         <br />

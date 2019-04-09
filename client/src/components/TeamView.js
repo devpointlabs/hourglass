@@ -44,10 +44,10 @@ class TeamView extends React.Component {
   // };
 
   showTeam = () => {
-    return this.state.users.map(users => (
-      // <Table.Row key={this.user.id}>
-      <Table.Cell>{users.name}</Table.Cell>
-      // </Table.Row>
+    return this.state.users.map(user => (
+      <Table.Row key={user.id}>
+        <Table.Cell>{user.name}</Table.Cell>
+      </Table.Row>
     ));
   };
 
@@ -60,7 +60,7 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Team Members</Table.HeaderCell>
+              <Table.HeaderCell colSpan="3">Assigned Members</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{this.showTeam()}</Table.Body>
