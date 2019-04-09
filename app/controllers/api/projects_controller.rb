@@ -1,6 +1,6 @@
 class Api::ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [ :show, :update, :destroy]
+  before_action :set_project, only: [ :show, :update, :destroy, :u_by_p]
   
   def index
     render json: Project.all 
@@ -29,6 +29,15 @@ class Api::ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
+  end
+
+  # def u_by_p(id)
+  #   project = Project.find(id)
+  #   render json: project.users
+  # end
+  
+  def u_by_p
+    render json: @project.users
   end
 
   private 

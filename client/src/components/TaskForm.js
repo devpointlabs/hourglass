@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Form, Button, Header, Checkbox } from "semantic-ui-react";
+import { Form, Button, Header, Checkbox, Icon } from "semantic-ui-react";
 import axios from "axios";
 import UsersArray from "./UsersArray";
 
@@ -71,7 +70,9 @@ class TaskForm extends React.Component {
               onChange={this.handleChange}
             />
             <Checkbox label="Billable" onClick={this.handleBillable} />
-            <Button onClick={() => this.handleSubmit()}>Add Task</Button>
+            <Button color="violet" onClick={() => this.handleSubmit()}>
+              <Icon name="plus" />
+            </Button>
           </Form.Group>
         </Form>
         <UsersArray project_id={this.props.project_id} />
