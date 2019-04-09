@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import {
   Form,
   Button,
-  Header,
-  Segment,
+  Icon,
+  Card,
   Grid,
   Label,
   Divider,
@@ -63,18 +63,16 @@ class EditForm extends React.Component {
     } = this.props;
     return (
       <Fragment>
-        <Grid.Column width={4}>
+        <Card>
           <Label color="violet" ribbon>
             {user.email}
           </Label>
           <Image src={user.image || defaultImage} />
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <Header as="h1">
-            <Header.Content>{user.name}</Header.Content>
-            <Header.Subheader>{user.nickname}</Header.Subheader>
-          </Header>
-        </Grid.Column>
+          <Card.Content>
+            <Card.Header>{user.name}</Card.Header>
+            <Card.Meta>{user.nickname}</Card.Meta>
+          </Card.Content>
+        </Card>
       </Fragment>
     );
   };
@@ -131,9 +129,14 @@ class EditForm extends React.Component {
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <Button type="submit" color="violet">
-            Submit
+          <Button type="submit" animated="fade" color="violet">
+            <Button.Content visible>Submit</Button.Content>
+            <Button.Content hidden>
+              <Icon name="upload" />
+            </Button.Content>
           </Button>
+          <br />
+          <br />
         </Grid.Column>
       </Form>
     );
@@ -180,22 +183,18 @@ class EditForm extends React.Component {
       return (
         <Container style={{ display: "flex", justifyContent: "center" }}>
           <Divider hidden />
-          <Grid>
-            <Grid.Row>
-              {editing ? this.editView() : this.profileView()}
-            </Grid.Row>
-            <Grid.Column textAlign="center">
-              <Button.Group>
-                <Button onClick={this.toggleEdit} color="violet">
-                  {editing ? "Cancel" : "Edit"}
-                </Button>
-                <Button.Or />
-                <Button onClick={() => handleLogout(this.props.history)}>
-                  Logout
-                </Button>
-              </Button.Group>
-            </Grid.Column>
-          </Grid>
+          <div>
+            {editing ? this.editView() : this.profileView()}
+            <Button.Group attached="bottom">
+              <Button onClick={this.toggleEdit} color="violet">
+                {editing ? "Cancel" : "Edit"}
+              </Button>
+              <Button.Or />
+              <Button onClick={() => handleLogout(this.props.history)}>
+                Logout
+              </Button>
+            </Button.Group>
+          </div>
         </Container>
       );
     else return <div>nothing</div>;
