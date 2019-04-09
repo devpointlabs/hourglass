@@ -18,7 +18,7 @@ import {
 class TimeSheet extends React.Component {
   state = {
     view: "day",
-    selectedDate: "",
+    selectedDate: moment(),
     tasks: [],
     projects: [],
     timeBlocks: [],
@@ -89,7 +89,11 @@ class TimeSheet extends React.Component {
           setSelectedWeek={this.setSelectedWeek}
         />
         <div style={{ display: "flex", padding: "10px" }}>
-          <AddTimeBlockButton projects={projects} tasks={tasks} />
+          <AddTimeBlockButton
+            projects={projects}
+            tasks={tasks}
+            selectedDate={selectedDate}
+          />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
               view={view}
