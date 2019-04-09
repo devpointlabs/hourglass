@@ -64,12 +64,14 @@ class ProjectView extends React.Component {
             <br />
             <Card.Description>END DATE:{planned_end}</Card.Description>
 
-            <div
+
+            <Card
               style={{
+                height: "300px",
+                width: "600px",
                 display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "20px"
+                textAlign: "center",
+                text: "15px"
               }}
             />
           </Card>
@@ -83,18 +85,27 @@ class ProjectView extends React.Component {
               text: "15px"
             }}
           >
-            <h4> Notes:</h4>
-            <NoteEditor />
-            <h2>{project.notes}</h2>
-            <Button.Group>
-              <Button color="violet" floated="left">
-                Save
-              </Button>
-              <Button color="red">Edit</Button>
-            </Button.Group>
-          </Card>
-        </Card.Group>
-      </div>
+
+              <h4> Notes:</h4>
+              <NoteEditor notes={this.state.project.notes} />
+              {/* <h2>{project.notes}</h2> */}
+            </Card>
+          </Card.Group>
+        </div>
+        <div
+          styles={{
+            display: "flex",
+            justifyContent: "right"
+          }}
+        >
+          <Button.Group>
+            <Button color="violet" floated="right">
+              Save
+            </Button>
+            <Button color="red">Edit</Button>
+          </Button.Group>
+        </div>
+      </>
     );
   };
 

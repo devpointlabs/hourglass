@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Button, Form, Segment, Header } from "semantic-ui-react";
+import { Button, Form, Segment, Header, Icon } from "semantic-ui-react";
 
 class Register extends React.Component {
   state = {
@@ -101,12 +101,11 @@ class Register extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-            <Button
-              primary
-              type="submit"
-              style={{ backgroundColor: "RebeccaPurple" }}
-            >
-              Submit
+            <Button color="violet" animated="vertical" type="submit">
+              <Button.Content visible>Submit</Button.Content>
+              <Button.Content hidden>
+                <Icon name="paper plane outline" />
+              </Button.Content>
             </Button>
           </Segment>
         </Form>

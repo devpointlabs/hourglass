@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Table, Header, Image, Input } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -23,7 +24,11 @@ class hoursTable extends React.Component {
           <Table.Row>
             <Table.HeaderCell />
             {this.state.projects.map(project => (
-              <Table.HeaderCell>{project.name}</Table.HeaderCell>
+              <Table.HeaderCell>
+                <Link to={`projects/${project.id}`} style={{ color: "black" }}>
+                  {project.name}
+                </Link>
+              </Table.HeaderCell>
             ))}
             <Table.HeaderCell>Total</Table.HeaderCell>
           </Table.Row>
@@ -50,7 +55,7 @@ class hoursTable extends React.Component {
           <Table.Row>
             <Table.Cell>Total</Table.Cell>
             {this.state.projects.map(project => (
-              <Table.Cell>total</Table.Cell>
+              <Table.Cell>Total</Table.Cell>
             ))}
           </Table.Row>
         </Table.Body>

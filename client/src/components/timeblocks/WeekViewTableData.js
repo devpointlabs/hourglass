@@ -2,11 +2,9 @@ import React from "react";
 import WeekViewTableHeaderRow from "./WeekViewTableHeaderRow";
 import WeekViewTableRow from "./WeekViewTableRow";
 import { Table, Button } from "semantic-ui-react";
-import moment from "moment";
-import {
-  returnHoursSplitByDay,
-  returnHoursByProjectByDay
-} from "./Calculations";
+import { returnHoursSplitByDay } from "./Calculations";
+import AddTimeBlockButton from "./AddTimeBlockButton";
+import NewRowForm from "./NewRowForm";
 
 class WeekViewTableData extends React.Component {
   state = {
@@ -20,14 +18,13 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    projectHours: []
+    showNewRow: false
   };
 
   componentDidMount = () => {
     const { currentWeekTimeBlocks, monday } = this.props;
     this.setState({
-      dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday),
-      projectHours: returnHoursByProjectByDay(currentWeekTimeBlocks, monday)
+      dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
     });
   };
 
@@ -35,9 +32,16 @@ class WeekViewTableData extends React.Component {
     const { currentWeekTimeBlocks, monday } = this.props;
     if (prevProps.currentWeekTimeBlocks !== this.props.currentWeekTimeBlocks)
       this.setState({
-        dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday),
-        projectHours: returnHoursByProjectByDay(currentWeekTimeBlocks, monday)
+        dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
       });
+  };
+
+  addRow = () => {
+    this.setState({ showNewRow: true });
+  };
+
+  submitRow = () => {
+    this.setState({ showNewRow: false });
   };
 
   render() {
@@ -53,16 +57,6 @@ class WeekViewTableData extends React.Component {
       total
     } = this.state.dayHours;
 
-    const currentWeekBlocksWithTaskInfo = currentWeekTimeBlocks.map(b => {
-      return {
-        ...b,
-        // {start: '', end: '', taskInfo: tasks}
-        taskInfo: tasks
-          .filter(t => t.id === b.task_id)
-          .reduce((acc, task) => acc + task)
-      };
-    });
-
     return (
       <>
         <Table.Header>
@@ -72,32 +66,35 @@ class WeekViewTableData extends React.Component {
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
-          {currentWeekBlocksWithTaskInfo.map(b => (
+          {tasks.map(t => (
             <WeekViewTableRow
-              key={b.id}
-              timeBlock={b}
+              key={t.id}
+              task={t}
               selectedDate={this.props.selectedDate}
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
             />
           ))}
+
+          {this.state.showNewRow && <NewRowForm />}
+
           <Table.Row>
-            <Table.Cell clSpan="10" />
+            <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "lightgray" }}>
             <Table.Cell colSpan="2">
-              <Button>New Row</Button>
-              <Button>Save</Button>
+              <Button onClick={() => this.addRow()}>New Row</Button>
+              <Button onClick={() => this.submitRow()}>Save</Button>
             </Table.Cell>
-            <Table.Cell>{mondayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{tuesdayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{wednesdayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{thursdayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{fridayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{saturdayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{sundayHours.toFixed(1)}</Table.Cell>
-            <Table.Cell>{total.toFixed(1)}</Table.Cell>
+            <Table.Cell>{mondayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{tuesdayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{wednesdayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{thursdayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{fridayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{saturdayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{sundayHours.toFixed(2)}</Table.Cell>
+            <Table.Cell>{total.toFixed(2)}</Table.Cell>
             <Table.Cell>10</Table.Cell>
           </Table.Row>
         </Table.Body>

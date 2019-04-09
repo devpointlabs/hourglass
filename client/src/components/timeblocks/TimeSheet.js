@@ -80,7 +80,6 @@ class TimeSheet extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
-
         <TimeSheetNavbar
           view={view}
           selectedDate={selectedDate}

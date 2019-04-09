@@ -15,7 +15,7 @@ class AddUserToTask extends React.Component {
   };
 
   handleSubmit = e => {
-    // e.preventDefault();
+    e && e.preventDefault();
     const { user_id } = this.state.assignment;
     const { project_id, resetState } = this.props;
     let addedUser = {};
