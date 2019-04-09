@@ -9,9 +9,106 @@ import {
   Checkbox
 } from "semantic-ui-react";
 import Select from "react-select";
+import moment from "moment";
 
 class addTimeBlockButton extends React.Component {
-  state = { modalOpen: true, projectId: "", task: "" };
+  state = {
+    projectId: "",
+    task: "",
+    year: moment(this.props.selectedDate).format("YYYY"),
+    startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
+    startHourMinute: "",
+    endMonthDay: moment(this.props.selectedDate).format("MM/DD"),
+    endHourMinute: "",
+    hours: ""
+  };
+
+  componentDidUpdate(prevProps) {
+    const { selectedDate } = this.props;
+    if (prevProps.selectedDate !== selectedDate)
+      this.setState({
+        year: moment(selectedDate).format("YYYY"),
+        startMonthDay: moment(selectedDate).format("MM/DD"),
+        endMonthDay: moment(selectedDate).format("MM/DD")
+      });
+  }
+
+  handleChange = e => {
+    const {
+      year,
+      startMonthDay,
+      startHourMinute,
+      endMonthDay,
+      endHourMinute,
+      hoursManuallyEntered,
+      hours
+    } = this.state;
+
+    const targetName = e.target.name;
+    const targetValue = e.target.value;
+
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (this.state.startHourMinute === "" && targetName === "hours") {
+        this.setState({ startHourMinute: "09:00" }, () =>
+          this.setState({
+            endHourMinute: moment(
+              year +
+                "-" +
+                startMonthDay.substring(0, 2) +
+                "-" +
+                startMonthDay.substring(3, 5) +
+                " " +
+                this.state.startHourMinute
+            )
+              .add(parseFloat(this.state.hours), "hours")
+              .format("HH:mm")
+          })
+        );
+      } else if (targetName === "hours") {
+        this.setState({
+          endHourMinute: moment(
+            year +
+              "-" +
+              startMonthDay.substring(0, 2) +
+              "-" +
+              startMonthDay.substring(3, 5) +
+              " " +
+              this.state.startHourMinute
+          )
+            .add(parseFloat(this.state.hours), "hours")
+            .format("HH:mm")
+        });
+      } else if (
+        (targetName === "startHourMinute" || targetName === "endHourMinute") &&
+        this.state.endHourMinute.length === 5 &&
+        this.state.startHourMinute.length === 5
+      ) {
+        this.setState({
+          hours: moment(
+            year +
+              "-" +
+              endMonthDay.substring(0, 2) +
+              "-" +
+              endMonthDay.substring(3, 5) +
+              " " +
+              this.state.endHourMinute
+          ).diff(
+            moment(
+              year +
+                "-" +
+                startMonthDay.substring(0, 2) +
+                "-" +
+                startMonthDay.substring(3, 5) +
+                " " +
+                this.state.startHourMinute
+            ),
+            "hours",
+            true
+          )
+        });
+      }
+    });
+  };
 
   handleChange1 = e => {
     this.setState({ projectId: e.value });
@@ -50,7 +147,9 @@ class addTimeBlockButton extends React.Component {
           </Button>
         }
       >
-        <Modal.Header>Add Timesheet Entry</Modal.Header>
+        <Modal.Header style={{ color: "white", background: "RebeccaPurple" }}>
+          Add Timesheet Entry
+        </Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form style={{ padding: "10px" }}>
@@ -75,7 +174,8 @@ class addTimeBlockButton extends React.Component {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    padding: "10px"
+                    padding: "10px",
+                    marginBottom: "20px"
                   }}
                 >
                   Task
@@ -88,15 +188,79 @@ class addTimeBlockButton extends React.Component {
                   />
                 </div>
                 <div>
-                  <Form.Group>
-                    <Form.Input label="Start Time" name="startTime" />
-                    <Form.Input label="End Time" name="endTime" />
-                    <Form.Input label="Hours" name="hours" />
-                    <button color="white" style={{ padding: "10px" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <div style={{ width: "150px", marginLeft: "10px" }}>
+                        <Form.Input
+                          maxLength="5"
+                          label="Date"
+                          name="startMonthDay"
+                          placeholder="MM/DD"
+                          onChange={this.handleChange}
+                          value={this.state.startMonthDay}
+                        />
+                        <Form.Input
+                          maxLength="4"
+                          label="Year"
+                          name="year"
+                          placeholder="YYYY"
+                          onChange={this.handleChange}
+                          value={this.state.year}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          width: "180px",
+                          paddingLeft: "20px",
+                          paddingRight: "20px"
+                        }}
+                      >
+                        <Form.Input
+                          maxLength="5"
+                          label="Start Time"
+                          name="startHourMinute"
+                          placeholder="HH:mm"
+                          onChange={this.handleChange}
+                          value={this.state.startHourMinute}
+                        />
+                      </div>
+                      <div style={{ width: "180px", paddingRight: "20px" }}>
+                        <Form.Input
+                          maxLength="5"
+                          label="End Time"
+                          name="endHourMinute"
+                          placeholder="HH:mm"
+                          onChange={this.handleChange}
+                          value={this.state.endHourMinute}
+                        />
+                      </div>
+                      <div style={{ width: "100px" }}>
+                        <Form.Input
+                          autoFocus
+                          placeholder="hh.hh"
+                          maxLength="5"
+                          label="Hours"
+                          name="hours"
+                          onChange={this.handleChange}
+                          value={this.state.hours}
+                        />
+                      </div>
+                    </div>
+                    <button
+                      style={{
+                        padding: "10px",
+                        height: "150px",
+                        width: "150px",
+                        marginRight: "10px"
+                      }}
+                    >
                       <Icon name="clock" size="huge" style={{ margin: 0 }} />
                     </button>
-                  </Form.Group>
+                  </div>
                   <Checkbox
+                    style={{ marginLeft: "20px", marginTop: "20px" }}
                     label="manually entered"
                     name="manualEnterCheckbox"
                   />
