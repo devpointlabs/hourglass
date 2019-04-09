@@ -18,21 +18,55 @@ class addTimeBlockButton extends React.Component {
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     startHourMinute: "",
-    startAmPm: "am",
-    endMonthDay: moment(this.props.selectedDate).format("MM/DD"),
+    endMonthDay: moment(this.props.selectedDate).format("a"),
     endHourMinute: "",
-    endAmPm: "pm",
-    hours: ""
+    hours: "",
+    startMoment: {},
+    endMoment: {}
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { selectedDate } = this.props;
+
+    const startMoment = moment(
+      this.state.year +
+        "-" +
+        this.state.startMonthDay.substring(0, 2) +
+        "-" +
+        this.state.startMonthDay.substring(3, 5) +
+        " " +
+        this.state.startHourMinute
+    );
+    const endMoment = moment(
+      this.state.year +
+        "-" +
+        this.state.endMonthDay.substring(0, 2) +
+        "-" +
+        this.state.endMonthDay.substring(3, 5) +
+        " " +
+        this.state.endHourMinute
+    );
+
     if (prevProps.selectedDate !== selectedDate)
       this.setState({
         year: moment(selectedDate).format("YYYY"),
         startMonthDay: moment(selectedDate).format("MM/DD"),
         endMonthDay: moment(selectedDate).format("MM/DD")
       });
+
+    // console.log(prevState.startMoment);
+    // console.log(prevState.endMoment);
+    // console.log(startMoment);
+    // console.log(endMoment);
+
+    // if (prevState.startMoment !== startMoment) {
+    //   debugger;
+    //this.setState({ startMoment, endMoment });
+    // console.log(prevState.startMoment === startMoment);
+    // console.log(prevState.endMoment === startMoment);
+    // console.log(startMoment);
+    // console.log(endMoment);
+    // }
   }
 
   handleChange = e => {
@@ -81,9 +115,10 @@ class addTimeBlockButton extends React.Component {
             .format("HH:mm")
         });
       } else if (
-        (targetName === "startHourMinute" || targetName === "endHourMinute") &&
-        this.state.endHourMinute.length === 5 &&
-        this.state.startHourMinute.length === 5
+        ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
+          this.state.endHourMinute.length === 8,
+        5 && this.state.startHourMinute.length === 8,
+        5)
       ) {
         this.setState({
           hours: moment(
@@ -214,21 +249,21 @@ class addTimeBlockButton extends React.Component {
                       </div>
                       <div
                         style={{
-                          width: "120px",
+                          width: "180px",
                           paddingLeft: "20px",
                           paddingRight: "0"
                         }}
                       >
                         <Form.Input
-                          maxLength="5"
+                          maxLength="8"
                           label="Start Time"
                           name="startHourMinute"
-                          placeholder="HH:mm"
+                          placeholder="HH:mm am"
                           onChange={this.handleChange}
                           value={this.state.startHourMinute}
                         />
                       </div>
-                      <div
+                      {/* <div
                         style={{
                           width: "90px",
                           paddingLeft: "0",
@@ -243,24 +278,24 @@ class addTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.startAmPm}
                         />
-                      </div>
+                      </div> */}
                       <div
                         style={{
-                          width: "120px",
-                          paddingLeft: "0",
-                          paddingRight: "0"
+                          width: "180px",
+                          paddingLeft: "20px",
+                          paddingRight: "20px"
                         }}
                       >
                         <Form.Input
-                          maxLength="5"
+                          maxLength="8"
                           label="End Time"
                           name="endHourMinute"
-                          placeholder="HH:mm"
+                          placeholder="HH:mm pm"
                           onChange={this.handleChange}
                           value={this.state.endHourMinute}
                         />
                       </div>
-                      <div
+                      {/* <div
                         style={{
                           width: "90px",
                           paddingLeft: "0",
@@ -275,12 +310,12 @@ class addTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.endAmPm}
                         />
-                      </div>
+                      </div> */}
                       <div style={{ width: "100px" }}>
                         <Form.Input
                           autoFocus
                           placeholder="hh.hh"
-                          maxLength="5"
+                          maxLength="8"
                           label="Hours"
                           name="hours"
                           onChange={this.handleChange}
