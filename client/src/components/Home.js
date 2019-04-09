@@ -1,23 +1,58 @@
 import React from "react";
-import { Header } from "semantic-ui-react";
+import { Header, Image, Menu } from "semantic-ui-react";
 import { AuthConsumer } from "../providers/AuthProvider";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Clock from "react-clock";
 
 class Home extends React.Component {
-  render() {
-    const { admin, name } = this.props.auth.user;
+  state = {
+    date: new Date()
+  };
 
-    if (admin)
-      return (
-        <Header as="h3" textAlign="center">
-          Hello {name}!
-        </Header>
-      );
-    else
-      return (
-        <Header as="h3" textAlign="center">
-          Hello {name}
-        </Header>
-      );
+  componentDidMount() {
+    this.interval = setInterval(
+      () => this.setState({ date: new Date() }),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    const { name } = this.props.auth.user;
+    return (
+      <BodyContainer>
+        <div
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "25em"
+          }}
+        >
+          <br />
+          <Header as="h1" textAlign="center">
+            Hello {name}!
+          </Header>
+          <br />
+          <Clock size="350" renderNumbers="true" value={this.state.date} />
+          <br />
+          <Menu text style={{ marginLeft: "5.3em" }}>
+            <Link to="/projects">
+              <Menu.Item name="Projects" />
+            </Link>
+            <Link to="/timesheet">
+              <Menu.Item name="Timesheet" />
+            </Link>
+            <Link to="/dashboard">
+              <Menu.Item name="Dashboard" />
+            </Link>
+          </Menu>
+        </div>
+      </BodyContainer>
+    );
   }
 }
 
@@ -30,3 +65,11 @@ export default class ConnectedHome extends React.Component {
     );
   }
 }
+
+const BodyContainer = styled.div`
+  display: flex !important
+  width: 100%
+  height: 15em
+  justify-content: center !important
+  align-items: center !important
+`;
