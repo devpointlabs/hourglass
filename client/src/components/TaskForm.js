@@ -5,24 +5,35 @@ import UsersArray from "./UsersArray";
 
 class TaskForm extends React.Component {
   state = {
-    task: { name: "", description: "", billable: false, price_per_hour: "" },
+    task: {
+      name: "",
+      description: "",
+      billable: false,
+      price_per_hour: "",
+      id: ""
+    },
     usersShown: false
   };
 
-  toggleUsers = () => (
-    this.setState({
-      usersShown: { ...this.state, usersShown: !this.state.usersShown }
-    }),
-    this.handleSubmit()
-  );
+  //   if (this.props.task.id)
+  //   { componentDidMount = () => {
+  //     this.setState({task: this.props.task})
+  //   }}
+  //   else null
 
-  handleSubmit = () => {
-    const { task } = this.state;
-    const { project_id } = this.props;
-    axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
-      this.props.resetState(res.data);
-    });
-  };
+  //   handleSubmit = () => {
+  //     const { task } = this.state;
+  //     const { project_id } = this.props;
+  //     axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
+  //       this.props.resetState(res.data);
+  //     });
+
+  //     or
+  // const {task} = this.state;
+  // const {project_id} = this.props
+  //     axios.put(`/api/projects/${project_id}/tasks/${task.id}`, {task}).then(res => {
+  //       this.props.resetState(res.data);
+  //   };
 
   handleBillable = () => {
     this.setState({
