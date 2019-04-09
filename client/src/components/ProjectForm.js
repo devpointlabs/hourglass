@@ -114,7 +114,13 @@ class ProjectForm extends React.Component {
             <Button onClick={() => this.toggleTask()}>
               Add Tasks and Employees
             </Button>{" "}
-            <Button onClick={this.handleSubmit}>Save Project</Button>{" "}
+            {/* <Button onClick={this.handleSubmit}>Save Project</Button>{" "} */}
+            {/* <Link to={"/projects"}>
+              <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+                <Icon name="arrow alternate circle left outline" />
+                Go Back
+              </Button>
+            </Link> */}
           </div>
         )}
       </>
