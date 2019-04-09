@@ -13,15 +13,6 @@ class Projects extends React.Component {
       .then(res => this.setState({ projects: res.data }));
   }
 
-  resetState = () => {
-    axios
-      .get("/api/projects")
-      .then(res => this.setState({ projects: res.data }));
-  };
-
-  toggleEdit = () => {
-    this.setState({ editing: !this.state.editing });
-  };
   showProjects = () => {
     return this.state.projects.map(p => (
       <div
@@ -81,23 +72,18 @@ class Projects extends React.Component {
   render() {
     return (
       <Container>
-        <Button
-          style={{ marginTop: "15px" }}
-          inverted
-          color="violet"
-          onClick={this.toggleEdit}
-        >
-          <Icon name={this.state.editing ? "caret up" : "add"} />
-          {this.state.editing ? "Hide Form" : "Add New Project"}
-        </Button>
-        {this.state.editing ? (
-          <ProjectForm
-            toggleEdit={this.toggleEdit}
-            resetState={this.resetState}
-          />
-        ) : (
-          <br />
-        )}
+        <Link to="/projects/new">
+          <Button
+            style={{ marginTop: "15px" }}
+            inverted
+            color="violet"
+            onClick={this.toggleEdit}
+            icon="add"
+          >
+            {" "}
+            Add New Project
+          </Button>
+        </Link>
 
         <Grid>
           <Grid.Row>

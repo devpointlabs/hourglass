@@ -12,6 +12,7 @@ class AddUserToTask extends React.Component {
 
   handleChange = (e, { name, value }) => {
     this.setState({ assignment: { ...this.state.assignment, user_id: value } });
+    this.handleSubmit(e);
   };
 
   handleSubmit = e => {
@@ -49,7 +50,6 @@ class AddUserToTask extends React.Component {
   render() {
     return (
       <>
-        <Header>Team</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Select control={this.employeeDropdown} />
           <Button>Save</Button>
