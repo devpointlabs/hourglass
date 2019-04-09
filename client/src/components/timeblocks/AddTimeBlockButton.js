@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import Select from "react-select";
 import moment from "moment";
+import axios from "axios";
 
 class addTimeBlockButton extends React.Component {
   state = {
@@ -22,52 +23,24 @@ class addTimeBlockButton extends React.Component {
     endHourMinute: "",
     hours: "",
     startMoment: {},
-    endMoment: {}
+    endMoment: {},
+    modalOpen: false,
+    timerRunning: false
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { selectedDate } = this.props;
-
-    const startMoment = moment(
-      this.state.year +
-        "-" +
-        this.state.startMonthDay.substring(0, 2) +
-        "-" +
-        this.state.startMonthDay.substring(3, 5) +
-        " " +
-        this.state.startHourMinute
-    );
-    const endMoment = moment(
-      this.state.year +
-        "-" +
-        this.state.endMonthDay.substring(0, 2) +
-        "-" +
-        this.state.endMonthDay.substring(3, 5) +
-        " " +
-        this.state.endHourMinute
-    );
-
     if (prevProps.selectedDate !== selectedDate)
       this.setState({
         year: moment(selectedDate).format("YYYY"),
         startMonthDay: moment(selectedDate).format("MM/DD"),
         endMonthDay: moment(selectedDate).format("MM/DD")
       });
-
-    // console.log(prevState.startMoment);
-    // console.log(prevState.endMoment);
-    // console.log(startMoment);
-    // console.log(endMoment);
-
-    // if (prevState.startMoment !== startMoment) {
-    //   debugger;
-    //this.setState({ startMoment, endMoment });
-    // console.log(prevState.startMoment === startMoment);
-    // console.log(prevState.endMoment === startMoment);
-    // console.log(startMoment);
-    // console.log(endMoment);
-    // }
   }
+
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
 
   handleChange = e => {
     const {
@@ -155,13 +128,42 @@ class addTimeBlockButton extends React.Component {
     this.setState({ task: e.value });
   };
 
+  handleClick = () => {
+    const { timerRunning } = this.state;
+
+    if (timerRunning) {
+      //stoptime
+    } else {
+      this.setState({
+        year: moment().format("YYYY"),
+        startMonthDay: moment().format("MM/DD"),
+        startHourMinute: moment().format("HH:mm"),
+        startMoment: moment()
+      });
+    }
+
+    this.setState({ timerRunning: !this.state.timerRunning });
+  };
+
+  // handleSubmit = (e) => {
+  //   e && e.preventDefault()
+  //   axios.post('/api/timeblocks', {project_id: , task_id: 1, start_time: 1, end_time: 2})
+  // }
+  canceltimer = () => {
+    this.setState({ endHourMinute: "", hours: "", startHourMinute: "" });
+    this.handleClose();
+  };
+
   render() {
     const selectedProjectTasks = this.props.tasks.filter(
       t => t.project_id === this.state.projectId
     );
+    const { timerRunning } = this.state;
 
     return (
       <Modal
+        open={this.state.modalOpen}
+        onClose={() => this.handleClose()}
         trigger={
           <Button
             style={{
@@ -174,7 +176,7 @@ class addTimeBlockButton extends React.Component {
               textAlign: "center"
             }}
             size="large"
-            onClick={() => console.log("click")}
+            onClick={() => this.handleOpen()}
           >
             <Icon
               size="large"
@@ -189,7 +191,7 @@ class addTimeBlockButton extends React.Component {
         </Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Form style={{ padding: "10px" }}>
+            <Form style={{ padding: "10px" }} onSubmit={this.handleSubmit}>
               <Header>
                 <div
                   style={{
@@ -323,16 +325,51 @@ class addTimeBlockButton extends React.Component {
                         />
                       </div>
                     </div>
-                    <button
-                      style={{
-                        padding: "10px",
-                        height: "150px",
-                        width: "150px",
-                        marginRight: "10px"
-                      }}
-                    >
-                      <Icon name="clock" size="huge" style={{ margin: 0 }} />
-                    </button>
+                    <div style={{ background: "white" }}>
+                      <Button
+                        onClick={() => this.handleClick()}
+                        style={{
+                          padding: "10px",
+                          height: "150px",
+                          width: "150px",
+                          marginRight: "10px",
+                          marginTop: "10px",
+                          backgroundColor: timerRunning
+                            ? "white"
+                            : "RebeccaPurple",
+                          color: timerRunning ? "black" : "white",
+                          border: "solid lightgray 1px"
+                        }}
+                      >
+                        {timerRunning ? (
+                          <div style={{ fontSize: "2em" }}>
+                            <div>
+                              <img
+                                style={{
+                                  height: "50px"
+                                }}
+                                src={require("../../images/clock.gif")}
+                              />
+                            </div>
+                            Stop
+                          </div>
+                        ) : (
+                          <div style={{ fontSize: "2em" }}>
+                            <div>
+                              <Icon
+                                name="clock outline"
+                                size="large"
+                                style={{
+                                  margin: 0,
+                                  color: "white"
+                                }}
+                              />
+                            </div>
+                            Start
+                          </div>
+                        )}
+                      </Button>
+                    </div>
                   </div>
                   <Checkbox
                     style={{ marginLeft: "20px", marginTop: "20px" }}
@@ -342,8 +379,14 @@ class addTimeBlockButton extends React.Component {
                 </div>
               </Header>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button>Cancel</Button>
-                <Button>Submit</Button>
+                {timerRunning ? (
+                  <Button onClick={() => this.handleClose()}>Back</Button>
+                ) : (
+                  <div>
+                    <Button onClick={() => this.cancelTimer()}>Cancel</Button>
+                    <Button onClick={() => this.function()}>Submit</Button>
+                  </div>
+                )}
               </div>
             </Form>
           </Modal.Description>
