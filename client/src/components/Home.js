@@ -37,7 +37,12 @@ class Home extends React.Component {
             Hello {name}!
           </Header>
           <br />
-          <Clock size="350" renderNumbers="true" value={this.state.date} />
+          <Clock
+            size="350"
+            renderMinuteMarks
+            renderNumbers="true"
+            value={this.state.date}
+          />
           <br />
           <Menu text style={{ marginLeft: "5.3em" }}>
             <Link to="/projects">

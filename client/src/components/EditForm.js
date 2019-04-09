@@ -223,5 +223,3 @@ export default class ConnectedEditForm extends React.Component {
     );
   }
 }
-
-// account_ for update.
