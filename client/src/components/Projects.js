@@ -37,7 +37,7 @@ class Projects extends React.Component {
             resetState={this.resetState}
           />
         ) : (
-          <br />
+          ""
         )}
         <br />
         <Link to="/projects/new">
