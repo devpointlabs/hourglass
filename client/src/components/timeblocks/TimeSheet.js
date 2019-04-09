@@ -6,7 +6,11 @@ import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
 import axios from "axios";
-import { CalculateHoursAndWeek, AddProjectInfoToTasks } from "./Calculations";
+import {
+  CalculateHoursAndWeek,
+  AddProjectInfoToTasks,
+  AddTaskInfoToTimeBlocks
+} from "./Calculations";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
@@ -35,9 +39,7 @@ class TimeSheet extends React.Component {
           tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
           timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
         },
-
         () => {
-          console.log(this.state.timeBlocks);
           this.getWeekTimeBlocks(this.state.selectedDate);
         }
       )

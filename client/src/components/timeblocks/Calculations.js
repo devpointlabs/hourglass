@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const CalculateHoursAndWeek = blocks => {
+export const CalculateHoursAndWeek = (blocks, tasks) => {
   return blocks.map(b => {
     return {
       ...b,
@@ -23,7 +23,6 @@ export const AddProjectInfoToTasks = (projects, tasks) => {
   });
 };
 
-//needs some work
 export const returnHoursSplitByDay = (week, monday) => {
   let mondayTimeBlocks = week.filter(
     wtb => moment(wtb.start_time).format("dd") === moment(monday).format("dd")
@@ -118,3 +117,5 @@ export const returnHoursSplitByDay = (week, monday) => {
     total
   };
 };
+
+export const returnHoursByProjectByDay = (week, monday) => {};
