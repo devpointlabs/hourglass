@@ -36,17 +36,7 @@ class WeekViewTableRow extends React.Component {
   };
 
   render() {
-    const { task, monday, currentWeekTimeBlocks } = this.props;
-    const {
-      mondayHours,
-      tuesdayHours,
-      wednesdayHours,
-      thursdayHours,
-      fridayHours,
-      saturdayHours,
-      sundayHours,
-      total
-    } = this.props.dayHours;
+    const { task } = this.props;
 
     const totals = this.state.weekTimeBlocks.map(w =>
       w.reduce((acc, b) => {
