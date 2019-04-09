@@ -18,8 +18,10 @@ class addTimeBlockButton extends React.Component {
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     startHourMinute: "",
+    startAmPm: "am",
     endMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     endHourMinute: "",
+    endAmPm: "pm",
     hours: ""
   };
 
@@ -192,7 +194,7 @@ class addTimeBlockButton extends React.Component {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <div style={{ display: "flex" }}>
-                      <div style={{ width: "150px", marginLeft: "10px" }}>
+                      <div style={{ width: "100px", marginLeft: "10px" }}>
                         <Form.Input
                           maxLength="5"
                           label="Date"
@@ -212,9 +214,9 @@ class addTimeBlockButton extends React.Component {
                       </div>
                       <div
                         style={{
-                          width: "180px",
+                          width: "120px",
                           paddingLeft: "20px",
-                          paddingRight: "20px"
+                          paddingRight: "0"
                         }}
                       >
                         <Form.Input
@@ -226,7 +228,29 @@ class addTimeBlockButton extends React.Component {
                           value={this.state.startHourMinute}
                         />
                       </div>
-                      <div style={{ width: "180px", paddingRight: "20px" }}>
+                      <div
+                        style={{
+                          width: "90px",
+                          paddingLeft: "0",
+                          paddingRight: "20px"
+                        }}
+                      >
+                        <Form.Input
+                          maxLength="2"
+                          label="am/pm"
+                          name="startAmPm"
+                          placeholder="am"
+                          onChange={this.handleChange}
+                          value={this.state.startAmPm}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          width: "120px",
+                          paddingLeft: "0",
+                          paddingRight: "0"
+                        }}
+                      >
                         <Form.Input
                           maxLength="5"
                           label="End Time"
@@ -234,6 +258,22 @@ class addTimeBlockButton extends React.Component {
                           placeholder="HH:mm"
                           onChange={this.handleChange}
                           value={this.state.endHourMinute}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          width: "90px",
+                          paddingLeft: "0",
+                          paddingRight: "20px"
+                        }}
+                      >
+                        <Form.Input
+                          maxLength="2"
+                          label="am/pm"
+                          name="endAmPm"
+                          placeholder="pm"
+                          onChange={this.handleChange}
+                          value={this.state.endAmPm}
                         />
                       </div>
                       <div style={{ width: "100px" }}>
