@@ -49,7 +49,7 @@ class AddUserToTask extends React.Component {
   render() {
     return (
       <>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <Form.Select control={this.employeeDropdown} />
           <Button onClick={() => this.handleSubmit()}>Save</Button>
         </Form>

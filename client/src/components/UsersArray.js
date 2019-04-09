@@ -16,10 +16,20 @@ class UsersArray extends React.Component {
     this.setState({ addedUsers: users });
   };
 
+  deleteTeamMember = user_id => {
+    this.setState({
+      addedUsers: this.state.addedUsers.filter(u => u.id !== user_id)
+    });
+  };
+
   showUsers = () => {
     return this.state.addedUsers.map(user => (
       <>
-        <UsersViewForForm user={user} project_id={this.props.project_id} />
+        <UsersViewForForm
+          deleteTeamMember={this.deleteTeamMember}
+          user={user}
+          project_id={this.props.project_id}
+        />
       </>
     ));
   };

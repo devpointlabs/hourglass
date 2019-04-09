@@ -34,6 +34,7 @@ before_action :set_assignment, only: [:update, :show, :destroy]
   end
 
   def find_by_u_and_p
+    sleep(1)
     render json: Assignment.find_by_u_and_p(@user, @project)
   end
 
