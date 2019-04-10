@@ -164,73 +164,65 @@ class ProjectView extends React.Component {
   render() {
     const { id, name } = this.state.project;
     return (
-      <Container
-        style={{
-          paddingTop: "20px",
-          margin: "40px"
-        }}
-      >
-        {this.state.toggleForm ? (
-          <ProjectForm
-            project={this.state.project}
-            updateSubmit={this.updateSubmit}
-          />
-        ) : (
-          <div />
-        )}
 
-        <h1>{name}</h1>
-        {this.showProject()}
+      <>
         <br />
         <br />
         <div>
           <Link to={"/projects"}>
             <Button
-              floated="right"
               inverted
               color="violet"
+              floated="right"
+
               style={{ marginBottom: "20px" }}
             >
               <Icon name="arrow alternate circle left outline" />
               Go Back
             </Button>
           </Link>
+
+          <Link to={`/project/${id}/edit`}>
+            <Button inverted color="blue" floated="right">
+              <Icon name="pencil" /> Update Project
+            </Button>
+          </Link>
           <Button
-            floated="right"
-            onClick={this.handleToggle}
-            inverted
-            color="blue"
-          >
-            <Icon name="pencil" /> Update Project
-          </Button>
-          <Button
-            floated="right"
             inverted
             onClick={this.handleDelete}
             color="red"
+            floated="right"
           >
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
-
-        <Header>
-          <div className="wrapper">
-            <Button.Group widths="2">
-              <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
-                Tasks
-              </Button>
-              <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
-                Team
-              </Button>
-            </Button.Group>
-          </div>
-        </Header>
-        {this.state.taskview ? (
-          <TaskView id={this.props.match.params.id} />
-        ) : (
-          <TeamView id={this.props.match.params.id} />
-        )}
-      </Container>
+        <Container
+          style={{
+            paddingTop: "0px",
+            margin: "0px"
+          }}
+        >
+          <h1>{name}</h1>
+          {this.showProject()}
+          <Header>
+            <div className="wrapper">
+              <Button.Group widths="2">
+                <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
+                  Tasks
+                </Button>
+                <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
+                  Team
+                </Button>
+              </Button.Group>
+            </div>
+          </Header>
+          {this.state.taskview ? (
+            <TaskView id={this.props.match.params.id} />
+          ) : (
+            <TeamView id={this.props.match.params.id} />
+          )}
+        </Container>
+      </>
     );
   }
 }
