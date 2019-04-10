@@ -13,7 +13,7 @@ export const tuesdayHighLighted = (monday, selectedDate) => {
       .format("dd ") === moment(selectedDate).format("dd")
   )
     return true;
-  else return null;
+  else return false;
 };
 
 export const wednesdayHighLighted = (monday, selectedDate) => {
