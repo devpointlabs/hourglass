@@ -1,5 +1,6 @@
 class Api::AssignmentsController < ApplicationController
-
+before_action :set_user, only: [:find_by_u_and_p]
+before_action :set_project, only: [:find_by_u_and_p]
 before_action :set_assignment, only: [:update, :show, :destroy]
 
   def index
@@ -32,8 +33,20 @@ before_action :set_assignment, only: [:update, :show, :destroy]
     @assignment.destroy
   end
 
+  def find_by_u_and_p
+    # sleep(1)
+    render json: Assignment.find_by_u_and_p(@user, @project)
+  end
+
   private
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
 
   def set_assignment
     @assignment = Assignment.find(params[:id])

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import { AuthConsumer } from "../providers/AuthProvider";
 
@@ -9,14 +9,22 @@ class TeamView extends React.Component {
     project: {}
   };
 
+  // componentDidMount() {
+  //   const { id } = this.props;
+  //   axios.post("/api/projects/users", { id: id }).then(res => {
+  //     this.setState({ users: res.data });
+  //   });
+  // }
+
   componentDidMount() {
-    axios
-      .get("/api/users")
-      .then(res => this.setState({ ...this.state, users: res.data }));
+    const { id } = this.props;
+    axios.get(`/api/projects/${id}/users`).then(res => {
+      this.setState({ users: res.data });
+    });
   }
 
-  componentDidUpdate(prevprops) {
-    if (prevprops != undefined) {
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
       axios.get(`/api/projects/${this.props.id}`).then(res => {
         this.setState({ project: res.data });
       });
@@ -35,24 +43,27 @@ class TeamView extends React.Component {
   //   ));
   // };
 
-  // showTeam = () => {
-  //   return this.state.users.map(user => (
-  //     // <Table.Row key={this.user.id}>
-  //     <Table.Cell>{this.user}</Table.Cell>
-  //     // </Table.Row>
-  //   ));
-  // };
+  showTeam = () => {
+    return this.state.users.map(user => (
+      <Table.Row key={user.id}>
+        <Table.Cell>{user.name}</Table.Cell>
+      </Table.Row>
+    ));
+  };
 
   render() {
     return (
       <Fragment>
+        <Header as="h1" textAlign="center">
+          Team
+        </Header>
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Team Members</Table.HeaderCell>
+              <Table.HeaderCell colSpan="3">Assigned Members</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          {/* <Table.Body>{this.showTeam()}</Table.Body> */}
+          <Table.Body>{this.showTeam()}</Table.Body>
         </Table>
       </Fragment>
     );

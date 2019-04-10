@@ -1,28 +1,42 @@
 import React from "react";
-
-import { Form, Button, Header, Checkbox } from "semantic-ui-react";
+import { Form, Button, Header, Checkbox, Icon } from "semantic-ui-react";
 import axios from "axios";
 import UsersArray from "./UsersArray";
 
 class TaskForm extends React.Component {
   state = {
-    task: { name: "", description: "", billable: false, price_per_hour: "" },
+    task: {
+      name: "",
+      description: "",
+      billable: false,
+      price_per_hour: "",
+      id: ""
+    },
     usersShown: false
   };
 
-  toggleUsers = () => (
-    this.setState({
-      usersShown: { ...this.state, usersShown: !this.state.usersShown }
-    }),
-    this.handleSubmit()
-  );
+  componentDidMount = () => {
+    const { task } = this.props;
+    if (task) this.setState({ task: task });
+  };
 
   handleSubmit = () => {
     const { task } = this.state;
     const { project_id } = this.props;
-    axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
-      this.props.resetState(res.data);
-    });
+    if (task.id && project_id)
+      axios
+        .put(`/api/projects/${project_id}/tasks/${task.id}`, { task })
+        .then(res => {
+          this.props.resetState(res.data);
+          this.props.resetEditing();
+        });
+    else {
+      const { task } = this.state;
+      const { project_id } = this.props;
+      axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
+        this.props.resetState(res.data);
+      });
+    }
   };
 
   handleBillable = () => {
@@ -40,6 +54,7 @@ class TaskForm extends React.Component {
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
+    const { task } = this.props;
     return (
       <>
         <Form>
@@ -71,10 +86,16 @@ class TaskForm extends React.Component {
               onChange={this.handleChange}
             />
             <Checkbox label="Billable" onClick={this.handleBillable} />
-            <Button onClick={() => this.handleSubmit()}>Add Task</Button>
+            <Button color="violet" onClick={() => this.handleSubmit()}>
+              <Icon name="plus" />
+            </Button>
           </Form.Group>
         </Form>
-        <UsersArray project_id={this.props.project_id} />
+        {this.props.editing ? (
+          <div />
+        ) : (
+          <UsersArray project_id={this.props.project_id} />
+        )}
       </>
     );
   }

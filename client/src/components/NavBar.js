@@ -2,6 +2,7 @@ import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import HourGlassIcon from "./HourGlassIcon";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -81,11 +82,7 @@ class Navbar extends React.Component {
           }}
         >
           <Link to="/">
-            <Image
-              src={require("../images/hourglass_white_inside.png")}
-              size="tiny"
-              style={{ height: "40px", width: "40px", margin: "5px" }}
-            />
+            <HourGlassIcon />
           </Link>
           <Link to="/projects">
             <Menu.Item

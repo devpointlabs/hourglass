@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Button, Form, Segment, Header } from "semantic-ui-react";
+import { Button, Form, Segment, Header, Icon, Image } from "semantic-ui-react";
 
 class Login extends React.Component {
   state = { email: "", password: "" };
@@ -44,12 +44,15 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-            <Button
-              primary
-              type="submit"
-              style={{ backgroundColor: "RebeccaPurple" }}
-            >
-              Submit
+            <Button animated="fade" color="violet" type="submit">
+              <Button.Content visible>Submit</Button.Content>
+              <Button.Content hidden>
+                <Image
+                  src={require("../images/hourglass_white_inside.png")}
+                  size="mini"
+                  style={{ marginLeft: "2.2em", marginTop: "-1em" }}
+                />
+              </Button.Content>
             </Button>
           </Segment>
         </Form>

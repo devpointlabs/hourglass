@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Divider, Header } from "semantic-ui-react";
+import { Container, Divider, Header, Form } from "semantic-ui-react";
 import axios from "axios";
 import TaskViewForForm from "./TaskViewForForm";
 import TaskForm from "./TaskForm";
@@ -23,7 +23,12 @@ class TaskArrayForForm extends React.Component {
   showTasks = () => {
     return this.state.tasks.map(task => (
       <>
-        <TaskViewForForm task={task} removeTask={this.removeTask} />
+        <TaskViewForForm
+          resetState={this.resetState}
+          task={task}
+          removeTask={this.removeTask}
+          project_id={this.props.project_id}
+        />
       </>
     ));
   };
@@ -38,6 +43,7 @@ class TaskArrayForForm extends React.Component {
         <Header>Tasks</Header>
         {this.showTasks()}
         <TaskForm
+          editing={this.state.editing}
           resetState={this.resetState}
           project_id={this.props.project_id}
           showTasks={this.showTasks()}

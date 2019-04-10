@@ -1,6 +1,6 @@
 import React from "react";
-import { Form, Button, Select, Header } from "semantic-ui-react";
-
+import { Form, Button, Select, Header, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class AddUserToTask extends React.Component {
@@ -15,7 +15,7 @@ class AddUserToTask extends React.Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
+    e && e.preventDefault();
     const { user_id } = this.state.assignment;
     const { project_id, resetState } = this.props;
     let addedUser = {};
@@ -49,10 +49,15 @@ class AddUserToTask extends React.Component {
   render() {
     return (
       <>
-        <Header>Team</Header>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <Form.Select control={this.employeeDropdown} />
-          <Button>Save</Button>
+          <Button onClick={() => this.handleSubmit()}>Add Member</Button>
+          <Link to={"/projects"}>
+            <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+              <Icon name="arrow alternate circle left outline" />
+              Save
+            </Button>
+          </Link>
         </Form>
       </>
     );

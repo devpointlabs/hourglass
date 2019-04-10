@@ -1,9 +1,10 @@
 import React from "react";
-import { Form, Button, Segment } from "semantic-ui-react";
+import { Form, Button, Segment, Icon } from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 import TaskArrayForForm from "./TaskArrayForForm";
 import AddUserToTask from "./AddUserToTask";
+import { Link } from "react-router-dom";
 
 class ProjectForm extends React.Component {
   state = {
@@ -36,7 +37,6 @@ class ProjectForm extends React.Component {
     // e.preventDefault();
     axios.post(`/api/projects`, project).then(res => {
       this.setState({ ...this.state, project_id: res.data.id });
-      this.props.resetState();
     });
   };
 
@@ -50,7 +50,13 @@ class ProjectForm extends React.Component {
     } = this.state.project;
     return (
       <>
-        <Segment styless={{ margin: "100px" }}>
+        <Segment styles={{ margin: "100px" }}>
+          <Link to="/projects">
+            <Button style={{ marginTop: "15px" }} inverted color="violet">
+              <Icon name="angle left" />
+              Back
+            </Button>
+          </Link>
           <Form style={{ marginTop: "30px" }}>
             <Form.Group>
               <Form.Input
@@ -108,7 +114,13 @@ class ProjectForm extends React.Component {
             <Button onClick={() => this.toggleTask()}>
               Add Tasks and Employees
             </Button>{" "}
-            <Button onClick={this.handleSubmit}>Save Project</Button>{" "}
+            {/* <Button onClick={this.handleSubmit}>Save Project</Button>{" "} */}
+            {/* <Link to={"/projects"}>
+              <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+                <Icon name="arrow alternate circle left outline" />
+                Go Back
+              </Button>
+            </Link> */}
           </div>
         )}
       </>
