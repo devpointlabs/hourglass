@@ -5,6 +5,33 @@ class Api::UsersController < ApplicationController
     render json: User.all
   end
 
+  def grab_users_with_timeblocks
+    users = User.all
+    usertimeblocks = []
+    users.map do|u| 
+      timeBlocksByTask = []
+        taskIdArray = u.timeblocks.map do |utb| 
+          utb.task_id
+        end
+        taskIdArray.uniq!
+
+      taskIdArray.each do |taskId|
+        blocksByTask = [] 
+        u.timeblocks.each do |block|
+          if block.task_id == taskId
+            blocksByTask << block
+          end
+        end
+        timeBlocksByTask << {taskId: taskId, blocks: blocksByTask }
+
+      end
+      usertimeblocks << {name: u.name, userId: u.id, timeBlocksByTask: timeBlocksByTask}
+    end
+   
+    render json: usertimeblocks
+
+  end
+
   def update
     user = User.find(params[:id])
     user.name = params[:name] ? params[:name] : user.name
