@@ -15,30 +15,28 @@ class Projects extends React.Component {
 
   showProjects = () => {
     return this.state.projects.map(p => (
-      <>
-        <tbody>
-          <tr>
-            <td>
-              <Link to={`/projects/${p.id}`}>{p.name}</Link>
-            </td>
-            <td>{p.client_name}</td>
-          </tr>
-        </tbody>
-      </>
+      <tbody>
+        <tr>
+          <td>
+            <Link to={`/projects/${p.id}`}>
+              {p.name ? p.name : "Project has no name"}
+            </Link>
+          </td>
+          <td>{p.client_name}</td>
+        </tr>
+      </tbody>
     ));
   };
 
   render() {
     return (
       <Container>
-
         {this.state.editing ? (
           <ProjectForm
             toggleEdit={this.toggleEdit}
             resetState={this.resetState}
           />
         ) : (
-
           ""
         )}
         <br />
