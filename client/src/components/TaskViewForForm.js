@@ -17,6 +17,10 @@ class TaskViewForForm extends React.Component {
     this.props.removeTask(task.id);
   };
 
+  resetEditing = () => {
+    this.setState({ editing: false });
+  };
+
   render() {
     const { task } = this.props;
     const { name, billable, description, price_per_hour } = this.props.task;
@@ -25,9 +29,11 @@ class TaskViewForForm extends React.Component {
         {this.state.editing ? (
           <Segment>
             <TaskForm
+              resetEditing={this.resetEditing}
               resetState={this.props.resetState}
               task={this.props.task}
               project_id={this.props.project_id}
+              editing={this.state.editing}
             />
           </Segment>
         ) : (

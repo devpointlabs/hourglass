@@ -43,6 +43,7 @@ class TaskArrayForForm extends React.Component {
         <Header>Tasks</Header>
         {this.showTasks()}
         <TaskForm
+          editing={this.state.editing}
           resetState={this.resetState}
           project_id={this.props.project_id}
           showTasks={this.showTasks()}

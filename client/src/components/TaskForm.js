@@ -15,25 +15,29 @@ class TaskForm extends React.Component {
     usersShown: false
   };
 
-  //   if (this.props.task.id)
-  //   { componentDidMount = () => {
-  //     this.setState({task: this.props.task})
-  //   }}
-  //   else null
+  componentDidMount = () => {
+    const { task } = this.props;
+    if (task) this.setState({ task: task });
+  };
 
-  //   handleSubmit = () => {
-  //     const { task } = this.state;
-  //     const { project_id } = this.props;
-  //     axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
-  //       this.props.resetState(res.data);
-  //     });
-
-  //     or
-  // const {task} = this.state;
-  // const {project_id} = this.props
-  //     axios.put(`/api/projects/${project_id}/tasks/${task.id}`, {task}).then(res => {
-  //       this.props.resetState(res.data);
-  //   };
+  handleSubmit = () => {
+    const { task } = this.state;
+    const { project_id } = this.props;
+    if (task.id && project_id)
+      axios
+        .put(`/api/projects/${project_id}/tasks/${task.id}`, { task })
+        .then(res => {
+          this.props.resetState(res.data);
+          this.props.resetEditing();
+        });
+    else {
+      const { task } = this.state;
+      const { project_id } = this.props;
+      axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
+        this.props.resetState(res.data);
+      });
+    }
+  };
 
   handleBillable = () => {
     this.setState({
@@ -50,6 +54,7 @@ class TaskForm extends React.Component {
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
+    const { task } = this.props;
     return (
       <>
         <Form>
@@ -86,7 +91,11 @@ class TaskForm extends React.Component {
             </Button>
           </Form.Group>
         </Form>
-        <UsersArray project_id={this.props.project_id} />
+        {this.props.editing ? (
+          <div />
+        ) : (
+          <UsersArray project_id={this.props.project_id} />
+        )}
       </>
     );
   }
