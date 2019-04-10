@@ -17,6 +17,7 @@ import TimeSheet from "./components/timeblocks/TimeSheet";
 import Pending from "./components/timeblocks/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TaskView from "./components/TaskView";
+import ProjectForm from "./components/ProjectForm";
 
 const App = () => (
   <Fragment>
@@ -29,6 +30,7 @@ const App = () => (
           <Route exact path="/register" component={Register} />
           <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
+          <ProtectedRoute exact path="/projects/new" component={ProjectForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
 
           <Route exact path="/profile" component={EditForm} />
