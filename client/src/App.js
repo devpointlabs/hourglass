@@ -30,8 +30,8 @@ const App = () => (
           <Route exact path="/register" component={Register} />
           <ProtectedRoute exact path="/projects" component={Projects} />
           <Route exact path="/profile" component={EditForm} />
-          <Route exact path="/projects/:id" component={ProjectView} />
           <ProtectedRoute exact path="/projects/new" component={ProjectForm} />
+          <Route exact path="/projects/:id" component={ProjectView} />
 
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
