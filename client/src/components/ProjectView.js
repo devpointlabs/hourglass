@@ -7,7 +7,8 @@ import {
   Container,
   Card,
   Icon,
-  ButtonGroup
+  ButtonGroup,
+  Table
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 import NoteEditor from "./NoteEditor";
@@ -57,14 +58,21 @@ class ProjectView extends React.Component {
                   marginTop: "20px"
                 }}
               />
-              <Card.Description>CLIENT:{client_name}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>START DATE:{planned_start}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>END DATE:{planned_end}</Card.Description>
+              <Table celled>
+                <Table.Row>
+                  <Table.Cell>CLIENT:</Table.Cell>
+                  <Table.Cell>{project.client_name}</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>START DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_start}</Table.Cell>
+                </Table.Row>
 
+                <Table.Row>
+                  <Table.Cell>END DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_end}</Table.Cell>>
+                </Table.Row>
+              </Table>
               <Card
                 style={{
                   height: "300px",

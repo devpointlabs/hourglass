@@ -7,7 +7,6 @@ class TaskView extends React.Component {
 
   componentDidMount() {
     const { id } = this.props;
-    debugger;
     axios
       .get(`/api/${id}/view_tasks`)
       .then(response => this.setState({ tasks: response.data }));
