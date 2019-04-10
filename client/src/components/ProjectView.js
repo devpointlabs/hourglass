@@ -71,7 +71,7 @@ class ProjectView extends React.Component {
 
                 <Table.Row>
                   <Table.Cell>END DATE:</Table.Cell>
-                  <Table.Cell>{project.planned_end}</Table.Cell>>
+                  <Table.Cell>{project.planned_end}</Table.Cell>
                 </Table.Row>
               </Table>
               <Card
@@ -94,9 +94,33 @@ class ProjectView extends React.Component {
                 text: "15px"
               }}
             >
-              <h4> Notes:</h4>
               <NoteEditor notes={this.state.project.notes} />
               {/* <h2>{project.notes}</h2> */}
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <Button.Group>
+                <Button color="violet" floated="right">
+                  Save
+                </Button>
+                <Button onClick={this.handleToggle} color="red">
+                  Edit
+                </Button>
+              </Button.Group>
+            </Card>
+            <Card
+              style={{
+                height: "300px",
+                width: "1100px",
+                display: "flex",
+                textAlign: "center",
+                text: "15px"
+              }}
+            >
+              <h4> Notes:</h4>
             </Card>
           </Card.Group>
         </div>
@@ -105,16 +129,7 @@ class ProjectView extends React.Component {
             display: "flex",
             justifyContent: "right"
           }}
-        >
-          <Button.Group>
-            <Button color="violet" floated="right">
-              Save
-            </Button>
-            <Button onClick={this.handleToggle} color="red">
-              Edit
-            </Button>
-          </Button.Group>
-        </div>
+        />
       </>
     );
   };
@@ -170,17 +185,30 @@ class ProjectView extends React.Component {
         <br />
         <div>
           <Link to={"/projects"}>
-            <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+            <Button
+              floated="right"
+              inverted
+              color="violet"
+              style={{ marginBottom: "20px" }}
+            >
               <Icon name="arrow alternate circle left outline" />
               Go Back
             </Button>
           </Link>
-          <Link to={`/project/${id}/edit`}>
-            <Button inverted color="blue">
-              <Icon name="pencil" /> Update Project
-            </Button>
-          </Link>
-          <Button inverted onClick={this.handleDelete} color="red">
+          <Button
+            floated="right"
+            onClick={this.handleToggle}
+            inverted
+            color="blue"
+          >
+            <Icon name="pencil" /> Update Project
+          </Button>
+          <Button
+            floated="right"
+            inverted
+            onClick={this.handleDelete}
+            color="red"
+          >
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
