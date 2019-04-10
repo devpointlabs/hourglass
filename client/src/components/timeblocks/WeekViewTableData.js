@@ -18,7 +18,8 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false
+    showNewRow: false,
+    showButton: true
   };
 
   componentDidMount = () => {
@@ -37,11 +38,11 @@ class WeekViewTableData extends React.Component {
   };
 
   addRow = () => {
-    this.setState({ showNewRow: true });
+    this.setState({ showNewRow: true, showButton: !this.state.showButton });
   };
 
   submitRow = () => {
-    this.setState({ showNewRow: false });
+    this.setState({ showNewRow: false, showButton: !this.state.showButton });
   };
 
   render() {
@@ -84,8 +85,25 @@ class WeekViewTableData extends React.Component {
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
             <Table.Cell colSpan="2">
-              <Button onClick={() => this.addRow()}>New Row</Button>
-              <Button onClick={() => this.submitRow()}>Save</Button>
+              {this.state.showButton ? (
+                <div style={{ textAlign: "left" }}>
+                  <Button
+                    style={{ background: "RebeccaPurple", color: "white" }}
+                    onClick={() => this.addRow()}
+                  >
+                    New Row
+                  </Button>
+                </div>
+              ) : (
+                <div style={{ textAlign: "left" }}>
+                  <Button
+                    onClick={() => this.submitRow()}
+                    style={{ background: "RebeccaPurple", color: "white" }}
+                  >
+                    Save
+                  </Button>
+                </div>
+              )}
             </Table.Cell>
             <Table.Cell
               style={{
