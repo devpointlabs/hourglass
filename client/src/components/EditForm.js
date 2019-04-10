@@ -140,7 +140,7 @@ class EditForm extends React.Component {
           <Button type="submit" animated="fade" color="violet">
             <Button.Content visible>Submit</Button.Content>
             <Button.Content hidden>
-              <Icon name="upload" />
+              <Icon name="cloud upload" />
             </Button.Content>
           </Button>
           <br />

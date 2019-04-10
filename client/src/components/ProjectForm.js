@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Button, Segment, Icon } from "semantic-ui-react";
+import {
+  Form,
+  Button,
+  Segment,
+  Icon,
+  Header,
+  Divider
+} from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 import TaskArrayForForm from "./TaskArrayForForm";
@@ -79,13 +86,25 @@ class ProjectForm extends React.Component {
       <>
         <Segment styles={{ margin: "100px" }}>
           <Link to="/projects">
-            <Button style={{ marginTop: "15px" }} inverted color="violet">
-              <Icon name="angle left" />
-              Back
+            <Button
+              animated
+              style={{ marginTop: "15px" }}
+              inverted
+              color="violet"
+            >
+              <Button.Content visible>Back</Button.Content>
+              <Button.Content hidden>
+                <Icon name="angle left" />
+              </Button.Content>
             </Button>
           </Link>
-          <Form style={{ marginTop: "30px" }}>
-            <Form.Group>
+          <Form style={{ marginTop: "30px", marginLeft: "26em" }}>
+            <Header as="h1" icon style={{ marginLeft: "4em" }}>
+              <Icon name="sitemap" circular />
+              <Header.Content>New Project</Header.Content>
+            </Header>
+            <Divider hidden />
+            <Form.Group textAlign="center">
               <Form.Input
                 label="Name"
                 name="name"
@@ -120,15 +139,15 @@ class ProjectForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Group>
+            {/* <Form.Group style={{marginLeft: '6.2em'}}>
               <Form.Input
-                label="Notes"
                 name="notes"
+                type='field'
                 value={notes}
                 placeholder="Notes"
                 onChange={this.handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Form>
         </Segment>
         {this.state.taskShown ? (
