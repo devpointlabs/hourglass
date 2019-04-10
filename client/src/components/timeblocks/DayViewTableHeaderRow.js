@@ -7,7 +7,7 @@ class DayViewTableHeaderRow extends React.Component {
   render() {
     const { currentWeekTimeBlocks, selectedDate, monday } = this.props;
     return (
-      <Table.Row style={{ background: "lightgray" }}>
+      <Table.Row style={{ background: "#e2e2e2" }}>
         <DayViewTableHeaderLabels
           selectedDate={selectedDate}
           monday={monday}

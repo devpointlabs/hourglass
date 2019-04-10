@@ -54,8 +54,20 @@ class TableHeaderLabels extends React.Component {
     return (
       <>
         {days.map(cell => (
-          <Table.HeaderCell>
-            <div>{cell.dayofweek}</div>
+          <Table.HeaderCell
+            style={{
+              textAlign: "center",
+              fontSize: "0.9em",
+              padding: "4px"
+            }}
+          >
+            <div
+              style={{
+                fontSize: "1.2em"
+              }}
+            >
+              {cell.dayofweek}
+            </div>
             {cell.date}
           </Table.HeaderCell>
         ))}
