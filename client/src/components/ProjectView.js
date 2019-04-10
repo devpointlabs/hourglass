@@ -7,14 +7,16 @@ import {
   Container,
   Card,
   Icon,
-  ButtonGroup
+  ButtonGroup,
+  Table
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 import NoteEditor from "./NoteEditor";
 import TeamView from "./TeamView";
+import ProjectForm from "./ProjectForm";
 
 class ProjectView extends React.Component {
-  state = { project: {}, taskview: true };
+  state = { project: {}, taskview: true, toggleForm: false };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -57,14 +59,21 @@ class ProjectView extends React.Component {
                   marginTop: "20px"
                 }}
               />
-              <Card.Description>CLIENT:{client_name}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>START DATE:{planned_start}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>END DATE:{planned_end}</Card.Description>
+              <Table celled>
+                <Table.Row>
+                  <Table.Cell>CLIENT:</Table.Cell>
+                  <Table.Cell>{project.client_name}</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>START DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_start}</Table.Cell>
+                </Table.Row>
 
+                <Table.Row>
+                  <Table.Cell>END DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_end}</Table.Cell>>
+                </Table.Row>
+              </Table>
               <Card
                 style={{
                   height: "300px",
@@ -101,11 +110,17 @@ class ProjectView extends React.Component {
             <Button color="violet" floated="right">
               Save
             </Button>
-            <Button color="red">Edit</Button>
+            <Button onClick={this.handleToggle} color="red">
+              Edit
+            </Button>
           </Button.Group>
         </div>
       </>
     );
+  };
+
+  updateSubmit = project => {
+    this.setState({ project: project });
   };
 
   handleDelete = () => {
@@ -113,6 +128,10 @@ class ProjectView extends React.Component {
     axios.delete(`/api/projects/${id}`).then(res => {
       this.props.history.push("/projects");
     });
+  };
+
+  handleToggle = () => {
+    this.setState({ toggleForm: true });
   };
 
   toggleTasks = number => {
@@ -136,6 +155,15 @@ class ProjectView extends React.Component {
           margin: "40px"
         }}
       >
+        {this.state.toggleForm ? (
+          <ProjectForm
+            project={this.state.project}
+            updateSubmit={this.updateSubmit}
+          />
+        ) : (
+          <div />
+        )}
+
         <h1>{name}</h1>
         {this.showProject()}
         <br />
