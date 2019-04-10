@@ -56,14 +56,62 @@ class WeekViewTableRow extends React.Component {
             <div>{task.name}</div>
           </Table.Cell>
           <Table.Cell>1</Table.Cell>
-          <Table.Cell>{totals[0] && totals[0].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[1] && totals[1].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[2] && totals[2].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[3] && totals[3].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[4] && totals[4].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[5] && totals[5].toFixed(2)}</Table.Cell>
-          <Table.Cell>{totals[6] && totals[6].toFixed(2)}</Table.Cell>
-          <Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[0] && totals[0].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[1] && totals[1].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[2] && totals[2].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[3] && totals[3].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[4] && totals[4].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[5] && totals[5].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              textAlign: "center"
+            }}
+          >
+            {totals[6] && totals[6].toFixed(2)}
+          </Table.Cell>
+          <Table.Cell
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              fontSize: "1em"
+            }}
+          >
             {totals
               .reduce((acc, totalNumber) => acc + totalNumber, 0)
               .toFixed(2)}

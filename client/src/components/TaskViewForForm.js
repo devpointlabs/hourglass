@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Button, Form, Checkbox, Icon } from "semantic-ui-react";
 import axios from "axios";
+import TaskForm from "./TaskForm";
 
 class TaskViewForForm extends React.Component {
   state = [
@@ -16,11 +17,8 @@ class TaskViewForForm extends React.Component {
     this.props.removeTask(task.id);
   };
 
-  handleChange = e => {
-    const {
-      target: { name, value }
-    } = e;
-    this.setState({ newTask: { ...this.state.newTask, [name]: value } });
+  resetEditing = () => {
+    this.setState({ editing: false });
   };
 
   render() {
@@ -28,65 +26,30 @@ class TaskViewForForm extends React.Component {
     const { name, billable, description, price_per_hour } = this.props.task;
     return (
       <>
-        {" "}
-        <Segment>
-          <Button
-            style={{ borderRadius: "100%" }}
-            color="red"
-            icon="times"
-            size="tiny"
-            onClick={() => this.handleDelete(task.id)}
-          />
-          <Button
-            style={{ borderRadius: "100%" }}
-            color="blue"
-            icon="pencil"
-            size="tiny"
-            onClick={() => this.toggleEdit()}
-          />
-          {this.state.editing ? (
-            <Form>
-              <Form.Group>
-                <Form.Input
-                  name="name"
-                  label="Name"
-                  placeholder={name}
-                  value={this.state.newTask.name}
-                  autofocus
-                  required
-                  onChange={this.handleChange}
-                />
-
-                <Form.Input
-                  name="price_per_hour"
-                  label="Price per hour"
-                  placeholder={price_per_hour}
-                  value={this.state.newTask.price_per_hour}
-                  required
-                  onChange={this.handleChange}
-                />
-
-                <Form.Input
-                  name="description"
-                  label="Description"
-                  placeholder={description}
-                  value={this.state.newTask.description}
-                  onChange={this.handleChange}
-                />
-                <Checkbox label="Billable" onClick={this.handleBillable} />
-                <Button color="violet" onClick={() => this.submitEdit()}>
-                  <Icon name="plus" />
-                </Button>
-              </Form.Group>
-            </Form>
-          ) : (
-            <div>
-              {" "}
+        {this.state.editing ? (
+          <Segment>
+            <TaskForm
+              resetEditing={this.resetEditing}
+              resetState={this.props.resetState}
+              task={this.props.task}
+              project_id={this.props.project_id}
+              editing={this.state.editing}
+            />
+          </Segment>
+        ) : (
+          <div>
+            <Segment>
+              <Button color="red" onClick={this.handleDelete}>
+                <Icon name="times" />{" "}
+              </Button>
+              <Button color="blue" onClick={this.toggleEdit}>
+                <Icon name="pencil" />
+              </Button>
               {task.name} || ${task.price_per_hour}/hr || {task.description} ||{" "}
               {task.billable ? "Billable" : "Unbillable"}
-            </div>
-          )}
-        </Segment>
+            </Segment>
+          </div>
+        )}
       </>
     );
   }

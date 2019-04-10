@@ -22,7 +22,7 @@ class Api::ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       render json: @project
-    else   
+    else
       render json: @project.errors, status: 422
     end    
   end

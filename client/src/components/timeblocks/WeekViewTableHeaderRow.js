@@ -6,7 +6,7 @@ import moment from "moment";
 class WeekViewTableHeaderRow extends React.Component {
   render() {
     return (
-      <Table.Row style={{ background: "lightgray" }}>
+      <Table.Row style={{ background: "#e2e2e2" }}>
         <Table.HeaderCell style={{ paddingTop: "10px", paddingLeft: "1%" }} />
         <Table.HeaderCell style={{ width: "20%" }} />
         <WeekViewTableHeaderLabels
