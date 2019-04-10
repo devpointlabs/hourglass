@@ -8,7 +8,11 @@ class UsersArray extends React.Component {
   state = { users: [], addedUsers: [] };
 
   componentDidMount = () => {
+    const { project_id } = this.props;
     axios.get(`/api/users`).then(res => this.setState({ users: res.data }));
+    axios
+      .get(`/api/projects/${project_id}/users`)
+      .then(res => this.setState({ addedUsers: res.data }));
   };
 
   resetState = user => {

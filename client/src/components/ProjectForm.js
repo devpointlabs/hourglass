@@ -19,6 +19,10 @@ class ProjectForm extends React.Component {
     taskShown: false
   };
 
+  componentDidMount() {
+    this.setState({ project: this.props.project });
+  }
+
   toggleTask = () => (
     this.setState({
       taskShown: { ...this.state, taskShown: !this.state.taskShown }
@@ -35,9 +39,16 @@ class ProjectForm extends React.Component {
   handleSubmit = e => {
     const { project } = this.state;
     // e.preventDefault();
-    axios.post(`/api/projects`, project).then(res => {
-      this.setState({ ...this.state, project_id: res.data.id });
-    });
+    if (this.props.project.id) {
+      const { id } = this.state.project;
+      axios
+        .put(`/api/projects/${id}`, project)
+        .then(res => this.props.updateSubmit(res.data));
+    } else {
+      axios.post(`/api/projects`, project).then(res => {
+        this.setState({ ...this.state, project_id: res.data.id });
+      });
+    }
   };
 
   render() {
@@ -106,7 +117,7 @@ class ProjectForm extends React.Component {
         </Segment>
         {this.state.taskShown ? (
           <div>
-            <TaskArrayForForm project_id={this.state.project_id} /> <br />
+            <TaskArrayForForm project_id={this.state.project.id} /> <br />
           </div>
         ) : (
           <div>
