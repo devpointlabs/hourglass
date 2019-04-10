@@ -60,7 +60,7 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan="3">Assigned Members</Table.HeaderCell>
+              <Table.HeaderCell colSpan="1">Assigned Members</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{this.showTeam()}</Table.Body>
