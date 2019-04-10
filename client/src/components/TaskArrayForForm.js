@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Divider, Header, Form } from "semantic-ui-react";
+import {
+  Container,
+  Divider,
+  Header,
+  Form,
+  Table,
+  Card
+} from "semantic-ui-react";
 import axios from "axios";
 import TaskViewForForm from "./TaskViewForForm";
 import TaskForm from "./TaskForm";
@@ -39,16 +46,30 @@ class TaskArrayForForm extends React.Component {
 
   render() {
     return (
-      <>
-        <Header>Tasks</Header>
-        {this.showTasks()}
+      <div>
+        <Header as="h1" textAlign="center">
+          Tasks
+        </Header>
+        <Table celled compact basic fixed>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.HeaderCell>Price per Hour</Table.HeaderCell>
+              <Table.HeaderCell>Billable</Table.HeaderCell>
+              <Table.HeaderCell />
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{this.showTasks()}</Table.Body>
+        </Table>
+
         <TaskForm
           editing={this.state.editing}
           resetState={this.resetState}
           project_id={this.props.project_id}
           showTasks={this.showTasks()}
         />
-      </>
+      </div>
     );
   }
 }
