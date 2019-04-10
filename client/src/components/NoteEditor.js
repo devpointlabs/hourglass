@@ -25,9 +25,9 @@ class Editor extends React.Component {
       <>
         <div
           style={{
-            height: "201px",
+            height: "300px",
             display: "flex",
-            width: "600px"
+            width: "700px"
           }}
         >
           <ReactQuill

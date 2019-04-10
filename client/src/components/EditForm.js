@@ -2,14 +2,18 @@ import React, { Fragment } from "react";
 import {
   Form,
   Button,
+  Header,
   Icon,
   Card,
   Grid,
+  List,
   Label,
   Divider,
   Container,
   Image
 } from "semantic-ui-react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import { AuthConsumer } from "../providers/AuthProvider";
 import Dropzone from "react-dropzone";
 
@@ -23,7 +27,8 @@ class EditForm extends React.Component {
       nickname: "",
       email: "",
       file: ""
-    }
+    },
+    projects: []
   };
 
   componentDidMount() {
@@ -35,6 +40,9 @@ class EditForm extends React.Component {
     this.setState({
       formValues: { name, nickname, email }
     });
+    axios
+      .get(`/api/users/${this.props.auth.user.id}/projects`)
+      .then(response => this.setState({ projects: response.data }));
   }
 
   toggleEdit = () => {
@@ -194,6 +202,18 @@ class EditForm extends React.Component {
                 Logout
               </Button>
             </Button.Group>
+            <br />
+            <div>
+              <Header textAlign="center">Current Projects</Header>
+              <Divider />
+              <List textAlign="center" link>
+                {this.state.projects.map(project => (
+                  <List.Item as={Link} to={`/projects/${project.id}`}>
+                    {project.name} - {project.client_name}
+                  </List.Item>
+                ))}
+              </List>
+            </div>
           </div>
         </Container>
       );
