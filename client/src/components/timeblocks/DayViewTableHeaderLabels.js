@@ -33,29 +33,31 @@ class TableHeaderLabels extends React.Component {
   };
 
   render() {
-    const mondayDay = moment(this.props.monday).format("dd ");
+    const { monday, selectedDate } = this.props;
 
-    const tuesdayDay = moment(this.props.monday)
+    const mondayDay = moment(monday).format("dd ");
+
+    const tuesdayDay = moment(monday)
       .add(1, "days")
       .format("dd ");
 
-    const wednesdayDay = moment(this.props.monday)
+    const wednesdayDay = moment(monday)
       .add(2, "days")
       .format("dd ");
 
-    const thursdayDay = moment(this.props.monday)
+    const thursdayDay = moment(monday)
       .add(3, "days")
       .format("dd ");
 
-    const fridayDay = moment(this.props.monday)
+    const fridayDay = moment(monday)
       .add(4, "days")
       .format("dd ");
 
-    const saturdayDay = moment(this.props.monday)
+    const saturdayDay = moment(monday)
       .add(5, "days")
       .format("dd ");
 
-    const sundayDay = moment(this.props.monday)
+    const sundayDay = moment(monday)
       .add(6, "days")
       .format("dd ");
 
@@ -69,28 +71,31 @@ class TableHeaderLabels extends React.Component {
       sundayHours
     } = this.state.hours;
     const days = [
-      { dayofweek: mondayDay, totalHours: mondayHours.toFixed(1) },
-      { dayofweek: tuesdayDay, totalHours: tuesdayHours.toFixed(1) },
-      { dayofweek: wednesdayDay, totalHours: wednesdayHours.toFixed(1) },
-      { dayofweek: thursdayDay, totalHours: thursdayHours.toFixed(1) },
-      { dayofweek: fridayDay, totalHours: fridayHours.toFixed(1) },
-      { dayofweek: saturdayDay, totalHours: saturdayHours.toFixed(1) },
-      { dayofweek: sundayDay, totalHours: sundayHours.toFixed(1) },
+      { dayofweek: mondayDay, totalHours: mondayHours.toFixed(2) },
+      { dayofweek: tuesdayDay, totalHours: tuesdayHours.toFixed(2) },
+      { dayofweek: wednesdayDay, totalHours: wednesdayHours.toFixed(2) },
+      { dayofweek: thursdayDay, totalHours: thursdayHours.toFixed(2) },
+      { dayofweek: fridayDay, totalHours: fridayHours.toFixed(2) },
+      { dayofweek: saturdayDay, totalHours: saturdayHours.toFixed(2) },
+      { dayofweek: sundayDay, totalHours: sundayHours.toFixed(2) },
       {
         dayofweek: "Weekly Total",
-        totalHours: this.state.hours.total.toFixed(1)
+        totalHours: this.state.hours.total.toFixed(2)
       }
     ];
 
     return (
       <>
-        {days &&
-          days.map(cell => (
-            <Table.HeaderCell>
-              <div>{cell.dayofweek}</div>
-              {cell.totalHours}
-            </Table.HeaderCell>
-          ))}
+        {days.map(cell => (
+          <Table.HeaderCell>
+            <div
+              style={{ textAlign: "center", fontSize: "1.1em", padding: "4px" }}
+            >
+              {cell.dayofweek}
+            </div>
+            <div style={{ textAlign: "center" }}>{cell.totalHours}</div>
+          </Table.HeaderCell>
+        ))}
       </>
     );
   }
