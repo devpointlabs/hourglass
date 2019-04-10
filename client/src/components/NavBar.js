@@ -3,6 +3,7 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import HourGlassIcon from "./HourGlassIcon";
+import Clock from "./Clock";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -22,6 +23,7 @@ class Navbar extends React.Component {
           position="right"
           style={{ display: "flex", alignItems: "center" }}
         >
+          <Clock />
           <Link to="/profile">
             <Menu.Item
               style={{
