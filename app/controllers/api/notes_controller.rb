@@ -1,5 +1,6 @@
 class Api::NotesController < ApplicationController
     before_action :set_project, except: [:destroy]
+    before_action :set_note, only: [ :show, :update, :destroy]
     
     def index
       render json: Note.all 
@@ -10,7 +11,7 @@ class Api::NotesController < ApplicationController
     end
   
     def create
-      task = @note.new(note_params)
+      note = @note.new(note_params)
       if note.save 
         render json: note
       else  
@@ -36,6 +37,9 @@ class Api::NotesController < ApplicationController
       @project = Project.find(params[:project_id])
     end
   
+    def set_note
+      @note = Note.find(params[:note_id])
+    end
     def note_params 
       params.require(:note).permit(:author, :datetime, :body)
     end  
