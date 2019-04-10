@@ -81,7 +81,12 @@ export default class Clock extends React.Component {
   render() {
     return (
       <div id="clock" style={this.state.background} onClick={this.clicked}>
-        <h1 className={this.state.class}>{this.state.time}</h1>
+        <h1
+          style={{ color: "white", marginRight: ".5em" }}
+          className={this.state.class}
+        >
+          {this.state.time}
+        </h1>
       </div>
     );
   }
