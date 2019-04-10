@@ -25,16 +25,6 @@ class WeekViewTableRow extends React.Component {
     });
   };
 
-  totaler = () => {
-    const totals = this.state.weekTimeBlocks.map(w =>
-      w.reduce((acc, b) => {
-        return b.task_id === this.props.task.id
-          ? acc + parseFloat(b.hours)
-          : acc;
-      }, 0)
-    );
-  };
-
   render() {
     const { task } = this.props;
 

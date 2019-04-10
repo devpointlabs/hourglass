@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const CalculateHoursAndWeek = (blocks, tasks) => {
+export const CalculateHoursAndWeek = blocks => {
   return blocks.map(b => {
     return {
       ...b,
