@@ -16,10 +16,6 @@ class Api::TimeblocksController < ApplicationController
     render json: data
   end
 
-  def users_timeblocks
-    render json: Timeblock.all
-  end
-
   def show
     render json: @timeblock
   end
