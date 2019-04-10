@@ -1,0 +1,27 @@
+import React from "react";
+import { TimerConsumer } from "../providers/TimerProvider";
+import { Image } from "semantic-ui-react";
+
+const HourGlassIcon = ({ timer }) => (
+  <Image
+    src={
+      timer.timerRunning
+        ? require("../images/hourglass.gif")
+        : require("../images/hourglass_white_inside.png")
+    }
+    size="tiny"
+    style={{ height: "40px", width: "40px", margin: "5px" }}
+  />
+);
+
+export class ConnectedHourGlassIcon extends React.Component {
+  render() {
+    return (
+      <TimerConsumer>
+        {timer => <HourGlassIcon {...this.props} timer={timer} />}
+      </TimerConsumer>
+    );
+  }
+}
+
+export default ConnectedHourGlassIcon;

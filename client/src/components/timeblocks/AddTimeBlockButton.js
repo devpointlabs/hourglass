@@ -1,20 +1,16 @@
 import React from "react";
-import {
-  Button,
-  Icon,
-  Modal,
-  Image,
-  Header,
-  Form,
-  Checkbox
-} from "semantic-ui-react";
+import { Button, Icon, Modal, Header, Form, Checkbox } from "semantic-ui-react";
 import Select from "react-select";
 import moment from "moment";
 import axios from "axios";
+import { TimerConsumer } from "../../providers/TimerProvider";
+import { withRouter } from "react-router-dom";
+import TimerStartStopButton from "./TimerStartStopButton";
+import parsedInput from "./parsedInput";
 
-class addTimeBlockButton extends React.Component {
+class AddTimeBlockButton extends React.Component {
   state = {
-    projectId: "",
+    project: "",
     task: "",
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
@@ -24,8 +20,7 @@ class addTimeBlockButton extends React.Component {
     hours: "",
     startMoment: {},
     endMoment: {},
-    modalOpen: false,
-    timerRunning: false
+    modalOpen: false
   };
 
   componentDidUpdate(prevProps) {
@@ -43,31 +38,16 @@ class addTimeBlockButton extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
   handleChange = e => {
-    const {
-      year,
-      startMonthDay,
-      startHourMinute,
-      endMonthDay,
-      endHourMinute,
-      hoursManuallyEntered,
-      hours
-    } = this.state;
+    const { year, startMonthDay, endMonthDay } = this.state;
 
     const targetName = e.target.name;
-    const targetValue = e.target.value;
 
-    this.setState({ [e.target.name]: e.target.value }, () => {
+    this.setState({ [targetName]: e.target.value }, () => {
       if (this.state.startHourMinute === "" && targetName === "hours") {
         this.setState({ startHourMinute: "09:00" }, () =>
           this.setState({
             endHourMinute: moment(
-              year +
-                "-" +
-                startMonthDay.substring(0, 2) +
-                "-" +
-                startMonthDay.substring(3, 5) +
-                " " +
-                this.state.startHourMinute
+              parsedInput(year, startMonthDay, this.state.startHourMinute)
             )
               .add(parseFloat(this.state.hours), "hours")
               .format("HH:mm")
@@ -76,13 +56,7 @@ class addTimeBlockButton extends React.Component {
       } else if (targetName === "hours") {
         this.setState({
           endHourMinute: moment(
-            year +
-              "-" +
-              startMonthDay.substring(0, 2) +
-              "-" +
-              startMonthDay.substring(3, 5) +
-              " " +
-              this.state.startHourMinute
+            parsedInput(year, startMonthDay, this.state.startHourMinute)
           )
             .add(parseFloat(this.state.hours), "hours")
             .format("HH:mm")
@@ -95,22 +69,10 @@ class addTimeBlockButton extends React.Component {
       ) {
         this.setState({
           hours: moment(
-            year +
-              "-" +
-              endMonthDay.substring(0, 2) +
-              "-" +
-              endMonthDay.substring(3, 5) +
-              " " +
-              this.state.endHourMinute
+            parsedInput(year, endMonthDay, this.state.endHourMinute)
           ).diff(
             moment(
-              year +
-                "-" +
-                startMonthDay.substring(0, 2) +
-                "-" +
-                startMonthDay.substring(3, 5) +
-                " " +
-                this.state.startHourMinute
+              parsedInput(year, startMonthDay, this.state.startHourMinute)
             ),
             "hours",
             true
@@ -120,16 +82,16 @@ class addTimeBlockButton extends React.Component {
     });
   };
 
-  handleChange1 = e => {
-    this.setState({ projectId: e.value });
+  handleChange1 = project => {
+    this.setState({ project });
   };
 
-  handleChange2 = e => {
-    this.setState({ task: e.value });
+  handleChange2 = task => {
+    this.setState({ task });
   };
 
   handleClick = () => {
-    const { timerRunning } = this.state;
+    const { timerRunning } = this.props.timer;
 
     if (timerRunning) {
       //stoptime
@@ -142,23 +104,30 @@ class addTimeBlockButton extends React.Component {
       });
     }
 
-    this.setState({ timerRunning: !this.state.timerRunning });
+    // this.setState({ timerRunning: !this.state.timerRunning });
+    this.props.timer.toggleTimer();
   };
 
   // handleSubmit = (e) => {
   //   e && e.preventDefault()
   //   axios.post('/api/timeblocks', {project_id: , task_id: 1, start_time: 1, end_time: 2})
   // }
-  canceltimer = () => {
-    this.setState({ endHourMinute: "", hours: "", startHourMinute: "" });
+  cancelAddTimesheet = () => {
+    this.setState({
+      endHourMinute: "",
+      hours: "",
+      startHourMinute: "",
+      project: {},
+      task: {}
+    });
     this.handleClose();
   };
 
   render() {
     const selectedProjectTasks = this.props.tasks.filter(
-      t => t.project_id === this.state.projectId
+      t => t.project_id === this.state.project.value
     );
-    const { timerRunning } = this.state;
+    const { timerRunning } = this.props.timer;
 
     return (
       <Modal
@@ -167,22 +136,31 @@ class addTimeBlockButton extends React.Component {
         trigger={
           <Button
             style={{
-              background: "RebeccaPurple",
+              background: timerRunning ? "RebeccaPurple" : "RebeccaPurple",
               color: "white",
               borderRadius: 0,
               paddingLeft: "0",
               width: "4em",
               height: "4em",
-              textAlign: "center"
+              textAlign: "center",
+              border: "solid lightgrey 1px"
             }}
             size="large"
             onClick={() => this.handleOpen()}
           >
-            <Icon
-              size="large"
-              style={{ color: "white", paddingLeft: "22px" }}
-              name="add"
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "4em"
+              }}
+            >
+              <Icon
+                size="large"
+                style={{ color: "white", margin: "0" }}
+                name="add"
+              />
+            </div>
           </Button>
         }
       >
@@ -202,6 +180,7 @@ class addTimeBlockButton extends React.Component {
                 >
                   Project
                   <Select
+                    value={this.state.project}
                     onChange={this.handleChange1}
                     options={this.props.projects.map(p => ({
                       value: p.id,
@@ -219,9 +198,10 @@ class addTimeBlockButton extends React.Component {
                 >
                   Task
                   <Select
+                    value={this.state.task}
                     onChange={this.handleChange2}
                     options={selectedProjectTasks.map(t => ({
-                      value: t.name,
+                      value: t.id,
                       label: t.name
                     }))}
                   />
@@ -326,49 +306,7 @@ class addTimeBlockButton extends React.Component {
                       </div>
                     </div>
                     <div style={{ background: "white" }}>
-                      <Button
-                        onClick={() => this.handleClick()}
-                        style={{
-                          padding: "10px",
-                          height: "150px",
-                          width: "150px",
-                          marginRight: "10px",
-                          marginTop: "10px",
-                          backgroundColor: timerRunning
-                            ? "white"
-                            : "RebeccaPurple",
-                          color: timerRunning ? "black" : "white",
-                          border: "solid lightgray 1px"
-                        }}
-                      >
-                        {timerRunning ? (
-                          <div style={{ fontSize: "2em" }}>
-                            <div>
-                              <img
-                                style={{
-                                  height: "50px"
-                                }}
-                                src={require("../../images/clock.gif")}
-                              />
-                            </div>
-                            Stop
-                          </div>
-                        ) : (
-                          <div style={{ fontSize: "2em" }}>
-                            <div>
-                              <Icon
-                                name="clock outline"
-                                size="large"
-                                style={{
-                                  margin: 0,
-                                  color: "white"
-                                }}
-                              />
-                            </div>
-                            Start
-                          </div>
-                        )}
-                      </Button>
+                      <TimerStartStopButton handleClick={this.handleClick} />
                     </div>
                   </div>
                   <Checkbox
@@ -383,7 +321,9 @@ class addTimeBlockButton extends React.Component {
                   <Button onClick={() => this.handleClose()}>Back</Button>
                 ) : (
                   <div>
-                    <Button onClick={() => this.cancelTimer()}>Cancel</Button>
+                    <Button onClick={() => this.cancelAddTimesheet()}>
+                      Cancel
+                    </Button>
                     <Button onClick={() => this.function()}>Submit</Button>
                   </div>
                 )}
@@ -395,4 +335,15 @@ class addTimeBlockButton extends React.Component {
     );
   }
 }
-export default addTimeBlockButton;
+
+export class ConnectedAddTimeBlockButton extends React.Component {
+  render() {
+    return (
+      <TimerConsumer>
+        {timer => <AddTimeBlockButton {...this.props} timer={timer} />}
+      </TimerConsumer>
+    );
+  }
+}
+
+export default withRouter(ConnectedAddTimeBlockButton);
