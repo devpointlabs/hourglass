@@ -1,5 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:projects]
 
   def index
     render json: User.all
@@ -34,4 +35,12 @@ class Api::UsersController < ApplicationController
     render json: User.current(current_user.projects )
   end
 
+  def projects
+    render json: @user.projects
+  end
+
+  private 
+    def set_user
+      @user = User.find(params[:id])
+    end
 end
