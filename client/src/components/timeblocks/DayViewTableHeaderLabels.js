@@ -87,12 +87,14 @@ class TableHeaderLabels extends React.Component {
     return (
       <>
         {days.map(cell => (
-          <Table.HeaderCell>
-            <div
-              style={{ textAlign: "center", fontSize: "1.1em", padding: "4px" }}
-            >
-              {cell.dayofweek}
-            </div>
+          <Table.HeaderCell
+            style={
+              cell.dayofweek === moment(this.props.selectedDate).format("dd ")
+                ? styles.highlight
+                : styles.normal
+            }
+          >
+            <div>{cell.dayofweek}</div>
             <div style={{ textAlign: "center" }}>{cell.totalHours}</div>
           </Table.HeaderCell>
         ))}
@@ -102,3 +104,19 @@ class TableHeaderLabels extends React.Component {
 }
 
 export default TableHeaderLabels;
+
+const styles = {
+  highlight: {
+    background: "RebeccaPurple",
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: "1.1em",
+    padding: "4px"
+  },
+  normal: {
+    textAlign: "center",
+    fontSize: "1.1em",
+    padding: "4px"
+  }
+};
