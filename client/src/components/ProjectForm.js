@@ -5,6 +5,7 @@ import TaskForm from "./TaskForm";
 import TaskArrayForForm from "./TaskArrayForForm";
 import AddUserToTask from "./AddUserToTask";
 import { Link } from "react-router-dom";
+import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 
 class ProjectForm extends React.Component {
   state = {
@@ -37,6 +38,14 @@ class ProjectForm extends React.Component {
       });
     }
   }
+
+  setEndDate = newdate =>
+    this.setState({ project: { ...this.state.project, planned_end: newdate } });
+
+  setStartDate = newdate =>
+    this.setState({
+      project: { ...this.state.project, planned_start: newdate }
+    });
 
   toggleTask = () => (
     this.setState({
@@ -105,20 +114,9 @@ class ProjectForm extends React.Component {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Input
-                label="Start Date"
-                name="planned_start"
-                value={planned_start}
-                placeholder="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                label="End Date"
-                name="planned_end"
-                value={planned_end}
-                placeholder="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
+              <CalendarPickerForProjectForm setDate={this.setStartDate} />
+
+              <CalendarPickerForProjectForm setDate={this.setEndDate} />
             </Form.Group>
             <Form.Group>
               <Form.Input
