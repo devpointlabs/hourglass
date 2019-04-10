@@ -46,7 +46,7 @@ class TaskArrayForForm extends React.Component {
 
   render() {
     return (
-      <>
+      <div>
         <Header as="h1" textAlign="center">
           Tasks
         </Header>
@@ -69,7 +69,7 @@ class TaskArrayForForm extends React.Component {
           project_id={this.props.project_id}
           showTasks={this.showTasks()}
         />
-      </>
+      </div>
     );
   }
 }

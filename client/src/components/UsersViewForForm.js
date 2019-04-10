@@ -28,6 +28,7 @@ class UsersViewForForm extends React.Component {
           <Button
             circular
             size="mini"
+            circular
             color="red"
             icon="times"
             onClick={() => this.handleDelete(this.props.user.id)}
