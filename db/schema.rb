@@ -10,11 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
+
 ActiveRecord::Schema.define(version: 2019_04_10_214755) do
-=======
-ActiveRecord::Schema.define(version: 2019_04_10_155552) do
->>>>>>> adminDashboard
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +31,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_155552) do
     t.string "datetime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
     t.integer "project_id"
-=======
->>>>>>> adminDashboard
-  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
