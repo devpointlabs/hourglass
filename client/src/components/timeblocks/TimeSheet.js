@@ -1,4 +1,5 @@
 import React from "react";
+import { AuthConsumer } from "../../providers/AuthProvider";
 import TimeSheetNavbar from "./TimeSheetNavbar";
 import TimeBlockNavbar from "./TimeBlockNavbar";
 import { Table } from "semantic-ui-react";
@@ -11,6 +12,8 @@ import {
   AddProjectInfoToTasks,
   AddTaskInfoToTimeBlocks
 } from "./Calculations";
+import { withRouter } from "react-router-dom";
+import { TimerConsumer } from "../../providers/TimerProvider";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
@@ -40,6 +43,7 @@ class TimeSheet extends React.Component {
           timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
         },
         () => {
+          this.checkForTimerRunning();
           this.getWeekTimeBlocks(this.state.selectedDate);
         }
       )
@@ -68,6 +72,21 @@ class TimeSheet extends React.Component {
 
   setView = view => this.setState({ view });
 
+  checkForTimerRunning = () => {
+    this.props.timer.toggleTimer(
+      this.state.timeBlocks.filter(b => b.status === "timerStarted").length > 0
+    );
+  };
+
+  stopTimer = (id, endTime) => {
+    axios
+      .put(`/api/timeblocks/${id}`, {
+        end_time: endTime,
+        status: "pendingApproval"
+      })
+      .then(res => this.getCurrentUserTimeBlocks());
+  };
+
   render() {
     const {
       view,
@@ -92,6 +111,9 @@ class TimeSheet extends React.Component {
             projects={projects}
             tasks={tasks}
             selectedDate={selectedDate}
+            user_id={this.props.auth.user.id}
+            getCurrentUserTimeBlocks={this.getCurrentUserTimeBlocks}
+            stopTimer={this.stopTimer}
           />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
@@ -100,6 +122,7 @@ class TimeSheet extends React.Component {
               selectedDate={selectedDate}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              stopTimer={this.stopTimer}
             />
           </Table>
         </div>
@@ -109,7 +132,27 @@ class TimeSheet extends React.Component {
   }
 }
 
-export default TimeSheet;
+export class ConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <TimeSheet {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export class DoubleConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <TimerConsumer>
+        {timer => <ConnectedTimeSheet {...this.props} timer={timer} />}
+      </TimerConsumer>
+    );
+  }
+}
+
+export default withRouter(DoubleConnectedTimeSheet);
 
 // get blocks
 // add hours to blocks

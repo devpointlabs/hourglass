@@ -12,7 +12,8 @@ class DayViewTableData extends React.Component {
       timeBlocks,
       tasks,
       currentWeekTimeBlocks,
-      monday
+      monday,
+      stopTimer
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
@@ -49,7 +50,12 @@ class DayViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           {currentDayBlocksWithTaskInfo.map(b => (
-            <DayViewTableRow key={b.id} timeBlock={b} monday={monday} />
+            <DayViewTableRow
+              key={b.id}
+              timeBlock={b}
+              monday={monday}
+              stopTimer={stopTimer}
+            />
           ))}
           <Table.Row>
             <Table.Cell colSpan="10">

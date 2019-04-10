@@ -56,6 +56,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id)
+    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status)
   end
 end
