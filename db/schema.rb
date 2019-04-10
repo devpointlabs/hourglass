@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_04_10_214755) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +63,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_214755) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "task_id"
+    t.string "status"
+    t.boolean "manualEntry"
     t.index ["task_id"], name: "index_timeblocks_on_task_id"
     t.index ["user_id"], name: "index_timeblocks_on_user_id"
   end

@@ -1,7 +1,8 @@
 import React from "react";
 import { Table, Button, Icon } from "semantic-ui-react";
+import TimerStartStopButton from "./TimerStartStopButton";
 
-const DayViewTableRow = ({ timeBlock }) => (
+const DayViewTableRow = ({ timeBlock, stopTimer }) => (
   <Table.Row>
     <Table.Cell style={{ padding: 0 }} colSpan="6">
       <div>
@@ -15,17 +16,22 @@ const DayViewTableRow = ({ timeBlock }) => (
     <Table.Cell
       style={{ padding: "0 5px 0 5px", textAlign: "center", fontSize: "1.1em" }}
     >
-      {parseFloat(timeBlock.hours).toFixed(2)}
+      {timeBlock.end_time ? parseFloat(timeBlock.hours).toFixed(2) : 0}
     </Table.Cell>
     <Table.Cell style={{ padding: 0 }}>
       <div style={{ display: "flex" }}>
-        <Button>
-          <Icon name="stopwatch" />
-          Start
-        </Button>
-        <Button>
+        <div style={{ height: "30px" }}>
+          {!timeBlock.end_time && (
+            <TimerStartStopButton
+              large={false}
+              handleClick={stopTimer}
+              id={timeBlock.id}
+            />
+          )}
+        </div>
+        {/* <Button>
           <Icon name="pencil" />
-        </Button>
+        </Button> */}
       </div>
     </Table.Cell>
   </Table.Row>
