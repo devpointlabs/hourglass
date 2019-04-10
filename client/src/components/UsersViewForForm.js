@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Button } from "semantic-ui-react";
+import { Button, Table } from "semantic-ui-react";
 import axios from "axios";
 
 class UsersViewForForm extends React.Component {
@@ -22,18 +22,18 @@ class UsersViewForForm extends React.Component {
 
   render() {
     return (
-      <>
-        {" "}
-        <Segment>
+      <Table.Row>
+        <Table.Cell>{this.props.user.name}</Table.Cell>
+        <Table.Cell>
           <Button
-            style={{ borderRadius: "100%" }}
+            circular
+            size="mini"
             color="red"
             icon="times"
             onClick={() => this.handleDelete(this.props.user.id)}
           />
-          {this.props.user.name}
-        </Segment>
-      </>
+        </Table.Cell>
+      </Table.Row>
     );
   }
 }

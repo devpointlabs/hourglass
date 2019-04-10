@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Header, Checkbox, Icon } from "semantic-ui-react";
+import { Form, Button, Header, Checkbox, Icon, Table } from "semantic-ui-react";
 import axios from "axios";
 import UsersArray from "./UsersArray";
 
@@ -58,38 +58,55 @@ class TaskForm extends React.Component {
     return (
       <>
         <Form>
-          <Form.Group>
-            <Form.Input
-              name="name"
-              label="Name"
-              placeholder="Task Name"
-              value={name}
-              autofocus
-              required
-              onChange={this.handleChange}
-            />
-
-            <Form.Input
-              name="price_per_hour"
-              label="Price per hour"
-              placeholder="Price per hour"
-              value={price_per_hour}
-              required
-              onChange={this.handleChange}
-            />
-
-            <Form.Input
-              name="description"
-              label="Description"
-              placeholder="Description"
-              value={description}
-              onChange={this.handleChange}
-            />
-            <Checkbox label="Billable" onClick={this.handleBillable} />
-            <Button color="violet" onClick={() => this.handleSubmit()}>
-              <Icon name="plus" />
-            </Button>
-          </Form.Group>
+          <Table>
+            <Table.Row key={"new"}>
+              <Table.Cell>
+                {" "}
+                <Form.Input
+                  name="name"
+                  label="Name"
+                  placeholder="Task Name"
+                  value={name}
+                  autofocus
+                  required
+                  onChange={this.handleChange}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Form.Input
+                  name="description"
+                  label="Description"
+                  placeholder="Description"
+                  value={description}
+                  onChange={this.handleChange}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                {" "}
+                <Form.Input
+                  name="price_per_hour"
+                  label="Price per hour"
+                  placeholder="Price per hour"
+                  value={price_per_hour}
+                  required
+                  onChange={this.handleChange}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                {" "}
+                <Checkbox label="Billable" onClick={this.handleBillable} />
+              </Table.Cell>
+              <Table.Cell>
+                <Button
+                  circular
+                  color="violet"
+                  onClick={() => this.handleSubmit()}
+                  size="mini"
+                  icon="plus"
+                />{" "}
+              </Table.Cell>
+            </Table.Row>
+          </Table>
         </Form>
         {this.props.editing ? (
           <div />

@@ -1,5 +1,12 @@
 import React from "react";
-import { Segment, Button, Form, Checkbox, Icon } from "semantic-ui-react";
+import {
+  Segment,
+  Button,
+  Form,
+  Checkbox,
+  Icon,
+  Table
+} from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 
@@ -37,18 +44,29 @@ class TaskViewForForm extends React.Component {
             />
           </Segment>
         ) : (
-          <div>
-            <Segment>
-              <Button color="red" onClick={this.handleDelete}>
-                <Icon name="times" />{" "}
-              </Button>
-              <Button color="blue" onClick={this.toggleEdit}>
-                <Icon name="pencil" />
-              </Button>
-              {task.name} || ${task.price_per_hour}/hr || {task.description} ||{" "}
-              {task.billable ? "Billable" : "Unbillable"}
-            </Segment>
-          </div>
+          <Table.Row key={task.id}>
+            <Table.Cell>{task.name}</Table.Cell>
+            <Table.Cell>{task.description}</Table.Cell>
+            <Table.Cell>{task.price_per_hour}</Table.Cell>
+            <Table.Cell>{task.billable ? "Billable" : "Unbillable"}</Table.Cell>
+            <Table.Cell>
+              <Button
+                circular
+                color="red"
+                onClick={this.handleDelete}
+                icon="times"
+                size="mini"
+              />
+              <Button
+                circular
+                color="blue"
+                onClick={this.toggleEdit}
+                icon="pencil"
+                size="mini"
+                style={{ alignItems: "right" }}
+              />
+            </Table.Cell>
+          </Table.Row>
         )}
       </>
     );
