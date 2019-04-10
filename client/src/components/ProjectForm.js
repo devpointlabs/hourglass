@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 class ProjectForm extends React.Component {
   state = {
     project: {
-      name: "",
+      name: " ",
       client_name: "",
       planned_start: "",
       planned_end: "",
@@ -19,12 +19,32 @@ class ProjectForm extends React.Component {
     taskShown: false
   };
 
+  componentDidMount() {
+    if (this.props.project) {
+      this.setState({
+        project: this.props.project,
+        project_id: this.props.project.id
+      });
+    } else {
+      this.setState({
+        project: {
+          name: " ",
+          client_name: "",
+          planned_start: "",
+          planned_end: "",
+          notes: ""
+        }
+      });
+    }
+  }
+
   toggleTask = () => (
     this.setState({
       taskShown: { ...this.state, taskShown: !this.state.taskShown }
     }),
     this.handleSubmit()
   );
+
   handleChange = e => {
     const {
       target: { name, value }
@@ -35,9 +55,16 @@ class ProjectForm extends React.Component {
   handleSubmit = e => {
     const { project } = this.state;
     // e.preventDefault();
-    axios.post(`/api/projects`, project).then(res => {
-      this.setState({ ...this.state, project_id: res.data.id });
-    });
+    if (this.props.project) {
+      const { id } = this.state.project;
+      axios
+        .put(`/api/projects/${id}`, project)
+        .then(res => this.props.updateSubmit(res.data));
+    } else {
+      axios.post(`/api/projects`, project).then(res => {
+        this.setState({ ...this.state, project_id: res.data.id });
+      });
+    }
   };
 
   render() {
@@ -110,10 +137,9 @@ class ProjectForm extends React.Component {
           </div>
         ) : (
           <div>
-            {" "}
             <Button onClick={() => this.toggleTask()}>
               Add Tasks and Employees
-            </Button>{" "}
+            </Button>
             {/* <Button onClick={this.handleSubmit}>Save Project</Button>{" "} */}
             {/* <Link to={"/projects"}>
               <Button inverted color="violet" style={{ marginBottom: "20px" }}>

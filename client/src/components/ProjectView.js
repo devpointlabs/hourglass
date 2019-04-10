@@ -7,14 +7,16 @@ import {
   Container,
   Card,
   Icon,
-  ButtonGroup
+  ButtonGroup,
+  Table
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 import NoteEditor from "./NoteEditor";
 import TeamView from "./TeamView";
+import ProjectForm from "./ProjectForm";
 
 class ProjectView extends React.Component {
-  state = { project: {}, taskview: true };
+  state = { project: {}, taskview: true, toggleForm: false };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -57,14 +59,21 @@ class ProjectView extends React.Component {
                   marginTop: "20px"
                 }}
               />
-              <Card.Description>CLIENT:{client_name}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>START DATE:{planned_start}</Card.Description>
-              <br />
-              <br />
-              <Card.Description>END DATE:{planned_end}</Card.Description>
+              <Table celled>
+                <Table.Row>
+                  <Table.Cell>CLIENT:</Table.Cell>
+                  <Table.Cell>{project.client_name}</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>START DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_start}</Table.Cell>
+                </Table.Row>
 
+                <Table.Row>
+                  <Table.Cell>END DATE:</Table.Cell>
+                  <Table.Cell>{project.planned_end}</Table.Cell>
+                </Table.Row>
+              </Table>
               <Card
                 style={{
                   height: "300px",
@@ -85,9 +94,33 @@ class ProjectView extends React.Component {
                 text: "15px"
               }}
             >
-              <h4> Notes:</h4>
               <NoteEditor notes={this.state.project.notes} />
               {/* <h2>{project.notes}</h2> */}
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <Button.Group>
+                <Button color="violet" floated="right">
+                  Save
+                </Button>
+                <Button onClick={this.handleToggle} color="red">
+                  Edit
+                </Button>
+              </Button.Group>
+            </Card>
+            <Card
+              style={{
+                height: "300px",
+                width: "1100px",
+                display: "flex",
+                textAlign: "center",
+                text: "15px"
+              }}
+            >
+              <h4> Notes:</h4>
             </Card>
           </Card.Group>
         </div>
@@ -96,16 +129,13 @@ class ProjectView extends React.Component {
             display: "flex",
             justifyContent: "right"
           }}
-        >
-          <Button.Group>
-            <Button color="violet" floated="right">
-              Save
-            </Button>
-            <Button color="red">Edit</Button>
-          </Button.Group>
-        </div>
+        />
       </>
     );
+  };
+
+  updateSubmit = project => {
+    this.setState({ project: project });
   };
 
   handleDelete = () => {
@@ -113,6 +143,10 @@ class ProjectView extends React.Component {
     axios.delete(`/api/projects/${id}`).then(res => {
       this.props.history.push("/projects");
     });
+  };
+
+  handleToggle = () => {
+    this.setState({ toggleForm: true });
   };
 
   toggleTasks = number => {
@@ -130,51 +164,65 @@ class ProjectView extends React.Component {
   render() {
     const { id, name } = this.state.project;
     return (
-      <Container
-        style={{
-          paddingTop: "20px",
-          margin: "40px"
-        }}
-      >
-        <h1>{name}</h1>
-        {this.showProject()}
+
+      <>
         <br />
         <br />
         <div>
           <Link to={"/projects"}>
-            <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+            <Button
+              inverted
+              color="violet"
+              floated="right"
+
+              style={{ marginBottom: "20px" }}
+            >
               <Icon name="arrow alternate circle left outline" />
               Go Back
             </Button>
           </Link>
+
           <Link to={`/project/${id}/edit`}>
-            <Button inverted color="blue">
+            <Button inverted color="blue" floated="right">
               <Icon name="pencil" /> Update Project
             </Button>
           </Link>
-          <Button inverted onClick={this.handleDelete} color="red">
+          <Button
+            inverted
+            onClick={this.handleDelete}
+            color="red"
+            floated="right"
+          >
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
-
-        <Header>
-          <div className="wrapper">
-            <Button.Group widths="2">
-              <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
-                Tasks
-              </Button>
-              <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
-                Team
-              </Button>
-            </Button.Group>
-          </div>
-        </Header>
-        {this.state.taskview ? (
-          <TaskView id={this.props.match.params.id} />
-        ) : (
-          <TeamView id={this.props.match.params.id} />
-        )}
-      </Container>
+        <Container
+          style={{
+            paddingTop: "0px",
+            margin: "0px"
+          }}
+        >
+          <h1>{name}</h1>
+          {this.showProject()}
+          <Header>
+            <div className="wrapper">
+              <Button.Group widths="2">
+                <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
+                  Tasks
+                </Button>
+                <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
+                  Team
+                </Button>
+              </Button.Group>
+            </div>
+          </Header>
+          {this.state.taskview ? (
+            <TaskView id={this.props.match.params.id} />
+          ) : (
+            <TeamView id={this.props.match.params.id} />
+          )}
+        </Container>
+      </>
     );
   }
 }
