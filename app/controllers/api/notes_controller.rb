@@ -38,7 +38,7 @@ class Api::NotesController < ApplicationController
     end
   
     def set_note
-      @note = Note.find(params[:note_id])
+      @note = Note.find(params[:id])
     end
     def note_params 
       params.require(:note).permit(:author, :datetime, :body)
