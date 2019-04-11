@@ -14,7 +14,7 @@ import TaskView from "./TaskView";
 import NoteEditor from "./NoteEditor";
 import TeamView from "./TeamView";
 import ProjectForm from "./ProjectForm";
-import Notes from "./Notes";
+
 import Scroll from "react-awesome-scroll";
 
 class ProjectView extends React.Component {
