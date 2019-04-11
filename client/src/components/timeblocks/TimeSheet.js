@@ -32,7 +32,23 @@ class TimeSheet extends React.Component {
     this.setState({ selectedDate: moment() });
     this.getCurrentUserTimeBlocks();
     this.getWeekTimeBlocks();
+    document.addEventListener("keydown", this.handleKeyDown);
   }
+
+  handleKeyDown = event => {
+    switch (event.keyCode) {
+      case 37:
+        this.setState({
+          selectedDate: moment(this.state.selectedDate).subtract(1, "days")
+        });
+        break;
+      case 39:
+        this.setState({
+          selectedDate: moment(this.state.selectedDate).add(1, "days")
+        });
+        break;
+    }
+  };
 
   getCurrentUserTimeBlocks = () => {
     axios.get("api/timeblocks").then(res =>
