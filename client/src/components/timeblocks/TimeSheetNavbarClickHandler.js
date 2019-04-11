@@ -6,12 +6,12 @@ const TimeSheetNavbarClickHandler = (date, event, task, week) => {
     case "dayLeft":
       newDate = moment(date).subtract(1, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "dayRight":
       newDate = moment(date).add(1, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "day":
       task("day");
@@ -40,37 +40,37 @@ const TimeSheetNavbarClickHandler = (date, event, task, week) => {
     case "Mo":
       newDate = moment(date);
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "Tu":
       newDate = moment(date).add(1, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "We":
       newDate = moment(date).add(2, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "Th":
       newDate = moment(date).add(3, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "Fr":
       newDate = moment(date).add(4, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "Sa":
       newDate = moment(date).add(5, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     case "Su":
       newDate = moment(date).add(6, "days");
       task(newDate);
-      week(newDate);
+      week(moment(newDate).subtract(1, "days"));
       break;
     //no default
   }

@@ -46,6 +46,7 @@ class TableHeaderLabels extends React.Component {
     const sundayDay = moment(monday)
       .add(6, "days")
       .format("dd");
+
     const sundayDate = moment(monday)
       .add(6, "days")
       .format("MM/DD");
@@ -102,6 +103,7 @@ const styles = {
     textAlign: "center",
     fontSize: "1em",
     padding: "4px",
+    cursor: "pointer",
     width: "102px"
   },
   normal: {
