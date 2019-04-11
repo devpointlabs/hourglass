@@ -8,37 +8,37 @@ class TableHeaderLabels extends React.Component {
     const mondayDate = moment(this.props.monday).format("MM/DD");
     const tuesdayDay = moment(this.props.monday)
       .add(1, "days")
-      .format("dd");
+      .format("dd ");
     const tuesdayDate = moment(this.props.monday)
       .add(1, "days")
       .format("MM/DD");
     const wednesdayDay = moment(this.props.monday)
       .add(2, "days")
-      .format("dd");
+      .format("dd ");
     const wednesdayDate = moment(this.props.monday)
       .add(2, "days")
       .format("MM/DD");
     const thursdayDay = moment(this.props.monday)
       .add(3, "days")
-      .format("dd");
+      .format("dd ");
     const thursdayDate = moment(this.props.monday)
       .add(3, "days")
       .format("MM/DD");
     const fridayDay = moment(this.props.monday)
       .add(4, "days")
-      .format("dd");
+      .format("dd ");
     const fridayDate = moment(this.props.monday)
       .add(4, "days")
       .format("MM/DD");
     const saturdayDay = moment(this.props.monday)
       .add(5, "days")
-      .format("dd");
+      .format("dd ");
     const saturdayDate = moment(this.props.monday)
       .add(5, "days")
       .format("MM/DD");
     const sundayDay = moment(this.props.monday)
       .add(6, "days")
-      .format("dd");
+      .format("dd ");
     const sundayDate = moment(this.props.monday)
       .add(6, "days")
       .format("MM/DD");

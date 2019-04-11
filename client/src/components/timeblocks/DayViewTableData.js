@@ -13,7 +13,9 @@ class DayViewTableData extends React.Component {
       tasks,
       currentWeekTimeBlocks,
       monday,
-      stopTimer
+      stopTimer,
+      setSelectedWeek,
+      setSelectedDate
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
@@ -43,6 +45,8 @@ class DayViewTableData extends React.Component {
             selectedDate={selectedDate}
             currentWeekTimeBlocks={currentWeekTimeBlocks}
             monday={monday}
+            setSelectedDate={setSelectedDate}
+            setSelectedWeek={setSelectedWeek}
           />
         </Table.Header>
         <Table.Body>
