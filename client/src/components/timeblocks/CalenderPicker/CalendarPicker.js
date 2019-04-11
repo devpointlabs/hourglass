@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker2 from "./DatePicker2";
-import clickHandler from "./TimeSheetNavbarClickHandler";
+import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 
 class CalendarPicker extends React.Component {
   state = { date: this.props.selectedDate };
