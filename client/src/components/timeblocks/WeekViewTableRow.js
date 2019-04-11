@@ -4,14 +4,7 @@ import { returnTaskTotalsByDay } from "./Calculations";
 
 class WeekViewTableRow extends React.Component {
   state = {
-    weekTimeBlocks: [],
-    mondayTotal: 0,
-    tuesdayTotal: 0,
-    wednesdayTotal: 0,
-    thursdayTotal: 0,
-    fridayTotal: 0,
-    saturdayTotal: 0,
-    sundayTotal: 0
+    weekTimeBlocks: []
   };
 
   componentDidMount = () => {
@@ -27,7 +20,6 @@ class WeekViewTableRow extends React.Component {
 
   render() {
     const { task } = this.props;
-
     const totals = this.state.weekTimeBlocks.map(w =>
       w.reduce((acc, b) => {
         return b.task_id === this.props.task.id

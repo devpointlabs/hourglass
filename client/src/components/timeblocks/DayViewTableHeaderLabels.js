@@ -1,7 +1,8 @@
 import React from "react";
 import moment from "moment";
-import { Table } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import { returnHoursSplitByDay } from "./Calculations";
+import clickHandler from "./TimeSheetNavbarClickHandler";
 
 class TableHeaderLabels extends React.Component {
   state = {
@@ -33,7 +34,12 @@ class TableHeaderLabels extends React.Component {
   };
 
   render() {
-    const { monday, selectedDate } = this.props;
+    const {
+      monday,
+      selectedDate,
+      setSelectedDate,
+      setSelectedWeek
+    } = this.props;
 
     const mondayDay = moment(monday).format("dd ");
 
@@ -88,6 +94,14 @@ class TableHeaderLabels extends React.Component {
       <>
         {days.map(cell => (
           <Table.HeaderCell
+            onClick={() =>
+              clickHandler(
+                monday,
+                cell.dayofweek,
+                setSelectedDate,
+                setSelectedWeek
+              )
+            }
             style={
               cell.dayofweek === moment(this.props.selectedDate).format("dd ")
                 ? styles.highlight
@@ -112,11 +126,13 @@ const styles = {
     fontWeight: "bold",
     textAlign: "center",
     fontSize: "1.1em",
-    padding: "4px"
+    padding: "4px",
+    cursor: "pointer"
   },
   normal: {
     textAlign: "center",
     fontSize: "1.1em",
-    padding: "4px"
+    padding: "4px",
+    cursor: "pointer"
   }
 };
