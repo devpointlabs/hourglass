@@ -3,7 +3,7 @@ import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
 import { Table } from "semantic-ui-react";
 import moment from "moment";
-import { returnDayHours, returnDayInfo } from "./Calculations";
+import { returnDayHours, returnDayInfo } from "../Calculations/Calculations";
 
 class DayViewTableData extends React.Component {
   render() {

@@ -1,13 +1,13 @@
 import React from "react";
-import { AuthConsumer } from "../../providers/AuthProvider";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 import { Table, Button, Icon } from "semantic-ui-react";
 
 import axios from "axios";
 import UserWeek from "./UserWeek";
-import DateRange from "./DateRange";
+import DateRange from "../DateRange";
 
 import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
-import TimeBlockNavbar from "./TimeBlockNavbar.js";
+import TimeBlockNavbar from "../NavBars/TimeBlockNavbar.js";
 
 class TimeBlocks extends React.Component {
   state = { timeBlocks: [], startDate: "", endDate: "" };

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { Table } from "semantic-ui-react";
-import clickHandler from "./TimeSheetNavbarClickHandler";
+import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 
 class TableHeaderLabels extends React.Component {
   render() {
@@ -46,7 +46,6 @@ class TableHeaderLabels extends React.Component {
     const sundayDay = moment(monday)
       .add(6, "days")
       .format("dd");
-
     const sundayDate = moment(monday)
       .add(6, "days")
       .format("MM/DD");
