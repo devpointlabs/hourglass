@@ -106,14 +106,7 @@ class Navbar extends React.Component {
               }
             />
           </Link>
-          <Link to="/dashboard">
-            <Menu.Item
-              name="dashboard"
-              id="dashboard"
-              style={{ color: "white" }}
-              active={pathname === "/dashboard"}
-            />
-          </Link>
+
           {this.rightNavItems()}
         </Menu>
       </div>

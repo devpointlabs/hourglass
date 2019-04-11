@@ -10,11 +10,10 @@ import { Container } from "semantic-ui-react";
 import Navbar from "./components/NavBar";
 import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import AdminDashboard from "./components/AdminDashboard";
-import TimeBlocks from "./components/timeblocks/TimeBlocks";
+
 import EditForm from "./components/EditForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
-import Pending from "./components/timeblocks/Pending";
+import Pending from "./components/timeblocks/NavBarComponents/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TaskView from "./components/TaskView";
 import ProjectForm from "./components/ProjectForm";
@@ -35,14 +34,10 @@ const App = () => (
 
           <Route exact path="/profile" component={EditForm} />
           <Route exact path="/projects/:id" component={ProjectView} />
-          <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
-
           <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
           <Route exact path="/timesheet/pending" component={Pending} />
           <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
 
-          <ProtectedRoute exact path="/dashboard" component={AdminDashboard} />
-          <ProtectedRoute exact path="/timeblock" component={TimeBlocks} />
           <ProtectedRoute exact path="/taskview" component={TaskView} />
 
           <Route component={NoMatch} />

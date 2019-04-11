@@ -1,13 +1,6 @@
 import React from "react";
 
-import {
-  Segment,
-  Button,
-  Form,
-  Checkbox,
-  Icon,
-  Table
-} from "semantic-ui-react";
+import { Segment, Button, Table } from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 

@@ -3,7 +3,7 @@ import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
 import { Table } from "semantic-ui-react";
 import moment from "moment";
-import { returnDayHours, returnDayInfo } from "./Calculations";
+import { returnDayHours, returnDayInfo } from "../Calculations/Calculations";
 
 class DayViewTableData extends React.Component {
   render() {
@@ -12,7 +12,10 @@ class DayViewTableData extends React.Component {
       timeBlocks,
       tasks,
       currentWeekTimeBlocks,
-      monday
+      monday,
+      stopTimer,
+      setSelectedWeek,
+      setSelectedDate
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
@@ -42,6 +45,8 @@ class DayViewTableData extends React.Component {
             selectedDate={selectedDate}
             currentWeekTimeBlocks={currentWeekTimeBlocks}
             monday={monday}
+            setSelectedDate={setSelectedDate}
+            setSelectedWeek={setSelectedWeek}
           />
         </Table.Header>
         <Table.Body>
@@ -49,16 +54,19 @@ class DayViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           {currentDayBlocksWithTaskInfo.map(b => (
-            <DayViewTableRow key={b.id} timeBlock={b} monday={monday} />
+            <DayViewTableRow
+              key={b.id}
+              timeBlock={b}
+              monday={monday}
+              stopTimer={stopTimer}
+            />
           ))}
           <Table.Row>
-            <Table.Cell colSpan="10">
-              <hr />
-            </Table.Cell>
+            <Table.Cell colSpan={parseInt(calcColSpan(selectedDate)) + 1} />
           </Table.Row>
           <Table.Row>
             <Table.Cell
-              colSpan="6"
+              colSpan={calcColSpan(selectedDate)}
               style={{ fontWeight: "bold", fontSize: "1.2em" }}
             >
               Daily Total:
@@ -80,3 +88,9 @@ class DayViewTableData extends React.Component {
 }
 
 export default DayViewTableData;
+
+const calcColSpan = selectedDate => {
+  let numberDayOfWeek = moment(selectedDate).format("d");
+  if (numberDayOfWeek === "0") numberDayOfWeek = "7";
+  return numberDayOfWeek;
+};

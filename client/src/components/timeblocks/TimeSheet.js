@@ -1,6 +1,7 @@
 import React from "react";
-import TimeSheetNavbar from "./TimeSheetNavbar";
-import TimeBlockNavbar from "./TimeBlockNavbar";
+import { AuthConsumer } from "../../providers/AuthProvider";
+import TimeSheetNavbar from "./NavBarComponents/TimeSheetNavbar";
+import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 import { Table } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
@@ -10,7 +11,9 @@ import {
   CalculateHoursAndWeek,
   AddProjectInfoToTasks,
   AddTaskInfoToTimeBlocks
-} from "./Calculations";
+} from "./Calculations/Calculations";
+import { withRouter } from "react-router-dom";
+import { TimerConsumer } from "../../providers/TimerProvider";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
@@ -22,14 +25,40 @@ class TimeSheet extends React.Component {
     tasks: [],
     projects: [],
     timeBlocks: [],
-    currentWeekTimeBlocks: []
+    currentWeekTimeBlocks: [],
+    activeTimerTimeBlock: {}
   };
 
   componentDidMount() {
     this.setState({ selectedDate: moment() });
     this.getCurrentUserTimeBlocks();
     this.getWeekTimeBlocks();
+    document.addEventListener("keydown", this.handleKeyDown);
   }
+
+  handleKeyDown = event => {
+    switch (event.keyCode) {
+      case 37:
+        this.setState({
+          selectedDate: moment(this.state.selectedDate).subtract(1, "days")
+        });
+        this.setSelectedWeek(
+          moment(this.state.selectedDate).subtract(1, "days")
+        );
+        break;
+      case 39:
+        this.setState({
+          selectedDate: moment(this.state.selectedDate).add(1, "days")
+        });
+        this.setSelectedWeek(
+          moment(this.state.selectedDate).subtract(1, "days")
+        );
+        break;
+      case 32:
+        this.setState({ selectedDate: moment() });
+        break;
+    }
+  };
 
   getCurrentUserTimeBlocks = () => {
     axios.get("api/timeblocks").then(res =>
@@ -40,6 +69,7 @@ class TimeSheet extends React.Component {
           timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
         },
         () => {
+          this.checkForTimerRunning();
           this.getWeekTimeBlocks(this.state.selectedDate);
         }
       )
@@ -52,7 +82,7 @@ class TimeSheet extends React.Component {
 
     let grabCurrentWeek = timeBlocks.filter(
       tb =>
-        moment(week).format("YYYY w") === moment(tb.start_time).format("YYYY w")
+        moment(week).format("yyyy w") === moment(tb.start_time).format("yyyy w")
     );
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
@@ -67,6 +97,27 @@ class TimeSheet extends React.Component {
   };
 
   setView = view => this.setState({ view });
+
+  checkForTimerRunning = () => {
+    let activeTimerTimeBlocks = [];
+    let activeTimer =
+      this.state.timeBlocks.filter(b => b.status === "timerStarted").length > 0;
+    this.props.timer.toggleTimer(activeTimer);
+    if (activeTimer)
+      activeTimerTimeBlocks = this.state.timeBlocks.filter(
+        b => b.status === "timerStarted"
+      );
+    this.setState({ activeTimerTimeBlock: activeTimerTimeBlocks[0] });
+  };
+
+  stopTimer = (id, endTime) => {
+    axios
+      .put(`/api/timeblocks/${id}`, {
+        end_time: endTime,
+        status: "unSubmitted"
+      })
+      .then(res => this.getCurrentUserTimeBlocks());
+  };
 
   render() {
     const {
@@ -92,6 +143,12 @@ class TimeSheet extends React.Component {
             projects={projects}
             tasks={tasks}
             selectedDate={selectedDate}
+            setSelectedDate={this.setSelectedDate}
+            setView={this.setView}
+            user_id={this.props.auth.user.id}
+            getCurrentUserTimeBlocks={this.getCurrentUserTimeBlocks}
+            stopTimer={this.stopTimer}
+            timeBlock={this.state.activeTimerTimeBlock}
           />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
@@ -100,16 +157,38 @@ class TimeSheet extends React.Component {
               selectedDate={selectedDate}
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              stopTimer={this.stopTimer}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedWeek={this.setSelectedWeek}
             />
           </Table>
         </div>
-        <hr />
       </>
     );
   }
 }
 
-export default TimeSheet;
+export class ConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <TimeSheet {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export class DoubleConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <TimerConsumer>
+        {timer => <ConnectedTimeSheet {...this.props} timer={timer} />}
+      </TimerConsumer>
+    );
+  }
+}
+
+export default withRouter(DoubleConnectedTimeSheet);
 
 // get blocks
 // add hours to blocks

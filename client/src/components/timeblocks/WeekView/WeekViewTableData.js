@@ -2,8 +2,7 @@ import React from "react";
 import WeekViewTableHeaderRow from "./WeekViewTableHeaderRow";
 import WeekViewTableRow from "./WeekViewTableRow";
 import { Table, Button } from "semantic-ui-react";
-import { returnHoursSplitByDay } from "./Calculations";
-import AddTimeBlockButton from "./AddTimeBlockButton";
+import { returnHoursSplitByDay } from "../Calculations/ReturnHoursSplitByDay";
 import NewRowForm from "./NewRowForm";
 
 class WeekViewTableData extends React.Component {
@@ -23,7 +22,12 @@ class WeekViewTableData extends React.Component {
   };
 
   componentDidMount = () => {
-    const { currentWeekTimeBlocks, monday } = this.props;
+    const {
+      currentWeekTimeBlocks,
+      monday,
+      setSelectedWeek,
+      setSelectedDate
+    } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
     });
@@ -46,7 +50,14 @@ class WeekViewTableData extends React.Component {
   };
 
   render() {
-    const { currentWeekTimeBlocks, tasks, selectedDate, monday } = this.props;
+    const {
+      currentWeekTimeBlocks,
+      tasks,
+      selectedDate,
+      monday,
+      setSelectedDate,
+      setSelectedWeek
+    } = this.props;
     const {
       mondayHours,
       tuesdayHours,
@@ -61,7 +72,12 @@ class WeekViewTableData extends React.Component {
     return (
       <>
         <Table.Header>
-          <WeekViewTableHeaderRow selectedDate={selectedDate} monday={monday} />
+          <WeekViewTableHeaderRow
+            selectedDate={selectedDate}
+            monday={monday}
+            setSelectedDate={setSelectedDate}
+            setSelectedWeek={setSelectedWeek}
+          />
         </Table.Header>
         <Table.Body>
           <Table.Row>
@@ -71,7 +87,7 @@ class WeekViewTableData extends React.Component {
             <WeekViewTableRow
               key={t.id}
               task={t}
-              selectedDate={this.props.selectedDate}
+              selectedDate={selectedDate}
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
@@ -84,11 +100,15 @@ class WeekViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
-            <Table.Cell colSpan="2">
+            <Table.Cell colSpan="1">
               {this.state.showButton ? (
                 <div style={{ textAlign: "left" }}>
                   <Button
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      background: "RebeccaPurple",
+                      color: "white",
+                      marginLeft: "10px"
+                    }}
                     onClick={() => this.addRow()}
                   >
                     New Row
@@ -98,7 +118,11 @@ class WeekViewTableData extends React.Component {
                 <div style={{ textAlign: "left" }}>
                   <Button
                     onClick={() => this.submitRow()}
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      background: "RebeccaPurple",
+                      color: "white",
+                      marginLeft: "10px"
+                    }}
                   >
                     Save
                   </Button>
@@ -177,7 +201,6 @@ class WeekViewTableData extends React.Component {
             >
               {total.toFixed(2)}
             </Table.Cell>
-            <Table.Cell>10</Table.Cell>
           </Table.Row>
         </Table.Body>
       </>

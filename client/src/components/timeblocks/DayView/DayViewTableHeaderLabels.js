@@ -1,7 +1,8 @@
 import React from "react";
 import moment from "moment";
-import { Table } from "semantic-ui-react";
-import { returnHoursSplitByDay } from "./Calculations";
+import { Table, Button } from "semantic-ui-react";
+import { returnHoursSplitByDay } from "../Calculations/ReturnHoursSplitByDay";
+import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 
 class TableHeaderLabels extends React.Component {
   state = {
@@ -16,6 +17,8 @@ class TableHeaderLabels extends React.Component {
       total: 40
     }
   };
+
+  key;
 
   componentDidMount = () => {
     const { currentWeekTimeBlocks, monday } = this.props;
@@ -33,33 +36,38 @@ class TableHeaderLabels extends React.Component {
   };
 
   render() {
-    const { monday, selectedDate } = this.props;
+    const {
+      monday,
+      selectedDate,
+      setSelectedDate,
+      setSelectedWeek
+    } = this.props;
 
-    const mondayDay = moment(monday).format("dd ");
+    const mondayDay = moment(monday).format("dd");
 
     const tuesdayDay = moment(monday)
       .add(1, "days")
-      .format("dd ");
+      .format("dd");
 
     const wednesdayDay = moment(monday)
       .add(2, "days")
-      .format("dd ");
+      .format("dd");
 
     const thursdayDay = moment(monday)
       .add(3, "days")
-      .format("dd ");
+      .format("dd");
 
     const fridayDay = moment(monday)
       .add(4, "days")
-      .format("dd ");
+      .format("dd");
 
     const saturdayDay = moment(monday)
       .add(5, "days")
-      .format("dd ");
+      .format("dd");
 
     const sundayDay = moment(monday)
       .add(6, "days")
-      .format("dd ");
+      .format("dd");
 
     const {
       mondayHours,
@@ -86,13 +94,25 @@ class TableHeaderLabels extends React.Component {
 
     return (
       <>
+        <Table.Cell id="emptycell" style={{ width: "20%" }} />
         {days.map(cell => (
-          <Table.HeaderCell>
-            <div
-              style={{ textAlign: "center", fontSize: "1.1em", padding: "4px" }}
-            >
-              {cell.dayofweek}
-            </div>
+          <Table.HeaderCell
+            onClick={() =>
+              clickHandler(
+                monday,
+                cell.dayofweek,
+                setSelectedDate,
+                setSelectedWeek
+              )
+            }
+            onKeyLeft
+            style={
+              cell.dayofweek === moment(this.props.selectedDate).format("dd")
+                ? styles.highlight
+                : styles.normal
+            }
+          >
+            <div>{cell.dayofweek}</div>
             <div style={{ textAlign: "center" }}>{cell.totalHours}</div>
           </Table.HeaderCell>
         ))}
@@ -102,3 +122,23 @@ class TableHeaderLabels extends React.Component {
 }
 
 export default TableHeaderLabels;
+
+const styles = {
+  highlight: {
+    background: "RebeccaPurple",
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: "1.1em",
+    padding: "4px",
+    cursor: "pointer",
+    width: "102px"
+  },
+  normal: {
+    textAlign: "center",
+    fontSize: "1.1em",
+    padding: "4px",
+    cursor: "pointer",
+    width: "102px"
+  }
+};

@@ -4,10 +4,10 @@ const TimerContext = React.createContext();
 export const TimerConsumer = TimerContext.Consumer;
 
 export class TimerProvider extends React.Component {
-  state = { timerRunning: true };
+  state = { timerRunning: false };
 
-  toggleTimer = () => {
-    this.setState({ timerRunning: !this.state.timerRunning });
+  toggleTimer = trueFalse => {
+    this.setState({ timerRunning: trueFalse });
   };
 
   render() {

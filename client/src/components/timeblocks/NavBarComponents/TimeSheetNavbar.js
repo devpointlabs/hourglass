@@ -4,7 +4,7 @@ import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
-import CalendarPicker from "./CalendarPicker";
+import CalendarPicker from "../CalenderPicker/CalendarPicker";
 
 class TimeSheetNavbar extends React.Component {
   render() {

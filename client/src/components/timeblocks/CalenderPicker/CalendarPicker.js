@@ -1,8 +1,8 @@
 import React from "react";
 import DatePicker2 from "./DatePicker2";
-import clickHandler from "./TimeSheetNavbarClickHandler";
+import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 
-class DatePicker extends React.Component {
+class CalendarPicker extends React.Component {
   state = { date: this.props.selectedDate };
 
   handleSubmit = e => {
@@ -26,4 +26,4 @@ class DatePicker extends React.Component {
   }
 }
 
-export default DatePicker;
+export default CalendarPicker;

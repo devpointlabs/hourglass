@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Icon, Modal, Header, Form, Checkbox } from "semantic-ui-react";
+import {
+  Button,
+  Icon,
+  Modal,
+  Header,
+  Form,
+  Checkbox,
+  Transition
+} from "semantic-ui-react";
 import Select from "react-select";
 import moment from "moment";
 import axios from "axios";
@@ -14,17 +22,38 @@ class AddTimeBlockButton extends React.Component {
     task: "",
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
-    startHourMinute: "",
-    endMonthDay: moment(this.props.selectedDate).format("a"),
+    startHourMinute: moment(this.props.timeBlock.start_time).format("HH:mm"),
+    endMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     endHourMinute: "",
     hours: "",
     startMoment: {},
     endMoment: {},
-    modalOpen: false
+    modalOpen: false,
+    timeBlock: {},
+    entryLoggedVisible: false
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { selectedDate } = this.props;
+
+    const defaultProject = {
+      value: this.props.projects[0] && this.props.projects[0].id,
+      label: `${this.props.projects[0] && this.props.projects[0].name} (${this
+        .props.projects[0] && this.props.projects[0].client_name})`
+    };
+
+    const selectedProjectTasks = this.props.tasks.filter(
+      t => t.project_id === defaultProject.value
+    );
+
+    const defaultTask = {
+      value: selectedProjectTasks[0] && selectedProjectTasks[0].id,
+      label: selectedProjectTasks[0] && selectedProjectTasks[0].name
+    };
+
+    if (this.props.projects[0])
+      prevState.project === "" &&
+        this.setState({ project: defaultProject, task: defaultTask });
     if (prevProps.selectedDate !== selectedDate)
       this.setState({
         year: moment(selectedDate).format("YYYY"),
@@ -83,50 +112,140 @@ class AddTimeBlockButton extends React.Component {
   };
 
   handleChange1 = project => {
-    this.setState({ project });
+    this.setState({ project }, () => {
+      const selectedProjectTasks = this.props.tasks.filter(
+        t => t.project_id === this.state.project.value
+      );
+      this.setState({
+        task: {
+          value: selectedProjectTasks[0].id,
+          label: selectedProjectTasks[0].name
+        }
+      });
+    });
   };
 
   handleChange2 = task => {
     this.setState({ task });
   };
 
-  handleClick = () => {
-    const { timerRunning } = this.props.timer;
+  handleClick = id => {
+    const {
+      timer: { timerRunning },
+      user_id,
+      stopTimer
+    } = this.props;
+    const { task, endMonthDay, startMonthDay, year } = this.state;
 
     if (timerRunning) {
-      //stoptime
-    } else {
+      let timeNow = moment();
+      this.setState({ endHourMinute: moment(timeNow).format("HH:mm") });
       this.setState({
-        year: moment().format("YYYY"),
-        startMonthDay: moment().format("MM/DD"),
-        startHourMinute: moment().format("HH:mm"),
-        startMoment: moment()
+        hours: moment(timeNow).diff(
+          moment(parsedInput(year, startMonthDay, this.state.startHourMinute)),
+          "hours",
+          true
+        )
       });
+      stopTimer(id, timeNow);
+      this.showEntryLoggedTextFor2Seconds();
+    } else {
+      this.setState(
+        {
+          year: moment().format("YYYY"),
+          startMonthDay: moment().format("MM/DD"),
+          startHourMinute: moment().format("HH:mm"),
+          startMoment: moment(),
+          endMonthDay: "",
+          endHourMinute: "",
+          hours: ""
+        },
+        () => {
+          const block = {
+            task_id: task.value,
+            start_time: this.state.startMoment,
+            user_id,
+            status: "timerStarted"
+          };
+          this.addBlock(block);
+          this.props.setView("day");
+          this.props.setSelectedDate(moment());
+          this.setState({ modalOpen: false });
+        }
+      );
     }
 
     // this.setState({ timerRunning: !this.state.timerRunning });
-    this.props.timer.toggleTimer();
+    this.props.timer.toggleTimer(true);
   };
 
+  addManualBlock = () => {
+    const {
+      year,
+      startMonthDay,
+      endMonthDay,
+      startHourMinute,
+      endHourMinute
+    } = this.state;
+    const block = {
+      task_id: this.state.task.value,
+      start_time: moment(parsedInput(year, startMonthDay, startHourMinute)),
+      user_id: this.props.user_id,
+      end_time: moment(parsedInput(year, endMonthDay, endHourMinute)),
+      manualEntry: true,
+      status: "unSubmitted"
+    };
+    axios.post(`/api/timeblocks`, block).then(res => {
+      this.showEntryLoggedTextFor2Seconds();
+      this.props.getCurrentUserTimeBlocks();
+    });
+  };
+
+  addBlock = block => {
+    axios.post(`/api/timeblocks`, block).then(res => {
+      this.setState({ timeBlock: res.data });
+      this.props.getCurrentUserTimeBlocks();
+    });
+  };
   // handleSubmit = (e) => {
   //   e && e.preventDefault()
   //   axios.post('/api/timeblocks', {project_id: , task_id: 1, start_time: 1, end_time: 2})
   // }
-  cancelAddTimesheet = () => {
+  clearAddTimesheet = () => {
     this.setState({
       endHourMinute: "",
       hours: "",
-      startHourMinute: "",
-      project: {},
-      task: {}
+      startHourMinute: ""
     });
-    this.handleClose();
+  };
+
+  showEntryLoggedTextFor2Seconds = () => {
+    this.setState({ entryLoggedVisible: !this.state.entryLoggedVisible }, () =>
+      this.setState(
+        { entryLoggedVisible: !this.state.entryLoggedVisible },
+        () =>
+          this.setState({
+            entryLoggedVisible: false
+          })
+      )
+    );
   };
 
   render() {
+    const projectSelectOptions = this.props.projects.map(p => ({
+      value: p.id,
+      label: `${p.name} (${p.client_name})`
+    }));
+
     const selectedProjectTasks = this.props.tasks.filter(
       t => t.project_id === this.state.project.value
     );
+
+    const taskSelectOptions = selectedProjectTasks.map(t => ({
+      value: t.id,
+      label: t.name
+    }));
+
     const { timerRunning } = this.props.timer;
 
     return (
@@ -143,7 +262,8 @@ class AddTimeBlockButton extends React.Component {
               width: "4em",
               height: "4em",
               textAlign: "center",
-              border: "solid lightgrey 1px"
+              border: "solid lightgrey 1px",
+              marginTop: "5px"
             }}
             size="large"
             onClick={() => this.handleOpen()}
@@ -182,10 +302,8 @@ class AddTimeBlockButton extends React.Component {
                   <Select
                     value={this.state.project}
                     onChange={this.handleChange1}
-                    options={this.props.projects.map(p => ({
-                      value: p.id,
-                      label: `${p.name} (${p.client_name})`
-                    }))}
+                    options={projectSelectOptions}
+                    defaultValue={{ label: "select Project", value: 0 }}
                   />
                 </div>
                 <div
@@ -200,10 +318,7 @@ class AddTimeBlockButton extends React.Component {
                   <Select
                     value={this.state.task}
                     onChange={this.handleChange2}
-                    options={selectedProjectTasks.map(t => ({
-                      value: t.id,
-                      label: t.name
-                    }))}
+                    options={taskSelectOptions}
                   />
                 </div>
                 <div>
@@ -276,6 +391,16 @@ class AddTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.endHourMinute}
                         />
+                        <Button
+                          style={{
+                            marginLeft: "40px",
+                            marginTop: "30px",
+                            width: "100px"
+                          }}
+                          onClick={() => this.clearAddTimesheet()}
+                        >
+                          Clear
+                        </Button>
                       </div>
                       {/* <div
                         style={{
@@ -303,10 +428,51 @@ class AddTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.hours}
                         />
+                        <Button
+                          style={{
+                            marginTop: "30px",
+                            width: "100px",
+                            color: "white",
+                            background: "RebeccaPurple"
+                          }}
+                          onClick={() => this.addManualBlock()}
+                        >
+                          Submit
+                        </Button>
                       </div>
                     </div>
                     <div style={{ background: "white" }}>
-                      <TimerStartStopButton handleClick={this.handleClick} />
+                      <div>
+                        <TimerStartStopButton
+                          large={true}
+                          handleClick={this.handleClick}
+                          id={
+                            this.props.timeBlock
+                              ? this.props.timeBlock.id
+                              : null
+                          }
+                        />
+                      </div>
+                      <div style={{ height: "40px" }}>
+                        <Transition
+                          visible={this.state.entryLoggedVisible}
+                          animation="scale"
+                          duration={{ show: 1, hide: 4000 }}
+                          onHide={() =>
+                            this.setState({ entryLoggedVisible: false })
+                          }
+                        >
+                          <div
+                            style={{
+                              textAlign: "center",
+                              paddingTop: "20px"
+                            }}
+                          >
+                            Entry Logged
+                            <Icon name="checkmark" />
+                          </div>
+                        </Transition>
+                      </div>
                     </div>
                   </div>
                   <Checkbox
@@ -317,16 +483,7 @@ class AddTimeBlockButton extends React.Component {
                 </div>
               </Header>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                {timerRunning ? (
-                  <Button onClick={() => this.handleClose()}>Back</Button>
-                ) : (
-                  <div>
-                    <Button onClick={() => this.cancelAddTimesheet()}>
-                      Cancel
-                    </Button>
-                    <Button onClick={() => this.function()}>Submit</Button>
-                  </div>
-                )}
+                <Button onClick={() => this.handleClose()}>Back</Button>
               </div>
             </Form>
           </Modal.Description>

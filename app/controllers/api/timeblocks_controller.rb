@@ -16,10 +16,6 @@ class Api::TimeblocksController < ApplicationController
     render json: data
   end
 
-  def users_timeblocks
-    render json: Timeblock.all
-  end
-
   def show
     render json: @timeblock
   end
@@ -56,6 +52,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id)
+    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status)
   end
 end

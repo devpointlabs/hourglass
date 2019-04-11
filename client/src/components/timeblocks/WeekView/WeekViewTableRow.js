@@ -1,17 +1,11 @@
 import React from "react";
 import { Table, Button } from "semantic-ui-react";
-import { returnTaskTotalsByDay } from "./Calculations";
+import { returnTaskTotalsByDay } from "../Calculations/ReturnTaskTotalsByDay";
+import moment from "moment";
 
 class WeekViewTableRow extends React.Component {
   state = {
-    weekTimeBlocks: [],
-    mondayTotal: 0,
-    tuesdayTotal: 0,
-    wednesdayTotal: 0,
-    thursdayTotal: 0,
-    fridayTotal: 0,
-    saturdayTotal: 0,
-    sundayTotal: 0
+    weekTimeBlocks: []
   };
 
   componentDidMount = () => {
@@ -27,7 +21,6 @@ class WeekViewTableRow extends React.Component {
 
   render() {
     const { task } = this.props;
-
     const totals = this.state.weekTimeBlocks.map(w =>
       w.reduce((acc, b) => {
         return b.task_id === this.props.task.id
@@ -35,6 +28,8 @@ class WeekViewTableRow extends React.Component {
           : acc;
       }, 0)
     );
+
+    const dayNumber = parseInt(moment(this.props.selectedDate).format("d"));
 
     return (
       <Table.Row>
@@ -45,53 +40,38 @@ class WeekViewTableRow extends React.Component {
             </div>
             <div>{task.name}</div>
           </Table.Cell>
-          <Table.Cell>1</Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 1 ? styles.highlight : styles.normal}
           >
             {totals[0] && totals[0].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 2 ? styles.highlight : styles.normal}
           >
             {totals[1] && totals[1].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 3 ? styles.highlight : styles.normal}
           >
             {totals[2] && totals[2].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 4 ? styles.highlight : styles.normal}
           >
             {totals[3] && totals[3].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 5 ? styles.highlight : styles.normal}
           >
             {totals[4] && totals[4].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 6 ? styles.highlight : styles.normal}
           >
             {totals[5] && totals[5].toFixed(2)}
           </Table.Cell>
           <Table.Cell
-            style={{
-              textAlign: "center"
-            }}
+            style={dayNumber === 0 ? styles.highlight : styles.normal}
           >
             {totals[6] && totals[6].toFixed(2)}
           </Table.Cell>
@@ -107,12 +87,21 @@ class WeekViewTableRow extends React.Component {
               .toFixed(2)}
           </Table.Cell>
         </>
-        <Table.Cell>
-          <Button>X</Button>
-        </Table.Cell>
       </Table.Row>
     );
   }
 }
 
 export default WeekViewTableRow;
+
+const styles = {
+  highlight: {
+    textAlign: "center",
+    background: "lightgray",
+    fontWeight: "bold"
+  },
+
+  normal: {
+    textAlign: "center"
+  }
+};

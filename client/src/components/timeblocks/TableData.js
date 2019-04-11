@@ -1,6 +1,6 @@
 import React from "react";
-import DayViewTableData from "./DayViewTableData";
-import WeekViewTableData from "./WeekViewTableData";
+import DayViewTableData from "./DayView/DayViewTableData";
+import WeekViewTableData from "./WeekView/WeekViewTableData";
 import moment from "moment";
 
 class TableData extends React.Component {
@@ -37,7 +37,10 @@ class TableData extends React.Component {
       selectedDate,
       timeBlocks,
       tasks,
-      currentWeekTimeBlocks
+      currentWeekTimeBlocks,
+      stopTimer,
+      setSelectedDate,
+      setSelectedWeek
     } = this.props;
 
     switch (view) {
@@ -50,6 +53,9 @@ class TableData extends React.Component {
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               monday={monday}
+              stopTimer={stopTimer}
+              setSelectedDate={setSelectedDate}
+              setSelectedWeek={setSelectedWeek}
             />
           </>
         );
@@ -62,6 +68,8 @@ class TableData extends React.Component {
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               monday={monday}
+              setSelectedDate={setSelectedDate}
+              setSelectedWeek={setSelectedWeek}
             />
           </>
         );

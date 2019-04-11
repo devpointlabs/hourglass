@@ -1,10 +1,18 @@
 import React from "react";
-import { Form, Button, Segment, Icon } from "semantic-ui-react";
+import {
+  Form,
+  Button,
+  Segment,
+  Icon,
+  Header,
+  Divider
+} from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 import TaskArrayForForm from "./TaskArrayForForm";
 import AddUserToTask from "./AddUserToTask";
 import { Link } from "react-router-dom";
+import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 
 class ProjectForm extends React.Component {
   state = {
@@ -37,6 +45,14 @@ class ProjectForm extends React.Component {
       });
     }
   }
+
+  setEndDate = newdate =>
+    this.setState({ project: { ...this.state.project, planned_end: newdate } });
+
+  setStartDate = newdate =>
+    this.setState({
+      project: { ...this.state.project, planned_start: newdate }
+    });
 
   toggleTask = () => (
     this.setState({
@@ -79,13 +95,25 @@ class ProjectForm extends React.Component {
       <>
         <Segment styles={{ margin: "100px" }}>
           <Link to="/projects">
-            <Button style={{ marginTop: "15px" }} inverted color="violet">
-              <Icon name="angle left" />
-              Back
+            <Button
+              animated
+              style={{ marginTop: "15px" }}
+              inverted
+              color="violet"
+            >
+              <Button.Content visible>Back</Button.Content>
+              <Button.Content hidden>
+                <Icon name="angle left" />
+              </Button.Content>
             </Button>
           </Link>
-          <Form style={{ marginTop: "30px" }}>
-            <Form.Group>
+          <Form style={{ marginTop: "30px", marginLeft: "26em" }}>
+            <Header as="h1" icon style={{ marginLeft: "4em" }}>
+              <Icon name="sitemap" circular />
+              <Header.Content>New Project</Header.Content>
+            </Header>
+            <Divider hidden />
+            <Form.Group textAlign="center">
               <Form.Input
                 label="Name"
                 name="name"
@@ -105,30 +133,19 @@ class ProjectForm extends React.Component {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Input
-                label="Start Date"
-                name="planned_start"
-                value={planned_start}
-                placeholder="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                label="End Date"
-                name="planned_end"
-                value={planned_end}
-                placeholder="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
+              <CalendarPickerForProjectForm setDate={this.setStartDate} />
+
+              <CalendarPickerForProjectForm setDate={this.setEndDate} />
             </Form.Group>
-            <Form.Group>
+            {/* <Form.Group style={{marginLeft: '6.2em'}}>
               <Form.Input
-                label="Notes"
                 name="notes"
+                type='field'
                 value={notes}
                 placeholder="Notes"
                 onChange={this.handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Form>
         </Segment>
         {this.state.taskShown ? (

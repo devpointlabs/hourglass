@@ -1,5 +1,5 @@
 import React from "react";
-import TimeBlockNavbar from "./TimeBlockNavbar";
+import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 
 class Unsubmitted extends React.Component {
   render() {
