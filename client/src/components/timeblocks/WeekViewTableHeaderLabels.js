@@ -101,7 +101,6 @@ const styles = {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-
     fontSize: "1em",
     padding: "4px",
     cursor: "pointer",
@@ -111,8 +110,7 @@ const styles = {
     textAlign: "center",
     fontSize: "1em",
     padding: "4px",
-    cursor: "pointer",
-    width: "102px"
-
+    width: "102px",
+    cursor: "pointer"
   }
 };

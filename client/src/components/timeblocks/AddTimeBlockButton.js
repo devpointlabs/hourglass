@@ -22,14 +22,14 @@ class AddTimeBlockButton extends React.Component {
     task: "",
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
-    startHourMinute: "",
+    startHourMinute: moment(this.props.timeBlock.start_time).format("HH:mm"),
     endMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     endHourMinute: "",
     hours: "",
     startMoment: {},
     endMoment: {},
     modalOpen: false,
-    timeBlock: "",
+    timeBlock: {},
     entryLoggedVisible: false
   };
 
@@ -38,7 +38,7 @@ class AddTimeBlockButton extends React.Component {
 
     const defaultProject = {
       value: this.props.projects[0] && this.props.projects[0].id,
-      label: `${this.props.projects[0] && this.props.projects[0].name}  (${this
+      label: `${this.props.projects[0] && this.props.projects[0].name} (${this
         .props.projects[0] && this.props.projects[0].client_name})`
     };
 
@@ -168,6 +168,9 @@ class AddTimeBlockButton extends React.Component {
             status: "timerStarted"
           };
           this.addBlock(block);
+          this.props.setView("day");
+          this.props.setSelectedDate(moment());
+          this.setState({ modalOpen: false });
         }
       );
     }
@@ -186,20 +189,22 @@ class AddTimeBlockButton extends React.Component {
   //   e && e.preventDefault()
   //   axios.post('/api/timeblocks', {project_id: , task_id: 1, start_time: 1, end_time: 2})
   // }
-  cancelAddTimesheet = () => {
+  clearAddTimesheet = () => {
     this.setState({
       endHourMinute: "",
       hours: "",
       startHourMinute: ""
     });
-    this.handleClose();
   };
 
   showEntryLoggedTextFor2Seconds = () => {
     this.setState({ entryLoggedVisible: !this.state.entryLoggedVisible }, () =>
       this.setState(
         { entryLoggedVisible: !this.state.entryLoggedVisible },
-        () => this.setState({ entryLoggedVisible: false })
+        () =>
+          this.setState({
+            entryLoggedVisible: false
+          })
       )
     );
   };
@@ -364,6 +369,16 @@ class AddTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.endHourMinute}
                         />
+                        <Button
+                          style={{
+                            marginLeft: "40px",
+                            marginTop: "30px",
+                            width: "100px"
+                          }}
+                          onClick={() => this.clearAddTimesheet()}
+                        >
+                          Clear
+                        </Button>
                       </div>
                       {/* <div
                         style={{
@@ -391,6 +406,17 @@ class AddTimeBlockButton extends React.Component {
                           onChange={this.handleChange}
                           value={this.state.hours}
                         />
+                        <Button
+                          style={{
+                            marginTop: "30px",
+                            width: "100px",
+                            color: "white",
+                            background: "RebeccaPurple"
+                          }}
+                          onClick={() => this.function()}
+                        >
+                          Submit
+                        </Button>
                       </div>
                     </div>
                     <div style={{ background: "white" }}>
@@ -399,8 +425,8 @@ class AddTimeBlockButton extends React.Component {
                           large={true}
                           handleClick={this.handleClick}
                           id={
-                            this.state.timeBlock
-                              ? this.state.timeBlock.id
+                            this.props.timeBlock
+                              ? this.props.timeBlock.id
                               : null
                           }
                         />
@@ -435,16 +461,7 @@ class AddTimeBlockButton extends React.Component {
                 </div>
               </Header>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                {timerRunning ? (
-                  <Button onClick={() => this.handleClose()}>Back</Button>
-                ) : (
-                  <div>
-                    <Button onClick={() => this.cancelAddTimesheet()}>
-                      Cancel
-                    </Button>
-                    <Button onClick={() => this.function()}>Submit</Button>
-                  </div>
-                )}
+                <Button onClick={() => this.handleClose()}>Back</Button>
               </div>
             </Form>
           </Modal.Description>

@@ -25,7 +25,8 @@ class TimeSheet extends React.Component {
     tasks: [],
     projects: [],
     timeBlocks: [],
-    currentWeekTimeBlocks: []
+    currentWeekTimeBlocks: [],
+    activeTimerTimeBlock: {}
   };
 
   componentDidMount() {
@@ -52,6 +53,9 @@ class TimeSheet extends React.Component {
         this.setSelectedWeek(
           moment(this.state.selectedDate).subtract(1, "days")
         );
+        break;
+      case 32:
+        this.setState({ selectedDate: moment() });
         break;
     }
   };
@@ -95,9 +99,15 @@ class TimeSheet extends React.Component {
   setView = view => this.setState({ view });
 
   checkForTimerRunning = () => {
-    this.props.timer.toggleTimer(
-      this.state.timeBlocks.filter(b => b.status === "timerStarted").length > 0
-    );
+    let activeTimerTimeBlocks = [];
+    let activeTimer =
+      this.state.timeBlocks.filter(b => b.status === "timerStarted").length > 0;
+    this.props.timer.toggleTimer(activeTimer);
+    if (activeTimer)
+      activeTimerTimeBlocks = this.state.timeBlocks.filter(
+        b => b.status === "timerStarted"
+      );
+    this.setState({ activeTimerTimeBlock: activeTimerTimeBlocks[0] });
   };
 
   stopTimer = (id, endTime) => {
@@ -133,9 +143,12 @@ class TimeSheet extends React.Component {
             projects={projects}
             tasks={tasks}
             selectedDate={selectedDate}
+            setSelectedDate={this.setSelectedDate}
+            setView={this.setView}
             user_id={this.props.auth.user.id}
             getCurrentUserTimeBlocks={this.getCurrentUserTimeBlocks}
             stopTimer={this.stopTimer}
+            timeBlock={this.state.activeTimerTimeBlock}
           />
           <Table basic="very" celled collapsing style={{ width: "100%" }}>
             <TableData
