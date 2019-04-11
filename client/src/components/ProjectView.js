@@ -14,6 +14,8 @@ import TaskView from "./TaskView";
 import NoteEditor from "./NoteEditor";
 import TeamView from "./TeamView";
 import ProjectForm from "./ProjectForm";
+import Notes from "./Notes";
+import Scroll from "react-awesome-scroll";
 
 class ProjectView extends React.Component {
   state = { project: {}, taskview: true, toggleForm: false };
@@ -24,115 +26,6 @@ class ProjectView extends React.Component {
       this.setState({ project: res.data });
     });
   }
-
-  showProject = () => {
-    const {
-      // id,
-      name,
-      client_name,
-      planned_start,
-      planned_end
-      // notes
-    } = this.props.match.params;
-    const { project } = this.state;
-    return (
-      <>
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "20px",
-            border: "4px solid grey",
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center"
-          }}
-        >
-          <Card.Group>
-            <Card
-              style={{ height: "300px", width: "300px", textAlign: "center" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  marginTop: "20px"
-                }}
-              />
-              <Table celled>
-                <Table.Row>
-                  <Table.Cell>CLIENT:</Table.Cell>
-                  <Table.Cell>{project.client_name}</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>START DATE:</Table.Cell>
-                  <Table.Cell>{project.planned_start}</Table.Cell>
-                </Table.Row>
-
-                <Table.Row>
-                  <Table.Cell>END DATE:</Table.Cell>
-                  <Table.Cell>{project.planned_end}</Table.Cell>
-                </Table.Row>
-              </Table>
-              <Card
-                style={{
-                  height: "300px",
-                  width: "600px",
-                  display: "flex",
-                  textAlign: "center",
-                  text: "15px"
-                }}
-              />
-            </Card>
-
-            <Card
-              style={{
-                height: "300px",
-                width: "700px",
-                display: "flex",
-                textAlign: "center",
-                text: "15px"
-              }}
-            >
-              <NoteEditor notes={this.state.project.notes} />
-              {/* <h2>{project.notes}</h2> */}
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <Button.Group>
-                <Button color="violet" floated="right">
-                  Save
-                </Button>
-                <Button onClick={this.handleToggle} color="red">
-                  Edit
-                </Button>
-              </Button.Group>
-            </Card>
-            <Card
-              style={{
-                height: "300px",
-                width: "1100px",
-                display: "flex",
-                textAlign: "center",
-                text: "15px"
-              }}
-            >
-              <h4> Notes:</h4>
-            </Card>
-          </Card.Group>
-        </div>
-        <div
-          styles={{
-            display: "flex",
-            justifyContent: "right"
-          }}
-        />
-      </>
-    );
-  };
 
   updateSubmit = project => {
     this.setState({ project: project });
@@ -164,7 +57,6 @@ class ProjectView extends React.Component {
   render() {
     const { id, name } = this.state.project;
     return (
-
       <>
         <br />
         <br />
@@ -174,7 +66,6 @@ class ProjectView extends React.Component {
               inverted
               color="violet"
               floated="right"
-
               style={{ marginBottom: "20px" }}
             >
               <Icon name="arrow alternate circle left outline" />
@@ -203,7 +94,6 @@ class ProjectView extends React.Component {
           }}
         >
           <h1>{name}</h1>
-          {this.showProject()}
           <Header>
             <div className="wrapper">
               <Button.Group widths="2">

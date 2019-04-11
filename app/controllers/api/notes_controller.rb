@@ -1,6 +1,6 @@
 class Api::NotesController < ApplicationController
-  before_action :set_project, except: [:destroy]
-  before_action :set_note, only: [ :show, :update, :destroy]
+    before_action :set_project, except: [:destroy]
+    before_action :set_note, only: [ :show, :update, :destroy]
   
   def index
     render json: Note.all 
