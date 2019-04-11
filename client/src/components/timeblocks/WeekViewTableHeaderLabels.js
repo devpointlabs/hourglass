@@ -46,6 +46,7 @@ class TableHeaderLabels extends React.Component {
     const sundayDay = moment(monday)
       .add(6, "days")
       .format("dd");
+
     const sundayDate = moment(monday)
       .add(6, "days")
       .format("MM/DD");
@@ -86,6 +87,7 @@ class TableHeaderLabels extends React.Component {
             {cell.date}
           </Table.HeaderCell>
         ))}
+        <Table.HeaderCell style={styles.normal}>Total</Table.HeaderCell>
       </>
     );
   }
@@ -99,14 +101,18 @@ const styles = {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: "1.1em",
+
+    fontSize: "1em",
     padding: "4px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "102px"
   },
   normal: {
     textAlign: "center",
-    fontSize: "1.1em",
+    fontSize: "1em",
     padding: "4px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "102px"
+
   }
 };

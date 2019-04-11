@@ -101,11 +101,15 @@ class WeekViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
-            <Table.Cell colSpan="2">
+            <Table.Cell colSpan="1">
               {this.state.showButton ? (
                 <div style={{ textAlign: "left" }}>
                   <Button
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      background: "RebeccaPurple",
+                      color: "white",
+                      marginLeft: "10px"
+                    }}
                     onClick={() => this.addRow()}
                   >
                     New Row
@@ -115,7 +119,11 @@ class WeekViewTableData extends React.Component {
                 <div style={{ textAlign: "left" }}>
                   <Button
                     onClick={() => this.submitRow()}
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      background: "RebeccaPurple",
+                      color: "white",
+                      marginLeft: "10px"
+                    }}
                   >
                     Save
                   </Button>
@@ -194,7 +202,6 @@ class WeekViewTableData extends React.Component {
             >
               {total.toFixed(2)}
             </Table.Cell>
-            <Table.Cell>10</Table.Cell>
           </Table.Row>
         </Table.Body>
       </>

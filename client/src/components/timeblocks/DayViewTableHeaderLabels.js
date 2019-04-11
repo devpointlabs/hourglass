@@ -131,14 +131,14 @@ const styles = {
     textAlign: "center",
     fontSize: "1.1em",
     padding: "4px",
-    width: "102px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "102px"
   },
   normal: {
     textAlign: "center",
     fontSize: "1.1em",
     padding: "4px",
-    width: "102px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "102px"
   }
 };
