@@ -30,7 +30,6 @@ class WeekViewTableRow extends React.Component {
     );
 
     const dayNumber = parseInt(moment(this.props.selectedDate).format("d"));
-    console.log(dayNumber);
 
     return (
       <Table.Row>
@@ -41,7 +40,6 @@ class WeekViewTableRow extends React.Component {
             </div>
             <div>{task.name}</div>
           </Table.Cell>
-          <Table.Cell>1</Table.Cell>
           <Table.Cell
             style={dayNumber === 1 ? styles.highlight : styles.normal}
           >
@@ -55,10 +53,7 @@ class WeekViewTableRow extends React.Component {
           <Table.Cell
             style={dayNumber === 3 ? styles.highlight : styles.normal}
           >
-            {console.log(totals[2])}
-            {totals[2] === undefined || totals[2] === NaN
-              ? "0"
-              : totals[2].toFixed(2)}
+            {totals[2] && totals[2].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 4 ? styles.highlight : styles.normal}
@@ -92,9 +87,6 @@ class WeekViewTableRow extends React.Component {
               .toFixed(2)}
           </Table.Cell>
         </>
-        <Table.Cell>
-          <Button>X</Button>
-        </Table.Cell>
       </Table.Row>
     );
   }
