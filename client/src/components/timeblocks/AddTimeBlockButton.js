@@ -179,6 +179,28 @@ class AddTimeBlockButton extends React.Component {
     this.props.timer.toggleTimer(true);
   };
 
+  addManualBlock = () => {
+    const {
+      year,
+      startMonthDay,
+      endMonthDay,
+      startHourMinute,
+      endHourMinute
+    } = this.state;
+    const block = {
+      task_id: this.state.task.value,
+      start_time: moment(parsedInput(year, startMonthDay, startHourMinute)),
+      user_id: this.props.user_id,
+      end_time: moment(parsedInput(year, endMonthDay, endHourMinute)),
+      manualEntry: true,
+      status: "unSubmitted"
+    };
+    axios.post(`/api/timeblocks`, block).then(res => {
+      this.showEntryLoggedTextFor2Seconds();
+      this.props.getCurrentUserTimeBlocks();
+    });
+  };
+
   addBlock = block => {
     axios.post(`/api/timeblocks`, block).then(res => {
       this.setState({ timeBlock: res.data });
@@ -413,7 +435,7 @@ class AddTimeBlockButton extends React.Component {
                             color: "white",
                             background: "RebeccaPurple"
                           }}
-                          onClick={() => this.function()}
+                          onClick={() => this.addManualBlock()}
                         >
                           Submit
                         </Button>
