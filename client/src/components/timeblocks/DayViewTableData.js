@@ -62,13 +62,11 @@ class DayViewTableData extends React.Component {
             />
           ))}
           <Table.Row>
-            <Table.Cell colSpan="10">
-              <hr />
-            </Table.Cell>
+            <Table.Cell colSpan={parseInt(calcColSpan(selectedDate)) + 1} />
           </Table.Row>
           <Table.Row>
             <Table.Cell
-              colSpan="6"
+              colSpan={calcColSpan(selectedDate)}
               style={{ fontWeight: "bold", fontSize: "1.2em" }}
             >
               Daily Total:
@@ -90,3 +88,9 @@ class DayViewTableData extends React.Component {
 }
 
 export default DayViewTableData;
+
+const calcColSpan = selectedDate => {
+  let numberDayOfWeek = moment(selectedDate).format("d");
+  if (numberDayOfWeek === "0") numberDayOfWeek = "7";
+  return numberDayOfWeek;
+};

@@ -21,7 +21,6 @@ class DayViewTableHeaderRow extends React.Component {
           setSelectedDate={setSelectedDate}
           setSelectedWeek={setSelectedWeek}
         />
-        <Table.HeaderCell />
       </Table.Row>
     );
   }
