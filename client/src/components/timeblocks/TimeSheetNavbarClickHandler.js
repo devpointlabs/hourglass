@@ -37,37 +37,37 @@ const TimeSheetNavbarClickHandler = (date, event, task, week) => {
     case "calendarDayPicked":
       task(date);
       break;
-    case "Mo ":
+    case "Mo":
       newDate = moment(date);
       task(newDate);
       week(newDate);
       break;
-    case "Tu ":
+    case "Tu":
       newDate = moment(date).add(1, "days");
       task(newDate);
       week(newDate);
       break;
-    case "We ":
+    case "We":
       newDate = moment(date).add(2, "days");
       task(newDate);
       week(newDate);
       break;
-    case "Th ":
+    case "Th":
       newDate = moment(date).add(3, "days");
       task(newDate);
       week(newDate);
       break;
-    case "Fr ":
+    case "Fr":
       newDate = moment(date).add(4, "days");
       task(newDate);
       week(newDate);
       break;
-    case "Sa ":
+    case "Sa":
       newDate = moment(date).add(5, "days");
       task(newDate);
       week(newDate);
       break;
-    case "Su ":
+    case "Su":
       newDate = moment(date).add(6, "days");
       task(newDate);
       week(newDate);

@@ -44,7 +44,11 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-            <Button animated="fade" color="violet" type="submit">
+            <Button
+              animated="fade"
+              type="submit"
+              style={{ color: "white", background: "RebeccaPurple" }}
+            >
               <Button.Content visible>Submit</Button.Content>
               <Button.Content hidden>
                 <Image
