@@ -8,14 +8,16 @@ Rails.application.routes.draw do
     end
 
     resources :projects do
-      resources :assignments
+      resources :notes
+    end
+
+    resources :projects do
+      resources :assignments 
     end
 
     resources :tasks, :timeblocks
-
     resources :users, only: [:update, :index]
-
-
+    
     resources :tasks do
       resources :timeblocks, only: [:index, :show]
     end
@@ -25,5 +27,4 @@ Rails.application.routes.draw do
   get "/api/projects/:project_id/users/:user_id", to: 'api/assignments#find_by_u_and_p'
   get "/api/projects/:id/users", to: "api/projects#u_by_p"
   get "/api/users/:id/projects", to: "api/users#projects"
-  # post "/api/projects/users", to: "api/projects#u_by_p"
 end
