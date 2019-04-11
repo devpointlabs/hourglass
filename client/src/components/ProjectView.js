@@ -11,11 +11,9 @@ import {
   Table
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
-import NoteEditor from "./NoteEditor";
+
 import TeamView from "./TeamView";
 import ProjectForm from "./ProjectForm";
-
-import Scroll from "react-awesome-scroll";
 
 class ProjectView extends React.Component {
   state = { project: {}, taskview: true, toggleForm: false };
