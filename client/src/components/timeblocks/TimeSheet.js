@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
-import TimeSheetNavbar from "./TimeSheetNavbar";
-import TimeBlockNavbar from "./TimeBlockNavbar";
+import TimeSheetNavbar from "./NavBarComponents/TimeSheetNavbar";
+import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 import { Table } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
@@ -11,7 +11,7 @@ import {
   CalculateHoursAndWeek,
   AddProjectInfoToTasks,
   AddTaskInfoToTimeBlocks
-} from "./Calculations";
+} from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
 // import DateRange from "./DateRange";

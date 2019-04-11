@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button } from "semantic-ui-react";
-import { returnTaskTotalsByDay } from "./Calculations";
+import { returnTaskTotalsByDay } from "../Calculations/ReturnTaskTotalsByDay";
 import moment from "moment";
 
 class WeekViewTableRow extends React.Component {

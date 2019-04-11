@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button, Icon } from "semantic-ui-react";
-import TimerStartStopButton from "./TimerStartStopButton";
+import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
 
 const DayViewTableRow = ({ timeBlock, stopTimer }) => (

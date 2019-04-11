@@ -1,6 +1,6 @@
 import React from "react";
-import DayViewTableData from "./DayViewTableData";
-import WeekViewTableData from "./WeekViewTableData";
+import DayViewTableData from "./DayView/DayViewTableData";
+import WeekViewTableData from "./WeekView/WeekViewTableData";
 import moment from "moment";
 
 class TableData extends React.Component {
