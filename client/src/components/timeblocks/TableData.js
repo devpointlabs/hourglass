@@ -68,7 +68,7 @@ class TableData extends React.Component {
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               monday={monday}
-              setSelectedDay={setSelectedDate}
+              setSelectedDate={setSelectedDate}
               setSelectedWeek={setSelectedWeek}
             />
           </>

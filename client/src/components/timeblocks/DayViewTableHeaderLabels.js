@@ -18,6 +18,8 @@ class TableHeaderLabels extends React.Component {
     }
   };
 
+  key;
+
   componentDidMount = () => {
     const { currentWeekTimeBlocks, monday } = this.props;
     this.setState({
@@ -41,31 +43,31 @@ class TableHeaderLabels extends React.Component {
       setSelectedWeek
     } = this.props;
 
-    const mondayDay = moment(monday).format("dd ");
+    const mondayDay = moment(monday).format("dd");
 
     const tuesdayDay = moment(monday)
       .add(1, "days")
-      .format("dd ");
+      .format("dd");
 
     const wednesdayDay = moment(monday)
       .add(2, "days")
-      .format("dd ");
+      .format("dd");
 
     const thursdayDay = moment(monday)
       .add(3, "days")
-      .format("dd ");
+      .format("dd");
 
     const fridayDay = moment(monday)
       .add(4, "days")
-      .format("dd ");
+      .format("dd");
 
     const saturdayDay = moment(monday)
       .add(5, "days")
-      .format("dd ");
+      .format("dd");
 
     const sundayDay = moment(monday)
       .add(6, "days")
-      .format("dd ");
+      .format("dd");
 
     const {
       mondayHours,
@@ -103,8 +105,9 @@ class TableHeaderLabels extends React.Component {
                 setSelectedWeek
               )
             }
+            onKeyLeft
             style={
-              cell.dayofweek === moment(this.props.selectedDate).format("dd ")
+              cell.dayofweek === moment(this.props.selectedDate).format("dd")
                 ? styles.highlight
                 : styles.normal
             }

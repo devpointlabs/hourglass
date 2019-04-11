@@ -101,7 +101,11 @@ class Register extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-            <Button color="violet" animated="vertical" type="submit">
+            <Button
+              animated="vertical"
+              type="submit"
+              style={{ color: "white", background: "RebeccaPurple" }}
+            >
               <Button.Content visible>Submit</Button.Content>
               <Button.Content hidden>
                 <Icon name="paper plane outline" />

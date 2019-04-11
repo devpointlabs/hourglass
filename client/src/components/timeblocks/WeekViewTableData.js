@@ -23,7 +23,12 @@ class WeekViewTableData extends React.Component {
   };
 
   componentDidMount = () => {
-    const { currentWeekTimeBlocks, monday } = this.props;
+    const {
+      currentWeekTimeBlocks,
+      monday,
+      setSelectedWeek,
+      setSelectedDate
+    } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
     });
@@ -46,7 +51,14 @@ class WeekViewTableData extends React.Component {
   };
 
   render() {
-    const { currentWeekTimeBlocks, tasks, selectedDate, monday } = this.props;
+    const {
+      currentWeekTimeBlocks,
+      tasks,
+      selectedDate,
+      monday,
+      setSelectedDate,
+      setSelectedWeek
+    } = this.props;
     const {
       mondayHours,
       tuesdayHours,
@@ -61,7 +73,12 @@ class WeekViewTableData extends React.Component {
     return (
       <>
         <Table.Header>
-          <WeekViewTableHeaderRow selectedDate={selectedDate} monday={monday} />
+          <WeekViewTableHeaderRow
+            selectedDate={selectedDate}
+            monday={monday}
+            setSelectedDate={setSelectedDate}
+            setSelectedWeek={setSelectedWeek}
+          />
         </Table.Header>
         <Table.Body>
           <Table.Row>
@@ -71,7 +88,7 @@ class WeekViewTableData extends React.Component {
             <WeekViewTableRow
               key={t.id}
               task={t}
-              selectedDate={this.props.selectedDate}
+              selectedDate={selectedDate}
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}

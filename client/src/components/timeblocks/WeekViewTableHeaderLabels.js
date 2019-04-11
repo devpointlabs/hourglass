@@ -1,45 +1,53 @@
 import React from "react";
 import moment from "moment";
 import { Table } from "semantic-ui-react";
+import clickHandler from "./TimeSheetNavbarClickHandler";
 
 class TableHeaderLabels extends React.Component {
   render() {
-    const mondayDay = moment(this.props.monday).format("dd");
-    const mondayDate = moment(this.props.monday).format("MM/DD");
-    const tuesdayDay = moment(this.props.monday)
+    const {
+      monday,
+      selectedDate,
+      setSelectedDate,
+      setSelectedWeek
+    } = this.props;
+    const mondayDay = moment(monday).format("dd");
+    const mondayDate = moment(monday).format("MM/DD");
+    const tuesdayDay = moment(monday)
       .add(1, "days")
       .format("dd");
-    const tuesdayDate = moment(this.props.monday)
+    const tuesdayDate = moment(monday)
       .add(1, "days")
       .format("MM/DD");
-    const wednesdayDay = moment(this.props.monday)
+    const wednesdayDay = moment(monday)
       .add(2, "days")
       .format("dd");
-    const wednesdayDate = moment(this.props.monday)
+    const wednesdayDate = moment(monday)
       .add(2, "days")
       .format("MM/DD");
-    const thursdayDay = moment(this.props.monday)
+    const thursdayDay = moment(monday)
       .add(3, "days")
       .format("dd");
-    const thursdayDate = moment(this.props.monday)
+    const thursdayDate = moment(monday)
       .add(3, "days")
       .format("MM/DD");
-    const fridayDay = moment(this.props.monday)
+    const fridayDay = moment(monday)
       .add(4, "days")
       .format("dd");
-    const fridayDate = moment(this.props.monday)
+    const fridayDate = moment(monday)
       .add(4, "days")
       .format("MM/DD");
-    const saturdayDay = moment(this.props.monday)
+    const saturdayDay = moment(monday)
       .add(5, "days")
       .format("dd");
-    const saturdayDate = moment(this.props.monday)
+    const saturdayDate = moment(monday)
       .add(5, "days")
       .format("MM/DD");
-    const sundayDay = moment(this.props.monday)
+    const sundayDay = moment(monday)
       .add(6, "days")
       .format("dd");
-    const sundayDate = moment(this.props.monday)
+
+    const sundayDate = moment(monday)
       .add(6, "days")
       .format("MM/DD");
     const days = [
@@ -55,8 +63,16 @@ class TableHeaderLabels extends React.Component {
       <>
         {days.map(cell => (
           <Table.HeaderCell
+            onClick={() =>
+              clickHandler(
+                monday,
+                cell.dayofweek,
+                setSelectedDate,
+                setSelectedWeek
+              )
+            }
             style={
-              cell.dayofweek === moment(this.props.selectedDate).format("dd")
+              cell.dayofweek === moment(selectedDate).format("dd")
                 ? styles.highlight
                 : styles.normal
             }
@@ -85,14 +101,18 @@ const styles = {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+
     fontSize: "1em",
     padding: "4px",
+    cursor: "pointer",
     width: "102px"
   },
   normal: {
     textAlign: "center",
     fontSize: "1em",
     padding: "4px",
+    cursor: "pointer",
     width: "102px"
+
   }
 };
