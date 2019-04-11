@@ -3,7 +3,6 @@ import WeekViewTableHeaderRow from "./WeekViewTableHeaderRow";
 import WeekViewTableRow from "./WeekViewTableRow";
 import { Table, Button } from "semantic-ui-react";
 import { returnHoursSplitByDay } from "../Calculations/ReturnHoursSplitByDay";
-import AddTimeBlockButton from "../AddTimeBlockButton";
 import NewRowForm from "./NewRowForm";
 
 class WeekViewTableData extends React.Component {
