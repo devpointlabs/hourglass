@@ -235,7 +235,8 @@ class AddTimeBlockButton extends React.Component {
               width: "4em",
               height: "4em",
               textAlign: "center",
-              border: "solid lightgrey 1px"
+              border: "solid lightgrey 1px",
+              marginTop: "5px"
             }}
             size="large"
             onClick={() => this.handleOpen()}

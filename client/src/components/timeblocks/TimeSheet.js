@@ -126,7 +126,6 @@ class TimeSheet extends React.Component {
             />
           </Table>
         </div>
-        <hr />
       </>
     );
   }

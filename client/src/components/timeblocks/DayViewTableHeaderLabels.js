@@ -86,6 +86,7 @@ class TableHeaderLabels extends React.Component {
 
     return (
       <>
+        <Table.Cell id="emptycell" style={{ width: "20%" }} />
         {days.map(cell => (
           <Table.HeaderCell
             style={
@@ -112,11 +113,13 @@ const styles = {
     fontWeight: "bold",
     textAlign: "center",
     fontSize: "1.1em",
-    padding: "4px"
+    padding: "4px",
+    width: "102px"
   },
   normal: {
     textAlign: "center",
     fontSize: "1.1em",
-    padding: "4px"
+    padding: "4px",
+    width: "102px"
   }
 };
