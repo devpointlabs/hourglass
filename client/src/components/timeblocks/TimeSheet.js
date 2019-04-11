@@ -123,6 +123,8 @@ class TimeSheet extends React.Component {
               tasks={tasks}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               stopTimer={this.stopTimer}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedWeek={this.setSelectedWeek}
             />
           </Table>
         </div>
