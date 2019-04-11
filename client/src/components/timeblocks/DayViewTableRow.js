@@ -16,11 +16,11 @@ const DayViewTableRow = ({ timeBlock, stopTimer }) => (
     <Table.Cell
       style={{ padding: "0 5px 0 5px", textAlign: "center", fontSize: "1.1em" }}
     >
-      {timeBlock.end_time ? parseFloat(timeBlock.hours).toFixed(2) : 0}
+      {parseFloat(timeBlock.hours).toFixed(2)}
     </Table.Cell>
     <Table.Cell style={{ padding: 0 }}>
       <div style={{ display: "flex" }}>
-        <div style={{ height: "30px" }}>
+        <div style={{ height: "40px" }}>
           {!timeBlock.end_time && (
             <TimerStartStopButton
               large={false}

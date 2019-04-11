@@ -2,7 +2,7 @@ import React from "react";
 import { TimerConsumer } from "../../providers/TimerProvider";
 import { withRouter } from "react-router-dom";
 import { Button, Icon } from "semantic-ui-react";
-
+import moment from "moment";
 const TimerStartStopButton = ({
   timer: { timerRunning },
   handleClick,
@@ -56,7 +56,7 @@ const TimerStartStopButton = ({
   else
     return (
       <Button
-        onClick={() => handleClick(id)}
+        onClick={() => handleClick(id, moment())}
         style={{
           padding: "3px",
           height: "40px",
