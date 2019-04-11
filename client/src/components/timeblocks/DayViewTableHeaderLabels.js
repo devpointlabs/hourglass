@@ -18,6 +18,8 @@ class TableHeaderLabels extends React.Component {
     }
   };
 
+  key;
+
   componentDidMount = () => {
     const { currentWeekTimeBlocks, monday } = this.props;
     this.setState({
@@ -103,6 +105,7 @@ class TableHeaderLabels extends React.Component {
                 setSelectedWeek
               )
             }
+            onKeyLeft
             style={
               cell.dayofweek === moment(this.props.selectedDate).format("dd")
                 ? styles.highlight
