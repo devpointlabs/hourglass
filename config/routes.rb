@@ -8,10 +8,6 @@ Rails.application.routes.draw do
     end
 
     resources :projects do
-      resources :notes
-    end
-
-    resources :projects do
       resources :assignments 
     end
 
