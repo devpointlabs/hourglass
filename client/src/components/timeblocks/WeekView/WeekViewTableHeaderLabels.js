@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { Table } from "semantic-ui-react";
-import clickHandler from "./TimeSheetNavbarClickHandler";
+import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 
 class TableHeaderLabels extends React.Component {
   render() {
@@ -102,6 +102,7 @@ const styles = {
     textAlign: "center",
     fontSize: "1em",
     padding: "4px",
+    cursor: "pointer",
     width: "102px"
   },
   normal: {

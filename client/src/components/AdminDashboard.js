@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Table, Header, Image, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { CalculateHoursAndWeek } from "./timeblocks/Calculations";
+import { CalculateHoursAndWeek } from "./timeblocks/Calculations/Calculations";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
