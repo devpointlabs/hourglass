@@ -41,11 +41,17 @@ class TimeSheet extends React.Component {
         this.setState({
           selectedDate: moment(this.state.selectedDate).subtract(1, "days")
         });
+        this.setSelectedWeek(
+          moment(this.state.selectedDate).subtract(1, "days")
+        );
         break;
       case 39:
         this.setState({
           selectedDate: moment(this.state.selectedDate).add(1, "days")
         });
+        this.setSelectedWeek(
+          moment(this.state.selectedDate).subtract(1, "days")
+        );
         break;
     }
   };
@@ -72,7 +78,7 @@ class TimeSheet extends React.Component {
 
     let grabCurrentWeek = timeBlocks.filter(
       tb =>
-        moment(week).format("YYYY w") === moment(tb.start_time).format("YYYY w")
+        moment(week).format("yyyy w") === moment(tb.start_time).format("yyyy w")
     );
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
