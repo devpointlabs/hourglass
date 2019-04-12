@@ -94,6 +94,7 @@ class ProjectView extends React.Component {
           <ProjectForm
             updateSubmit={this.updateSubmit}
             project={this.state.project}
+            handleToggle={this.handleToggle}
           />
         ) : null}
         <Container

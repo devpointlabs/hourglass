@@ -57,6 +57,7 @@ class UsersArray extends React.Component {
         <AddUserToTask
           resetState={this.resetState}
           project_id={this.props.project_id}
+          handleToggle={this.props.handleToggle}
         />
       </>
     );

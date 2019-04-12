@@ -121,7 +121,10 @@ class TaskForm extends React.Component {
         {this.props.editing ? (
           <div />
         ) : (
-          <UsersArray project_id={this.props.project_id} />
+          <UsersArray
+            project_id={this.props.project_id}
+            handleToggle={this.props.handleToggle}
+          />
         )}
       </>
     );

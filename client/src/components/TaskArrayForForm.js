@@ -68,6 +68,7 @@ class TaskArrayForForm extends React.Component {
           resetState={this.resetState}
           project_id={this.props.project_id}
           showTasks={this.showTasks()}
+          handleToggle={this.props.handleToggle}
         />
       </div>
     );
