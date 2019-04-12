@@ -17,6 +17,7 @@ class TeamView extends React.Component {
   // }
 
   componentDidMount() {
+    debugger;
     const { id } = this.props;
     axios.get(`/api/projects/${id}/users`).then(res => {
       this.setState({ users: res.data });
