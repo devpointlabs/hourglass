@@ -3,14 +3,27 @@ import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
 import { Table } from "semantic-ui-react";
 import moment from "moment";
+import EditTimeEntryModal from "./EditTimeEntryModal";
 import { returnDayHours, returnDayInfo } from "../Calculations/Calculations";
 
 class DayViewTableData extends React.Component {
+  state = { modal1Open: false };
+
+  handleClose = () => {
+    this.setState({ goat: "yes", modal1Open: false });
+  };
+
+  handleOpen = timeBlock => {
+    this.setState({ modal1Open: true, timeBlock: timeBlock });
+  };
+
   render() {
     const {
       selectedDate,
       timeBlocks,
       tasks,
+      projects,
+      getCurrentUserTimeBlocks,
       currentWeekTimeBlocks,
       monday,
       stopTimer,
@@ -59,6 +72,7 @@ class DayViewTableData extends React.Component {
               timeBlock={b}
               monday={monday}
               stopTimer={stopTimer}
+              handleOpen={this.handleOpen}
             />
           ))}
           <Table.Row>
@@ -82,6 +96,15 @@ class DayViewTableData extends React.Component {
             </Table.Cell>
           </Table.Row>
         </Table.Body>
+        <EditTimeEntryModal
+          handleOpen={this.handleOpen}
+          handleClose={this.handleClose}
+          modal1Open={this.state.modal1Open}
+          timeBlock={this.state.timeBlock}
+          tasks={tasks}
+          projects={projects}
+          getCurrentUserTimeBlocks={getCurrentUserTimeBlocks}
+        />
       </>
     );
   }

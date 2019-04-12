@@ -44,16 +44,18 @@ class UsersArray extends React.Component {
         <Header as="h1" textAlign="center">
           Team
         </Header>
-        <Table compact fixed basic>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Team Member</Table.HeaderCell>
-              <Table.HeaderCell />
-            </Table.Row>
-          </Table.Header>
+        {this.state.addedUsers.length !== 0 ? (
+          <Table compact fixed basic>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Team Member</Table.HeaderCell>
+                <Table.HeaderCell />
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>{this.showUsers()}</Table.Body>
-        </Table>
+            <Table.Body>{this.showUsers()}</Table.Body>
+          </Table>
+        ) : null}
         <AddUserToTask
           resetState={this.resetState}
           project_id={this.props.project_id}
