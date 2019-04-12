@@ -148,7 +148,11 @@ class DateTimePicker extends Component {
             width: "2.5em"
           }}
         >
-          <Icon name="calendar alternate outline" style={{ margin: 0 }} />
+          <Icon
+            name="calendar alternate outline"
+            size="large"
+            style={{ margin: 0 }}
+          />
           <div
             style={{
               background: "red",

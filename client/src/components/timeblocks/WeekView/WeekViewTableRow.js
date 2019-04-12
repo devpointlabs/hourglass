@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import { returnTaskTotalsByDay } from "../Calculations/ReturnTaskTotalsByDay";
 import moment from "moment";
 
@@ -30,37 +30,37 @@ class WeekViewTableRow extends React.Component {
           <Table.Cell
             style={dayNumber === 1 ? styles.highlight : styles.normal}
           >
-            {totals[0] && totals[0].toFixed(2)}
+            {totals[0] !== 0 && totals[0].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 2 ? styles.highlight : styles.normal}
           >
-            {totals[1] && totals[1].toFixed(2)}
+            {totals[1] !== 0 && totals[1].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 3 ? styles.highlight : styles.normal}
           >
-            {totals[2] && totals[2].toFixed(2)}
+            {totals[2] !== 0 && totals[2].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 4 ? styles.highlight : styles.normal}
           >
-            {totals[3] && totals[3].toFixed(2)}
+            {totals[3] !== 0 && totals[3].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 5 ? styles.highlight : styles.normal}
           >
-            {totals[4] && totals[4].toFixed(2)}
+            {totals[4] !== 0 && totals[4].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 6 ? styles.highlight : styles.normal}
           >
-            {totals[5] && totals[5].toFixed(2)}
+            {totals[5] !== 0 && totals[5].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 0 ? styles.highlight : styles.normal}
           >
-            {totals[6] && totals[6].toFixed(2)}
+            {totals[6] !== 0 && totals[6].toFixed(2)}
           </Table.Cell>
           <Table.Cell
             style={{
