@@ -13,6 +13,7 @@ const UnsubmittedTableBody = props => (
         projects={props.projects}
         getTimeBlocks={props.getTimeBlocks}
         handleCheckMarks={props.handleCheckMarks}
+        reset={props.reset}
       />
     </Table.Body>
   </>
