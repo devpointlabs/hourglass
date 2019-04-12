@@ -1,20 +1,22 @@
 import React from "react";
-import { Table, Modal } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
-import Select from "react-select";
+import "../timeSheetDayView.css";
 
 class DayViewTableRow extends React.Component {
   render() {
-    const { timeBlock, stopTimer, handleOpen } = this.props;
-    const projectSelectOptions = {};
-    const taskSelectOptions = {};
+    const { timeBlock, stopTimer, handleOpen, handleOpen2 } = this.props;
 
     return (
       <Table.Row
-        onClick={() =>
-          timeBlock.status !== "timerStarted" && handleOpen(timeBlock)
+        className={
+          timeBlock.status !== "timerStarted" && "timeSheetDayViewTableRow"
         }
+        onClick={() => {
+          timeBlock.status === "unSubmitted" && handleOpen(timeBlock);
+          timeBlock.status === "pendingApproval" && handleOpen2(timeBlock);
+        }}
       >
         <Table.Cell style={{ padding: 0 }} colSpan={calcColSpan(timeBlock)}>
           <div>

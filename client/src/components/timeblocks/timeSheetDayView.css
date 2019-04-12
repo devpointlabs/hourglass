@@ -1,0 +1,12 @@
+.timeSheetDayViewTableRow:hover {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+.dayViewTableHeaderCell:hover {
+}
+
+.unSubmittedTableRow:hover {
+  background: #f2f2f2;
+  font-weight: bold;
+}
