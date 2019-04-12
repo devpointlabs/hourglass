@@ -8,7 +8,9 @@ import {
   Card,
   Icon,
   ButtonGroup,
-  Table
+  Table,
+  Segment,
+  Progress
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 
@@ -21,6 +23,13 @@ class ProjectView extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios.get(`/api/projects/${id}`).then(res => {
+      this.setState({ project: res.data });
+    });
+  }
+
+  componentDidUpdate() {
+    const { id } = this.props.match.params;
+    axios.put(`/api/projects/${id}`).then(res => {
       this.setState({ project: res.data });
     });
   }
@@ -56,6 +65,27 @@ class ProjectView extends React.Component {
     const { id, name } = this.state.project;
     return (
       <>
+        {this.state.toggleForm ? <ProjectForm /> : <div />}
+        <Table>
+          <Table.Row>
+            <Table.Cell>ProjectName</Table.Cell>
+            <Table.Cell>Budget</Table.Cell>
+            <Table.Cell>Spent</Table.Cell>
+            <Table.Cell>Progress</Table.Cell>
+            <Table.Cell>Remaining</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Project name</Table.Cell>
+            <Table.Cell>$213</Table.Cell>
+            <Table.Cell>$51</Table.Cell>
+            <Table.Cell>
+              <Segment>
+                <Progress percent={25} color="violet" />
+              </Segment>
+            </Table.Cell>
+            <Table.Cell>$162</Table.Cell>
+          </Table.Row>
+        </Table>
         <br />
         <br />
         <div>
