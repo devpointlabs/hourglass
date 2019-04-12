@@ -134,7 +134,7 @@ class TimeSheetNavbar extends React.Component {
               style={{
                 background: "white",
                 border: "solid gray 1px",
-                marginLeft: 0,
+                marginRight: "5px",
                 borderRadius: 0,
                 padding: "4px",
                 height: "3em",
@@ -173,8 +173,10 @@ class TimeSheetNavbar extends React.Component {
                 background: view === "day" ? "lightgrey" : "white",
                 border: "solid gray 1px",
                 marginRight: 0,
+                marginLeft: "5px",
                 borderRadius: 0,
                 padding: "4px",
+                width: "50px",
                 height: "3em"
               }}
             >
@@ -185,6 +187,7 @@ class TimeSheetNavbar extends React.Component {
               style={{
                 background: view === "week" ? "lightgrey" : "white",
                 border: "solid gray 1px",
+                width: "50px",
                 marginLeft: 0,
                 borderRadius: 0,
                 padding: "4px",

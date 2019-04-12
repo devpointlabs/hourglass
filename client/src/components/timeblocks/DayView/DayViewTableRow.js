@@ -1,7 +1,8 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 import "../timeSheetDayView.css";
 
 class DayViewTableRow extends React.Component {
@@ -20,6 +21,12 @@ class DayViewTableRow extends React.Component {
       >
         <Table.Cell style={{ padding: 0 }} colSpan={calcColSpan(timeBlock)}>
           <div>
+            {this.props.auth.user.admin && (
+              <div>
+                <Icon name="user" style={{ color: "RebeccaPurple" }} />
+                {this.props.auth.user.name}
+              </div>
+            )}
             <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
               {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.name} (
               {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.client_name}
@@ -58,7 +65,17 @@ class DayViewTableRow extends React.Component {
   }
 }
 
-export default DayViewTableRow;
+export class ConnectedDayViewTableRow extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <DayViewTableRow {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default ConnectedDayViewTableRow;
 
 const calcColSpan = timeBlock => {
   let numberDayOfWeek = moment(timeBlock.start_time).format("d");
