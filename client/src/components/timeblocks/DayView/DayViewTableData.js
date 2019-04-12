@@ -23,6 +23,7 @@ class DayViewTableData extends React.Component {
       timeBlocks,
       tasks,
       projects,
+      getCurrentUserTimeBlocks,
       currentWeekTimeBlocks,
       monday,
       stopTimer,
@@ -102,6 +103,7 @@ class DayViewTableData extends React.Component {
           timeBlock={this.state.timeBlock}
           tasks={tasks}
           projects={projects}
+          getCurrentUserTimeBlocks={getCurrentUserTimeBlocks}
         />
       </>
     );

@@ -158,6 +158,7 @@ class TimeSheet extends React.Component {
               tasks={tasks}
               projects={projects}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              getCurrentUserTimeBlocks={this.getCurrentUserTimeBlocks}
               stopTimer={this.stopTimer}
               setSelectedDate={this.setSelectedDate}
               setSelectedWeek={this.setSelectedWeek}

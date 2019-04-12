@@ -15,10 +15,3 @@ export const sortSelectOptions = (selectedProject, projects, tasks) => {
 
   return { projectSelectOptions, taskSelectOptions };
 };
-
-export const defaultProjectAndTask = (task_id, selectOptions) => {
-  const task = selectOptions.tasks.filter(t => task_id === t.id);
-  const project_id = task[0].project_id;
-  const project = selectOptions.projects.filter(p => project_id === p.id);
-  return { defaultProject: project, defaultTask: task };
-};

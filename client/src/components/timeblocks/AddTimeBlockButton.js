@@ -18,8 +18,8 @@ import { sortSelectOptions } from "./sortSelectOptions";
 
 class AddTimeBlockButton extends React.Component {
   state = {
-    project: "",
-    task: "",
+    project: {},
+    task: {},
     year: moment(this.props.selectedDate).format("YYYY"),
     startMonthDay: moment(this.props.selectedDate).format("MM/DD"),
     startHourMinute: moment(this.props.timeBlock.start_time).format("HH:mm"),
@@ -52,7 +52,7 @@ class AddTimeBlockButton extends React.Component {
     };
 
     if (this.props.projects[0])
-      prevState.project === "" &&
+      prevState.project === {} &&
         this.setState({ project: defaultProject, task: defaultTask });
     if (prevProps.selectedDate !== selectedDate)
       this.setState({

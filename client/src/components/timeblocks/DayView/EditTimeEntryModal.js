@@ -3,53 +3,140 @@ import { Modal, Header, Form, Button } from "semantic-ui-react";
 import Select from "react-select";
 import moment from "moment";
 import { sortSelectOptions } from "../sortSelectOptions";
+import axios from "axios";
+import parsedInput from "../parsedInput";
 
 class EditTimeEntryModal extends React.Component {
   state = {
-    project: { value: 1 },
+    project: {},
     task: {},
-    startMoment: {},
-    endMoment: {}
+    year: "",
+    startMonthDay: "",
+    startHourMinute: "",
+    endHourMinute: "",
+    hours: ""
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props && this.props.timeBlock) {
-      // const defaults = defaultProjectAndTask(
-      //   this.props.timeBlock.task_id,
-      //   selectOptions
-      // );
+    const { timeBlock } = this.props;
+    if (prevProps !== this.props && timeBlock) {
       this.setState({
-        year: moment(this.props.timeBlock.start_date).format("YYYY"),
-        startMonthDay: moment(this.props.timeBlock.start_date).format("MM/DD"),
-        startHourMinute: moment(this.props.timeBlock.start_time).format(
-          "HH:mm"
-        ),
-        endMonthDay: moment(this.props.timeBlock.end_time).format("MM/DD"),
-        endHourMinute: moment(this.props.timeBlock.end_time).format("HH:mm"),
-        hours: this.props.timeBlock.hours,
-        status: this.props.timeBlock.status
+        project: {
+          value: timeBlock.taskInfo.project_id,
+          label: `${timeBlock.taskInfo.projectInfo.name} (${
+            timeBlock.taskInfo.projectInfo.client_name
+          })`
+        },
+        task: { value: timeBlock.task_id, label: timeBlock.taskInfo.name }
+      });
+
+      this.setState({
+        year: moment(timeBlock.start_date).format("YYYY"),
+        startMonthDay: moment(timeBlock.start_date).format("MM/DD"),
+        startHourMinute: moment(timeBlock.start_time).format("HH:mm"),
+        endMonthDay: moment(timeBlock.end_time).format("MM/DD"),
+        endHourMinute: moment(timeBlock.end_time).format("HH:mm"),
+        hours: timeBlock.hours,
+        status: timeBlock.status
       });
     }
   }
 
-  handleChange = () => {
-    console.log("other");
+  handleChange = e => {
+    const { year, startMonthDay, endMonthDay } = this.state;
+
+    const targetName = e.target.name;
+
+    this.setState({ [targetName]: e.target.value }, () => {
+      if (this.state.startHourMinute === "" && targetName === "hours") {
+        this.setState({ startHourMinute: "09:00" }, () =>
+          this.setState({
+            endHourMinute: moment(
+              parsedInput(year, startMonthDay, this.state.startHourMinute)
+            )
+              .add(parseFloat(this.state.hours), "hours")
+              .format("HH:mm")
+          })
+        );
+      } else if (targetName === "hours") {
+        this.setState({
+          endHourMinute: moment(
+            parsedInput(year, startMonthDay, this.state.startHourMinute)
+          )
+            .add(parseFloat(this.state.hours), "hours")
+            .format("HH:mm")
+        });
+      } else if (
+        ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
+          this.state.endHourMinute.length === 8,
+        5 && this.state.startHourMinute.length === 8,
+        5)
+      ) {
+        this.setState({
+          hours: moment(
+            parsedInput(year, endMonthDay, this.state.endHourMinute)
+          ).diff(
+            moment(
+              parsedInput(year, startMonthDay, this.state.startHourMinute)
+            ),
+            "hours",
+            true
+          )
+        });
+      }
+    });
   };
 
-  handleChange1 = () => {
-    console.log("project select");
+  handleChange1 = project => {
+    this.setState({ project }, () => {
+      const selectedProjectTasks = this.props.tasks.filter(
+        t => t.project_id === this.state.project.value
+      );
+      this.setState({
+        task: {
+          value: selectedProjectTasks[0].id,
+          label: selectedProjectTasks[0].name
+        }
+      });
+    });
   };
 
-  handleChange2 = () => {
-    console.log("task select");
+  handleChange2 = task => {
+    this.setState({ task });
+  };
+
+  handleSubmit = e => {
+    const { timeBlock, getCurrentUserTimeBlocks, handleClose } = this.props;
+    const {
+      task,
+      year,
+      startMonthDay,
+      startHourMinute,
+      endHourMinute
+    } = this.state;
+    const endMonthDay = startMonthDay;
+    const startMoment = parsedInput(year, startMonthDay, startHourMinute);
+    const endMoment = parsedInput(year, endMonthDay, endHourMinute);
+    const block = {
+      start_time: startMoment,
+      end_time: endMoment,
+      task_id: task.value
+    };
+    e && e.preventDefault();
+    axios.put(`/api/timeblocks/${timeBlock.id}`, block).then(res => {
+      console.log(res);
+      getCurrentUserTimeBlocks();
+      handleClose();
+    });
   };
 
   render() {
-    const { handleClose, projects, tasks } = this.props;
-    const selectedProject = this.state.project.value;
-    const selectOptions = sortSelectOptions(selectedProject, projects, tasks);
-    console.log(projects);
-    console.log(selectOptions);
+    const selectOptions = sortSelectOptions(
+      this.state.project,
+      this.props.projects,
+      this.props.tasks
+    );
+    const { handleClose } = this.props;
 
     return (
       <>
@@ -183,7 +270,6 @@ class EditTimeEntryModal extends React.Component {
                   }}
                   onClick={() => {
                     handleClose();
-                    console.log("clicked");
                   }}
                 >
                   Cancel
@@ -195,7 +281,7 @@ class EditTimeEntryModal extends React.Component {
                     color: "white",
                     background: "RebeccaPurple"
                   }}
-                  onClick={() => console.log("clicked")}
+                  onClick={() => this.handleSubmit()}
                 >
                   Submit
                 </Button>
