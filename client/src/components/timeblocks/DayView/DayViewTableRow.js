@@ -1,23 +1,32 @@
 import React from "react";
-import { Table, Modal } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
-import Select from "react-select";
+import { AuthConsumer } from "../../../providers/AuthProvider";
+import "../timeSheetDayView.css";
 
 class DayViewTableRow extends React.Component {
   render() {
-    const { timeBlock, stopTimer, handleOpen } = this.props;
-    const projectSelectOptions = {};
-    const taskSelectOptions = {};
+    const { timeBlock, stopTimer, handleOpen, handleOpen2 } = this.props;
 
     return (
       <Table.Row
-        onClick={() =>
-          timeBlock.status !== "timerStarted" && handleOpen(timeBlock)
+        className={
+          timeBlock.status !== "timerStarted" && "timeSheetDayViewTableRow"
         }
+        onClick={() => {
+          timeBlock.status === "unSubmitted" && handleOpen(timeBlock);
+          timeBlock.status === "pendingApproval" && handleOpen2(timeBlock);
+        }}
       >
         <Table.Cell style={{ padding: 0 }} colSpan={calcColSpan(timeBlock)}>
           <div>
+            {this.props.auth.user.admin && (
+              <div>
+                <Icon name="user" style={{ color: "RebeccaPurple" }} />
+                {this.props.auth.user.name}
+              </div>
+            )}
             <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
               {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.name} (
               {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.client_name}
@@ -56,7 +65,17 @@ class DayViewTableRow extends React.Component {
   }
 }
 
-export default DayViewTableRow;
+export class ConnectedDayViewTableRow extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <DayViewTableRow {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default ConnectedDayViewTableRow;
 
 const calcColSpan = timeBlock => {
   let numberDayOfWeek = moment(timeBlock.start_time).format("d");

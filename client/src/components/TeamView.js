@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { AuthConsumer } from "../providers/AuthProvider";
 
 class TeamView extends React.Component {
@@ -17,6 +18,7 @@ class TeamView extends React.Component {
   // }
 
   componentDidMount() {
+    debugger;
     const { id } = this.props;
     axios.get(`/api/projects/${id}/users`).then(res => {
       this.setState({ users: res.data });
@@ -46,7 +48,9 @@ class TeamView extends React.Component {
   showTeam = () => {
     return this.state.users.map(user => (
       <Table.Row key={user.id}>
-        <Table.Cell>{user.name}</Table.Cell>
+        <Link to={`/employees/${user.id}`}>
+          <Table.Cell style={{ color: "purple" }}>{user.name}</Table.Cell>
+        </Link>
       </Table.Row>
     ));
   };

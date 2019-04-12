@@ -18,6 +18,9 @@ class TimeBlockNavbar extends React.Component {
           <Link to="/timesheet">
             <Menu.Item>Time Sheet</Menu.Item>
           </Link>
+          {/* <Link to="/timesheet/pending">
+            <Menu.Item>Pending Approval</Menu.Item>
+          </Link> */}
           <Link to="/timesheet/unsubmitted">
             <Menu.Item>Unsubmitted</Menu.Item>
           </Link>

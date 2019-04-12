@@ -16,6 +16,7 @@ import Pending from "./components/timeblocks/NavBarComponents/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted/Unsubmitted";
 import TaskView from "./components/TaskView";
 import ProjectForm from "./components/ProjectForm";
+import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 
 const App = () => (
@@ -44,7 +45,11 @@ const App = () => (
           />
 
           <ProtectedRoute exact path="/taskview" component={TaskView} />
-
+          <ProtectedRoute
+            exact
+            path="/employees/:id"
+            component={EmployeeView}
+          />
           <Route component={NoMatch} />
         </Switch>
       </Container>

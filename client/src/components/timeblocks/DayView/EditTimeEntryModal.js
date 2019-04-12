@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Header, Form, Button } from "semantic-ui-react";
+import { Modal, Header, Form, Button, Icon, Popup } from "semantic-ui-react";
 import Select from "react-select";
 import moment from "moment";
 import { sortSelectOptions } from "../sortSelectOptions";
@@ -31,8 +31,8 @@ class EditTimeEntryModal extends React.Component {
       });
 
       this.setState({
-        year: moment(timeBlock.start_date).format("YYYY"),
-        startMonthDay: moment(timeBlock.start_date).format("MM/DD"),
+        year: moment(timeBlock.start_time).format("YYYY"),
+        startMonthDay: moment(timeBlock.start_time).format("MM/DD"),
         startHourMinute: moment(timeBlock.start_time).format("HH:mm"),
         endMonthDay: moment(timeBlock.end_time).format("MM/DD"),
         endHourMinute: moment(timeBlock.end_time).format("HH:mm"),
@@ -46,6 +46,7 @@ class EditTimeEntryModal extends React.Component {
     const { year, startMonthDay, endMonthDay } = this.state;
 
     const targetName = e.target.name;
+    console.log(targetName);
 
     this.setState({ [targetName]: e.target.value }, () => {
       if (this.state.startHourMinute === "" && targetName === "hours") {
@@ -65,6 +66,27 @@ class EditTimeEntryModal extends React.Component {
           )
             .add(parseFloat(this.state.hours), "hours")
             .format("HH:mm")
+        });
+      } else if (targetName === "startMonthDay") {
+        this.setState({
+          endMonthDay: this.state.startMonthDay,
+          hours: moment(
+            parsedInput(
+              year,
+              this.state.startMonthDay,
+              this.state.endHourMinute
+            )
+          ).diff(
+            moment(
+              parsedInput(
+                year,
+                this.state.startMonthDay,
+                this.state.startHourMinute
+              )
+            ),
+            "hours",
+            true
+          )
         });
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
@@ -128,6 +150,17 @@ class EditTimeEntryModal extends React.Component {
       getCurrentUserTimeBlocks();
       handleClose();
     });
+  };
+
+  deleteEntry = timeBlock => {
+    if (timeBlock) {
+      const { getCurrentUserTimeBlocks, handleClose } = this.props;
+      axios
+        .delete(`/api/timeblocks/${timeBlock.id}`)
+        .then(res => console.log(res));
+      getCurrentUserTimeBlocks();
+      handleClose();
+    }
   };
 
   render() {
@@ -257,34 +290,49 @@ class EditTimeEntryModal extends React.Component {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "flex-end",
+                  justifyContent: "space-between",
                   marginBottom: "20px",
-                  marginRight: "20px"
+                  marginRight: "20px",
+                  alignItems: "flex-end"
                 }}
               >
-                <Button
-                  style={{
-                    marginLeft: "40px",
-                    marginTop: "30px",
-                    width: "100px"
-                  }}
-                  onClick={() => {
-                    handleClose();
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  style={{
-                    marginTop: "30px",
-                    width: "100px",
-                    color: "white",
-                    background: "RebeccaPurple"
-                  }}
-                  onClick={() => this.handleSubmit()}
-                >
-                  Submit
-                </Button>
+                <div style={{ marginLeft: "20px" }}>
+                  <Popup
+                    trigger={
+                      <Icon
+                        onClick={() => this.deleteEntry(this.props.timeBlock)}
+                        name="trash alternate"
+                        style={{ color: "RebeccaPurple" }}
+                      />
+                    }
+                    content="Delete Entry"
+                  />
+                </div>
+                <div>
+                  <Button
+                    style={{
+                      marginLeft: "40px",
+                      marginTop: "30px",
+                      width: "100px"
+                    }}
+                    onClick={() => {
+                      handleClose();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    style={{
+                      marginTop: "30px",
+                      width: "100px",
+                      color: "white",
+                      background: "RebeccaPurple"
+                    }}
+                    onClick={() => this.handleSubmit()}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </div>
             </Header>
           </Form>

@@ -13,12 +13,16 @@ import {
   Progress
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
-
+import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
 import ProjectForm from "./ProjectForm";
 
 class ProjectView extends React.Component {
-  state = { project: {}, taskview: true, toggleForm: false };
+  state = {
+    project: {},
+    page: "",
+    toggleForm: false
+  };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -42,114 +46,99 @@ class ProjectView extends React.Component {
     this.setState({ toggleForm: !this.state.toggleForm });
   };
 
-  toggleTasks = number => {
-    console.log(`Button ${number} was clicked`);
-    if (number === 2) {
-      return this.setState({ taskview: false });
+  setPage = page => {
+    switch (page) {
+      case "task":
+        this.setState({ page: "task" });
+        break;
+      case "team":
+        this.setState({ page: "team" });
+        break;
+      case "budget":
+        this.setState({ page: "budget" });
+        break;
+      default:
+        return null;
     }
-    if (number === 1) {
-      return this.setState({ taskview: true });
-    } else {
-      return console.log("errors");
+  };
+
+  renderPage = () => {
+    switch (this.state.page) {
+      case "task":
+        return <TaskView />;
+      case "team":
+        return <TeamView />;
+      case "budget":
+        return <BudgetView />;
+      default:
+        return null;
     }
   };
 
   render() {
-    const { id, name } = this.state.project;
+    const {
+      id,
+      name,
+      client_name,
+      planned_start,
+      planned_end
+    } = this.state.project;
     return (
       <>
-        {this.state.toggleForm ? (
-          <ProjectForm
-            updateSubmit={this.updateSubmit}
-            project={this.state.project}
-            handleToggle={this.handleToggle}
-          />
-        ) : (
-          <>
-            <br />
-            <br />
-            <div>
-              <Link to={"/projects"}>
-                <Button
-                  inverted
-                  color="violet"
-                  floated="right"
-                  style={{ marginBottom: "20px" }}
-                >
-                  <Icon name="arrow alternate circle left outline" />
-                  Go Back
-                </Button>
-              </Link>
-
-              <Button
-                onClick={() => this.handleToggle()}
-                inverted
-                color="blue"
-                floated="right"
-              >
-                <Icon name="pencil" /> Update Project
-              </Button>
-
-              <Button
-                inverted
-                onClick={this.handleDelete}
-                color="red"
-                floated="right"
-              >
-                <Icon name="trash" /> Remove Project
-              </Button>
-            </div>
-            <Container
-              style={{
-                paddingTop: "0px",
-                margin: "0px"
-              }}
+        <div>
+          <Link to={"/projects"}>
+            <Button
+              inverted
+              color="violet"
+              floated="right"
+              style={{ marginBottom: "20px" }}
             >
-              <h1>{name}</h1>
+              <Icon name="arrow alternate circle left outline" />
+              Go Back
+            </Button>
+          </Link>
 
-              <Header>
-                <div className="wrapper">
-                  <Button.Group widths="2">
-                    <Button
-                      buttonNumber={1}
-                      onClick={() => this.toggleTasks(1)}
-                    >
-                      Tasks
-                    </Button>
-                    <Button
-                      buttonNumber={2}
-                      onClick={() => this.toggleTasks(2)}
-                    >
-                      Team
-                    </Button>
-                  </Button.Group>
-                </div>
-              </Header>
+          <Button
+            onClick={() => this.handleToggle()}
+            inverted
+            color="blue"
+            floated="right"
+          >
+            <Icon name="pencil" /> Update Project
+          </Button>
 
-              {this.state.taskview ? (
-                <TaskView id={this.props.match.params.id} />
-              ) : (
-                <TeamView id={this.props.match.params.id} />
-              )}
-            </Container>
-          </>
-        )}
-        {/* <Container
+          <Button
+            inverted
+            onClick={this.handleDelete}
+            color="red"
+            floated="right"
+          >
+            <Icon name="trash" /> Remove Project
+          </Button>
+        </div>
+        <Container
           style={{
             paddingTop: "0px",
             margin: "0px"
           }}
         >
           <h1>{name}</h1>
-          
+
           <Header>
             <div className="wrapper">
-              <Button.Group widths="2">
-                <Button buttonNumber={1} onClick={() => this.toggleTasks(1)}>
+              <Button.Group widths="3">
+                <Button
+                  inverted
+                  buttonNumber={1}
+                  onClick={() => this.setPage("task")}
+                >
                   Tasks
                 </Button>
-                <Button buttonNumber={2} onClick={() => this.toggleTasks(2)}>
+                <Button buttonNumber={2} onClick={() => this.setPage("team")}>
                   Team
+                </Button>
+                <Button buttonNumber={3} onClick={() => this.setPage("budget")}>
+                  Budget
                 </Button>
               </Button.Group>
             </div>
@@ -159,9 +148,9 @@ class ProjectView extends React.Component {
             <TaskView id={this.props.match.params.id} />
           ) : (
             <TeamView id={this.props.match.params.id} />
-           )  } 
-    
-          </Container> */}
+          )}
+        </Container>{" "}
+        */}
       </>
     );
   }

@@ -5,13 +5,16 @@ import { Table } from "semantic-ui-react";
 
 const UnsubmittedTableBody = props => (
   <>
+    <UnsubmittedTableHeader />
     <Table.Body>
-      <UnsubmittedTableHeader />
       <UnsubmittedTableRow
         timeBlocks={props.timeBlocks}
         tasks={props.tasks}
         projects={props.projects}
         getTimeBlocks={props.getTimeBlocks}
+        handleCheckMarks={props.handleCheckMarks}
+        reset={props.reset}
+        handleOpen={props.handleOpen}
       />
     </Table.Body>
   </>

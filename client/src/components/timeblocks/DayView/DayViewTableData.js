@@ -4,17 +4,29 @@ import DayViewTableRow from "./DayViewTableRow";
 import { Table } from "semantic-ui-react";
 import moment from "moment";
 import EditTimeEntryModal from "./EditTimeEntryModal";
+import CannotEditModal from "./CannotEditModal";
 import { returnDayHours, returnDayInfo } from "../Calculations/Calculations";
 
 class DayViewTableData extends React.Component {
-  state = { modal1Open: false };
+  state = { modal1Open: false, modal2Open: false };
 
   handleClose = () => {
-    this.setState({ goat: "yes", modal1Open: false });
+    this.setState({ modal1Open: false });
+    this.props.setKeyboardShortcutKeys(true);
+  };
+
+  handleClose2 = () => {
+    this.setState({ modal2Open: false });
+    this.props.setKeyboardShortcutKeys(true);
   };
 
   handleOpen = timeBlock => {
     this.setState({ modal1Open: true, timeBlock: timeBlock });
+    this.props.setKeyboardShortcutKeys(false);
+  };
+
+  handleOpen2 = () => {
+    this.setState({ modal2Open: true });
   };
 
   render() {
@@ -28,7 +40,8 @@ class DayViewTableData extends React.Component {
       monday,
       stopTimer,
       setSelectedWeek,
-      setSelectedDate
+      setSelectedDate,
+      setKeyboardShortcutKeys
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
@@ -73,6 +86,7 @@ class DayViewTableData extends React.Component {
               monday={monday}
               stopTimer={stopTimer}
               handleOpen={this.handleOpen}
+              handleOpen2={this.handleOpen2}
             />
           ))}
           <Table.Row>
@@ -104,6 +118,11 @@ class DayViewTableData extends React.Component {
           tasks={tasks}
           projects={projects}
           getCurrentUserTimeBlocks={getCurrentUserTimeBlocks}
+        />
+        <CannotEditModal
+          handleOpen2={this.handleOpen2}
+          modal2Open={this.state.modal2Open}
+          handleClose2={this.handleClose2}
         />
       </>
     );
