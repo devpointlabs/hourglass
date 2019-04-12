@@ -27,13 +27,6 @@ class ProjectView extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    const { id } = this.props.match.params;
-    axios.put(`/api/projects/${id}`).then(res => {
-      this.setState({ project: res.data });
-    });
-  }
-
   updateSubmit = project => {
     this.setState({ project: project });
   };
@@ -65,7 +58,6 @@ class ProjectView extends React.Component {
     const { id, name } = this.state.project;
     return (
       <>
-        {this.state.toggleForm ? <ProjectForm /> : <div />}
         <Table>
           <Table.Row>
             <Table.Cell>ProjectName</Table.Cell>
