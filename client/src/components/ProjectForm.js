@@ -5,12 +5,14 @@ import {
   Segment,
   Icon,
   Header,
+  Label,
   Divider
 } from "semantic-ui-react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
 import TaskArrayForForm from "./TaskArrayForForm";
 import AddUserToTask from "./AddUserToTask";
+import moment from "moment";
 import { Link } from "react-router-dom";
 import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 
@@ -88,9 +90,10 @@ class ProjectForm extends React.Component {
       name,
       client_name,
       planned_start,
-      planned_end,
-      notes
+      planned_end
     } = this.state.project;
+    const start_date = new Date(planned_start).toDateString();
+    const end_date = new Date(planned_end).toDateString();
     return (
       <>
         <Segment styles={{ margin: "100px" }}>
@@ -132,20 +135,28 @@ class ProjectForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Group>
+            <div style={{ justifyContent: "flexStart" }}>
+              <Header as="h4">Start Date</Header>
               <CalendarPickerForProjectForm setDate={this.setStartDate} />
-
+              {planned_start !== "" ? (
+                <Label color="violet" pointing="left">
+                  {start_date}
+                </Label>
+              ) : null}
+            </div>
+            <br />
+            <div style={{ justifyContent: "flexEnd" }}>
+              <Header as="h4">End Date</Header>
               <CalendarPickerForProjectForm setDate={this.setEndDate} />
-            </Form.Group>
-            {/* <Form.Group style={{marginLeft: '6.2em'}}>
-              <Form.Input
-                name="notes"
-                type='field'
-                value={notes}
-                placeholder="Notes"
-                onChange={this.handleChange}
-              />
-            </Form.Group> */}
+              {planned_end !== "" ? (
+                <Label color="violet" inverted pointing="left">
+                  {end_date}
+                </Label>
+              ) : null}
+            </div>
+            <Button onClick={() => this.toggleTask()}>
+              Add Tasks and Employees
+            </Button>
           </Form>
         </Segment>
         {this.state.taskShown ? (
@@ -154,9 +165,9 @@ class ProjectForm extends React.Component {
           </div>
         ) : (
           <div>
-            <Button onClick={() => this.toggleTask()}>
+            {/* <Button onClick={() => this.toggleTask()}>
               Add Tasks and Employees
-            </Button>
+            </Button> */}
             {/* <Button onClick={this.handleSubmit}>Save Project</Button>{" "} */}
             {/* <Link to={"/projects"}>
               <Button inverted color="violet" style={{ marginBottom: "20px" }}>
