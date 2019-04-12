@@ -11,10 +11,12 @@ class DayViewTableData extends React.Component {
 
   handleClose = () => {
     this.setState({ goat: "yes", modal1Open: false });
+    this.props.setKeyboardShortcutKeys(true);
   };
 
   handleOpen = timeBlock => {
     this.setState({ modal1Open: true, timeBlock: timeBlock });
+    this.props.setKeyboardShortcutKeys(false);
   };
 
   render() {
@@ -28,7 +30,8 @@ class DayViewTableData extends React.Component {
       monday,
       stopTimer,
       setSelectedWeek,
-      setSelectedDate
+      setSelectedDate,
+      setKeyboardShortcutKeys
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>

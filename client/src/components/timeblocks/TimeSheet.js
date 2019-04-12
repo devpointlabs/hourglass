@@ -26,7 +26,8 @@ class TimeSheet extends React.Component {
     projects: [],
     timeBlocks: [],
     currentWeekTimeBlocks: [],
-    activeTimerTimeBlock: {}
+    activeTimerTimeBlock: {},
+    keyboardShortcutKeys: true
   };
 
   componentDidMount() {
@@ -36,27 +37,33 @@ class TimeSheet extends React.Component {
     document.addEventListener("keydown", this.handleKeyDown);
   }
 
+  setKeyboardShortcutKeys = trueFalse => {
+    this.setState({ keyboardShortcutKeys: trueFalse });
+  };
+
   handleKeyDown = event => {
-    switch (event.keyCode) {
-      case 37:
-        this.setState({
-          selectedDate: moment(this.state.selectedDate).subtract(1, "days")
-        });
-        this.setSelectedWeek(
-          moment(this.state.selectedDate).subtract(1, "days")
-        );
-        break;
-      case 39:
-        this.setState({
-          selectedDate: moment(this.state.selectedDate).add(1, "days")
-        });
-        this.setSelectedWeek(
-          moment(this.state.selectedDate).subtract(1, "days")
-        );
-        break;
-      case 32:
-        this.setState({ selectedDate: moment() });
-        break;
+    if (this.state.keyboardShortcutKeys) {
+      switch (event.keyCode) {
+        case 37:
+          this.setState({
+            selectedDate: moment(this.state.selectedDate).subtract(1, "days")
+          });
+          this.setSelectedWeek(
+            moment(this.state.selectedDate).subtract(1, "days")
+          );
+          break;
+        case 39:
+          this.setState({
+            selectedDate: moment(this.state.selectedDate).add(1, "days")
+          });
+          this.setSelectedWeek(
+            moment(this.state.selectedDate).subtract(1, "days")
+          );
+          break;
+        case 32:
+          this.setState({ selectedDate: moment() });
+          break;
+      }
     }
   };
 
@@ -162,6 +169,7 @@ class TimeSheet extends React.Component {
               stopTimer={this.stopTimer}
               setSelectedDate={this.setSelectedDate}
               setSelectedWeek={this.setSelectedWeek}
+              setKeyboardShortcutKeys={this.setKeyboardShortcutKeys}
             />
           </Table>
         </div>

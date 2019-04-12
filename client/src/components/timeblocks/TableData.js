@@ -42,7 +42,8 @@ class TableData extends React.Component {
       currentWeekTimeBlocks,
       stopTimer,
       setSelectedDate,
-      setSelectedWeek
+      setSelectedWeek,
+      setKeyboardShortcutKeys
     } = this.props;
 
     switch (view) {
@@ -60,6 +61,7 @@ class TableData extends React.Component {
               stopTimer={stopTimer}
               setSelectedDate={setSelectedDate}
               setSelectedWeek={setSelectedWeek}
+              setKeyboardShortcutKeys={setKeyboardShortcutKeys}
             />
           </>
         );

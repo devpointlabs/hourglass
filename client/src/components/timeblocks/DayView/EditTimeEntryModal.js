@@ -46,6 +46,7 @@ class EditTimeEntryModal extends React.Component {
     const { year, startMonthDay, endMonthDay } = this.state;
 
     const targetName = e.target.name;
+    console.log(targetName);
 
     this.setState({ [targetName]: e.target.value }, () => {
       if (this.state.startHourMinute === "" && targetName === "hours") {
@@ -65,6 +66,27 @@ class EditTimeEntryModal extends React.Component {
           )
             .add(parseFloat(this.state.hours), "hours")
             .format("HH:mm")
+        });
+      } else if (targetName === "startMonthDay") {
+        this.setState({
+          endMonthDay: this.state.startMonthDay,
+          hours: moment(
+            parsedInput(
+              year,
+              this.state.startMonthDay,
+              this.state.endHourMinute
+            )
+          ).diff(
+            moment(
+              parsedInput(
+                year,
+                this.state.startMonthDay,
+                this.state.startHourMinute
+              )
+            ),
+            "hours",
+            true
+          )
         });
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
