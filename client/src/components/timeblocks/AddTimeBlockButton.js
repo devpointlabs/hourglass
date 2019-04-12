@@ -5,7 +5,6 @@ import {
   Modal,
   Header,
   Form,
-  Checkbox,
   Transition
 } from "semantic-ui-react";
 import Select from "react-select";
@@ -15,6 +14,7 @@ import { TimerConsumer } from "../../providers/TimerProvider";
 import { withRouter } from "react-router-dom";
 import TimerStartStopButton from "./TimerStartStopButton";
 import parsedInput from "./parsedInput";
+import { sortSelectOptions } from "./sortSelectOptions";
 
 class AddTimeBlockButton extends React.Component {
   state = {
@@ -232,19 +232,25 @@ class AddTimeBlockButton extends React.Component {
   };
 
   render() {
-    const projectSelectOptions = this.props.projects.map(p => ({
-      value: p.id,
-      label: `${p.name} (${p.client_name})`
-    }));
-
-    const selectedProjectTasks = this.props.tasks.filter(
-      t => t.project_id === this.state.project.value
+    const selectOptions = sortSelectOptions(
+      this.state.project,
+      this.props.projects,
+      this.props.tasks
     );
 
-    const taskSelectOptions = selectedProjectTasks.map(t => ({
-      value: t.id,
-      label: t.name
-    }));
+    // const projectSelectOptions = this.props.projects.map(p => ({
+    //   value: p.id,
+    //   label: `${p.name} (${p.client_name})`
+    // }));
+
+    // const selectedProjectTasks = this.props.tasks.filter(
+    //   t => t.project_id === this.state.project.value
+    // );
+
+    // const taskSelectOptions = selectedProjectTasks.map(t => ({
+    //   value: t.id,
+    //   label: t.name
+    // }));
 
     const { timerRunning } = this.props.timer;
 
@@ -302,8 +308,7 @@ class AddTimeBlockButton extends React.Component {
                   <Select
                     value={this.state.project}
                     onChange={this.handleChange1}
-                    options={projectSelectOptions}
-                    defaultValue={{ label: "select Project", value: 0 }}
+                    options={selectOptions.projectSelectOptions}
                   />
                 </div>
                 <div
@@ -318,7 +323,7 @@ class AddTimeBlockButton extends React.Component {
                   <Select
                     value={this.state.task}
                     onChange={this.handleChange2}
-                    options={taskSelectOptions}
+                    options={selectOptions.taskSelectOptions}
                   />
                 </div>
                 <div>
@@ -475,11 +480,6 @@ class AddTimeBlockButton extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <Checkbox
-                    style={{ marginLeft: "20px", marginTop: "20px" }}
-                    label="manually entered"
-                    name="manualEnterCheckbox"
-                  />
                 </div>
               </Header>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>

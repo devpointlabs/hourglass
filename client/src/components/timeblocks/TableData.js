@@ -37,6 +37,7 @@ class TableData extends React.Component {
       selectedDate,
       timeBlocks,
       tasks,
+      projects,
       currentWeekTimeBlocks,
       stopTimer,
       setSelectedDate,
@@ -51,6 +52,7 @@ class TableData extends React.Component {
               selectedDate={selectedDate}
               timeBlocks={timeBlocks}
               tasks={tasks}
+              projects={projects}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               monday={monday}
               stopTimer={stopTimer}
@@ -66,6 +68,7 @@ class TableData extends React.Component {
               selectedDate={selectedDate}
               timeBlocks={timeBlocks}
               tasks={tasks}
+              projects={projects}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               monday={monday}
               setSelectedDate={setSelectedDate}
