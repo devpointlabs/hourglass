@@ -49,7 +49,7 @@ class TeamView extends React.Component {
     return this.state.users.map(user => (
       <Table.Row key={user.id}>
         <Link to={`/employees/${user.id}`}>
-          <Table.Cell style={{ color: "black" }}>{user.name}</Table.Cell>
+          <Table.Cell style={{ color: "purple" }}>{user.name}</Table.Cell>
         </Link>
       </Table.Row>
     ));
