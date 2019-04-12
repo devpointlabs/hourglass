@@ -37,7 +37,7 @@ class ProjectView extends React.Component {
   };
 
   handleToggle = () => {
-    this.setState({ toggleForm: true });
+    this.setState({ toggleForm: !this.state.toggleForm });
   };
 
   toggleTasks = number => {
@@ -71,11 +71,15 @@ class ProjectView extends React.Component {
             </Button>
           </Link>
 
-          <Link to={`/project/${id}/edit`}>
-            <Button inverted color="blue" floated="right">
-              <Icon name="pencil" /> Update Project
-            </Button>
-          </Link>
+          <Button
+            onClick={() => this.handleToggle()}
+            inverted
+            color="blue"
+            floated="right"
+          >
+            <Icon name="pencil" /> Update Project
+          </Button>
+
           <Button
             inverted
             onClick={this.handleDelete}
@@ -85,6 +89,13 @@ class ProjectView extends React.Component {
             <Icon name="trash" /> Remove Project
           </Button>
         </div>
+
+        {this.state.toggleForm ? (
+          <ProjectForm
+            updateSubmit={this.updateSubmit}
+            project={this.state.project}
+          />
+        ) : null}
         <Container
           style={{
             paddingTop: "0px",
@@ -92,6 +103,7 @@ class ProjectView extends React.Component {
           }}
         >
           <h1>{name}</h1>
+
           <Header>
             <div className="wrapper">
               <Button.Group widths="2">
@@ -104,6 +116,7 @@ class ProjectView extends React.Component {
               </Button.Group>
             </div>
           </Header>
+
           {this.state.taskview ? (
             <TaskView id={this.props.match.params.id} />
           ) : (
