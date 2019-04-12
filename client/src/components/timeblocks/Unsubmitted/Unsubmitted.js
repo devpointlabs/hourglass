@@ -8,18 +8,28 @@ import {
 } from "../Calculations/Calculations";
 import UnsubmittedTableBody from "./UnsubmittedTableBody";
 import Footer from "./Footer";
+import EditTimeEntryModal from "../DayView/EditTimeEntryModal";
 
 class Unsubmitted extends React.Component {
   state = {
     timeBlocks: [],
     tasks: [],
     projects: [],
-    reset: false
+    reset: false,
+    modalOpen: false
   };
 
   componentDidMount() {
     this.getTimeBlocks();
   }
+
+  handleOpen = timeBlock => {
+    this.setState({ modalOpen: true, timeBlock: timeBlock });
+  };
+
+  handleClose = () => {
+    this.setState({ modalOpen: false });
+  };
 
   getTimeBlocks = () => {
     axios.get("/api/timeblocks").then(res =>
@@ -93,9 +103,18 @@ class Unsubmitted extends React.Component {
               timeBlocks={this.state.timeBlocks}
               handleCheckMarks={this.handleCheckMarks}
               reset={this.state.reset}
+              handleOpen={this.handleOpen}
             />
             <Footer submitTimeBlocks={this.submitTimeBlocks} />
           </Table>
+          <EditTimeEntryModal
+            handleClose={this.handleClose}
+            modal1Open={this.state.modalOpen}
+            timeBlock={this.state.timeBlock}
+            tasks={this.state.tasks}
+            projects={this.state.projects}
+            getCurrentUserTimeBlocks={this.getTimeBlocks}
+          />
         </div>
       </>
     );

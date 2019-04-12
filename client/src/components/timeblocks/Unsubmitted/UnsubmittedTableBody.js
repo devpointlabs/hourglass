@@ -14,6 +14,8 @@ const UnsubmittedTableBody = props => (
         getTimeBlocks={props.getTimeBlocks}
         handleCheckMarks={props.handleCheckMarks}
         reset={props.reset}
+        handleOpen={props.handleOpen}
+
       />
     </Table.Body>
   </>
