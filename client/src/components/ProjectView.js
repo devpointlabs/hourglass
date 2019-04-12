@@ -141,7 +141,7 @@ class ProjectView extends React.Component {
           }}
         >
           <h1>{name}</h1>
-
+          
           <Header>
             <div className="wrapper">
               <Button.Group widths="2">
@@ -159,8 +159,9 @@ class ProjectView extends React.Component {
             <TaskView id={this.props.match.params.id} />
           ) : (
             <TeamView id={this.props.match.params.id} />
-          )}
-        </Container> */}
+           )  } 
+    
+          </Container> */}
       </>
     );
   }

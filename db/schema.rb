@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2019_04_11_221512) do
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string "author"
+    t.text "body"
+    t.string "datetime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "client_name"
@@ -91,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_221512) do
 
   add_foreign_key "assignments", "projects"
   add_foreign_key "assignments", "users"
+  add_foreign_key "notes", "projects"
   add_foreign_key "tasks", "projects"
   add_foreign_key "timeblocks", "tasks"
   add_foreign_key "timeblocks", "users"
