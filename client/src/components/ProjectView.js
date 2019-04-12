@@ -8,7 +8,9 @@ import {
   Card,
   Icon,
   ButtonGroup,
-  Table
+  Table,
+  Segment,
+  Progress
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 
@@ -56,40 +58,6 @@ class ProjectView extends React.Component {
     const { id, name } = this.state.project;
     return (
       <>
-        {/* <br />
-        <br />
-        <div>
-          <Link to={"/projects"}>
-            <Button
-              inverted
-              color="violet"
-              floated="right"
-              style={{ marginBottom: "20px" }}
-            >
-              <Icon name="arrow alternate circle left outline" />
-              Go Back
-            </Button>
-          </Link>
-
-          <Button
-            onClick={() => this.handleToggle()}
-            inverted
-            color="blue"
-            floated="right"
-          >
-            <Icon name="pencil" /> Update Project
-          </Button>
-
-          <Button
-            inverted
-            onClick={this.handleDelete}
-            color="red"
-            floated="right"
-          >
-            <Icon name="trash" /> Remove Project
-          </Button>
-        </div> */}
-
         {this.state.toggleForm ? (
           <ProjectForm
             updateSubmit={this.updateSubmit}
