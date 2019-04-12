@@ -8,14 +8,12 @@ Rails.application.routes.draw do
     end
 
     resources :projects do
-      resources :assignments
+      resources :assignments 
     end
 
     resources :tasks, :timeblocks
-
     resources :users, only: [:update, :index]
-
-
+    
     resources :tasks do
       resources :timeblocks, only: [:index, :show]
     end

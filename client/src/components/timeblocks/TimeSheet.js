@@ -114,7 +114,7 @@ class TimeSheet extends React.Component {
     axios
       .put(`/api/timeblocks/${id}`, {
         end_time: endTime,
-        status: "pendingApproval"
+        status: "unSubmitted"
       })
       .then(res => this.getCurrentUserTimeBlocks());
   };

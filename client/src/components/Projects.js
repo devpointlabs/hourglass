@@ -54,19 +54,19 @@ class Projects extends React.Component {
         </Link>
 
         <Grid>
-          <Grid.Row>
-            <Grid.Column columns={2} style={{ marginTop: "30px" }}>
-              <table class="ui fixed table">
-                <thead>
-                  <tr>
-                    <th>Project</th>
-                    <th>Client</th>
-                  </tr>
-                </thead>
-                {this.showProjects()}
-              </table>
-            </Grid.Column>
-          </Grid.Row>
+          {/* <Grid.Row> */}
+          <Grid.Column columns={2} style={{ marginTop: "30px" }}>
+            <table class="ui fixed table">
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Client</th>
+                </tr>
+              </thead>
+              {this.showProjects()}
+            </table>
+          </Grid.Column>
+          {/* </Grid.Row> */}
         </Grid>
       </Container>
     );

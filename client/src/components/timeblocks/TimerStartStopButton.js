@@ -18,7 +18,7 @@ const TimerStartStopButton = ({
           height: "150px",
           width: "150px",
           marginRight: "10px",
-          marginTop: "10px",
+          marginTop: "15px",
           backgroundColor: timerRunning ? "RebeccaPurple" : "RebeccaPurple",
           color: timerRunning ? "white" : "white",
           border: "solid lightgray 1px"
