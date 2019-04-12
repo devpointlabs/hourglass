@@ -6,18 +6,17 @@ import "../timeSheetDayView.css";
 
 class DayViewTableRow extends React.Component {
   render() {
-    const { timeBlock, stopTimer, handleOpen } = this.props;
-    const projectSelectOptions = {};
-    const taskSelectOptions = {};
+    const { timeBlock, stopTimer, handleOpen, handleOpen2 } = this.props;
 
     return (
       <Table.Row
         className={
           timeBlock.status !== "timerStarted" && "timeSheetDayViewTableRow"
         }
-        onClick={() =>
-          timeBlock.status !== "timerStarted" && handleOpen(timeBlock)
-        }
+        onClick={() => {
+          timeBlock.status === "unSubmitted" && handleOpen(timeBlock);
+          timeBlock.status === "pendingApproval" && handleOpen2(timeBlock);
+        }}
       >
         <Table.Cell style={{ padding: 0 }} colSpan={calcColSpan(timeBlock)}>
           <div>

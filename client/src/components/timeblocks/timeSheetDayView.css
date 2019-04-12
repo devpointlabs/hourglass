@@ -4,5 +4,9 @@
 }
 
 .dayViewTableHeaderCell:hover {
-  outline: solid 1px lightgrey;
+}
+
+.unSubmittedTableRow:hover {
+  background: #f2f2f2;
+  font-weight: bold;
 }

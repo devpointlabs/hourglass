@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Checkbox, Button } from "semantic-ui-react";
+import "../timeSheetDayView.css";
 
 class UnsubmittedTableRow extends React.Component {
   state = {
@@ -42,6 +43,8 @@ class UnsubmittedTableRow extends React.Component {
       <>
         {BlocksWithTaskInfo.map(block => (
           <Table.Row
+            className="unSubmittedTableRow"
+            onClick={() => this.props.handleOpen(block)}
             style={{
               display: "flex",
               justifyContent: "space-between"
