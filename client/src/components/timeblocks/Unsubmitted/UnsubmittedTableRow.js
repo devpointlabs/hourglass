@@ -3,7 +3,6 @@ import { Table, Checkbox, Button } from "semantic-ui-react";
 import CheckboxComponent from "./CheckboxComponent";
 import "../timeSheetDayView.css";
 
-
 class UnsubmittedTableRow extends React.Component {
   state = {
     timeBlocksStatus: [],
@@ -43,24 +42,33 @@ class UnsubmittedTableRow extends React.Component {
         {BlocksWithTaskInfo.map(block => (
           <Table.Row
             className="unSubmittedTableRow"
-            onClick={() => this.props.handleOpen(block)}
             style={{
               display: "flex",
               justifyContent: "space-between"
             }}
           >
-            <Table.Cell style={{ width: "140px" }}>
+            <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
+              style={{ width: "140px" }}
+            >
               {block.taskInfo && block.taskInfo.projectInfo.name}
             </Table.Cell>
-            <Table.Cell style={{ width: "140px" }}>
+            <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
+              style={{ width: "140px" }}
+            >
               ({block.taskInfo && block.taskInfo.name})
             </Table.Cell>
             <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
               style={{
                 width: "460px"
               }}
             />
-            <Table.Cell style={{ width: "140px", textAlign: "center" }}>
+            <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
+              style={{ width: "140px", textAlign: "center" }}
+            >
               {block.taskInfo && parseFloat(block.hours).toFixed(2)}
             </Table.Cell>
             <Table.Cell style={{ width: "140px", textAlign: "center" }}>

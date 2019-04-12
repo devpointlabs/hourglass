@@ -4,24 +4,11 @@ import { returnTaskTotalsByDay } from "../Calculations/ReturnTaskTotalsByDay";
 import moment from "moment";
 
 class WeekViewTableRow extends React.Component {
-  state = {
-    weekTimeBlocks: []
-  };
-
-  componentDidMount = () => {
-    this.getWeekTimeBlocks();
-  };
-
-  getWeekTimeBlocks = () => {
-    const { currentWeekTimeBlocks, monday } = this.props;
-    this.setState({
-      weekTimeBlocks: returnTaskTotalsByDay(currentWeekTimeBlocks, monday)
-    });
-  };
-
   render() {
     const { task } = this.props;
-    const totals = this.state.weekTimeBlocks.map(w =>
+    const { currentWeekTimeBlocks, monday } = this.props;
+    const weekTimeBlocks = returnTaskTotalsByDay(currentWeekTimeBlocks, monday);
+    const totals = weekTimeBlocks.map(w =>
       w.reduce((acc, b) => {
         return b.task_id === this.props.task.id
           ? acc + parseFloat(b.hours)
