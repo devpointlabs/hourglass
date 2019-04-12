@@ -161,7 +161,11 @@ class ProjectForm extends React.Component {
         </Segment>
         {this.state.taskShown ? (
           <div>
-            <TaskArrayForForm project_id={this.state.project_id} /> <br />
+            <TaskArrayForForm
+              project_id={this.state.project_id}
+              handleToggle={this.props.handleToggle}
+            />{" "}
+            <br />
           </div>
         ) : (
           <div>

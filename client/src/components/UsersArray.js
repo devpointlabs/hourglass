@@ -44,7 +44,7 @@ class UsersArray extends React.Component {
         <Header as="h1" textAlign="center">
           Team
         </Header>
-        <Table celled compact fixed basic>
+        <Table compact fixed basic>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Team Member</Table.HeaderCell>
@@ -57,6 +57,7 @@ class UsersArray extends React.Component {
         <AddUserToTask
           resetState={this.resetState}
           project_id={this.props.project_id}
+          handleToggle={this.props.handleToggle}
         />
       </>
     );

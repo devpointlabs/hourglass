@@ -17,6 +17,7 @@ import Pending from "./components/timeblocks/NavBarComponents/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted";
 import TaskView from "./components/TaskView";
 import ProjectForm from "./components/ProjectForm";
+import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 
 const App = () => (
   <Fragment>
@@ -37,6 +38,11 @@ const App = () => (
           <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
           <Route exact path="/timesheet/pending" component={Pending} />
           <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
+          <Route
+            exact
+            path="/timesheet/approve_timesheets"
+            component={ApproveTimesheets}
+          />
 
           <ProtectedRoute exact path="/taskview" component={TaskView} />
 

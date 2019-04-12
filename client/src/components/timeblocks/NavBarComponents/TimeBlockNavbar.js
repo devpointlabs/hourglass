@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 
 class TimeBlockNavbar extends React.Component {
   render() {
@@ -23,10 +24,24 @@ class TimeBlockNavbar extends React.Component {
           <Link to="/timesheet/unsubmitted">
             <Menu.Item>Unsubmitted</Menu.Item>
           </Link>
+          {this.props.auth.user.admin ? (
+            <Link to="/timesheet/approve_timesheets">
+              <Menu.Item>Approve Timesheets</Menu.Item>
+            </Link>
+          ) : null}
         </Menu>
       </>
     );
   }
 }
 
-export default TimeBlockNavbar;
+export class ConnectedTimeBlockNavbar extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <TimeBlockNavbar {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+export default withRouter(ConnectedTimeBlockNavbar);

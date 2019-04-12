@@ -41,6 +41,10 @@ class Api::TimeblocksController < ApplicationController
     @timeblock.destroy
   end
 
+  def pending_timeblocks
+    render json: Timeblock.pending_timeblocks
+  end
+
   private
 
   def set_task

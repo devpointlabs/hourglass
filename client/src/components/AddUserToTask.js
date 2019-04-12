@@ -24,6 +24,7 @@ class AddUserToTask extends React.Component {
       if (user.id === user_id) addedUser = user;
     });
     resetState(addedUser);
+    this.setState({ assignment: { user_id: "" } });
   };
 
   employeeDropdown = () => {
@@ -48,18 +49,29 @@ class AddUserToTask extends React.Component {
 
   render() {
     return (
-      <>
-        <Form>
-          <Form.Select control={this.employeeDropdown} />
-          <Button onClick={() => this.handleSubmit()}>Add Member</Button>
+      <Form>
+        <Form.Select control={this.employeeDropdown} />
+        <Button onClick={() => this.handleSubmit()}>Add Member</Button>
+
+        {this.props.handleToggle ? (
+          <Button
+            onClick={() => this.props.handleToggle()}
+            inverted
+            color="violet"
+            style={{ marginBottom: "20px" }}
+          >
+            <Icon name="arrow alternate circle left outline" />
+            Save
+          </Button>
+        ) : (
           <Link to={"/projects"}>
             <Button inverted color="violet" style={{ marginBottom: "20px" }}>
               <Icon name="arrow alternate circle left outline" />
               Save
             </Button>
           </Link>
-        </Form>
-      </>
+        )}
+      </Form>
     );
   }
 }
