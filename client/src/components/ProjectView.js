@@ -8,7 +8,9 @@ import {
   Card,
   Icon,
   ButtonGroup,
-  Table
+  Table,
+  Segment,
+  Progress
 } from "semantic-ui-react";
 import TaskView from "./TaskView";
 
@@ -56,48 +58,83 @@ class ProjectView extends React.Component {
     const { id, name } = this.state.project;
     return (
       <>
-        <br />
-        <br />
-        <div>
-          <Link to={"/projects"}>
-            <Button
-              inverted
-              color="violet"
-              floated="right"
-              style={{ marginBottom: "20px" }}
-            >
-              <Icon name="arrow alternate circle left outline" />
-              Go Back
-            </Button>
-          </Link>
-
-          <Button
-            onClick={() => this.handleToggle()}
-            inverted
-            color="blue"
-            floated="right"
-          >
-            <Icon name="pencil" /> Update Project
-          </Button>
-
-          <Button
-            inverted
-            onClick={this.handleDelete}
-            color="red"
-            floated="right"
-          >
-            <Icon name="trash" /> Remove Project
-          </Button>
-        </div>
-
         {this.state.toggleForm ? (
           <ProjectForm
             updateSubmit={this.updateSubmit}
             project={this.state.project}
             handleToggle={this.handleToggle}
           />
-        ) : null}
-        <Container
+        ) : (
+          <>
+            <br />
+            <br />
+            <div>
+              <Link to={"/projects"}>
+                <Button
+                  inverted
+                  color="violet"
+                  floated="right"
+                  style={{ marginBottom: "20px" }}
+                >
+                  <Icon name="arrow alternate circle left outline" />
+                  Go Back
+                </Button>
+              </Link>
+
+              <Button
+                onClick={() => this.handleToggle()}
+                inverted
+                color="blue"
+                floated="right"
+              >
+                <Icon name="pencil" /> Update Project
+              </Button>
+
+              <Button
+                inverted
+                onClick={this.handleDelete}
+                color="red"
+                floated="right"
+              >
+                <Icon name="trash" /> Remove Project
+              </Button>
+            </div>
+            <Container
+              style={{
+                paddingTop: "0px",
+                margin: "0px"
+              }}
+            >
+              <h1>{name}</h1>
+
+              <Header>
+                <div className="wrapper">
+                  <Button.Group widths="2">
+                    <Button
+                      buttonNumber={1}
+                      onClick={() => this.toggleTasks(1)}
+                    >
+                      Tasks
+                    </Button>
+                    <Button
+                      buttonNumber={2}
+                      onClick={() => this.toggleTasks(2)}
+                    >
+                      Team
+                    </Button>
+                  </Button.Group>
+                </div>
+              </Header>
+
+              {this.state.taskview ? (
+                <TaskView id={this.props.match.params.id} />
+              ) : (
+                <TeamView id={this.props.match.params.id} />
+              )}
+            </Container>
+          </>
+        )}
+        {/* <Container
           style={{
             paddingTop: "0px",
             margin: "0px"
@@ -123,7 +160,7 @@ class ProjectView extends React.Component {
           ) : (
             <TeamView id={this.props.match.params.id} />
           )}
-        </Container>
+        </Container> */}
       </>
     );
   }

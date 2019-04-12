@@ -145,7 +145,7 @@ class ProjectForm extends React.Component {
               ) : null}
             </div>
             <br />
-            <div style={{ justifyContent: "flexEnd" }}>
+            <div>
               <Header as="h4">End Date</Header>
               <CalendarPickerForProjectForm setDate={this.setEndDate} />
               {planned_end !== "" ? (
@@ -154,8 +154,18 @@ class ProjectForm extends React.Component {
                 </Label>
               ) : null}
             </div>
-            <Button onClick={() => this.toggleTask()}>
-              Add Tasks and Employees
+            <br />
+            <Button
+              style={{ marginLeft: "6.5em" }}
+              color="violet"
+              animated="fade"
+              inverted
+              onClick={() => this.toggleTask()}
+            >
+              <Button.Content visible>Add Tasks and Employees</Button.Content>
+              <Button.Content hidden>
+                <Icon name="angle double down" />
+              </Button.Content>
             </Button>
           </Form>
         </Segment>
@@ -168,18 +178,7 @@ class ProjectForm extends React.Component {
             <br />
           </div>
         ) : (
-          <div>
-            {/* <Button onClick={() => this.toggleTask()}>
-              Add Tasks and Employees
-            </Button> */}
-            {/* <Button onClick={this.handleSubmit}>Save Project</Button>{" "} */}
-            {/* <Link to={"/projects"}>
-              <Button inverted color="violet" style={{ marginBottom: "20px" }}>
-                <Icon name="arrow alternate circle left outline" />
-                Go Back
-              </Button>
-            </Link> */}
-          </div>
+          <div />
         )}
       </>
     );
