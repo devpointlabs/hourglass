@@ -1,8 +1,8 @@
 import React from "react";
-import { Table, Modal } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
-import Select from "react-select";
+import "../timeSheetDayView.css";
 
 class DayViewTableRow extends React.Component {
   render() {
@@ -12,6 +12,9 @@ class DayViewTableRow extends React.Component {
 
     return (
       <Table.Row
+        className={
+          timeBlock.status !== "timerStarted" && "timeSheetDayViewTableRow"
+        }
         onClick={() =>
           timeBlock.status !== "timerStarted" && handleOpen(timeBlock)
         }

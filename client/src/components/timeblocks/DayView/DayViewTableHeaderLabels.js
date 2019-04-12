@@ -3,6 +3,7 @@ import moment from "moment";
 import { Table, Button } from "semantic-ui-react";
 import { returnHoursSplitByDay } from "../Calculations/ReturnHoursSplitByDay";
 import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
+import "../timeSheetDayView.css";
 
 class TableHeaderLabels extends React.Component {
   state = {
@@ -97,6 +98,7 @@ class TableHeaderLabels extends React.Component {
         <Table.Cell id="emptycell" style={{ width: "20%" }} />
         {days.map(cell => (
           <Table.HeaderCell
+            className="dayViewTableHeaderCell"
             onClick={() =>
               clickHandler(
                 monday,
@@ -105,7 +107,6 @@ class TableHeaderLabels extends React.Component {
                 setSelectedWeek
               )
             }
-            onKeyLeft
             style={
               cell.dayofweek === moment(this.props.selectedDate).format("dd")
                 ? styles.highlight
