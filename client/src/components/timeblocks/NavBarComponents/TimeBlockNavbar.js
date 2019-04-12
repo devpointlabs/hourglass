@@ -18,15 +18,12 @@ class TimeBlockNavbar extends React.Component {
           <Link to="/timesheet">
             <Menu.Item>Time Sheet</Menu.Item>
           </Link>
-          <Link to="/timesheet/pending">
-            <Menu.Item>Pending Approval</Menu.Item>
-          </Link>
           <Link to="/timesheet/unsubmitted">
             <Menu.Item>Unsubmitted</Menu.Item>
           </Link>
           {this.props.auth.user.admin ? (
             <Link to="/timesheet/approve_timesheets">
-              <Menu.Item>Approve Timesheets</Menu.Item>
+              <Menu.Item>Pending Approval</Menu.Item>
             </Link>
           ) : null}
         </Menu>

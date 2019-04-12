@@ -20,7 +20,8 @@ timeblocks.*,
 ta.name AS task_name, 
 ta.project_id, 
 p.name AS project_name, 
-u.name
+u.name,
+timeblocks.end_time - timeblocks.start_time AS hours
 ")
 .joins("
 LEFT JOIN tasks AS ta

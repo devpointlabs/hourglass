@@ -14,8 +14,16 @@ class ApproveTimesheets extends React.Component {
     });
   }
 
+  removeTimeblock = id => {
+    this.setState({
+      timeblocks: this.state.timeblocks.filter(t => t.id !== id)
+    });
+  };
+
   showTimeblocks = () => {
-    return this.state.timeblocks.map(tb => <ApproveTimesheetsRow tb={tb} />);
+    return this.state.timeblocks.map(tb => (
+      <ApproveTimesheetsRow removeTimeblock={this.removeTimeblock} tb={tb} />
+    ));
   };
 
   render() {
@@ -30,12 +38,12 @@ class ApproveTimesheets extends React.Component {
             <Table.HeaderCell> Employee</Table.HeaderCell>
             <Table.HeaderCell> Project</Table.HeaderCell>
             <Table.HeaderCell> Task</Table.HeaderCell>
-            <Table.HeaderCell> Date</Table.HeaderCell>
             <Table.HeaderCell> Input Type</Table.HeaderCell>
+            <Table.HeaderCell> Date</Table.HeaderCell>
             <Table.HeaderCell> Clocked In</Table.HeaderCell>
             <Table.HeaderCell> Clocked Out</Table.HeaderCell>
             <Table.HeaderCell> Hours</Table.HeaderCell>
-            <Table.HeaderCell> Approve</Table.HeaderCell>
+            <Table.HeaderCell> Approve or Edit</Table.HeaderCell>
           </Table.Header>
           <Table.Body>{this.showTimeblocks()}</Table.Body>
         </Table>
