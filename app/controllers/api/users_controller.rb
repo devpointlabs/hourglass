@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:projects, :find_timeblocks]
+  before_action :set_user, only: [:projects, :find_timeblocks, :employee]
 
   def index
     render json: User.all
@@ -60,6 +60,10 @@ class Api::UsersController < ApplicationController
 
   def current_project
     render json: User.current(current_user.projects )
+  end
+
+  def employee
+    render json: @user
   end
 
   def projects
