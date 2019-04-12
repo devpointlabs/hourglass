@@ -2,35 +2,31 @@ import React from "react";
 import { Table, Checkbox, Button } from "semantic-ui-react";
 
 class UnsubmittedTableRow extends React.Component {
-  state = { timeBlocksStatus: [], timeBlocks: [] };
+  state = {
+    timeBlocksStatus: [],
+    timeBlocks: this.props.timeBlocks,
+    tasks: this.props.tasks,
+    checked: false
+  };
 
   componentDidUpdate = prevProps => {
     if (prevProps.timeBlocks !== this.props.timeBlocks)
       this.setState({
-        timeBlocksStatus: {
-          timeBlocksId: this.props.timeBlocks.map(tb => tb.id),
-          status: this.props.timeBlocks.map(tb => tb.status)
-        },
-        timeBlocks: this.props.timeBlocks
+        timeBlocks: this.props.timeBlocks,
+        tasks: this.props.tasks
       });
   };
 
-  checkBoxStatus = () => {
-    this.setState({ timeBlocks: !this.state.checkBox });
+  handleClick = (checked, blockid) => {
+    const newCheck = !checked;
+    this.setState({ checked: newCheck });
+    this.props.handleCheckMarks(newCheck, blockid);
   };
 
-  changeStatus = id => {
-    this.state.timeBlocksStatus.filter();
-    // this.setState({ timeBlocksStatus })
-  };
+  // this.props.handleCheckMarks(block.id)
 
   render() {
-    const { timeBlocks, projects, tasks } = this.props;
-
-    // const dailyTotal = currentDayBlocks.reduce(
-    //   (runningTotal, block) => runningTotal + parseFloat(block.hours),
-    //   0
-    // );
+    const { timeBlocks, tasks } = this.state;
 
     const BlocksWithTaskInfo = timeBlocks.map(b => {
       return {
@@ -41,7 +37,6 @@ class UnsubmittedTableRow extends React.Component {
           .reduce((acc, task) => acc + task)
       };
     });
-    console.log(BlocksWithTaskInfo);
 
     return (
       <>
@@ -68,8 +63,7 @@ class UnsubmittedTableRow extends React.Component {
             </Table.Cell>
             <Table.Cell style={{ width: "140px", textAlign: "center" }}>
               <Checkbox
-
-              // onClick={() => this.changeStatus(block.id)}
+                onChange={() => this.handleClick(this.state.checked, block.id)}
               />
             </Table.Cell>
             <hr />
