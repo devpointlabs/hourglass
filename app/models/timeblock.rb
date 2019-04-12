@@ -36,6 +36,22 @@ timeblocks.status = 'pending'
 ")
 .order("
 timeblocks.start_time
-")
+").map do |t|
+  {
+    id: t.id,
+    project_name: t.project_name,
+    task_name: t.task_name,
+    name: t.name,
+    start_time: t.start_time.strftime("%a %B %d, %Y %I:%M %p"),
+    end_time: t.end_time.strftime("%a %B %d, %Y %I:%M %p"),
+    created_at: t.created_at,
+    updated_at: t.updated_at,
+    user_id: t.user_id,
+    task_id: t.task_id,
+    status: t.status,
+    manualEntry: t.manualEntry,
+    hours: t.hours,
+  }
+end
 end
 end

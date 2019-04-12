@@ -30,6 +30,12 @@ class ApproveTimesheetsRow extends React.Component {
     removeTimeblock(id);
   };
 
+  sendBack = id => {
+    const { removeTimeblock } = this.props;
+    axios.put(`/api/timeblocks/${id}`, { status: "unSubmitted" });
+    removeTimeblock(id);
+  };
+
   handleSubmit = id => {
     const { start_time, end_time, manualEntry } = this.state;
     this.setState({ manualEntry: true });
@@ -58,7 +64,6 @@ class ApproveTimesheetsRow extends React.Component {
         <Table.Cell>
           {this.state.manualEntry ? "Manual Entry" : "Clocked In/Out"}
         </Table.Cell>
-        <Table.Cell>{tb.date}</Table.Cell>
 
         <Table.Cell>
           {this.state.editing ? (
@@ -106,7 +111,14 @@ class ApproveTimesheetsRow extends React.Component {
                 icon="pencil"
                 size="mini"
                 circular
-                onClick={this.toggleEdit}
+                onClick={() => this.toggleEdit()}
+              />
+              <Button
+                color="blue"
+                icon="redo"
+                size="mini"
+                circular
+                onClick={() => this.sendBack(tb.id)}
               />
             </div>
           )}

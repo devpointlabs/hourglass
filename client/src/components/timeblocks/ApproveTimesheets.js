@@ -39,7 +39,6 @@ class ApproveTimesheets extends React.Component {
             <Table.HeaderCell> Project</Table.HeaderCell>
             <Table.HeaderCell> Task</Table.HeaderCell>
             <Table.HeaderCell> Input Type</Table.HeaderCell>
-            <Table.HeaderCell> Date</Table.HeaderCell>
             <Table.HeaderCell> Clocked In</Table.HeaderCell>
             <Table.HeaderCell> Clocked Out</Table.HeaderCell>
             <Table.HeaderCell> Hours</Table.HeaderCell>
