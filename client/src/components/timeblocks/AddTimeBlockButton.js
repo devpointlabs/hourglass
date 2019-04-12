@@ -165,7 +165,8 @@ class AddTimeBlockButton extends React.Component {
             task_id: task.value,
             start_time: this.state.startMoment,
             user_id,
-            status: "timerStarted"
+            status: "timerStarted",
+            manualEntry: false
           };
           this.addBlock(block);
           this.props.setView("day");
