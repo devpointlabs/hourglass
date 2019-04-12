@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { AuthConsumer } from "../providers/AuthProvider";
 
 class TeamView extends React.Component {
@@ -46,7 +47,9 @@ class TeamView extends React.Component {
   showTeam = () => {
     return this.state.users.map(user => (
       <Table.Row key={user.id}>
-        <Table.Cell>{user.name}</Table.Cell>
+        <Link to={`/employees/${user.id}`}>
+          <Table.Cell style={{ color: "black" }}>{user.name}</Table.Cell>
+        </Link>
       </Table.Row>
     ));
   };
