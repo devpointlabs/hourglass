@@ -15,6 +15,7 @@ class Unsubmitted extends React.Component {
     timeBlocks: [],
     tasks: [],
     projects: [],
+    reset: false,
     modalOpen: false
   };
 
@@ -79,7 +80,10 @@ class Unsubmitted extends React.Component {
     this.state.timeBlocks.map(tb =>
       axios
         .put(`/api/timeblocks/${tb.id}`, { status: tb.status })
-        .then(res => this.getTimeBlocks())
+        .then(
+          res => this.getTimeBlocks(),
+          this.setState({ reset: !this.state.reset })
+        )
     );
   };
 
@@ -98,7 +102,7 @@ class Unsubmitted extends React.Component {
               getTimeBlocks={this.getTimeBlocks}
               timeBlocks={this.state.timeBlocks}
               handleCheckMarks={this.handleCheckMarks}
-              resetCheckMarks
+              reset={this.state.reset}
               handleOpen={this.handleOpen}
             />
             <Footer submitTimeBlocks={this.submitTimeBlocks} />

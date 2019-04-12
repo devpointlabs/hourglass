@@ -1,13 +1,14 @@
 import React from "react";
 import { Table, Checkbox, Button } from "semantic-ui-react";
+import CheckboxComponent from "./CheckboxComponent";
 import "../timeSheetDayView.css";
+
 
 class UnsubmittedTableRow extends React.Component {
   state = {
     timeBlocksStatus: [],
     timeBlocks: this.props.timeBlocks,
-    tasks: this.props.tasks,
-    checked: false
+    tasks: this.props.tasks
   };
 
   componentDidUpdate = prevProps => {
@@ -18,10 +19,8 @@ class UnsubmittedTableRow extends React.Component {
       });
   };
 
-  handleClick = (checked, blockid) => {
-    const newCheck = !checked;
-    this.setState({ checked: newCheck });
-    this.props.handleCheckMarks(newCheck, blockid);
+  handleClickForUnsubmitted = (checkbox, blockid) => {
+    this.props.handleCheckMarks(checkbox, blockid);
   };
 
   // this.props.handleCheckMarks(block.id)
@@ -65,9 +64,15 @@ class UnsubmittedTableRow extends React.Component {
               {block.taskInfo && parseFloat(block.hours).toFixed(2)}
             </Table.Cell>
             <Table.Cell style={{ width: "140px", textAlign: "center" }}>
-              <Checkbox
-                onChange={() => this.handleClick(this.state.checked, block.id)}
+              <CheckboxComponent
+                blockId={block.id}
+                handleClickForUnsubmitted={this.handleClickForUnsubmitted}
+                reset={this.props.reset}
               />
+              {/* <Checkbox
+                onChange={() => this.handleClick(this.state.checkbox, block.id)}
+                checked={this.state.checkbox}
+              /> */}
             </Table.Cell>
             <hr />
           </Table.Row>
