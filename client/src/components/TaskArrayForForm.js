@@ -50,7 +50,7 @@ class TaskArrayForForm extends React.Component {
         <Header as="h1" textAlign="center">
           Tasks
         </Header>
-        {/* <Table celled compact basic fixed>
+        <Table compact basic fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Name</Table.HeaderCell>
@@ -61,7 +61,7 @@ class TaskArrayForForm extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>{this.showTasks()}</Table.Body>
-        </Table> */}
+        </Table>
 
         <TaskForm
           editing={this.state.editing}

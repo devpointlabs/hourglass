@@ -35,6 +35,16 @@ class TaskForm extends React.Component {
       const { project_id } = this.props;
       axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
         this.props.resetState(res.data);
+        this.setState({
+          task: {
+            ...this.state.task,
+            name: "",
+            description: "",
+            billable: false,
+            price_per_hour: "",
+            id: ""
+          }
+        });
       });
     }
   };

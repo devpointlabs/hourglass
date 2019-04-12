@@ -24,6 +24,7 @@ class AddUserToTask extends React.Component {
       if (user.id === user_id) addedUser = user;
     });
     resetState(addedUser);
+    this.setState({ assignment: { user_id: "" } });
   };
 
   employeeDropdown = () => {

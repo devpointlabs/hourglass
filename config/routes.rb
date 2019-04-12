@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   get "/api/projects/:project_id/users/:user_id", to: 'api/assignments#find_by_u_and_p'
   get "/api/projects/:id/users", to: "api/projects#u_by_p"
   get "/api/users/:id/projects", to: "api/users#projects"
+  get "/api/timeblock/pending", to: "api/timeblocks#pending_timeblocks"
   # post "/api/projects/users", to: "api/projects#u_by_p"
 end
