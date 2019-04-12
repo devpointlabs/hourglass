@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Select, Header, Icon } from "semantic-ui-react";
+import { Form, Button, Select, Header, Icon, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -51,18 +51,36 @@ class AddUserToTask extends React.Component {
     return (
       <Form>
         <Form.Select control={this.employeeDropdown} />
-        <Button onClick={() => this.handleSubmit()}>Add Member</Button>
 
         {this.props.handleToggle ? (
-          <Button
-            onClick={() => this.props.handleToggle()}
-            inverted
-            color="violet"
-            style={{ marginBottom: "20px" }}
-          >
-            <Icon name="arrow alternate circle left outline" />
-            Save
-          </Button>
+          <>
+            <div style={{ transform: "translate(45.75%)" }}>
+              <Button
+                color="violet"
+                animated="vertical"
+                onClick={() => this.handleSubmit()}
+              >
+                <Button.Content visible>Add Member</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow up" />
+                </Button.Content>
+              </Button>
+            </div>
+            <br />
+            <div style={{ transform: "translate(48%)" }}>
+              <Button
+                onClick={() => this.props.handleToggle()}
+                inverted
+                animated="vertical"
+                color="violet"
+              >
+                <Button.Content visible>Save</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="save outline" />
+                </Button.Content>
+              </Button>
+            </div>
+          </>
         ) : (
           <Link to={"/projects"}>
             <Button inverted color="violet" style={{ marginBottom: "20px" }}>

@@ -12,7 +12,7 @@ import TaskViewForForm from "./TaskViewForForm";
 import TaskForm from "./TaskForm";
 
 class TaskArrayForForm extends React.Component {
-  state = { tasks: [] };
+  state = { tasks: [], loaded: false };
 
   componentDidMount = () => {
     const { tasks } = this.state;
@@ -50,19 +50,22 @@ class TaskArrayForForm extends React.Component {
         <Header as="h1" textAlign="center">
           Tasks
         </Header>
-        <Table compact basic fixed>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Price per Hour</Table.HeaderCell>
-              <Table.HeaderCell>Billable</Table.HeaderCell>
-              <Table.HeaderCell />
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{this.showTasks()}</Table.Body>
-        </Table>
-
+        {this.state.tasks.length !== 0 ? (
+          <>
+            <Table compact basic fixed>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                  <Table.HeaderCell>Price per Hour</Table.HeaderCell>
+                  <Table.HeaderCell>Billable</Table.HeaderCell>
+                  <Table.HeaderCell />
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>{this.showTasks()}</Table.Body>
+            </Table>
+          </>
+        ) : null}
         <TaskForm
           editing={this.state.editing}
           resetState={this.resetState}
