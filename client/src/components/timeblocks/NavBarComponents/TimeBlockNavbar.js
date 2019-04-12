@@ -23,6 +23,9 @@ class TimeBlockNavbar extends React.Component {
           <Link to="/timesheet/unsubmitted">
             <Menu.Item>Unsubmitted</Menu.Item>
           </Link>
+          <Link to="/timesheet/archive">
+            <Menu.Item>Archive</Menu.Item>
+          </Link>
         </Menu>
       </>
     );
