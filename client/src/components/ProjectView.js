@@ -133,7 +133,11 @@ class ProjectView extends React.Component {
           <Header>
             <div className="wrapper">
               <Button.Group widths="3">
-                <Button buttonNumber={1} onClick={() => this.setPage("task")}>
+                <Button
+                  inverted
+                  buttonNumber={1}
+                  onClick={() => this.setPage("task")}
+                >
                   Tasks
                 </Button>
                 <Button buttonNumber={2} onClick={() => this.setPage("team")}>
