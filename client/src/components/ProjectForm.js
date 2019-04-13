@@ -139,7 +139,10 @@ class ProjectForm extends React.Component {
               <Header as="h4">Start Date</Header>
               <CalendarPickerForProjectForm setDate={this.setStartDate} />
               {planned_start !== "" ? (
-                <Label color="violet" pointing="left">
+                <Label
+                  style={{ background: "RebeccaPurple", color: "white" }}
+                  pointing="left"
+                >
                   {start_date}
                 </Label>
               ) : null}
@@ -149,7 +152,11 @@ class ProjectForm extends React.Component {
               <Header as="h4">End Date</Header>
               <CalendarPickerForProjectForm setDate={this.setEndDate} />
               {planned_end !== "" ? (
-                <Label color="violet" inverted pointing="left">
+                <Label
+                  style={{ background: "RebeccaPurple", color: "white" }}
+                  inverted
+                  pointing="left"
+                >
                   {end_date}
                 </Label>
               ) : null}

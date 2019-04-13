@@ -18,7 +18,10 @@ class Projects extends React.Component {
       <tbody>
         <tr>
           <td>
-            <Link style={{ color: "purple" }} to={`/projects/${p.id}`}>
+            <Link
+              style={{ color: "RebeccaPurple", fontWeight: "bold" }}
+              to={`/projects/${p.id}`}
+            >
               {p.name ? p.name : "Project has no name"}
             </Link>
           </td>

@@ -6,14 +6,24 @@ class Footer extends React.Component {
     return (
       <>
         <Table.Row style={{ background: "#e2e2e2" }}>
-          <Button
-            color="green"
-            floated="right"
-            style={{ marginRight: "30px" }}
-            onClick={() => this.props.submitTimeBlocks()}
-          >
-            Submit
-          </Button>
+          <Table.Cell />
+          <Table.Cell />
+          <Table.Cell />
+          <Table.Cell />
+          <Table.Cell />
+          <Table.Cell>
+            <Button
+              floated="right"
+              style={{
+                marginRight: "10px",
+                background: "RebeccaPurple",
+                color: "white"
+              }}
+              onClick={() => this.props.submitTimeBlocks()}
+            >
+              Submit
+            </Button>
+          </Table.Cell>
         </Table.Row>
       </>
     );

@@ -71,8 +71,9 @@ class EditForm extends React.Component {
     } = this.props;
     return (
       <Fragment>
+        <br />
         <Card>
-          <Label color="violet" ribbon>
+          <Label style={{ background: "RebeccaPurple", color: "white" }} ribbon>
             {user.email}
           </Label>
           <Image src={user.image || defaultImage} />
@@ -137,7 +138,11 @@ class EditForm extends React.Component {
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <Button type="submit" animated="fade" color="violet">
+          <Button
+            type="submit"
+            animated="fade"
+            style={{ background: "RebeccaPurple", color: "white" }}
+          >
             <Button.Content visible>Submit</Button.Content>
             <Button.Content hidden>
               <Icon name="cloud upload" />
@@ -194,7 +199,10 @@ class EditForm extends React.Component {
           <div>
             {editing ? this.editView() : this.profileView()}
             <Button.Group attached="bottom">
-              <Button onClick={this.toggleEdit} color="violet">
+              <Button
+                onClick={this.toggleEdit}
+                style={{ background: "RebeccaPurple", color: "white" }}
+              >
                 {editing ? "Cancel" : "Edit"}
               </Button>
               <Button.Or />
