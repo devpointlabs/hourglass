@@ -23,7 +23,8 @@ class ProjectForm extends React.Component {
       client_name: "",
       planned_start: "",
       planned_end: "",
-      notes: ""
+      notes: "",
+      budget: ""
     },
     project_id: "",
     taskShown: false
@@ -90,7 +91,8 @@ class ProjectForm extends React.Component {
       name,
       client_name,
       planned_start,
-      planned_end
+      planned_end,
+      budget
     } = this.state.project;
     const start_date = new Date(planned_start).toDateString();
     const end_date = new Date(planned_end).toDateString();
@@ -135,6 +137,15 @@ class ProjectForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
+            <Form.Input
+              label="Budget"
+              name="budget"
+              value={budget}
+              placeholder="Budget"
+              required
+              type="number"
+              onChange={this.handleChange}
+            />
             <div style={{ justifyContent: "flexStart" }}>
               <Header as="h4">Start Date</Header>
               <CalendarPickerForProjectForm setDate={this.setStartDate} />
