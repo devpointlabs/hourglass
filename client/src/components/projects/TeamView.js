@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { AuthConsumer } from "../providers/AuthProvider";
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 class TeamView extends React.Component {
   state = {
