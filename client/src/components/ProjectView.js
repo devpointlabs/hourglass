@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import ProjectNavbar from "./ProjectNavbar";
 import {
   Header,
   Button,
@@ -85,19 +86,16 @@ class ProjectView extends React.Component {
     } = this.state.project;
     return (
       <>
+        <ProjectNavbar setPage={this.setPage} />
         <div>
-          <Link to={"/projects"}>
-            <Button
-              inverted
-              color="violet"
-              floated="right"
-              style={{ marginBottom: "20px" }}
-            >
-              <Icon name="arrow alternate circle left outline" />
-              Go Back
-            </Button>
-          </Link>
-
+          {this.state.toggleForm ? (
+            <ProjectForm
+              project={this.state.project}
+              updateSubmit={this.updateSubmit}
+            />
+          ) : (
+            <div />
+          )}
           <Button
             onClick={() => this.handleToggle()}
             inverted
@@ -258,4 +256,4 @@ class ProjectView extends React.Component {
   }
 }
 
-export default ProjectView;
+export default withRouter(ProjectView);
