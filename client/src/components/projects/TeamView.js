@@ -3,7 +3,7 @@ import { Table, Header, Modal, Button } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
-import TaskForm from "./TaskForm";
+import TaskForm from "./TaskView/TaskForm";
 
 class TeamView extends React.Component {
   state = {
