@@ -1,7 +1,18 @@
 import React, { Fragment } from "react";
-import { Table, Header, Button } from "semantic-ui-react";
+
+import {
+  Table,
+  Header,
+  Checkbox,
+  Button,
+  Icon,
+  Modal
+} from "semantic-ui-react";
 import axios from "axios";
+import TaskForm from "./TaskForm";
+
 import AddTask from "./AddTask";
+
 
 class TaskView extends React.Component {
   state = { tasks: [], showForm: false };
@@ -13,6 +24,19 @@ class TaskView extends React.Component {
       .then(response => this.setState({ tasks: response.data }));
   }
 
+
+  handleDelete = task => {
+    const { id } = this.props.project;
+    axios.delete(`/api/tasks/${id}`).then(res => {
+      this.setState(previousState => {
+        return {
+          tasks: previousState.tasks.filter(t => t.id !== task.id)
+        };
+      });
+    });
+  };
+
+
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
@@ -22,10 +46,24 @@ class TaskView extends React.Component {
           Total Hours
         </Table.Cell>
         <Table.Cell>{task.price_per_hour}</Table.Cell>
+        <Table.Cell>
+          <Button
+            circular
+            color="violet"
+            onClick={this.handleDelete}
+            icon="minus"
+            size="mini"
+          />
+        </Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
   };
+
+
+  // handleDelete = task_id => {
+  //   this.setState({ tasks: this.state.tasks.filter(t => task_id !== task_id) });
+  // };
 
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
@@ -44,6 +82,7 @@ class TaskView extends React.Component {
   toggleForm = () => {
     this.setState({ showForm: !this.state.showForm });
   };
+
 
   render() {
     return (
@@ -94,6 +133,8 @@ class TaskView extends React.Component {
           </Table.Header>
           <Table.Body>
             <Table.Row>
+
+             
               <Table.Cell colspan="4" />
             </Table.Row>
             {this.showBillableTasks()}
@@ -155,22 +196,25 @@ class TaskView extends React.Component {
             <Table.Cell colspan="4" />
           </Table.Row>
         </Table>
-        {this.state.showForm ? <AddTask project={this.props.project} /> : ""}
-        <br />
-        <Button
-          onClick={() => this.toggleForm()}
-          style={{
-            marginRight: "20px",
-            background: "RebeccaPurple",
-            color: "white"
-          }}
-          floated="right"
+
+        <Modal
+          trigger={
+            <Button
+              circular
+              color="violet"
+              onClick={this.handleNew}
+              icon="add"
+              size="mini"
+            />
+          }
         >
-          {this.state.showForm ? "Cancel" : "Add New Task"}
-        </Button>
-        <br />
-        <br />
-      </>
+          <Modal.Header>Create a New Task</Modal.Header>
+          <Modal.Content>
+            <TaskForm />
+          </Modal.Content>
+        </Modal>
+      </Fragment>
+
     );
   }
 }
