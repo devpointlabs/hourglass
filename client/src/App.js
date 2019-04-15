@@ -33,8 +33,10 @@ const App = () => (
             <ProtectedRoute exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <ProtectedRoute exact path="/projects" component={Projects} />
+
             <Route exact path="/profile" component={EditForm} />
+
+            <ProtectedRoute exact path="/projects" component={Projects} />
             <ProtectedRoute
               exact
               path="/projects/new"
@@ -43,7 +45,7 @@ const App = () => (
             <Route exact path="/projects/:id" component={ProjectView} />
 
             <Route exact path="/profile" component={EditForm} />
-            <Route exact path="/projects/:id" component={ProjectView} />
+
             <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
             <Route
               exact
