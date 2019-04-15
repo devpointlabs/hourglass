@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
-import { Table, Header, Checkbox } from "semantic-ui-react";
+import { Table, Header, Button } from "semantic-ui-react";
 import axios from "axios";
+import AddTask from "./AddTask";
 
 class TaskView extends React.Component {
-  state = { tasks: [] };
+  state = { tasks: [], showForm: false };
 
   componentDidMount() {
     const { id } = this.props.project;
@@ -12,39 +13,164 @@ class TaskView extends React.Component {
       .then(response => this.setState({ tasks: response.data }));
   }
 
-  showTasks = () => {
-    return this.state.tasks.map(task => (
+  showBillableTasks = () => {
+    const billableTasks = this.state.tasks.filter(t => t.billable === true);
+    return billableTasks.map(task => (
       <Table.Row key={task.id}>
         <Table.Cell>{task.name}</Table.Cell>
-        <Table.Cell>{task.description}</Table.Cell>
-        <Table.Cell>
-          <Checkbox defaultChecked />
+        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
+          Total Hours
         </Table.Cell>
         <Table.Cell>{task.price_per_hour}</Table.Cell>
+        <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
   };
 
+  showUnBillableTasks = () => {
+    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
+    return UnbillableTasks.map(task => (
+      <Table.Row key={task.id}>
+        <Table.Cell>{task.name}</Table.Cell>
+        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
+          Total Hours
+        </Table.Cell>
+        <Table.Cell>{task.price_per_hour}</Table.Cell>
+        <Table.Cell>Billable Ammount</Table.Cell>
+      </Table.Row>
+    ));
+  };
+
+  toggleForm = () => {
+    this.setState({ showForm: !this.state.showForm });
+  };
+
   render() {
     return (
-      <Fragment>
+      <>
         <Header as="h1" textAlign="center">
           Tasks
         </Header>
-
-        <Table celled compact>
+        <Table>
           <Table.Header>
+            <Table.Row style={{ background: "#e2e2e2" }}>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "450px",
+                  fontWeight: "bold"
+                }}
+              >
+                Billable Tasks
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "100px",
+                  fontWeight: "bold"
+                }}
+              >
+                Total
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "450px",
+                  fontWeight: "bold"
+                }}
+              >
+                Price per Hour
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "100px",
+                  fontWeight: "bold"
+                }}
+              >
+                Billable Amount
+              </Table.Cell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             <Table.Row>
-              <Table.HeaderCell>Name of Task</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Billable</Table.HeaderCell>
-              <Table.HeaderCell>Price per Hour</Table.HeaderCell>
+              <Table.Cell colspan="4" />
+            </Table.Row>
+            {this.showBillableTasks()}
+          </Table.Body>
+          <Table.Row>
+            <Table.Cell colspan="6" />
+          </Table.Row>
+        </Table>
+        <Table>
+          <Table.Header>
+            <Table.Row style={{ background: "#e2e2e2" }}>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "450px",
+                  fontWeight: "bold"
+                }}
+              >
+                UnBillable Tasks
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "100px",
+                  fontWeight: "bold"
+                }}
+              >
+                Total
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "450px",
+                  fontWeight: "bold"
+                }}
+              >
+                Price per Hour
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "100px",
+                  fontWeight: "bold"
+                }}
+              >
+                Billable Amount
+              </Table.Cell>
             </Table.Row>
           </Table.Header>
 
-          <Table.Body>{this.showTasks()}</Table.Body>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell colspan="4" />
+            </Table.Row>
+            {this.showUnBillableTasks()}
+          </Table.Body>
+
+          <Table.Row>
+            <Table.Cell colspan="4" />
+          </Table.Row>
         </Table>
-      </Fragment>
+        {this.state.showForm ? <AddTask project={this.props.project} /> : ""}
+        <br />
+        <Button
+          onClick={() => this.toggleForm()}
+          style={{
+            marginRight: "20px",
+            background: "RebeccaPurple",
+            color: "white"
+          }}
+          floated="right"
+        >
+          {this.state.showForm ? "Cancel" : "Add New Task"}
+        </Button>
+        <br />
+        <br />
+      </>
     );
   }
 }
