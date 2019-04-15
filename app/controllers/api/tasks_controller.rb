@@ -32,7 +32,7 @@ class Api::TasksController < ApplicationController
   end
 
   def tasks_of_project
-   render json: @project.tasks
+   render json: @project.tasks.find_with_hours
   end
 
   private 

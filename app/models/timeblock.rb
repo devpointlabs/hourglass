@@ -20,7 +20,8 @@ timeblocks.*,
 ta.name AS task_name, 
 ta.project_id, 
 p.name AS project_name, 
-u.name
+u.name,
+timeblocks.end_time - timeblocks.start_time AS hours
 ")
 .joins("
 LEFT JOIN tasks AS ta
@@ -35,6 +36,50 @@ timeblocks.status = 'pending'
 ")
 .order("
 timeblocks.start_time
-")
+").map do |t|
+  {
+    id: t.id,
+    project_name: t.project_name,
+    task_name: t.task_name,
+    name: t.name,
+    start_time: t.start_time.strftime("%a %B %d, %Y %I:%M %p"),
+    end_time: t.end_time.strftime("%a %B %d, %Y %I:%M %p"),
+    created_at: t.created_at,
+    updated_at: t.updated_at,
+    user_id: t.user_id,
+    task_id: t.task_id,
+    status: t.status,
+    manualEntry: t.manualEntry,
+    hours: t.hours,
+  }
 end
+end
+
+def self.timeblocks_by_task(task_id)
+#  select("
+#     u.name,
+#     timeblocks.start_time,
+#     timeblocks.end_time,
+#     DATE_PART('hour', timeblocks.end_time - timeblocks.start_time) AS hours,
+#     timeblocks.id AS timeblock_id")
+# .joins("
+#     LEFT JOIN users AS u
+# ON timeblocks.user_id = u.id")
+# .where("timeblocks.id = task_id")
+Timeblock.find_by_sql("SELECT 
+u.name,
+t.start_time,
+t.end_time,
+DATE_PART('hour', t.end_time - t.start_time) AS hours,
+t.id AS timeblock_id
+FROM 
+timeblocks AS t 
+LEFT JOIN 
+users AS u
+ON 
+t.user_id = u.id
+WHERE 
+t.id = #{task_id}")
+end
+
 end

@@ -141,19 +141,11 @@ class ProjectForm extends React.Component {
               label="Budget"
               name="budget"
               value={budget}
-              style={{
-                width: "26.4em"
-              }}
               placeholder="Budget"
               required
-              labelPosition="right"
               type="number"
               onChange={this.handleChange}
-            >
-              <Label basic>$</Label>
-              <input />
-              <Label>.00</Label>
-            </Form.Input>
+            />
             <div style={{ justifyContent: "flexStart" }}>
               <Header as="h4">Start Date</Header>
               <CalendarPickerForProjectForm setDate={this.setStartDate} />

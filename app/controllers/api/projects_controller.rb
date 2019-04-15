@@ -47,6 +47,6 @@ class Api::ProjectsController < ApplicationController
   end
 
   def project_params 
-    params.require(:project).permit(:name, :client_name, :planned_start, :planned_end, :notes)
+    params.require(:project).permit(:name, :client_name, :planned_start, :planned_end, :budget)
   end  
 end
