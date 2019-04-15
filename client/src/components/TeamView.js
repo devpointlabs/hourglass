@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
-import { Table, Header } from "semantic-ui-react";
+import { Table, Header, Modal, Button } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../providers/AuthProvider";
+import TaskForm from "./TaskForm";
 
 class TeamView extends React.Component {
   state = {
@@ -10,16 +11,10 @@ class TeamView extends React.Component {
     project: {}
   };
 
-  // componentDidMount() {
-  //   const { id } = this.props;
-  //   axios.post("/api/projects/users", { id: id }).then(res => {
-  //     this.setState({ users: res.data });
-  //   });
-  // }
-
   componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props.project;
     axios.get(`/api/projects/${id}/users`).then(res => {
+      debugger;
       this.setState({ users: res.data });
     });
   }
@@ -32,24 +27,14 @@ class TeamView extends React.Component {
     }
   }
 
-  // findUser = () => {
-  //   return this.state.users.map(u => (
-  //     <Segment text={u.name} name="user_id" value={u.id} />
-  //   ));
-  // };
-
-  // findProject = () => {
-  //   return this.state.projects.map(p => (
-  //     <Segment text={p.name} name="project_id" value={p.id} />
-  //   ));
-  // };
-
   showTeam = () => {
+    debugger;
     return this.state.users.map(user => (
       <Table.Row key={user.id}>
-        <Link to={`/employees/${user.id}`}>
-          <Table.Cell style={{ color: "purple" }}>{user.name}</Table.Cell>
-        </Link>
+        <Table.Cell>{user.name}</Table.Cell>
+        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
+          Total Hours
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -63,11 +48,28 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan="1">Assigned Members</Table.HeaderCell>
+              <Table.HeaderCell colSpan="2">Assigned Members</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{this.showTeam()}</Table.Body>
         </Table>
+
+        <Modal
+          trigger={
+            <Button
+              circular
+              color="violet"
+              onClick={this.handleNew}
+              icon="add"
+              size="mini"
+            />
+          }
+        >
+          <Modal.Header>Add New Team Member</Modal.Header>
+          <Modal.Content>
+            <TaskForm />
+          </Modal.Content>
+        </Modal>
       </Fragment>
     );
   }
