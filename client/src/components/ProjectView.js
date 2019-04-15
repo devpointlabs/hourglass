@@ -86,6 +86,14 @@ class ProjectView extends React.Component {
     return (
       <>
         <div>
+          {this.state.toggleForm ? (
+            <ProjectForm
+              project={this.state.project}
+              updateSubmit={this.updateSubmit}
+            />
+          ) : (
+            <div />
+          )}
           <Link to={"/projects"}>
             <Button
               inverted
