@@ -65,13 +65,13 @@ class ProjectView extends React.Component {
   renderPage = () => {
     switch (this.state.page) {
       case "task":
-        return <TaskView />;
+        return <TaskView project={this.state.project} />;
       case "team":
-        return <TeamView />;
+        return <TeamView project={this.state.project} />;
       case "budget":
-        return <BudgetView />;
+        return <BudgetView project={this.state.project} />;
       default:
-        return null;
+        return <BudgetView project={this.state.project} />;
     }
   };
 
@@ -133,11 +133,7 @@ class ProjectView extends React.Component {
           <Header>
             <div className="wrapper">
               <Button.Group widths="3">
-                <Button
-                  inverted
-                  buttonNumber={1}
-                  onClick={() => this.setPage("task")}
-                >
+                <Button buttonNumber={1} onClick={() => this.setPage("task")}>
                   Tasks
                 </Button>
                 <Button buttonNumber={2} onClick={() => this.setPage("team")}>
