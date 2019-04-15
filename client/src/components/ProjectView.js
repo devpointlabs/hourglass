@@ -88,6 +88,15 @@ class ProjectView extends React.Component {
       <>
         <ProjectNavbar setPage={this.setPage} />
         <div>
+
+          {this.state.toggleForm ? (
+            <ProjectForm
+              project={this.state.project}
+              updateSubmit={this.updateSubmit}
+            />
+          ) : (
+            <div />
+          )}
           <Button
             onClick={() => this.handleToggle()}
             inverted
