@@ -14,7 +14,7 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { AuthConsumer } from "../providers/AuthProvider";
+import { AuthConsumer } from "../../providers/AuthProvider";
 import Dropzone from "react-dropzone";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";

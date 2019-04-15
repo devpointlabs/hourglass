@@ -9,9 +9,9 @@ import {
   Divider
 } from "semantic-ui-react";
 import axios from "axios";
-import TaskForm from "./TaskForm";
-import TaskArrayForForm from "./TaskArrayForForm";
-import AddUserToTask from "./AddUserToTask";
+import TaskForm from "./TaskView/TaskForm";
+import TaskArrayForForm from "./TaskView/TaskArrayForForm";
+import AddUserToTask from "../AddUserToTask";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
