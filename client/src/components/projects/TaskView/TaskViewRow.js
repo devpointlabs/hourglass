@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Checkbox, Button, Icon, Accordion } from "semantic-ui-react";
-import TimeblocksByTask from "./TimeblocksByTask";
+import TimeblocksByTask from "../TimeblocksByTask";
 
 class TaskViewRow extends React.Component {
   state = { activeIndex: 0 };
