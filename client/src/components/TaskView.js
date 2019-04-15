@@ -13,7 +13,6 @@ import TaskForm from "./TaskForm";
 
 import AddTask from "./AddTask";
 
-
 class TaskView extends React.Component {
   state = { tasks: [], showForm: false };
 
@@ -23,7 +22,6 @@ class TaskView extends React.Component {
       .get(`/api/${id}/view_tasks`)
       .then(response => this.setState({ tasks: response.data }));
   }
-
 
   handleDelete = task => {
     const { id } = this.props.project;
@@ -35,7 +33,6 @@ class TaskView extends React.Component {
       });
     });
   };
-
 
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
@@ -60,7 +57,6 @@ class TaskView extends React.Component {
     ));
   };
 
-
   // handleDelete = task_id => {
   //   this.setState({ tasks: this.state.tasks.filter(t => task_id !== task_id) });
   // };
@@ -82,7 +78,6 @@ class TaskView extends React.Component {
   toggleForm = () => {
     this.setState({ showForm: !this.state.showForm });
   };
-
 
   render() {
     return (
@@ -133,8 +128,6 @@ class TaskView extends React.Component {
           </Table.Header>
           <Table.Body>
             <Table.Row>
-
-             
               <Table.Cell colspan="4" />
             </Table.Row>
             {this.showBillableTasks()}
@@ -213,8 +206,7 @@ class TaskView extends React.Component {
             <TaskForm />
           </Modal.Content>
         </Modal>
-      </Fragment>
-
+      </>
     );
   }
 }
