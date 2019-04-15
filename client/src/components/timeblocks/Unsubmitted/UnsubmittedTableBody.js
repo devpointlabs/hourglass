@@ -8,8 +8,8 @@ const UnsubmittedTableBody = props => (
   <>
     <UnsubmittedTableHeader />
     <Table.Body>
-      <Table.Row colspan="5">
-        <Table.Cell />
+      <Table.Row>
+        <Table.Cell colspan="6" />
       </Table.Row>
       <UnsubmittedTableRow
         timeBlocks={props.timeBlocks}
@@ -21,12 +21,7 @@ const UnsubmittedTableBody = props => (
         handleOpen={props.handleOpen}
       />
       <Table.Row>
-        <Table.Cell />
-        <Table.Cell />
-        <Table.Cell />
-        <Table.Cell />
-        <Table.Cell />
-        <Table.Cell />
+        <Table.Cell colspan="6" />
       </Table.Row>
       <Footer submitTimeBlocks={props.submitTimeBlocks} />
     </Table.Body>
