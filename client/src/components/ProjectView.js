@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import ProjectNavbar from "./ProjectNavbar";
 import {
   Header,
   Button,
@@ -85,19 +86,8 @@ class ProjectView extends React.Component {
     } = this.state.project;
     return (
       <>
+        <ProjectNavbar setPage={this.setPage} />
         <div>
-          <Link to={"/projects"}>
-            <Button
-              inverted
-              color="violet"
-              floated="right"
-              style={{ marginBottom: "20px" }}
-            >
-              <Icon name="arrow alternate circle left outline" />
-              Go Back
-            </Button>
-          </Link>
-
           <Button
             onClick={() => this.handleToggle()}
             inverted
@@ -130,22 +120,6 @@ class ProjectView extends React.Component {
             {planned_start} - {planned_end}{" "}
           </h4>
 
-          <Header>
-            <div className="wrapper">
-              <Button.Group widths="3">
-                <Button buttonNumber={1} onClick={() => this.setPage("task")}>
-                  Tasks
-                </Button>
-                <Button buttonNumber={2} onClick={() => this.setPage("team")}>
-                  Team
-                </Button>
-                <Button buttonNumber={3} onClick={() => this.setPage("budget")}>
-                  Budget
-                </Button>
-              </Button.Group>
-            </div>
-          </Header>
-
           <Segment>{this.renderPage()}</Segment>
         </Container>
       </>
@@ -153,4 +127,4 @@ class ProjectView extends React.Component {
   }
 }
 
-export default ProjectView;
+export default withRouter(ProjectView);
