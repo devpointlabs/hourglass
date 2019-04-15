@@ -26,21 +26,30 @@ class Employee extends React.Component {
       .then(res => this.setState({ user: res.data }));
   }
 
-  // <List divided relaxed>
-  // <List.Item>
-  //   <List.Icon name='github' size='large' verticalAlign='middle' />
-  //   <List.Content>
-  //     <List.Header as='a'>Semantic-Org/Semantic-UI</List.Header>
-  //     <List.Description as='a'>Updated 10 mins ago</List.Description>
-  //   </List.Content>
-  // </List.Item>
+  totals = () => {
+    const { timeblocks } = this.state;
+    const time = [];
+    let totes = 0;
+    timeblocks.map(timeblock => {
+      let date1 = new Date(timeblock.start_time);
+      let date2 = new Date(timeblock.end_time);
+
+      const hours = Math.abs(date1 - date2) / 36e5;
+      time.push(hours);
+    });
+    time.map(hour => {
+      totes = hour + totes;
+    });
+    return <div>{totes}</div>;
+  };
 
   render() {
     const { user } = this.state;
+
     return (
       <>
         <Segment>
-          <Image circular centered src={defaultImage || user.image} />
+          <Image circular centered src={user.image || defaultImage} />
           <Header textAlign="center">{user.name}</Header>
         </Segment>
         <Header as="h1" textAlign="center">
@@ -56,7 +65,11 @@ class Employee extends React.Component {
                     {project.name}
                   </List.Header>
                 </Link>
-                <List.Description>put hours here</List.Description>
+                <List.Description>
+                  TOTAL HOURS ACROSS ALL TIMEBLOCKS
+                </List.Description>{" "}
+                {/*  will change later */}
+                <List.Description>{this.totals()}</List.Description>
               </List.Content>
             </List.Item>
           ))}

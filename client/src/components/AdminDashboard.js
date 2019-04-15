@@ -46,27 +46,6 @@ class hoursTable extends React.Component {
     );
     console.log(totals);
 
-    // const userTimeBlocks = this.state.totalBlocks.map(u => {
-    //   return u.userTimeBlocks
-
-    // })
-
-    // const totals =
-    //   userTimeBlocks &&
-    //   userTimeBlocks.map(utb =>
-    //     utb.reduce((acc, tb) => {
-    //       return acc + parseFloat(tb.hours)
-    //     }, 0)
-    //   )
-    // console.log(totals)
-
-    // timeBlocks.map(utb =>
-    //   utb.reduce((acc, tb) => {
-    //     return tb.user_id === 311 ? acc + parseFloat(tb.hours) : acc;
-    //   }, 0)
-    // );
-    console.log(totals);
-
     const { projects } = this.state;
     return (
       <>
