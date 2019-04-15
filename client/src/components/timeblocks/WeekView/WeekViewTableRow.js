@@ -2,6 +2,8 @@ import React from "react";
 import { Table } from "semantic-ui-react";
 import { returnTaskTotalsByDay } from "../Calculations/ReturnTaskTotalsByDay";
 import moment from "moment";
+import "../timeSheetDayView.css";
+import { Link } from "react-router-dom";
 
 class WeekViewTableRow extends React.Component {
   render() {
@@ -19,13 +21,24 @@ class WeekViewTableRow extends React.Component {
     const dayNumber = parseInt(moment(this.props.selectedDate).format("d"));
 
     return (
-      <Table.Row>
+      <Table.Row className="timeSheetDayViewTableRow">
         <>
           <Table.Cell>
-            <div>
-              {task.projectInfo.name}({task.projectInfo.client_name})
-            </div>
-            <div>{task.name}</div>
+            <Link
+              to={`/projects/${task.projectInfo.id}`}
+              style={{ color: "black" }}
+            >
+              <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.1em",
+                  cursor: "pointer"
+                }}
+              >
+                {task.projectInfo.name}({task.projectInfo.client_name})
+              </div>
+              <div style={{ cursor: "pointer" }}>{task.name}</div>
+            </Link>
           </Table.Cell>
           <Table.Cell
             style={dayNumber === 1 ? styles.highlight : styles.normal}

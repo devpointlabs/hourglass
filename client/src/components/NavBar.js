@@ -101,7 +101,7 @@ class Navbar extends React.Component {
               style={{ color: "white" }}
               active={
                 pathname === "/timesheet" ||
-                pathname === "/timesheet/pending" ||
+                pathname === "/timesheet/approve_timesheets" ||
                 pathname === "/timesheet/unsubmitted"
               }
             />
