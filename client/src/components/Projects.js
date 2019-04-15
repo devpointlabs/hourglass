@@ -8,6 +8,7 @@ import {
   Container,
   Icon,
   Table,
+  Menu,
   Progress
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
@@ -45,49 +46,46 @@ class Projects extends React.Component {
 
   render() {
     return (
-      <Container>
-        {this.state.editing ? (
-          <ProjectForm
-            toggleEdit={this.toggleEdit}
-            resetState={this.resetState}
-          />
-        ) : (
-          ""
-        )}
-        <br />
-        <Link to="/projects/new">
-          <Button
-            style={{ marginTop: "15px" }}
-            inverted
-            color="violet"
-            onClick={this.toggleEdit}
-            icon="add"
-          >
-            {" "}
-            Add New Project
-          </Button>
-        </Link>
+      <>
+        <div
+          style={{
+            backgroundImage: "linear-gradient(to right, grey, white)",
+            width: "100%",
+            height: "5px"
+          }}
+        />
+        <Menu style={{ marginTop: "0" }}>
+          <Link to="/projects/new">
+            <Menu.Item>Add New Project</Menu.Item>
+          </Link>
+        </Menu>
+        <Container>
+          {this.state.editing ? (
+            <ProjectForm
+              toggleEdit={this.toggleEdit}
+              resetState={this.resetState}
+            />
+          ) : (
+            ""
+          )}
 
-        <Grid>
-          {/* <Grid.Row> */}
-          <Grid.Column columns={2} style={{ marginTop: "30px" }}>
-            <table class="ui fixed table">
-              <thead>
-                <tr>
-                  <th>Project</th>
-                  <th>Client</th>
-                  <th>Budget</th>
-                  <th>Spent</th>
-                  <th />
-                  <th>Remaining</th>
-                </tr>
-              </thead>
-              {this.showProjects()}
-            </table>
-          </Grid.Column>
-          {/* </Grid.Row> */}
-        </Grid>
-      </Container>
+          <Grid>
+            {/* <Grid.Row> */}
+            <Grid.Column columns={2} style={{ marginTop: "30px" }}>
+              <table class="ui fixed table">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Client</th>
+                  </tr>
+                </thead>
+                {this.showProjects()}
+              </table>
+            </Grid.Column>
+            {/* </Grid.Row> */}
+          </Grid>
+        </Container>
+      </>
     );
   }
 }

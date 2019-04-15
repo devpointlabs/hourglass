@@ -91,7 +91,11 @@ class Navbar extends React.Component {
               name="projects"
               id="projects"
               style={{ color: "white" }}
-              active={pathname === "/projects"}
+              active={
+                pathname === "/projects" ||
+                pathname === "/projects/new" ||
+                pathname === `/projects/${this.props.match.params.id}`
+              }
             />
           </Link>
           <Link to="/timesheet">
