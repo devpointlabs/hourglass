@@ -23,7 +23,8 @@ class ProjectForm extends React.Component {
       client_name: "",
       planned_start: "",
       planned_end: "",
-      notes: ""
+      notes: "",
+      budget: ""
     },
     project_id: "",
     taskShown: false
@@ -90,7 +91,8 @@ class ProjectForm extends React.Component {
       name,
       client_name,
       planned_start,
-      planned_end
+      planned_end,
+      budget
     } = this.state.project;
     const start_date = new Date(planned_start).toDateString();
     const end_date = new Date(planned_end).toDateString();
@@ -110,13 +112,13 @@ class ProjectForm extends React.Component {
               </Button.Content>
             </Button>
           </Link>
-          <Form style={{ marginTop: "30px", marginLeft: "26em" }}>
-            <Header as="h1" icon style={{ marginLeft: "4em" }}>
+          <Form style={{ marginTop: "30px", textAlign: "center" }}>
+            <Header as="h1" icon>
               <Icon name="sitemap" circular />
               <Header.Content>New Project</Header.Content>
             </Header>
             <Divider hidden />
-            <Form.Group textAlign="center">
+            <Form.Group style={{ justifyContent: "center" }}>
               <Form.Input
                 label="Name"
                 name="name"
@@ -135,6 +137,23 @@ class ProjectForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
+            <Form.Input
+              label="Budget"
+              name="budget"
+              value={budget}
+              style={{
+                width: "26.4em"
+              }}
+              placeholder="Budget"
+              required
+              labelPosition="right"
+              type="number"
+              onChange={this.handleChange}
+            >
+              <Label basic>$</Label>
+              <input />
+              <Label>.00</Label>
+            </Form.Input>
             <div style={{ justifyContent: "flexStart" }}>
               <Header as="h4">Start Date</Header>
               <CalendarPickerForProjectForm setDate={this.setStartDate} />
@@ -163,7 +182,6 @@ class ProjectForm extends React.Component {
             </div>
             <br />
             <Button
-              style={{ marginLeft: "6.5em" }}
               color="violet"
               animated="fade"
               inverted
