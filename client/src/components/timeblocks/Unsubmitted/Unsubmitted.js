@@ -1,14 +1,14 @@
 import React from "react";
 import TimeBlockNavbar from "../NavBarComponents/TimeBlockNavbar";
-import { Table, Container, Item } from "semantic-ui-react";
+import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import {
   CalculateHoursAndWeek,
   AddProjectInfoToTasks
 } from "../Calculations/Calculations";
 import UnsubmittedTableBody from "./UnsubmittedTableBody";
-import Footer from "./Footer";
 import EditTimeEntryModal from "../DayView/EditTimeEntryModal";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 
 class Unsubmitted extends React.Component {
   state = {
@@ -44,8 +44,8 @@ class Unsubmitted extends React.Component {
   };
 
   handleCheckMarks = (checkedStatus, blockId) => {
-    if (checkedStatus) this.handleChecked(blockId);
-    else this.handleUnChecked(blockId);
+    if (checkedStatus) this.handleUnChecked(blockId);
+    else this.handleChecked(blockId);
   };
 
   handleChecked = blockId => {
@@ -53,7 +53,7 @@ class Unsubmitted extends React.Component {
       if (tb.id === blockId) {
         return {
           ...tb,
-          status: "pendingApproval"
+          status: "pending"
         };
       } else {
         return tb;
@@ -67,7 +67,7 @@ class Unsubmitted extends React.Component {
       if (tb.id === blockId) {
         return {
           ...tb,
-          status: "UnSubmitted"
+          status: "unSubmitted"
         };
       } else {
         return tb;
@@ -92,8 +92,10 @@ class Unsubmitted extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
-
-        <div style={{ padding: "50px" }}>
+        <Header textAlign="center" as="h1">
+          Unsubmitted
+        </Header>
+        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
           <Table style={{ marginBottom: "45px" }}>
             <UnsubmittedTableBody
               timeBlocks={timeBlocks}
@@ -104,8 +106,8 @@ class Unsubmitted extends React.Component {
               handleCheckMarks={this.handleCheckMarks}
               reset={this.state.reset}
               handleOpen={this.handleOpen}
+              submitTimeBlocks={this.submitTimeBlocks}
             />
-            <Footer submitTimeBlocks={this.submitTimeBlocks} />
           </Table>
           <EditTimeEntryModal
             handleClose={this.handleClose}
@@ -121,4 +123,14 @@ class Unsubmitted extends React.Component {
   }
 }
 
-export default Unsubmitted;
+export class ConnectedUnsubmitted extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <Unsubmitted {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default ConnectedUnsubmitted;

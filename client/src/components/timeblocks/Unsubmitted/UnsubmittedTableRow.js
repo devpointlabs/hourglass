@@ -1,11 +1,13 @@
 import React from "react";
-import { Table, Checkbox, Button } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import CheckboxComponent from "./CheckboxComponent";
+import "../timeSheetDayView.css";
+import moment from "moment";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 import "../timeSheetDayView.css";
 
 class UnsubmittedTableRow extends React.Component {
   state = {
-    timeBlocksStatus: [],
     timeBlocks: this.props.timeBlocks,
     tasks: this.props.tasks
   };
@@ -40,49 +42,56 @@ class UnsubmittedTableRow extends React.Component {
     return (
       <>
         {BlocksWithTaskInfo.map(block => (
-          <Table.Row
-            className="unSubmittedTableRow"
-            style={{
-              display: "flex",
-              justifyContent: "space-between"
-            }}
-          >
+          <Table.Row className="timeSheetDayViewTableRow">
             <Table.Cell
               onClick={() => this.props.handleOpen(block)}
-              style={{ width: "140px" }}
+              style={{ width: "150px", cursor: "pointer" }}
             >
-              {block.taskInfo && block.taskInfo.projectInfo.name}
-            </Table.Cell>
-            <Table.Cell
-              onClick={() => this.props.handleOpen(block)}
-              style={{ width: "140px" }}
-            >
-              ({block.taskInfo && block.taskInfo.name})
+              {moment(block).format("L")}
             </Table.Cell>
             <Table.Cell
               onClick={() => this.props.handleOpen(block)}
               style={{
-                width: "460px"
+                width: "1100px",
+                cursor: "pointer"
               }}
-            />
+            >
+              {this.props.auth.user.admin && (
+                <div>
+                  <Icon name="user" style={{ color: "RebeccaPurple" }} />
+                  {this.props.auth.user.name}
+                </div>
+              )}
+              <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
+                {block.taskInfo && block.taskInfo.projectInfo.name}
+              </div>
+              <div>({block.taskInfo && block.taskInfo.name})</div>
+            </Table.Cell>
             <Table.Cell
               onClick={() => this.props.handleOpen(block)}
-              style={{ width: "140px", textAlign: "center" }}
+              style={{ width: "350px", cursor: "pointer" }}
+            >
+              {moment(block.start_time).format("h:mm a")}
+            </Table.Cell>
+            <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
+              style={{ width: "350px", cursor: "pointer" }}
+            >
+              {moment(block.end_time).format("h:mm a")}
+            </Table.Cell>
+            <Table.Cell
+              onClick={() => this.props.handleOpen(block)}
+              style={{ width: "50px", cursor: "pointer" }}
             >
               {block.taskInfo && parseFloat(block.hours).toFixed(2)}
             </Table.Cell>
-            <Table.Cell style={{ width: "140px", textAlign: "center" }}>
+            <Table.Cell style={{ width: "5px" }}>
               <CheckboxComponent
                 blockId={block.id}
                 handleClickForUnsubmitted={this.handleClickForUnsubmitted}
                 reset={this.props.reset}
               />
-              {/* <Checkbox
-                onChange={() => this.handleClick(this.state.checkbox, block.id)}
-                checked={this.state.checkbox}
-              /> */}
             </Table.Cell>
-            <hr />
           </Table.Row>
         ))}
       </>
@@ -90,4 +99,14 @@ class UnsubmittedTableRow extends React.Component {
   }
 }
 
-export default UnsubmittedTableRow;
+export class ConnectedUnsubmittedTableRow extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <UnsubmittedTableRow {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default ConnectedUnsubmittedTableRow;

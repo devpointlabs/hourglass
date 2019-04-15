@@ -16,10 +16,13 @@ class DayViewTableRow extends React.Component {
         }
         onClick={() => {
           timeBlock.status === "unSubmitted" && handleOpen(timeBlock);
-          timeBlock.status === "pendingApproval" && handleOpen2(timeBlock);
+          timeBlock.status === "pending" && handleOpen2(timeBlock);
         }}
       >
-        <Table.Cell style={{ padding: 0 }} colSpan={calcColSpan(timeBlock)}>
+        <Table.Cell
+          style={{ padding: 0, cursor: "pointer" }}
+          colSpan={calcColSpan(timeBlock)}
+        >
           <div>
             {this.props.auth.user.admin && (
               <div>
@@ -39,7 +42,8 @@ class DayViewTableRow extends React.Component {
           style={{
             padding: "0 5px 0 5px",
             textAlign: "center",
-            fontSize: "1.1em"
+            fontSize: "1.1em",
+            cursor: "pointer"
           }}
         >
           {parseFloat(timeBlock.hours).toFixed(2)}
