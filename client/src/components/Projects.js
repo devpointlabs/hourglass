@@ -2,7 +2,16 @@ import React from "react";
 import axios from "axios";
 import ProjectForm from "./ProjectForm";
 import { Link } from "react-router-dom";
-import { Grid, Container, Menu } from "semantic-ui-react";
+import {
+  Grid,
+  Button,
+  Container,
+  Icon,
+  Table,
+  Menu,
+  Progress
+} from "semantic-ui-react";
+import BudgetView from "./BudgetView";
 
 class Projects extends React.Component {
   state = { projects: [], editing: false };
@@ -15,19 +24,23 @@ class Projects extends React.Component {
 
   showProjects = () => {
     return this.state.projects.map(p => (
-      <tbody>
-        <tr>
-          <td>
-            <Link
-              style={{ color: "RebeccaPurple", fontWeight: "bold" }}
-              to={`/projects/${p.id}`}
-            >
-              {p.name ? p.name : "Project has no name"}
-            </Link>
-          </td>
-          <td>{p.client_name}</td>
-        </tr>
-      </tbody>
+      <Table.Row key={p.id}>
+        <Table.Cell>
+          <Link
+            style={{ color: "RebeccaPurple", fontWeight: "bold" }}
+            to={`/projects/${p.id}`}
+          >
+            {p.name ? p.name : "Project has no name"}
+          </Link>
+        </Table.Cell>
+        <Table.Cell>{p.client_name}</Table.Cell>
+        <Table.Cell>{p.budget}</Table.Cell>
+        <Table.Cell>$$$$$$</Table.Cell>
+        <Table.Cell>
+          <Progress color="violet" percent="80" />
+        </Table.Cell>
+        <Table.Cell>$$$$</Table.Cell>
+      </Table.Row>
     ));
   };
 
