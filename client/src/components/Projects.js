@@ -77,6 +77,10 @@ class Projects extends React.Component {
                   <tr>
                     <th>Project</th>
                     <th>Client</th>
+                    <th>Budget</th>
+                    <th>Spent</th>
+                    <th />
+                    <th>Remaining</th>
                   </tr>
                 </thead>
                 {this.showProjects()}
