@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import TimeblocksByTask from "./TimeblocksByTask";
 
-
 import {
   Table,
   Header,
@@ -16,17 +15,15 @@ import TaskForm from "./TaskForm";
 
 import AddTask from "./AddTask";
 
-
 class TaskView extends React.Component {
   state = { tasks: [], showForm: false };
 
   componentDidMount() {
-    const { id } = this.props;
+    const { id } = this.props.project;
     axios
-      .get(`/api/${id}/view_tasks`)
+      .get(`/api/projects/${id}/tasks`)
       .then(response => this.setState({ tasks: response.data }));
   }
-
 
   handleDelete = task => {
     const { id } = this.props.project;
@@ -78,7 +75,6 @@ class TaskView extends React.Component {
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
-
   };
 
   toggleForm = () => {
@@ -93,7 +89,6 @@ class TaskView extends React.Component {
         </Header>
         <Table>
           <Table.Header>
-
             <Table.Row style={{ background: "#e2e2e2" }}>
               <Table.Cell
                 style={{
@@ -183,7 +178,6 @@ class TaskView extends React.Component {
                 Billable Amount
               </Table.Cell>
             </Table.Row>
-
           </Table.Header>
 
           <Table.Body>
