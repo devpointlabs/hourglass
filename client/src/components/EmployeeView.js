@@ -29,6 +29,7 @@ class Employee extends React.Component {
   totals = () => {
     const { timeblocks } = this.state;
     const time = [];
+    let totes = 0;
     timeblocks.map(timeblock => {
       let date1 = new Date(timeblock.start_time);
       let date2 = new Date(timeblock.end_time);
@@ -36,7 +37,10 @@ class Employee extends React.Component {
       const hours = Math.abs(date1 - date2) / 36e5;
       time.push(hours);
     });
-    return <div>{time}</div>;
+    time.map(hour => {
+      totes = hour + totes;
+    });
+    return <div>{totes}</div>;
   };
 
   render() {
@@ -61,6 +65,10 @@ class Employee extends React.Component {
                     {project.name}
                   </List.Header>
                 </Link>
+                <List.Description>
+                  TOTAL HOURS ACROSS ALL TIMEBLOCKS
+                </List.Description>{" "}
+                {/*  will change later */}
                 <List.Description>{this.totals()}</List.Description>
               </List.Content>
             </List.Item>
