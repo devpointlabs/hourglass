@@ -4,4 +4,7 @@ class Task < ApplicationRecord
   has_many :users, through: :assignments
 
   has_many :timeblocks, dependent: :destroy
+
+  def self.find_with_hours
+  end
 end
