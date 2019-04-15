@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Segment, Progress, Header } from "semantic-ui-react";
 import axios from "axios";
-import TimeSheet from "./timeblocks/TimeSheet";
+import TimeSheet from "../timeblocks/TimeSheet";
 
 class BudgetView extends React.Component {
   state = { project: {}, timesheet: [] };

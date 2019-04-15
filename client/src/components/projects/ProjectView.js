@@ -13,7 +13,7 @@ import {
   Segment,
   Progress
 } from "semantic-ui-react";
-import TaskView from "./TaskView";
+import TaskView from "./TaskView/TaskView";
 import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
 import ProjectForm from "./ProjectForm";
@@ -36,12 +36,12 @@ class ProjectView extends React.Component {
     this.setState({ project: project });
   };
 
-  handleDelete = () => {
-    const { id } = this.props.match.params;
-    axios.delete(`/api/projects/${id}`).then(res => {
-      this.props.history.push("/projects");
-    });
-  };
+  // handleDelete = () => {
+  //   const { id } = this.props.match.params;
+  //   axios.delete(`/api/projects/${id}`).then(res => {
+  //     this.props.history.push("/projects");
+  //   });
+  // };
 
   handleToggle = () => {
     this.setState({ toggleForm: !this.state.toggleForm });
@@ -96,23 +96,6 @@ class ProjectView extends React.Component {
           ) : (
             <div />
           )}
-          <Button
-            onClick={() => this.handleToggle()}
-            inverted
-            color="blue"
-            floated="right"
-          >
-            <Icon name="pencil" /> Update Project
-          </Button>
-
-          <Button
-            inverted
-            onClick={this.handleDelete}
-            color="red"
-            floated="right"
-          >
-            <Icon name="trash" /> Remove Project
-          </Button>
         </div>
         <Container
           style={{
@@ -120,9 +103,9 @@ class ProjectView extends React.Component {
             margin: "0px"
           }}
         >
-          <h1>{name}</h1>
-          <h2>{client_name}</h2>
-          <h4>
+          <h1 style={{ marginLeft: "20px" }}>{name}</h1>
+          <h2 style={{ marginLeft: "20px" }}>{client_name}</h2>
+          <h4 style={{ marginLeft: "20px" }}>
             {" "}
             {planned_start} - {planned_end}
           </h4>
