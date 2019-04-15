@@ -45,6 +45,10 @@ class Api::TimeblocksController < ApplicationController
     render json: Timeblock.pending_timeblocks
   end
 
+  def timeblocks_by_task
+    render json: Timeblock.timeblocks_by_task(params[:id])
+  end
+
   private
 
   def set_task

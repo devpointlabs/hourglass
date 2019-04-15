@@ -54,4 +54,32 @@ timeblocks.start_time
   }
 end
 end
+
+def self.timeblocks_by_task(task_id)
+#  select("
+#     u.name,
+#     timeblocks.start_time,
+#     timeblocks.end_time,
+#     DATE_PART('hour', timeblocks.end_time - timeblocks.start_time) AS hours,
+#     timeblocks.id AS timeblock_id")
+# .joins("
+#     LEFT JOIN users AS u
+# ON timeblocks.user_id = u.id")
+# .where("timeblocks.id = task_id")
+Timeblock.find_by_sql("SELECT 
+u.name,
+t.start_time,
+t.end_time,
+DATE_PART('hour', t.end_time - t.start_time) AS hours,
+t.id AS timeblock_id
+FROM 
+timeblocks AS t 
+LEFT JOIN 
+users AS u
+ON 
+t.user_id = u.id
+WHERE 
+t.id = #{task_id}")
+end
+
 end
