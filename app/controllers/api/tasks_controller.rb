@@ -1,5 +1,5 @@
 class Api::TasksController < ApplicationController
-  before_action :set_project, except: [:destroy]
+  before_action :set_project, except: [:destroy, :tasks_with_data]
   before_action :set_task, only: [ :show, :update, :destroy]
   
   def index
@@ -25,6 +25,10 @@ class Api::TasksController < ApplicationController
     else   
       render json: @task.errors, status: 422
     end    
+  end
+
+  def tasks_with_data
+    render json: Task.tasks_with_data(params[:project_id])
   end
 
   def destroy

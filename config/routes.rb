@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :tasks do
       resources :timeblocks, only: [:index, :show]
     end
-  end
+
   get "/api/admin/timeblocks", to: "api/timeblocks#admin_get_all_timeblocks"
   get "/api/users/timeblocks", to: "api/users#grab_users_with_timeblocks"
   get "/api/:project_id/view_tasks", to: "api/tasks#tasks_of_project"
@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get "/api/users/:id/timeblocks", to: "api/timeblocks#week_timeblocks"
   get "/api/users/:id/projects", to: "api/users#projects"
   get "/api/timeblock/pending", to: "api/timeblocks#pending_timeblocks"
-  get "api/task/:id/timeblocks_by_task", to: "api/timeblocks#timeblocks_by_task"
+  get "/api/task/:id/timeblocks_by_task", to: "api/timeblocks#timeblocks_by_task"
   # post "/api/projects/users", to: "api/projects#u_by_p"
-  get "api/project/projects_with_data", to: "api/projects#projects_with_data"
+  get "/api/project/projects_with_data", to: "api/projects#projects_with_data"
 
   get "*other", to: "static#index"
 

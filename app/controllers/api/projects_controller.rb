@@ -11,7 +11,7 @@ class Api::ProjectsController < ApplicationController
   end
 
   def show
-    render json: @project
+    render json: Project.project_with_data(params[:id])
   end
 
   def create
