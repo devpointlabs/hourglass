@@ -47,7 +47,7 @@ class UnsubmittedTableRow extends React.Component {
               onClick={() => this.props.handleOpen(block)}
               style={{ width: "150px", cursor: "pointer" }}
             >
-              {moment(block).format("L")}
+              {moment(block.start_time).format("L")}
             </Table.Cell>
             <Table.Cell
               onClick={() => this.props.handleOpen(block)}
