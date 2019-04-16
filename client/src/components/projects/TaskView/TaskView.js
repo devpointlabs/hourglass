@@ -19,7 +19,7 @@ class TaskView extends React.Component {
   getProjectTasks = () => {
     const { project } = this.props;
     axios
-      .get(`api/projectdata/${project.id}/tasks_with_data`)
+      .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
   };
 
@@ -27,11 +27,13 @@ class TaskView extends React.Component {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
       <Table.Row key={task.id}>
-        <Table.Cell>{task.name}</Table.Cell>
+        <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell style={{ paddingLeft: '200px' }}>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
+        <Table.Cell style={{ paddingLeft: "200px" }}>
+          ${parseFloat(task.price_per_hour).toFixed(2)}
+        </Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -41,11 +43,13 @@ class TaskView extends React.Component {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
     return UnbillableTasks.map(task => (
       <Table.Row key={task.id}>
-        <Table.Cell>{task.name}</Table.Cell>
+        <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell style={{ paddingLeft: '200px' }}>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
+        <Table.Cell style={{ paddingLeft: "200px" }}>
+          ${parseFloat(task.price_per_hour).toFixed(2)}
+        </Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -81,7 +85,7 @@ class TaskView extends React.Component {
                   fontSize: "1.1em",
                   width: "450px",
                   fontWeight: "bold",
-                  paddingLeft: '200px'
+                  paddingLeft: "200px"
                 }}
               >
                 Price per Hour
@@ -91,12 +95,10 @@ class TaskView extends React.Component {
                   fontSize: "1.1em",
                   width: "100px",
                   fontWeight: "bold",
-                  textAlign: 'center'
-
+                  textAlign: "center"
                 }}
               >
-                <div>Total</div>
-                0
+                <div>Total</div>0
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -136,7 +138,7 @@ class TaskView extends React.Component {
                   fontSize: "1.1em",
                   width: "450px",
                   fontWeight: "bold",
-                  paddingLeft: '200px'
+                  paddingLeft: "200px"
                 }}
               >
                 Price per Hour
@@ -146,11 +148,10 @@ class TaskView extends React.Component {
                   fontSize: "1.1em",
                   width: "100px",
                   fontWeight: "bold",
-                  textAlign: 'center'
+                  textAlign: "center"
                 }}
               >
-                <div>Total</div>
-                0
+                <div>Total</div>0
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -164,17 +165,18 @@ class TaskView extends React.Component {
               <Table.Cell colSpan="4" />
             </Table.Row>
           </Table.Body>
-          <Table.Header >
+          <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell colSpan='3' />
-              <Table.Cell style={{
-                fontSize: "1.1em",
-                width: "100px",
-                fontWeight: "bold",
-                textAlign: 'center'
-              }}>
-                <div>Total</div>
-                0
+              <Table.Cell colSpan="3" />
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "100px",
+                  fontWeight: "bold",
+                  textAlign: "center"
+                }}
+              >
+                <div>Total</div>0
               </Table.Cell>
             </Table.Row>
           </Table.Header>

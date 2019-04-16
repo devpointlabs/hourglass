@@ -28,7 +28,7 @@ class Api::TasksController < ApplicationController
   end
 
   def tasks_with_data
-    render json: Task.tasks_with_data(params[:id])
+    render json: Task.tasks_with_data(params[:project_id])
   end
 
   def destroy
