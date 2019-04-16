@@ -29,7 +29,7 @@ class Employee extends React.Component {
   totals = () => {
     const { timeblocks } = this.state;
     const time = [];
-    let totes = 0;
+    let total = 0;
     timeblocks.map(timeblock => {
       let date1 = new Date(timeblock.start_time);
       let date2 = new Date(timeblock.end_time);
@@ -38,9 +38,9 @@ class Employee extends React.Component {
       time.push(hours);
     });
     time.map(hour => {
-      totes = hour + totes;
+      total = hour + total;
     });
-    return <div>{totes}</div>;
+    return <div>{total}</div>;
   };
 
   render() {
@@ -52,6 +52,11 @@ class Employee extends React.Component {
           <Image circular centered src={user.image || defaultImage} />
           <Header textAlign="center">{user.name}</Header>
         </Segment>
+        <Header as="h1" textAlign="center">
+          <Header.Content>Hours This Week</Header.Content>
+          <Header.Subheader>{this.totals()}</Header.Subheader>
+        </Header>
+        <Divider />
         <Header as="h1" textAlign="center">
           Projects
         </Header>
@@ -65,11 +70,8 @@ class Employee extends React.Component {
                     {project.name}
                   </List.Header>
                 </Link>
-                <List.Description>
-                  TOTAL HOURS ACROSS ALL TIMEBLOCKS
-                </List.Description>{" "}
+                <List.Description>TOTAL HOURS ACROSS PROJECT</List.Description>{" "}
                 {/*  will change later */}
-                <List.Description>{this.totals()}</List.Description>
               </List.Content>
             </List.Item>
           ))}
