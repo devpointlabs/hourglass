@@ -30,7 +30,7 @@ const App = () => (
         <Container style={{ background: "white", minHeight: "100vh" }}>
           <Navbar />
           <Switch>
-            <ProtectedRoute exact path="/" component={Home} />
+            <ProtectedRoute exact path="/" component={TimeSheet} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
 
