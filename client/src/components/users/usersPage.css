@@ -7,7 +7,3 @@
 .ui.toggle.checkbox input:checked ~ label::before {
   background: rebeccapurple !important;
 }
-
-.hidden {
-  background: red !important;
-}
