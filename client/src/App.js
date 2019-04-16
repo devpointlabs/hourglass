@@ -32,9 +32,7 @@ const App = () => (
             <ProtectedRoute exact path="/" component={TimeSheet} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-
             <Route exact path="/profile" component={EditForm} />
-
             <ProtectedRoute exact path="/projects" component={Projects} />
             <ProtectedRoute
               exact
@@ -42,9 +40,7 @@ const App = () => (
               component={ProjectForm}
             />
             <Route exact path="/projects/:id" component={ProjectView} />
-
             <Route exact path="/profile" component={EditForm} />
-
             <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
             <Route
               exact
@@ -56,7 +52,6 @@ const App = () => (
               path="/timesheet/approve_timesheets"
               component={ApproveTimesheets}
             />
-
             <ProtectedRoute exact path="/taskview" component={TaskView} />
             <ProtectedRoute
               exact
