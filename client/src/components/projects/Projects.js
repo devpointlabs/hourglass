@@ -59,8 +59,8 @@ class Projects extends React.Component {
               resetState={this.resetState}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
 
           <Grid>
             {/* <Grid.Row> */}

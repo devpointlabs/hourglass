@@ -1,6 +1,7 @@
 class Api::TimeblocksController < ApplicationController
   before_action :set_task, only: [:task_timeblocks]
   before_action :set_timeblock, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:week_timeblocks]
 
   def index
     projects = current_user.projects
@@ -64,6 +65,10 @@ class Api::TimeblocksController < ApplicationController
     render json: Timeblock.timeblocks_by_task(params[:id])
   end
 
+  def week_timeblocks
+    render json: Timeblock.week_timeblocks(@user.id)
+  end
+
   private
 
   def set_task
@@ -72,6 +77,10 @@ class Api::TimeblocksController < ApplicationController
 
   def set_timeblock
     @timeblock = Timeblock.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
   def timeblock_params

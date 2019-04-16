@@ -182,23 +182,8 @@ class TaskView extends React.Component {
           </Table.Header>
         </Table>
         <AddTask project={this.props.project} />
-
-        <Modal
-          trigger={
-            <Button
-              circular
-              color="violet"
-              onClick={this.handleNew}
-              icon="add"
-              size="mini"
-            />
-          }
-        >
-          <Modal.Header>Create a New Task</Modal.Header>
-          <Modal.Content>
-            <TaskForm project_id={this.props.project.id} />
-          </Modal.Content>
-        </Modal>
+        <br />
+        <br />
       </>
     );
   }

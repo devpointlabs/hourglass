@@ -2,6 +2,18 @@ class Timeblock < ApplicationRecord
   belongs_to :user
   belongs_to :task
 
+  def self.week_timeblocks(user_id)
+    find_by_sql(["
+      SELECT timeblocks.start_time, timeblocks.end_time, u.name
+      FROM timeblocks
+      LEFT JOIN users AS u 
+      ON u.id = timeblocks.user_id
+      WHERE timeblocks.start_time BETWEEN NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7
+      AND NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER   
+      AND u.id = #{user_id} 
+    "])
+  end
+
   def self.pending_timeblocks
 #     find_by_sql("
 #     SELECT t.*, ta.name AS task_name, ta.project_id, p.name AS project_name, u.name

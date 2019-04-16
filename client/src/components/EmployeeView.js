@@ -2,7 +2,14 @@ import React, { useReducer } from "react";
 import axios from "axios";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Link } from "react-router-dom";
-import { Segment, Header, Image, List, Divider } from "semantic-ui-react";
+import {
+  Segment,
+  Header,
+  Image,
+  List,
+  Divider,
+  Table
+} from "semantic-ui-react";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -29,7 +36,7 @@ class Employee extends React.Component {
   totals = () => {
     const { timeblocks } = this.state;
     const time = [];
-    let totes = 0;
+    let total = 0;
     timeblocks.map(timeblock => {
       let date1 = new Date(timeblock.start_time);
       let date2 = new Date(timeblock.end_time);
@@ -38,9 +45,9 @@ class Employee extends React.Component {
       time.push(hours);
     });
     time.map(hour => {
-      totes = hour + totes;
+      total = hour + total;
     });
-    return <div>{totes}</div>;
+    return <div>{total}</div>;
   };
 
   render() {
@@ -53,32 +60,31 @@ class Employee extends React.Component {
           <Header textAlign="center">{user.name}</Header>
         </Segment>
         <Header as="h1" textAlign="center">
-          Projects
+          <Header.Content>Hours This Week</Header.Content>
+          <Header.Subheader>{this.totals()}</Header.Subheader>
         </Header>
         <Divider />
-        <List animated>
-          {this.state.projects.map(project => (
-            <List.Item style={{ textAlign: "center" }}>
-              <List.Content>
-                <Link to={`/projects/${project.id}`}>
-                  <List.Header as="h3" style={{ color: "purple" }}>
-                    {project.name}
-                  </List.Header>
-                </Link>
-                <List.Description>
-                  TOTAL HOURS ACROSS ALL TIMEBLOCKS
-                </List.Description>{" "}
-                {/*  will change later */}
-                <List.Description>{this.totals()}</List.Description>
-              </List.Content>
-            </List.Item>
-          ))}
-        </List>
-        <Divider />
-        <Header as="h1" textAlign="center">
-          Tasks
-        </Header>
-        <Divider />
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Client</Table.HeaderCell>
+              <Table.HeaderCell>Project</Table.HeaderCell>
+              <Table.HeaderCell>Task</Table.HeaderCell>
+              <Table.HeaderCell>Hours</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {this.state.projects.map(project => (
+              <Table.Row>
+                <Table.Cell>{project.client_name}</Table.Cell>
+                <Table.Cell>{project.name}</Table.Cell>
+                <Table.Cell>(task)</Table.Cell>
+                <Table.Cell>(hours)</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       </>
     );
   }
