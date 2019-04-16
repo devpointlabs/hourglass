@@ -19,7 +19,7 @@ class TaskView extends React.Component {
   getProjectTasks = () => {
     const { project } = this.props;
     axios
-      .get(`/api/projects/${project.id}/tasks`)
+      .get(`api/projectdata/${project.id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
   };
 
