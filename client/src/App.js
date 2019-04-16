@@ -17,6 +17,8 @@ import TaskView from "./components/projects/TaskView/TaskView";
 import ProjectForm from "./components/projects/ProjectForm";
 import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
+import Users from "./components/users/Users";
+import GreyGradientLine from "./components/GreyGradientLine";
 
 const App = () => (
   <Fragment>
@@ -28,6 +30,7 @@ const App = () => (
       <FetchUser>
         <Container style={{ background: "white", minHeight: "100vh" }}>
           <Navbar />
+          <GreyGradientLine />
           <Switch>
             <ProtectedRoute exact path="/" component={TimeSheet} />
             <Route exact path="/login" component={Login} />
@@ -53,6 +56,7 @@ const App = () => (
               component={ApproveTimesheets}
             />
             <ProtectedRoute exact path="/taskview" component={TaskView} />
+            <ProtectedRoute exact path="/users" component={Users} />
             <ProtectedRoute
               exact
               path="/employees/:id"
