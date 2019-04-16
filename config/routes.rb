@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       resources :timeblocks, only: [:index, :show]
     end
   end
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   get "/api/admin/timeblocks", to: "api/timeblocks#admin_get_all_timeblocks"
   get "/api/users/timeblocks", to: "api/users#grab_users_with_timeblocks"
   get "/api/:project_id/view_tasks", to: "api/tasks#tasks_of_project"

@@ -22,7 +22,6 @@ class ProjectView extends React.Component {
   state = {
     project: [],
     page: "",
-    toggleForm: false
   };
 
   componentDidMount() {
@@ -32,9 +31,6 @@ class ProjectView extends React.Component {
     });
   }
 
-  updateSubmit = project => {
-    this.setState({ project: project });
-  };
 
   // handleDelete = () => {
   //   const { id } = this.props.match.params;
@@ -43,9 +39,7 @@ class ProjectView extends React.Component {
   //   });
   // };
 
-  handleToggle = () => {
-    this.setState({ toggleForm: !this.state.toggleForm });
-  };
+
 
   setPage = page => {
     switch (page) {
@@ -87,16 +81,7 @@ class ProjectView extends React.Component {
     return (
       <>
         <ProjectNavbar setPage={this.setPage} />
-        <div>
-          {this.state.toggleForm ? (
-            <ProjectForm
-              project={this.state.project}
-              updateSubmit={this.updateSubmit}
-            />
-          ) : (
-              <div />
-            )}
-        </div>
+
         <Container
           style={{
             paddingTop: "0px",
