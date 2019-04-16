@@ -7,6 +7,7 @@ class BudgetView extends React.Component {
   state = { project: {}, timesheet: [] };
 
   render() {
+    const { project } = this.props;
     return (
       <>
         <Header as="h1" textAlign="center">
@@ -16,16 +17,16 @@ class BudgetView extends React.Component {
           <Table.Row>
             <Table.Cell>Budget</Table.Cell>
             <Table.Cell>Spent</Table.Cell>
-            <Table.Cell>Remaining</Table.Cell>
+            <Table.Cell>Percent Spent</Table.Cell>
             <Table.Cell>Progress</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>$213</Table.Cell>
-            <Table.Cell>$51</Table.Cell>
-            <Table.Cell>$162</Table.Cell>
+            <Table.Cell>${project.budget}</Table.Cell>
+            <Table.Cell>${project.total_project_cost}</Table.Cell>
+            <Table.Cell>{project.percent_spent}%</Table.Cell>
             <Table.Cell>
               <Segment>
-                <Progress percent={25} color="violet" />
+                <Progress percent={project.percent_spent} color="violet" />
               </Segment>
             </Table.Cell>
           </Table.Row>
