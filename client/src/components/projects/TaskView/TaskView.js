@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-
+import TaskForm from "./TaskForm";
 import { Table, Header, Button, Modal, Accordion } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
@@ -160,8 +160,22 @@ class TaskView extends React.Component {
         </Table>
         <AddTask project={this.props.project} />
 
-        <br />
-        <br />
+        <Modal
+          trigger={
+            <Button
+              circular
+              color="violet"
+              onClick={this.handleNew}
+              icon="add"
+              size="mini"
+            />
+          }
+        >
+          <Modal.Header>Create a New Task</Modal.Header>
+          <Modal.Content>
+            <TaskForm project_id={this.props.project.id} />
+          </Modal.Content>
+        </Modal>
       </>
     );
   }

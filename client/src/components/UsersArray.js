@@ -41,9 +41,6 @@ class UsersArray extends React.Component {
   render() {
     return (
       <>
-        <Header as="h1" textAlign="center">
-          Team
-        </Header>
         {this.state.addedUsers.length !== 0 ? (
           <Table compact fixed basic>
             <Table.Header>
