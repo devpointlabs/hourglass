@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :timeblocks, only: [:index, :show]
     end
   end
-
+  get "/api/admin/timeblocks", to: "api/timeblocks#admin_get_all_timeblocks"
   get "/api/users/timeblocks", to: "api/users#grab_users_with_timeblocks"
   get "/api/:project_id/view_tasks", to: "api/tasks#tasks_of_project"
   get "/api/projects/:project_id/users/:user_id", to: "api/assignments#find_by_u_and_p"

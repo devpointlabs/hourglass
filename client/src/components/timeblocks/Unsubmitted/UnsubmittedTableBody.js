@@ -9,7 +9,7 @@ const UnsubmittedTableBody = props => (
     <UnsubmittedTableHeader />
     <Table.Body>
       <Table.Row>
-        <Table.Cell colspan="6" />
+        <Table.Cell colSpan="6" />
       </Table.Row>
       <UnsubmittedTableRow
         timeBlocks={props.timeBlocks}
@@ -21,7 +21,7 @@ const UnsubmittedTableBody = props => (
         handleOpen={props.handleOpen}
       />
       <Table.Row>
-        <Table.Cell colspan="6" />
+        <Table.Cell colSpan="6" />
       </Table.Row>
       <Footer submitTimeBlocks={props.submitTimeBlocks} />
     </Table.Body>

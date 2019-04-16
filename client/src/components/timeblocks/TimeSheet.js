@@ -68,19 +68,34 @@ class TimeSheet extends React.Component {
   };
 
   getCurrentUserTimeBlocks = () => {
-    axios.get("api/timeblocks").then(res =>
-      this.setState(
-        {
-          projects: res.data.projects,
-          tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-          timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
-        },
-        () => {
-          this.checkForTimerRunning();
-          this.getWeekTimeBlocks(this.state.selectedDate);
-        }
-      )
-    );
+    if (this.props.auth.user.admin === true)
+      axios.get("api/admin/timeblocks").then(res =>
+        this.setState(
+          {
+            projects: res.data.projects,
+            tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+            timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
+          },
+          () => {
+            this.checkForTimerRunning();
+            this.getWeekTimeBlocks(this.state.selectedDate);
+          }
+        )
+      );
+    else
+      axios.get("api/timeblocks").then(res =>
+        this.setState(
+          {
+            projects: res.data.projects,
+            tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+            timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
+          },
+          () => {
+            this.checkForTimerRunning();
+            this.getWeekTimeBlocks(this.state.selectedDate);
+          }
+        )
+      );
   };
 
   //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?

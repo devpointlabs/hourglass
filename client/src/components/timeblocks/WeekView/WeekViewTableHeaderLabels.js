@@ -62,6 +62,7 @@ class TableHeaderLabels extends React.Component {
       <>
         {days.map(cell => (
           <Table.HeaderCell
+            key={cell.dayofweek}
             onClick={() =>
               clickHandler(
                 monday,

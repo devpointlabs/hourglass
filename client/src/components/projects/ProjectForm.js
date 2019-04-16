@@ -98,102 +98,109 @@ class ProjectForm extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Segment styles={{ margin: "100px" }}>
-          <Link to="/projects">
-            <Button
-              animated
-              style={{ marginTop: "15px" }}
-              inverted
-              color="violet"
-            >
-              <Button.Content visible>Back</Button.Content>
-              <Button.Content hidden>
-                <Icon name="angle left" />
-              </Button.Content>
-            </Button>
-          </Link>
-          <Form style={{ marginTop: "30px", textAlign: "center" }}>
-            <Header as="h1" icon>
-              <Icon name="sitemap" circular />
-              <Header.Content>New Project</Header.Content>
-            </Header>
-            <Divider hidden />
-            <Form.Group style={{ justifyContent: "center" }}>
-              <Form.Input
-                label="Name"
-                name="name"
-                value={name}
-                placeholder="Name of Project"
-                required
-                autoFocus
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                label="Client Name"
-                name="client_name"
-                value={client_name}
-                placeholder="Client Name"
-                required
-                onChange={this.handleChange}
-              />
-            </Form.Group>
+        <div
+          style={{
+            backgroundImage: "linear-gradient(to right, grey, white)",
+            width: "100%",
+            height: "5px"
+          }}
+        />
+
+        <Link to="/projects">
+          <Button
+            animated
+            style={{ marginTop: "15px" }}
+            inverted
+            color="violet"
+          >
+            <Button.Content visible>Back</Button.Content>
+            <Button.Content hidden>
+              <Icon name="angle left" />
+            </Button.Content>
+          </Button>
+        </Link>
+        <Form style={{ marginTop: "30px", textAlign: "center" }}>
+          <Header as="h1" icon>
+            <Icon name="sitemap" circular />
+            <Header.Content>New Project</Header.Content>
+          </Header>
+          <Divider hidden />
+          <Form.Group style={{ justifyContent: "center" }}>
             <Form.Input
-              label="Budget"
-              name="budget"
-              style={{
-                width: "33.8%"
-              }}
-              value={budget}
-              placeholder="Budget"
+              label="Name"
+              name="name"
+              value={name}
+              placeholder="Name of Project"
               required
-              labelPosition="right"
-              type="number"
+              autoFocus
               onChange={this.handleChange}
-            >
-              <Label basic>$</Label>
-              <input />
-              <Label>.00</Label>
-            </Form.Input>
-            <div style={{ justifyContent: "flexStart" }}>
-              <Header as="h4">Start Date</Header>
-              <CalendarPickerForProjectForm setDate={this.setStartDate} />
-              {planned_start !== "" ? (
-                <Label
-                  style={{ background: "RebeccaPurple", color: "white" }}
-                  pointing="left"
-                >
-                  {start_date}
-                </Label>
-              ) : null}
-            </div>
-            <br />
-            <div>
-              <Header as="h4">End Date</Header>
-              <CalendarPickerForProjectForm setDate={this.setEndDate} />
-              {planned_end !== "" ? (
-                <Label
-                  style={{ background: "RebeccaPurple", color: "white" }}
-                  inverted
-                  pointing="left"
-                >
-                  {end_date}
-                </Label>
-              ) : null}
-            </div>
-            <br />
-            <Button
-              color="violet"
-              animated="fade"
-              inverted
-              onClick={() => this.toggleTask()}
-            >
-              <Button.Content visible>Add Tasks and Employees</Button.Content>
-              <Button.Content hidden>
-                <Icon name="angle double down" />
-              </Button.Content>
-            </Button>
-          </Form>
-        </Segment>
+            />
+            <Form.Input
+              label="Client Name"
+              name="client_name"
+              value={client_name}
+              placeholder="Client Name"
+              required
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Input
+            label="Budget"
+            name="budget"
+            style={{
+              width: "33.8%"
+            }}
+            value={budget}
+            placeholder="Budget"
+            required
+            labelPosition="right"
+            type="number"
+            onChange={this.handleChange}
+          >
+            <Label basic>$</Label>
+            <input />
+            <Label>.00</Label>
+          </Form.Input>
+          <div style={{ justifyContent: "flexStart" }}>
+            <Header as="h4">Start Date</Header>
+            <CalendarPickerForProjectForm setDate={this.setStartDate} />
+            {planned_start !== "" ? (
+              <Label
+                style={{ background: "RebeccaPurple", color: "white" }}
+                pointing="left"
+              >
+                {start_date}
+              </Label>
+            ) : null}
+          </div>
+          <br />
+          <div>
+            <Header as="h4">End Date</Header>
+            <CalendarPickerForProjectForm setDate={this.setEndDate} />
+            {planned_end !== "" ? (
+              <Label
+                style={{ background: "RebeccaPurple", color: "white" }}
+                inverted
+                pointing="left"
+              >
+                {end_date}
+              </Label>
+            ) : null}
+          </div>
+          <br />
+          <Button
+            color="violet"
+            animated="fade"
+            inverted
+            onClick={() => this.toggleTask()}
+          >
+            <Button.Content visible>Add Tasks and Employees</Button.Content>
+            <Button.Content hidden>
+              <Icon name="angle double down" />
+            </Button.Content>
+          </Button>
+        </Form>
+
         {this.state.taskShown ? (
           <div>
             <TaskArrayForForm

@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 
-import { Table, Header, Button, Modal, Accordian } from "semantic-ui-react";
+import { Table, Header, Button, Modal, Accordion } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
 
 class TaskView extends React.Component {
-  state = { tasks: [], modalOpen: false };
+  state = { tasks: [] };
 
   componentDidMount() {
     this.getProjectTasks();
@@ -23,9 +23,6 @@ class TaskView extends React.Component {
       .then(response => this.setState({ tasks: response.data }));
   };
 
-  handleModal = () => {
-    this.setState({ modalOpen: !this.state.modalOpen });
-  };
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
@@ -34,7 +31,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell>{task.price_per_hour}</Table.Cell>
+        <Table.Cell>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -48,7 +45,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell>{task.price_per_hour}</Table.Cell>
+        <Table.Cell>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -104,10 +101,10 @@ class TaskView extends React.Component {
               <Table.Cell colSpan="4" />
             </Table.Row>
             {this.showBillableTasks()}
+            <Table.Row>
+              <Table.Cell colSpan="6" />
+            </Table.Row>
           </Table.Body>
-          <Table.Row>
-            <Table.Cell colSpan="6" />
-          </Table.Row>
         </Table>
         <Table>
           <Table.Header>
@@ -153,32 +150,16 @@ class TaskView extends React.Component {
 
           <Table.Body>
             <Table.Row>
-              <Table.Cell colspan="4" />
+              <Table.Cell colSpan="4" />
             </Table.Row>
             {this.showUnBillableTasks()}
             <Table.Row>
-              <Table.Cell colspan="4" />
+              <Table.Cell colSpan="4" />
             </Table.Row>
           </Table.Body>
         </Table>
-        <Button
-          onClick={() => this.handleModal()}
-          circular
-          color="violet"
-          icon="add"
-          size="mini"
-          floated="right"
-          style={{ marginRight: "35px" }}
-        />
-        <Modal open={this.state.modalOpen}>
-          <Modal.Header>Create a New Task</Modal.Header>
-          <Modal.Content>
-            <AddTask
-              project={this.props.project}
-              handleModal={this.handleModal}
-            />
-          </Modal.Content>
-        </Modal>
+        <AddTask project={this.props.project} />
+
         <br />
         <br />
       </>

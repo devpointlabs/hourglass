@@ -16,6 +16,20 @@ class Api::TimeblocksController < ApplicationController
     render json: data
   end
 
+  def admin_get_all_timeblocks
+    projects = Project.all
+    tasks = []
+    projects.each do |project|
+      tasks += Project.find(project.id).tasks
+    end
+
+    data = { timeBlocks: Timeblock.all,
+             projects: projects,
+             tasks: tasks }
+
+    render json: data
+  end
+
   def show
     render json: @timeblock
   end

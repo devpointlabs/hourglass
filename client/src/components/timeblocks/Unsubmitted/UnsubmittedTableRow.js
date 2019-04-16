@@ -42,7 +42,7 @@ class UnsubmittedTableRow extends React.Component {
     return (
       <>
         {BlocksWithTaskInfo.map(block => (
-          <Table.Row className="timeSheetDayViewTableRow">
+          <Table.Row className="timeSheetDayViewTableRow" key={block.id}>
             <Table.Cell
               onClick={() => this.props.handleOpen(block)}
               style={{ width: "150px", cursor: "pointer" }}
