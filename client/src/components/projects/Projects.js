@@ -24,11 +24,11 @@ class Projects extends React.Component {
 
   showProjects = () => {
     return this.state.projects.map(p => (
-      <Table.Row key={p.id}>
+      <Table.Row key={p.project_id}>
         <Table.Cell>
           <Link
             style={{ color: "RebeccaPurple", fontWeight: "bold" }}
-            to={`/projects/${p.id}`}
+            to={`/projects/${p.project_id}`}
           >
             {p.project_name ? p.project_name : "Project has no name"}
           </Link>
@@ -66,8 +66,8 @@ class Projects extends React.Component {
               resetState={this.resetState}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
 
           <Grid>
             {/* <Grid.Row> */}
