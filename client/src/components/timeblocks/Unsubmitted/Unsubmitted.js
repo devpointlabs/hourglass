@@ -4,7 +4,8 @@ import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import {
   CalculateHoursAndWeek,
-  AddProjectInfoToTasks
+  AddProjectInfoToTasks,
+  AddUserInfoToBlocks
 } from "../Calculations/Calculations";
 import UnsubmittedTableBody from "./UnsubmittedTableBody";
 import EditTimeEntryModal from "../DayView/EditTimeEntryModal";
@@ -35,9 +36,11 @@ class Unsubmitted extends React.Component {
     if (this.props.auth.user.admin === true)
       axios.get("/api/admin/timeblocks").then(res =>
         this.setState({
-          timeBlocks: CalculateHoursAndWeek(
-            res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
+          timeBlocks: AddUserInfoToBlocks(
+            CalculateHoursAndWeek(res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")),
+            res.data.users
           ),
+          users: res.data.users,
           tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
           projects: res.data.projects
         })
@@ -92,11 +95,20 @@ class Unsubmitted extends React.Component {
       axios
         .put(`/api/timeblocks/${tb.id}`, { status: tb.status })
         .then(
-          res => this.getTimeBlocks(),
-          this.setState({ reset: !this.state.reset })
+          res =>
+            this.setState({ reset: !this.state.reset }),
+          this.getTimeBlocks()
         )
     );
   };
+
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   this.getTimeBlocks()
+  //   if (prevState !== this.state)
+  //     debugger
+  //   this.setState({ reset: !this.state.reset })
+
+  // }
 
   render() {
     const { timeBlocks, tasks, projects } = this.state;
