@@ -20,14 +20,13 @@ class TeamView extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+    if (prevProps !== this.props)
       axios.get(`/api/projects/${this.props.id}`).then(res => {
         this.setState({ project: res.data });
       });
-    }
   }
 
-  showTeam = () => {
+  am = () => {
     debugger;
     return this.state.users.map(user => (
       <Table.Row key={user.id}>
@@ -41,36 +40,40 @@ class TeamView extends React.Component {
 
   render() {
     return (
-      <Fragment>
-        <Header as="h1" textAlign="center">
-          Team
-        </Header>
-        <Table celled compact>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell colSpan="2">Assigned Members</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{this.showTeam()}</Table.Body>
-        </Table>
+      <>
+        <Fragment>
+          <Header as="h1" textAlign="center">
+            Team
+          </Header>
+          <Table celled compact>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell colSpan="2">
+                  Assigned Members
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>{this.showTeam()}</Table.Body>
+          </Table>
 
-        <Modal
-          trigger={
-            <Button
-              circular
-              color="violet"
-              onClick={this.handleNew}
-              icon="add"
-              size="mini"
-            />
-          }
-        >
-          <Modal.Header>Add New Team Member</Modal.Header>
-          <Modal.Content>
-            <TaskForm />
-          </Modal.Content>
-        </Modal>
-      </Fragment>
+          <Modal
+            trigger={
+              <Button
+                circular
+                color="violet"
+                onClick={this.handleNew}
+                icon="add"
+                size="mini"
+              />
+            }
+          >
+            <Modal.Header>Add New Team Member</Modal.Header>
+            <Modal.Content>
+              <TaskForm />
+            </Modal.Content>
+          </Modal>
+        </Fragment>
+      </>
     );
   }
 }
