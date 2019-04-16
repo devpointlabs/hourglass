@@ -27,7 +27,7 @@ class DayViewTableRow extends React.Component {
             {this.props.auth.user.admin && (
               <div>
                 <Icon name="user" style={{ color: "RebeccaPurple" }} />
-                {this.props.auth.user.name}
+                {timeBlock.userInfo.name}
               </div>
             )}
             <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
