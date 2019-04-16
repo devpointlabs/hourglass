@@ -1,9 +1,11 @@
 import React from "react";
 import { TimerConsumer } from "../providers/TimerProvider";
 import { Image } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
 
 const HourGlassIcon = ({ timer }) => (
   <Image
+    onClick={() => <Redirect to={{ pathname: "/" }} />}
     src={
       timer.timerRunning
         ? require("../images/hourglass.gif")

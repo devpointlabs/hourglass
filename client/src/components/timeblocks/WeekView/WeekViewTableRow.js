@@ -35,7 +35,7 @@ class WeekViewTableRow extends React.Component {
                   cursor: "pointer"
                 }}
               >
-                {task.projectInfo.name}({task.projectInfo.client_name})
+                {task.projectInfo.name} ({task.projectInfo.client_name})
               </div>
               <div style={{ cursor: "pointer" }}>{task.name}</div>
             </Link>
