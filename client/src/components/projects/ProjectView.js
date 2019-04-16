@@ -20,7 +20,7 @@ import ProjectForm from "./ProjectForm";
 
 class ProjectView extends React.Component {
   state = {
-    project: {},
+    project: [],
     page: "",
     toggleForm: false
   };
@@ -94,8 +94,8 @@ class ProjectView extends React.Component {
               updateSubmit={this.updateSubmit}
             />
           ) : (
-            <div />
-          )}
+              <div />
+            )}
         </div>
         <Container
           style={{
@@ -103,8 +103,9 @@ class ProjectView extends React.Component {
             margin: "0px"
           }}
         >
-          <h1 style={{ marginLeft: "20px" }}>{name}</h1>
-          <h2 style={{ marginLeft: "20px" }}>{client_name}</h2>
+          <h1 style={{ marginLeft: "20px" }}>{name}
+            <span style={{ fontSize: '.8em' }}> ({client_name})</span>
+          </h1>
           <h4 style={{ marginLeft: "20px" }}>
             {" "}
             {planned_start} - {planned_end}
