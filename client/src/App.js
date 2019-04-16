@@ -12,7 +12,6 @@ import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import EditForm from "./components/projects/EditForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
-import Pending from "./components/timeblocks/NavBarComponents/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted/Unsubmitted";
 import TaskView from "./components/projects/TaskView/TaskView";
 import ProjectForm from "./components/projects/ProjectForm";
@@ -30,12 +29,10 @@ const App = () => (
         <Container style={{ background: "white", minHeight: "100vh" }}>
           <Navbar />
           <Switch>
-            <ProtectedRoute exact path="/" component={Home} />
+            <ProtectedRoute exact path="/" component={TimeSheet} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-
             <Route exact path="/profile" component={EditForm} />
-
             <ProtectedRoute exact path="/projects" component={Projects} />
             <ProtectedRoute
               exact
@@ -43,9 +40,7 @@ const App = () => (
               component={ProjectForm}
             />
             <Route exact path="/projects/:id" component={ProjectView} />
-
             <Route exact path="/profile" component={EditForm} />
-
             <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
             <Route
               exact
@@ -57,7 +52,6 @@ const App = () => (
               path="/timesheet/approve_timesheets"
               component={ApproveTimesheets}
             />
-
             <ProtectedRoute exact path="/taskview" component={TaskView} />
             <ProtectedRoute
               exact

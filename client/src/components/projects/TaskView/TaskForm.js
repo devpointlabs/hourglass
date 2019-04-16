@@ -21,20 +21,21 @@ class TaskForm extends React.Component {
   };
 
   handleSubmit = () => {
+    debugger;
     const { task } = this.state;
     const { project_id } = this.props;
-    if (task.id && project_id)
+    if (task.id && project_id) {
       axios
         .put(`/api/projects/${project_id}/tasks/${task.id}`, { task })
         .then(res => {
-          this.props.resetState(res.data);
-          this.props.resetEditing();
+          // this.props.resetState(res.data);
+          // this.props.resetEditing();
         });
-    else {
+    } else {
       const { task } = this.state;
       const { project_id } = this.props;
       axios.post(`/api/projects/${project_id}/tasks`, { task }).then(res => {
-        this.props.resetState(res.data);
+        // this.props.resetState(res.data);
         this.setState({
           task: {
             ...this.state.task,
@@ -67,7 +68,7 @@ class TaskForm extends React.Component {
     const { task } = this.props;
     return (
       <>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Table>
             <Table.Row key={"new"}>
               <Table.Cell>
@@ -110,7 +111,7 @@ class TaskForm extends React.Component {
                 <Button
                   circular
                   color="violet"
-                  onClick={() => this.handleSubmit()}
+                  type="submit"
                   size="mini"
                   icon="plus"
                 />{" "}

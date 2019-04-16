@@ -83,7 +83,11 @@ class AddUserToTask extends React.Component {
           </>
         ) : (
           <Link to={"/projects"}>
-            <Button inverted color="violet" style={{ marginBottom: "20px" }}>
+            <Button
+              onClick={this.handleSubmit}
+              color="violet"
+              style={{ marginBottom: "20px" }}
+            >
               <Icon name="arrow alternate circle left outline" />
               Save
             </Button>

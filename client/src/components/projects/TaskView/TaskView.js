@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-
+import TaskForm from "./TaskForm";
 import { Table, Header, Button, Modal, Accordion } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
@@ -31,7 +31,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
+        <Table.Cell style={{ paddingLeft: '200px' }}>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -45,7 +45,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours
         </Table.Cell>
-        <Table.Cell>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
+        <Table.Cell style={{ paddingLeft: '200px' }}>${parseFloat(task.price_per_hour).toFixed(2)}</Table.Cell>
         <Table.Cell>Billable Ammount</Table.Cell>
       </Table.Row>
     ));
@@ -74,13 +74,14 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                Total
+                Hours
               </Table.Cell>
               <Table.Cell
                 style={{
                   fontSize: "1.1em",
                   width: "450px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                  paddingLeft: '200px'
                 }}
               >
                 Price per Hour
@@ -89,10 +90,13 @@ class TaskView extends React.Component {
                 style={{
                   fontSize: "1.1em",
                   width: "100px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                  textAlign: 'center'
+
                 }}
               >
-                Billable Amount
+                <div>Total</div>
+                0
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -125,13 +129,14 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                Total
+                Hours
               </Table.Cell>
               <Table.Cell
                 style={{
                   fontSize: "1.1em",
                   width: "450px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                  paddingLeft: '200px'
                 }}
               >
                 Price per Hour
@@ -140,10 +145,12 @@ class TaskView extends React.Component {
                 style={{
                   fontSize: "1.1em",
                   width: "100px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                  textAlign: 'center'
                 }}
               >
-                Billable Amount
+                <div>Total</div>
+                0
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -157,11 +164,39 @@ class TaskView extends React.Component {
               <Table.Cell colSpan="4" />
             </Table.Row>
           </Table.Body>
+          <Table.Header >
+            <Table.Row style={{ background: "#e2e2e2" }}>
+              <Table.Cell colSpan='3' />
+              <Table.Cell style={{
+                fontSize: "1.1em",
+                width: "100px",
+                fontWeight: "bold",
+                textAlign: 'center'
+              }}>
+                <div>Total</div>
+                0
+              </Table.Cell>
+            </Table.Row>
+          </Table.Header>
         </Table>
         <AddTask project={this.props.project} />
 
-        <br />
-        <br />
+        <Modal
+          trigger={
+            <Button
+              circular
+              color="violet"
+              onClick={this.handleNew}
+              icon="add"
+              size="mini"
+            />
+          }
+        >
+          <Modal.Header>Create a New Task</Modal.Header>
+          <Modal.Content>
+            <TaskForm project_id={this.props.project.id} />
+          </Modal.Content>
+        </Modal>
       </>
     );
   }
