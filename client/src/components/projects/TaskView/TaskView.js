@@ -34,7 +34,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>Billable Ammount</Table.Cell>
+        <Table.Cell>Billable Amount</Table.Cell>
       </Table.Row>
     ));
   };
@@ -50,7 +50,7 @@ class TaskView extends React.Component {
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>Billable Ammount</Table.Cell>
+        <Table.Cell>Billable Amount</Table.Cell>
       </Table.Row>
     ));
   };
@@ -122,7 +122,7 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                UnBillable Tasks
+                Unbillable Tasks
               </Table.Cell>
               <Table.Cell
                 style={{
