@@ -12,7 +12,6 @@ import FetchUser from "./components/FetchUser";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import EditForm from "./components/projects/EditForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
-import Pending from "./components/timeblocks/NavBarComponents/Pending";
 import Unsubmitted from "./components/timeblocks/Unsubmitted/Unsubmitted";
 import TaskView from "./components/projects/TaskView/TaskView";
 import ProjectForm from "./components/projects/ProjectForm";
