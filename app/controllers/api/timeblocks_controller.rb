@@ -24,8 +24,9 @@ class Api::TimeblocksController < ApplicationController
     end
 
     data = { timeBlocks: Timeblock.all,
-             projects: projects,
-             tasks: tasks }
+            projects: projects,
+            tasks: tasks,
+            users: User.all }
 
     render json: data
   end

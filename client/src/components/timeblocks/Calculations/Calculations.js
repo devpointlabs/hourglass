@@ -22,3 +22,14 @@ export const AddProjectInfoToTasks = (projects, tasks) => {
     };
   });
 };
+
+export const AddUserInfoToBlocks = (blocks, users) => {
+  return blocks.map(b => {
+    return {
+      ...b,
+      userInfo: users
+        .filter(u => u.id === b.user_id)
+        .reduce((acc, user) => acc + user)
+    };
+  });
+};

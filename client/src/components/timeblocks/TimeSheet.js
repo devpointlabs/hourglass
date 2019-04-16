@@ -10,7 +10,7 @@ import axios from "axios";
 import {
   CalculateHoursAndWeek,
   AddProjectInfoToTasks,
-  AddTaskInfoToTimeBlocks
+  AddUserInfoToBlocks
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
@@ -74,7 +74,11 @@ class TimeSheet extends React.Component {
           {
             projects: res.data.projects,
             tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-            timeBlocks: CalculateHoursAndWeek(res.data.timeBlocks)
+            timeBlocks: AddUserInfoToBlocks(
+              CalculateHoursAndWeek(res.data.timeBlocks),
+              res.data.users
+            ),
+            users: res.data.users
           },
           () => {
             this.checkForTimerRunning();
