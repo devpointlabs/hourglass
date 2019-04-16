@@ -6,6 +6,10 @@ class Api::ProjectsController < ApplicationController
     render json: Project.all 
   end
 
+  def projects_with_data
+    render json: Project.projects_with_data
+  end
+
   def show
     render json: @project
   end

@@ -18,7 +18,7 @@ class Projects extends React.Component {
 
   componentDidMount() {
     axios
-      .get("/api/projects")
+      .get("api/project/projects_with_data")
       .then(res => this.setState({ projects: res.data }));
   }
 
@@ -30,16 +30,16 @@ class Projects extends React.Component {
             style={{ color: "RebeccaPurple", fontWeight: "bold" }}
             to={`/projects/${p.id}`}
           >
-            {p.name ? p.name : "Project has no name"}
+            {p.project_name ? p.project_name : "Project has no name"}
           </Link>
         </Table.Cell>
         <Table.Cell>{p.client_name}</Table.Cell>
         <Table.Cell>{p.budget}</Table.Cell>
-        <Table.Cell>$$$$$$</Table.Cell>
+        <Table.Cell>{p.total_project_cost}</Table.Cell>
         <Table.Cell>
-          <Progress color="violet" percent="80" />
+          <Progress color="violet" percent={p.percent_spent} />
         </Table.Cell>
-        <Table.Cell>$$$$</Table.Cell>
+        <Table.Cell>{p.percent_spent}</Table.Cell>
       </Table.Row>
     ));
   };
@@ -80,7 +80,7 @@ class Projects extends React.Component {
                     <th>Budget</th>
                     <th>Spent</th>
                     <th />
-                    <th>Remaining</th>
+                    <th>Perecent Spent</th>
                   </tr>
                 </thead>
                 {this.showProjects()}
