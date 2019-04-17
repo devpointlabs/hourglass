@@ -31,16 +31,6 @@ class ProjectView extends React.Component {
     });
   }
 
-
-  // handleDelete = () => {
-  //   const { id } = this.props.match.params;
-  //   axios.delete(`/api/projects/${id}`).then(res => {
-  //     this.props.history.push("/projects");
-  //   });
-  // };
-
-
-
   setPage = page => {
     switch (page) {
       case "task":
@@ -72,8 +62,8 @@ class ProjectView extends React.Component {
 
   render() {
     const {
-      id,
-      name,
+      project_id,
+      project_name,
       client_name,
       planned_start,
       planned_end
@@ -88,13 +78,15 @@ class ProjectView extends React.Component {
             margin: "0px"
           }}
         >
-          <h1 style={{ marginLeft: "20px" }}>{name}
-            <span style={{ fontSize: '.8em' }}> ({client_name})</span>
-          </h1>
-          <h4 style={{ marginLeft: "20px" }}>
-            {" "}
-            {planned_start} - {planned_end}
-          </h4>
+          <Header as={Link} to={`/project/${project_id}/edit`}>
+            <h1 style={{ marginLeft: "20px" }}>{project_name}
+              <span style={{ fontSize: '.8em' }}> ({client_name})</span>
+            </h1>
+            <h4 style={{ marginLeft: "20px" }}>
+              {" "}
+              {planned_start} - {planned_end}
+            </h4>
+          </Header>
 
           <Segment>{this.renderPage()}</Segment>
         </Container>

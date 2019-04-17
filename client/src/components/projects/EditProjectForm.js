@@ -10,11 +10,6 @@ import {
   Container
 } from "semantic-ui-react";
 import axios from "axios";
-import TaskForm from "./TaskView/TaskForm";
-import TaskArrayForForm from "./TaskView/TaskArrayForForm";
-import AddUserToTask from "../AddUserToTask";
-import moment from "moment";
-import { Link } from "react-router-dom";
 import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 import TaskView from './TaskView/TaskView'
 import ProjectNavbar from './ProjectNavbar'
@@ -25,14 +20,15 @@ class EditProjectForm extends React.Component {
   state = {
     project: {},
     taskShown: false,
-    page: 'budget'
+    page: 'budget',
   };
 
   componentDidMount() {
     axios.get(`/api/projects/${this.props.match.params.id}`)
       .then(res => this.setState({ project: res.data }))
-
   }
+
+
 
   setEndDate = newdate =>
     this.setState({ project: { ...this.state.project, planned_end: newdate } });
@@ -41,13 +37,6 @@ class EditProjectForm extends React.Component {
     this.setState({
       project: { ...this.state.project, planned_start: newdate }
     });
-
-  toggleTask = () => (
-    this.setState({
-      taskShown: { ...this.state, taskShown: !this.state.taskShown }
-    }),
-    this.handleSubmit()
-  );
 
   handleChange = e => {
     const {
@@ -62,6 +51,13 @@ class EditProjectForm extends React.Component {
     axios
       .put(`/api/projects/${project.project_id}`, project)
       .then(this.props.history.push('/projects'));
+  };
+
+  deleteProject = () => {
+    const { project_id } = this.state.project
+    axios.delete(`/api/projects/${project_id}`).then(res => {
+      this.props.history.push("/projects");
+    });
   };
 
   setPage = page => {
@@ -177,7 +173,24 @@ class EditProjectForm extends React.Component {
 
           </div>
           <br />
-          <Button floated='center' style={{ color: 'white', background: "RebeccaPurple", }} onClick={() => this.handleSubmit()}>Save</Button>
+          <span>
+            <Button
+              floated='center'
+              style={{
+                color: 'white',
+                background: "RebeccaPurple",
+              }}
+              onClick={() => this.handleSubmit()}
+            >
+              Save
+            </Button>
+            <Button
+              color='red'
+              onClick={() => this.deleteProject()}
+            >
+              Delete Project
+            </Button>
+          </span>
           <br />
           <br />
 

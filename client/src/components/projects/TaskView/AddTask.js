@@ -35,8 +35,10 @@ class TaskForm extends React.Component {
           price_per_hour: "",
 
         }
-      });
+      }, () => this.props.getProjectTasks());
     });
+
+
   };
 
   handleBillable = () => {
