@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Icon } from "semantic-ui-react";
+import { Table, Icon, Popup } from "semantic-ui-react";
 import TimerStartStopButton from "../TimerStartStopButton";
 import moment from "moment";
 import { AuthConsumer } from "../../../providers/AuthProvider";
@@ -23,19 +23,38 @@ class DayViewTableRow extends React.Component {
           style={{ padding: 0, cursor: "pointer" }}
           colSpan={calcColSpan(timeBlock)}
         >
-          <div>
-            {this.props.auth.user.admin && (
-              <div>
-                <Icon name="user" style={{ color: "RebeccaPurple" }} />
-                {timeBlock.userInfo.name}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <div>
+              {this.props.auth.user.admin && (
+                <div>
+                  <Icon name="user" style={{ color: "RebeccaPurple" }} />
+                  {timeBlock.userInfo.name}
+                </div>
+              )}
+              <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
+                {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.name} (
+                {timeBlock.taskInfo &&
+                  timeBlock.taskInfo.projectInfo.client_name}
+                )
               </div>
-            )}
-            <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
-              {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.name} (
-              {timeBlock.taskInfo && timeBlock.taskInfo.projectInfo.client_name}
-              )
+              <div>{timeBlock.taskInfo && timeBlock.taskInfo.name}</div>
             </div>
-            <div>{timeBlock.taskInfo && timeBlock.taskInfo.name}</div>
+            <Popup
+              trigger={
+                <div style={{ padding: "5px", color: "lightgrey" }}>
+                  {timeBlock.status.substring(0, 1).toUpperCase()}
+                </div>
+              }
+              header={"Status Codes:"}
+              content={"T=Timer U=Unsubmitted P=Pending A=Approved"}
+              basic
+            />
           </div>
         </Table.Cell>
         <Table.Cell
@@ -83,5 +102,7 @@ export default ConnectedDayViewTableRow;
 
 const calcColSpan = timeBlock => {
   let numberDayOfWeek = moment(timeBlock.start_time).format("d");
+  if (numberDayOfWeek === "0") numberDayOfWeek = "7";
+
   return numberDayOfWeek;
 };
