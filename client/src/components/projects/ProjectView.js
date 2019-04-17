@@ -22,7 +22,6 @@ class ProjectView extends React.Component {
   state = {
     project: [],
     page: "",
-    toggleForm: false
   };
 
   componentDidMount() {
@@ -31,21 +30,6 @@ class ProjectView extends React.Component {
       this.setState({ project: res.data });
     });
   }
-
-  updateSubmit = project => {
-    this.setState({ project: project });
-  };
-
-  // handleDelete = () => {
-  //   const { id } = this.props.match.params;
-  //   axios.delete(`/api/projects/${id}`).then(res => {
-  //     this.props.history.push("/projects");
-  //   });
-  // };
-
-  handleToggle = () => {
-    this.setState({ toggleForm: !this.state.toggleForm });
-  };
 
   setPage = page => {
     switch (page) {
@@ -78,8 +62,8 @@ class ProjectView extends React.Component {
 
   render() {
     const {
-      id,
-      name,
+      project_id,
+      project_name,
       client_name,
       planned_start,
       planned_end
@@ -87,29 +71,22 @@ class ProjectView extends React.Component {
     return (
       <>
         <ProjectNavbar setPage={this.setPage} />
-        <div>
-          {this.state.toggleForm ? (
-            <ProjectForm
-              project={this.state.project}
-              updateSubmit={this.updateSubmit}
-            />
-          ) : (
-              <div />
-            )}
-        </div>
+
         <Container
           style={{
             paddingTop: "0px",
             margin: "0px"
           }}
         >
-          <h1 style={{ marginLeft: "20px" }}>{name}
-            <span style={{ fontSize: '.8em' }}> ({client_name})</span>
-          </h1>
-          <h4 style={{ marginLeft: "20px" }}>
-            {" "}
-            {planned_start} - {planned_end}
-          </h4>
+          <Header as={Link} to={`/project/${project_id}/edit`}>
+            <h1 style={{ marginLeft: "20px" }}>{project_name}
+              <span style={{ fontSize: '.8em' }}> ({client_name})</span>
+            </h1>
+            <h4 style={{ marginLeft: "20px" }}>
+              {" "}
+              {planned_start} - {planned_end}
+            </h4>
+          </Header>
 
           <Segment>{this.renderPage()}</Segment>
         </Container>

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get "/api/timeblock/pending", to: "api/timeblocks#pending_timeblocks"
   get "/api/task/:id/timeblocks_by_task", to: "api/timeblocks#timeblocks_by_task"
   put "/api/toggle_admin", to: "api/users#toggle_admin"
+  get "/api/projectdata/:project_id/tasks_with_data", to: "api/tasks#tasks_with_data"
   # post "/api/projects/users", to: "api/projects#u_by_p"
   get "/api/project/projects_with_data", to: "api/projects#projects_with_data"
 

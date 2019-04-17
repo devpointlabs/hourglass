@@ -16,7 +16,7 @@ class TaskForm extends React.Component {
       description: "",
       billable: false,
       price_per_hour: "",
-      id: ""
+      project_id: this.props.project.project_id
     },
     usersShown: false,
     modalOpen: false
@@ -25,7 +25,7 @@ class TaskForm extends React.Component {
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
-    axios.post(`/api/projects/${project.id}/tasks`, { task }).then(res => {
+    axios.post(`/api/projects/${project.project_id}/tasks`, { task }).then(res => {
       this.setState({
         task: {
           ...this.state.task,
@@ -33,10 +33,12 @@ class TaskForm extends React.Component {
           description: "",
           billable: false,
           price_per_hour: "",
-          id: ""
+
         }
-      });
+      }, () => this.props.getProjectTasks());
     });
+
+
   };
 
   handleBillable = () => {
