@@ -27,6 +27,7 @@ class EditProjectForm extends React.Component {
   componentDidMount() {
     axios.get(`/api/projects/${this.props.match.params.id}`)
       .then(res => this.setState({ project: res.data }))
+
   }
 
   setEndDate = newdate =>
@@ -155,7 +156,8 @@ class EditProjectForm extends React.Component {
           <br />
         </Form>
         <div style={{ padding: '35px' }}>
-          <TaskView project={this.state.project} />
+          {this.state.project.project_name && <TaskView project={this.state.project} />}
+
         </div>
         {/* <div>
           <TaskArrayForForm

@@ -11,13 +11,13 @@ class TaskView extends React.Component {
     this.getProjectTasks();
   }
 
-  // componentDidUpdate = (prevState) => {
-  //   if (prevState.modalOpen !== this.state.modalOpen)
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (prevState.tasks !== this.state.tasks)
   //     this.getProjectTasks()
   // }
 
   getProjectTasks = () => {
-    const { project } = this.props;
+    const { project, } = this.props;
     axios
       .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
@@ -42,7 +42,7 @@ class TaskView extends React.Component {
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
     return UnbillableTasks.map(task => (
-      <Table.Row key={task.id}>
+      <Table.Row key={task.project_id}>
         <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
           Total Hours

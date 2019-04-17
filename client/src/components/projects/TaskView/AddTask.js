@@ -16,7 +16,7 @@ class TaskForm extends React.Component {
       description: "",
       billable: false,
       price_per_hour: "",
-      id: ""
+      project_id: this.props.project.project_id
     },
     usersShown: false,
     modalOpen: false
@@ -33,7 +33,7 @@ class TaskForm extends React.Component {
           description: "",
           billable: false,
           price_per_hour: "",
-          id: ""
+
         }
       });
     });
