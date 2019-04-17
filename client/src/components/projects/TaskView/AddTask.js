@@ -25,7 +25,7 @@ class TaskForm extends React.Component {
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
-    axios.post(`/api/projects/${project.id}/tasks`, { task }).then(res => {
+    axios.post(`/api/projects/${project.project_id}/tasks`, { task }).then(res => {
       this.setState({
         task: {
           ...this.state.task,

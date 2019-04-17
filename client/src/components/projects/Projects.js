@@ -46,20 +46,13 @@ class Projects extends React.Component {
           </Table.Cell>
           <Table.Cell>{p.percent_spent}</Table.Cell>
           <Table.Cell>
-            <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
+            <Link to={`/project/${p.project_id}/edit`}>
+              <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
+            </Link>
           </Table.Cell>
 
         </Table.Row>
-        <div>
-          {this.state.toggleForm ? (
-            <ProjectForm
-              project={this.state.project}
-              updateSubmit={this.updateSubmit}
-            />
-          ) : (
-              <div />
-            )}
-        </div>
+
       </>
     ));
   };
@@ -99,6 +92,7 @@ class Projects extends React.Component {
                   </tr>
                 </thead>
                 {this.showProjects()}
+
 
               </table>
 

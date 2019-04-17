@@ -19,6 +19,7 @@ import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
+import EditProjectForm from './components/projects/EditProjectForm'
 
 const App = () => (
   <Fragment>
@@ -42,6 +43,7 @@ const App = () => (
               path="/projects/new"
               component={ProjectForm}
             />
+            <Route exact path="/project/:id/edit" component={EditProjectForm} />
             <Route exact path="/projects/:id" component={ProjectView} />
             <Route exact path="/profile" component={EditForm} />
             <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
