@@ -5,7 +5,7 @@ import axios from "axios";
 import AddTask from "./AddTask";
 
 class TaskView extends React.Component {
-  state = { tasks: [], };
+  state = { tasks: [], billableTotals: {}, unbillableTotals: {} };
 
   componentDidMount() {
     this.getProjectTasks();
@@ -16,6 +16,19 @@ class TaskView extends React.Component {
     axios
       .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
+    axios
+      .get(`/api/billable/${project.project_id}`)
+      .then(response => {
+        const billable = response.data.filter(b => b.billable && b)
+        const unbillable = response.data.filter(b => {
+          if (b.billable === false)
+            return b
+        })
+        this.setState({
+          billableTotals: billable,
+          unbillableTotals: unbillable
+        })
+      })
   };
 
   showBillableTasks = () => {
@@ -73,7 +86,8 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                Hours
+                <div>Hours</div>
+                {/* {something} */}
               </Table.Cell>
               <Table.Cell
                 style={{
@@ -127,7 +141,8 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                Hours
+                <div>Hours</div>
+                {/* {this.state.} */}
               </Table.Cell>
               <Table.Cell
                 style={{
