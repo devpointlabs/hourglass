@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Table, Header, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import AdminCheckbox from "./AdminCheckbox";
 import "./usersPage.css";
 
@@ -25,10 +26,12 @@ class Users extends React.Component {
               <Table.Cell>
                 <Header as="h4" image>
                   <Image src={u.image} rounded size="mini" />
-                  <Header.Content>
-                    {u.name}
-                    <Header.Subheader>{u.nickname}</Header.Subheader>
-                  </Header.Content>
+                  <Link to={`/employees/${u.id}`}>
+                    <Header.Content style={{ color: "purple" }}>
+                      {u.name}
+                      <Header.Subheader>{u.nickname}</Header.Subheader>
+                    </Header.Content>
+                  </Link>
                 </Header>
               </Table.Cell>
               <Table.Cell style={{ width: "40%" }}>{u.email}</Table.Cell>
