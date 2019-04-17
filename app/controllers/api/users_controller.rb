@@ -58,6 +58,10 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def users_with_project_hours
+    render json: User.total_hours_per_project(params[:project_id])
+  end
+
   def current_project
     render json: User.current(current_user.projects )
   end

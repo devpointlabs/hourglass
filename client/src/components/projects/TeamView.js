@@ -13,8 +13,8 @@ class TeamView extends React.Component {
   };
 
   componentDidMount() {
-    const { id } = this.props.project;
-    axios.get(`/api/projects/${id}/users`).then(res => {
+    const { project_id } = this.props.project;
+    axios.get(`/api/user/${project_id}/total_project_hours`).then(res => {
       this.setState({ users: res.data });
     });
   }
@@ -31,7 +31,7 @@ class TeamView extends React.Component {
       <Table.Row key={user.id}>
         <Table.Cell>{user.name}</Table.Cell>
         <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
-          Total Hours
+          {user.total_hours}
         </Table.Cell>
       </Table.Row>
     ));
