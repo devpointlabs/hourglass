@@ -15,7 +15,7 @@ class Project < ApplicationRecord
             t.description,
             t.billable,
             t.project_id AS task_project_id,
-            DATE_PART('hour', tb.end_time - tb.start_time) AS hours
+            (DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60 AS hours
         FROM projects AS p
         LEFT JOIN tasks AS t
             ON p.id = t.project_id
@@ -74,7 +74,7 @@ class Project < ApplicationRecord
             t.description,
             t.billable,
             t.project_id AS task_project_id,
-            DATE_PART('hour', tb.end_time - tb.start_time) AS hours
+            (DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60 AS hours
         FROM projects AS p
         LEFT JOIN tasks AS t
             ON p.id = t.project_id

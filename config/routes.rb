@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     # post "projects/users", to: "projects#u_by_p"
     get "project/projects_with_data", to: "projects#projects_with_data"
     get "projectdata/:project_id/tasks_with_data", to:"tasks#tasks_with_data"
-    get "user/:project_id/total_project_hours", to: "users#users_with_project_hours" 
+    get "user/:project_id/total_project_hours", to: "users#users_with_project_hours"
+    get "billable/:project_id", to: "tasks#billable_task_totals"
   end
   
 

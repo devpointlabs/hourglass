@@ -39,6 +39,10 @@ class Api::TasksController < ApplicationController
    render json: @project.tasks.find_with_hours
   end
 
+  def billable_task_totals
+    render json: Task.billable_task_totals(params[:project_id])
+  end
+
   private 
 
   def set_project
