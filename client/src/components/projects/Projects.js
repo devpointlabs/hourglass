@@ -44,7 +44,7 @@ class Projects extends React.Component {
           <Table.Cell style={{ paddingTop: '35px', }}>
             <Progress color="violet" percent={p.percent_spent} />
           </Table.Cell>
-          <Table.Cell>{p.percent_spent}</Table.Cell>
+          <Table.Cell>{p.percent_spent ? (p.percent_spent).toFixed(2) : 0}%</Table.Cell>
           <Table.Cell>
             <Link to={`/project/${p.project_id}/edit`}>
               <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
@@ -87,7 +87,7 @@ class Projects extends React.Component {
                     <th>Budget</th>
                     <th>Spent</th>
                     <th />
-                    <th>Perecent Spent</th>
+                    <th>Percent Spent</th>
                     <th style={{ width: '5%' }}>Edit</th>
                   </tr>
                 </thead>

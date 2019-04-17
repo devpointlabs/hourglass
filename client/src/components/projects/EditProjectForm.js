@@ -17,11 +17,15 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 import TaskView from './TaskView/TaskView'
+import ProjectNavbar from './ProjectNavbar'
+import BudgetView from './BudgetView'
+import TeamView from './TeamView'
 
 class EditProjectForm extends React.Component {
   state = {
     project: {},
-    taskShown: false
+    taskShown: false,
+    page: 'budget'
   };
 
   componentDidMount() {
@@ -60,6 +64,35 @@ class EditProjectForm extends React.Component {
       .then(this.props.history.push('/projects'));
   };
 
+  setPage = page => {
+    switch (page) {
+      case "task":
+        this.setState({ page: "task" });
+        break;
+      case "team":
+        this.setState({ page: "team" });
+        break;
+      case "budget":
+        this.setState({ page: "budget" });
+        break;
+      default:
+        return null;
+    }
+  };
+
+  renderPage = () => {
+    switch (this.state.page) {
+      case "task":
+        return <TaskView project={this.state.project} />;
+      case "team":
+        return <TeamView project={this.state.project} />;
+      case "budget":
+        return <BudgetView project={this.state.project} />;
+      default:
+        return <BudgetView project={this.state.project} />;
+    }
+  };
+
   render() {
     const {
       project_name,
@@ -72,20 +105,9 @@ class EditProjectForm extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Link to="/projects">
-          <Button
-            animated
-            style={{ marginTop: "15px" }}
-            inverted
-            color="violet"
-          >
-            <Button.Content visible>Back</Button.Content>
-            <Button.Content hidden>
-              <Icon name="angle left" />
-            </Button.Content>
-          </Button>
-        </Link>
+
         <Form style={{ marginTop: "30px", textAlign: "center" }}>
+
           <Header as="h1" icon>
             <Icon name="sitemap" circular />
             <Header.Content>{project_name}</Header.Content>
@@ -152,13 +174,21 @@ class EditProjectForm extends React.Component {
                 {end_date}
               </Label>
             ) : null}
+
           </div>
           <br />
+          <Button floated='center' style={{ color: 'white', background: "RebeccaPurple", }} onClick={() => this.handleSubmit()}>Save</Button>
+          <br />
+          <br />
+
         </Form>
+        <ProjectNavbar setPage={this.setPage} />
         <div style={{ padding: '35px' }}>
-          {this.state.project.project_name && <TaskView project={this.state.project} />}
+
+          {this.state.project.project_name && <Segment>{this.renderPage()}</Segment>}
 
         </div>
+
         {/* <div>
           <TaskArrayForForm
             project_id={this.state.project_id}

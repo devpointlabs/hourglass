@@ -23,7 +23,7 @@ class BudgetView extends React.Component {
           <Table.Row>
             <Table.Cell>${project.budget}</Table.Cell>
             <Table.Cell>${project.total_project_cost}</Table.Cell>
-            <Table.Cell>{project.percent_spent}%</Table.Cell>
+            <Table.Cell>{(project.percent_spent).toFixed(2)}%</Table.Cell>
             <Table.Cell>
               <Segment>
                 <Progress percent={project.percent_spent} color="violet" />

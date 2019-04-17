@@ -184,6 +184,7 @@ class TaskView extends React.Component {
         <AddTask project={this.props.project} />
         <br />
         <br />
+
       </>
     );
   }
