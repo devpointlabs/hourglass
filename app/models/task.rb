@@ -20,13 +20,12 @@ SELECT
     t.billable,
     DATE_PART('hour', tb.end_time - tb.start_time) AS hours
 FROM tasks AS t
-INNER JOIN projects AS p
+LEFT JOIN projects AS p
     ON p.id = t.project_id
 LEFT JOIN timeblocks AS tb
     ON t.id = tb.task_id
-INNER JOIN users AS u
+LEFT JOIN users AS u
     ON u.id = tb.user_id
-WHERE p.id = ?
 ORDER BY t.id
 )
 ,total_task_hours AS (

@@ -16,11 +16,11 @@ class Project < ApplicationRecord
           t.project_id AS task_project_id,
           DATE_PART('hour', tb.end_time - tb.start_time) AS hours
       FROM tasks AS t
-      INNER JOIN projects AS p
+      LEFT JOIN projects AS p
           ON p.id = t.project_id
       LEFT JOIN timeblocks AS tb
           ON t.id = tb.task_id
-      INNER JOIN users AS u
+      LEFT JOIN users AS u
           ON u.id = tb.user_id
       ORDER BY t.id
       )
@@ -58,11 +58,12 @@ class Project < ApplicationRecord
       FROM total_project_hours AS tph
       left join projects as p
           on p.id = task_project_id
-    ")
-end
+    "
+    )
+  end
 
-def self.project_with_data(project_id)
-  find_by_sql(["WITH cte AS (
+  def self.project_with_data(project_id)
+    find_by_sql(["WITH cte AS (
     SELECT
         p.id AS project_id,
         t.id AS task_id,
@@ -73,11 +74,11 @@ def self.project_with_data(project_id)
         t.project_id AS task_project_id,
         DATE_PART('hour', tb.end_time - tb.start_time) AS hours
     FROM tasks AS t
-    INNER JOIN projects AS p
+    LEFT JOIN projects AS p
         ON p.id = t.project_id
     LEFT JOIN timeblocks AS tb
         ON t.id = tb.task_id
-    INNER JOIN users AS u
+    LEFT JOIN users AS u
         ON u.id = tb.user_id
     WHERE p.id = ?
     ORDER BY t.id
@@ -116,6 +117,5 @@ def self.project_with_data(project_id)
     FROM total_project_hours AS tph
     left join projects as p
         on p.id = task_project_id", project_id]).first
-end
-
+  end
 end

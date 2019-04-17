@@ -86,18 +86,20 @@ class Navbar extends React.Component {
           <Link to="/">
             <HourGlassIcon />
           </Link>
-          <Link to="/projects">
-            <Menu.Item
-              name="projects"
-              id="projects"
-              style={{ color: "white" }}
-              active={
-                pathname === "/projects" ||
-                pathname === "/projects/new" ||
-                pathname === `/projects/${this.props.match.params.id}`
-              }
-            />
-          </Link>
+          {this.props.auth.user && this.props.auth.user.admin === true && (
+            <Link to="/projects">
+              <Menu.Item
+                name="projects"
+                id="projects"
+                style={{ color: "white" }}
+                active={
+                  pathname === "/projects" ||
+                  pathname === "/projects/new" ||
+                  pathname === `/projects/${this.props.match.params.id}`
+                }
+              />
+            </Link>
+          )}
           <Link to="/timesheet">
             <Menu.Item
               name="timesheet"
@@ -110,7 +112,16 @@ class Navbar extends React.Component {
               }
             />
           </Link>
-
+          {this.props.auth.user && this.props.auth.user.admin === true && (
+            <Link to="/users">
+              <Menu.Item
+                name="users"
+                id="users"
+                style={{ color: "white" }}
+                active={pathname === "/users"}
+              />
+            </Link>
+          )}
           {this.rightNavItems()}
         </Menu>
       </div>

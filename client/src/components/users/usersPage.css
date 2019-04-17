@@ -1,0 +1,9 @@
+.usersTableRow:hover {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+.ui.toggle.checkbox input:checked ~ .box::before,
+.ui.toggle.checkbox input:checked ~ label::before {
+  background: rebeccapurple !important;
+}

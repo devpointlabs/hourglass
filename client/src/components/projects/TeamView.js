@@ -3,13 +3,12 @@ import { Table, Header, Modal, Button } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
-import TaskForm from "./TaskView/TaskForm";
-import UsersArray from "../UsersArray";
+import EditTeam from "./EditTeam";
 
 class TeamView extends React.Component {
   state = {
     users: [],
-    project: {}
+    project: this.props.project
   };
 
   componentDidMount() {
@@ -17,13 +16,6 @@ class TeamView extends React.Component {
     axios.get(`/api/user/${project_id}/total_project_hours`).then(res => {
       this.setState({ users: res.data });
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props)
-      axios.get(`/api/projects/${this.props.id}`).then(res => {
-        this.setState({ project: res.data });
-      });
   }
 
   showTeam = () => {
@@ -54,15 +46,14 @@ class TeamView extends React.Component {
               circular
               color="violet"
               onClick={this.handleNew}
-              icon="add"
+              icon="edit"
               size="mini"
             />
           }
-          debugger
         >
-          <Modal.Header>Add New Team Member</Modal.Header>
+          <Modal.Header>Edit Team</Modal.Header>
           <Modal.Content>
-            <UsersArray />
+            <EditTeam />
           </Modal.Content>
         </Modal>
       </Fragment>

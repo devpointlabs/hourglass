@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :tasks do
       resources :timeblocks, only: [:index, :show]
     end
+
     get "admin/timeblocks", to: "timeblocks#admin_get_all_timeblocks"
     get "users/timeblocks", to: "users#grab_users_with_timeblocks"
     get ":project_id/view_tasks", to: "tasks#tasks_of_project"
@@ -32,6 +33,6 @@ Rails.application.routes.draw do
     get "user/:project_id/total_project_hours", to: "users#users_with_project_hours" 
   end
   
-  get "*other", to: "static#index"
 
+  get "*other", to: "static#index"
 end

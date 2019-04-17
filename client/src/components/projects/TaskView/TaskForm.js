@@ -21,7 +21,6 @@ class TaskForm extends React.Component {
   };
 
   handleSubmit = () => {
-    debugger;
     const { task } = this.state;
     const { project_id } = this.props;
     if (task.id && project_id) {
