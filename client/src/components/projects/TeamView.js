@@ -58,7 +58,6 @@ class TeamView extends React.Component {
               size="mini"
             />
           }
-          debugger
         >
           <Modal.Header>Add New Team Member</Modal.Header>
           <Modal.Content>
