@@ -1,15 +1,6 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { AuthConsumer } from "../providers/AuthProvider";
-import { Link } from "react-router-dom";
-import {
-  Segment,
-  Header,
-  Image,
-  List,
-  Divider,
-  Table
-} from "semantic-ui-react";
+import { Segment, Header, Image, Divider, Table } from "semantic-ui-react";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -29,7 +20,6 @@ const Employee = props => {
     axios.get(`/api/users/${id}`).then(res => setUser(res.data));
     axios.get(`/api/users/${id}/tasks`).then(res => {
       setTasks(res.data);
-      console.log(res.data);
     });
     axios.get(`/api/users/${id}/weekly_project_hours`).then(res => {
       setHours(res.data);
@@ -81,12 +71,6 @@ class EmployeeProps extends React.Component {
     user_id: this.props.match.params.id,
     task: {}
   };
-
-  // componentDidMount() {
-  //   axios
-  //     .get(`/api/projects/:project_id/tasks/:id`)
-  //     .then
-  // }
 
   render() {
     return <Employee id={this.state.user_id} />;

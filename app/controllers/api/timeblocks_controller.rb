@@ -70,7 +70,6 @@ class Api::TimeblocksController < ApplicationController
   end
   
   def weekly_project_hours
-    # binding.pry
     render json: Timeblock.weekly_project_hours(params[:id])
   end
 

@@ -79,7 +79,6 @@ class Api::UsersController < ApplicationController
   end
 
   def total_task_hours
-    # binding.pry
     render json: User.total_task_hours(params[:id])
   end
 
