@@ -26,6 +26,7 @@ LEFT JOIN timeblocks AS tb
     ON t.id = tb.task_id
 LEFT JOIN users AS u
     ON u.id = tb.user_id
+WHERE p.id = ?
 ORDER BY t.id
 )
 ,total_task_hours AS (
