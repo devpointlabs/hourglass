@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get "user/:project_id/total_project_hours", to: "users#users_with_project_hours"
     put "toggle_admin", to: "users#toggle_admin"
     delete "assignment/:user_id/:project_id/delete_by_u_and_p", to: "assignments#delete_by_u_and_p"
+    get "billable/:project_id", to: "tasks#billable_task_totals"
   end
 
   get "*other", to: "static#index"

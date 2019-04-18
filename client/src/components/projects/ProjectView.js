@@ -29,6 +29,7 @@ class ProjectView extends React.Component {
     axios.get(`/api/projects/${id}`).then(res => {
       this.setState({ project: res.data });
     });
+
   }
 
   setPage = page => {
