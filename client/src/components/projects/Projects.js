@@ -11,26 +11,29 @@ import {
   Progress
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
-import ModalForms from './ProjectModals/ProjectCreate/ModalForms'
-import EditProjectModal from './ProjectModals/ProjectEdit/EditModalForms'
-
+import ModalForms from "./ProjectModals/ProjectCreate/ModalForms";
+import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
 
 class Projects extends React.Component {
   state = { projects: [], toggleForm: false, project: {} };
 
   componentDidMount() {
+    this.getProjects();
+  }
+
+  getProjects = () => {
     axios
       .get("api/project/projects_with_data")
       .then(res => this.setState({ projects: res.data }));
-  }
-  handleToggle = (project) => {
-    this.setState({ toggleForm: !this.state.toggleForm, project: project });
   };
+
+  // handleToggle = (project) => {
+  //   this.setState({ toggleForm: !this.state.toggleForm, project: project });
+  // };
 
   showProjects = () => {
     return this.state.projects.map(p => (
       <>
-
         <Table.Row key={p.project_id}>
           <Table.Cell>
             <Link
@@ -43,16 +46,16 @@ class Projects extends React.Component {
           <Table.Cell>{p.client_name}</Table.Cell>
           <Table.Cell>{p.budget}</Table.Cell>
           <Table.Cell>{p.total_project_cost}</Table.Cell>
-          <Table.Cell style={{ paddingTop: '35px', }}>
+          <Table.Cell style={{ paddingTop: "35px" }}>
             <Progress color="violet" percent={p.percent_spent} />
           </Table.Cell>
-          <Table.Cell>{p.percent_spent ? (p.percent_spent).toFixed(2) : 0}%</Table.Cell>
           <Table.Cell>
-            <EditProjectModal project={p} />
+            {p.percent_spent ? p.percent_spent.toFixed(2) : 0}%
           </Table.Cell>
-
+          <Table.Cell>
+            <EditProjectModal getProjects={this.getProjects} project={p} />
+          </Table.Cell>
         </Table.Row>
-
       </>
     ));
   };
@@ -60,8 +63,7 @@ class Projects extends React.Component {
   render() {
     return (
       <>
-        <ModalForms />
-
+        <ModalForms getProjects={this.getProjects} />
 
         <Container>
           <Grid>
@@ -76,18 +78,14 @@ class Projects extends React.Component {
                     <th>Spent</th>
                     <th />
                     <th>Percent Spent</th>
-                    <th style={{ width: '5%' }}>Edit</th>
+                    <th style={{ width: "5%" }}>Edit</th>
                   </tr>
                 </thead>
                 {this.showProjects()}
-
-
               </table>
-
             </Grid.Column>
             {/* </Grid.Row> */}
           </Grid>
-
         </Container>
       </>
     );

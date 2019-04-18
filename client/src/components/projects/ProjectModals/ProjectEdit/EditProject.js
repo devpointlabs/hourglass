@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  Form,
-  Button,
-  Header,
-  Label,
-} from "semantic-ui-react";
+import { Form, Button, Header, Label, Popup, Icon } from "semantic-ui-react";
 import axios from "axios";
-import CalendarPickerForProjectForm from './CalendarPickerForProjectForm'
+import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 
 class EditProject extends React.Component {
   state = {
@@ -18,7 +13,7 @@ class EditProject extends React.Component {
       budget: this.props.project.budget,
       project_id: this.props.project.project_id
     }
-  }
+  };
 
   setEndDate = newdate =>
     this.setState({ project: { ...this.state.project, planned_end: newdate } });
@@ -40,16 +35,18 @@ class EditProject extends React.Component {
     e && e.preventDefault();
     axios
       .put(`/api/projects/${project.project_id}`, project)
-      .then(res =>
-        project.name && this.props.openModal2()
-      )
-  }
+      .then(res => project.name && this.props.openModal2());
+  };
 
   deleteProject = () => {
-    const { project_id } = this.state.project
-    axios.delete(`/api/projects/${project_id}`).then(res => {
-      this.props.history.push("/projects");
-    });
+    let r = window.confirm("Permanantly Delete Project?");
+    if (r === true) {
+      const { project_id } = this.state.project;
+      axios.delete(`/api/projects/${project_id}`).then(res => {
+        this.props.handleClose();
+      });
+    } else {
+    }
   };
 
   render() {
@@ -65,7 +62,6 @@ class EditProject extends React.Component {
     return (
       <>
         <Form style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
-
           <Form.Group style={styles.modal}>
             <Form.Input
               label="Name"
@@ -100,13 +96,10 @@ class EditProject extends React.Component {
               <Label basic>$</Label>
               <input />
               <Label>.00</Label>
-
             </Form.Input>
-
           </Form.Group>
           <span>
             <Form.Group style={{ justifyContent: "center" }}>
-
               <span style={{ paddingRight: "70px" }}>
                 <Header as="h4">Start Date</Header>
                 <CalendarPickerForProjectForm setDate={this.setStartDate} />
@@ -132,31 +125,54 @@ class EditProject extends React.Component {
                     {end_date}
                   </Label>
                 ) : null}
-
               </span>
-
             </Form.Group>
-            <span >
+          </span>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              marginTop: "10px",
+              alignItems: "flex-end"
+            }}
+          >
+            <div>
+              <Popup
+                trigger={
+                  <Icon
+                    onClick={() =>
+                      this.deleteProject(this.props.project.project_id)
+                    }
+                    name="trash alternate"
+                    style={{ color: "RebeccaPurple" }}
+                  />
+                }
+                content="Delete Project"
+              />
+            </div>
+            <div>
               <Button
-                floated="left"
-                style={{ background: 'RebeccaPurple', color: 'white' }}
+                style={{
+                  width: "100px"
+                }}
                 onClick={() => this.props.handleClose()}
               >
-                Close
-                  </Button>
-            </span>
-            <span>
+                Cancel
+              </Button>
               <Button
-                floated="right"
-                style={{ background: 'RebeccaPurple', color: 'white' }}
+                style={{
+                  width: "100px",
+                  color: "white",
+                  background: "RebeccaPurple",
+                  marginLeft: "10px"
+                }}
                 onClick={() => this.handleSubmit()}
               >
                 Next
-                  </Button>
-            </span>
-            <div style={{ padding: '15px' }} />
-          </span>
-
+              </Button>
+            </div>
+          </div>
         </Form>
       </>
     );
@@ -167,9 +183,9 @@ export default EditProject;
 
 const styles = {
   modal: {
-    position: 'relative',
-    maxWidth: '93%',
-    textAlign: 'center',
-    paddingLeft: '25px'
+    position: "relative",
+    maxWidth: "93%",
+    textAlign: "center",
+    paddingLeft: "25px"
   }
-}
+};
