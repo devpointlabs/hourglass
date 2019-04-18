@@ -25,8 +25,8 @@ class TaskView extends React.Component {
             return b
         })
         this.setState({
-          billableTotals: billable,
-          unbillableTotals: unbillable
+          billableTotals: billable[0],
+          unbillableTotals: unbillable[0]
         })
       })
   };
@@ -36,13 +36,13 @@ class TaskView extends React.Component {
     return billableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
+        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px" }}>
+        <Table.Cell style={{ paddingLeft: "200px", }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
       </Table.Row>
     ));
   };
@@ -52,13 +52,13 @@ class TaskView extends React.Component {
     return UnbillableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
+        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
       </Table.Row>
     ));
   };
@@ -86,8 +86,13 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div>Hours</div>
-                {/* {something} */}
+                <div style={{ textAlign: 'center' }}>Hours</div>
+                <div
+                  style={{ textAlign: 'center' }}
+                >
+                  {this.state.billableTotals.total_billable_hours &&
+                    (this.state.billableTotals.total_billable_hours).toFixed(1)}
+                </div>
               </Table.Cell>
               <Table.Cell
                 style={{
@@ -108,7 +113,7 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                ${this.props.project.total_project_cost}
+                ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -141,8 +146,13 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div>Hours</div>
-                {/* {this.state.} */}
+                <div style={{ textAlign: 'center' }}>Hours</div>
+                <div
+                  style={{ textAlign: 'center' }}
+                >
+                  {this.state.unbillableTotals.total_billable_hours &&
+                    (this.state.unbillableTotals.total_billable_hours).toFixed(1)}
+                </div>
               </Table.Cell>
               <Table.Cell
                 style={{
@@ -163,7 +173,7 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                ${this.props.project.total_project_cost}
+                ${this.state.unbillableTotals.total_billable_cost ? (this.state.unbillableTotals.total_billable_cost).toFixed(2) : '0'}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -189,7 +199,7 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                ${this.props.project.total_project_cost}
+                ${this.props.project.total_project_cost ? (this.props.project.total_project_cost).toFixed(2) : '0'}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
