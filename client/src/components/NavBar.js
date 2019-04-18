@@ -4,6 +4,7 @@ import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import HourGlassIcon from "./HourGlassIcon";
 import Clock from "./Clock";
+import styled from "styled-components";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -23,47 +24,57 @@ class Navbar extends React.Component {
           position="right"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <Clock />
-          <Link to="/profile">
-            <Menu.Item
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginRight: ".5em"
-              }}
-            >
-              <div style={{ paddingRight: "1em" }}>
-                <Image
-                  size="mini"
-                  src={this.props.auth.user.image || defaultImage}
-                  avatar
-                />
-              </div>
-              <span style={{ color: "white" }}>
-                {this.props.auth.user.name}
-              </span>
-            </Menu.Item>
-          </Link>
+          <Fade>
+            <Clock />
+          </Fade>
+          <SwitchDisplay>
+            <Link to="/profile">
+              <Menu.Item
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginRight: ".5em"
+                }}
+              >
+                <Fade style={{ paddingRight: "1em" }}>
+                  <Image
+                    size="mini"
+                    src={this.props.auth.user.image || defaultImage}
+                    avatar
+                  />
+                </Fade>
+                <TextSize>
+                  <span style={{ color: "white" }}>
+                    {this.props.auth.user.name}
+                  </span>
+                </TextSize>
+              </Menu.Item>
+            </Link>
+          </SwitchDisplay>
         </Menu.Menu>
       );
     } else {
       return (
         <Menu.Menu position="right">
           <Link to="/login">
-            <Menu.Item
-              id="login"
-              style={{ color: "white" }}
-              name="login"
-              active={location.pathname === "/login"}
-            />
+            <TextSize>
+              <Menu.Item
+                id="login"
+                style={{ color: "white" }}
+                name="login"
+                active={location.pathname === "/login"}
+              />
+            </TextSize>
           </Link>
           <Link to="/register">
-            <Menu.Item
-              id="register"
-              style={{ color: "white" }}
-              name="register"
-              active={location.pathname === "/register"}
-            />
+            <TextSize>
+              <Menu.Item
+                id="register"
+                style={{ color: "white" }}
+                name="register"
+                active={location.pathname === "/register"}
+              />
+            </TextSize>
           </Link>
         </Menu.Menu>
       );
@@ -73,7 +84,7 @@ class Navbar extends React.Component {
   render() {
     const { pathname } = this.props.location;
     return (
-      <div>
+      <Styled>
         <Menu
           pointing
           secondary
@@ -83,48 +94,56 @@ class Navbar extends React.Component {
             alignItems: "center"
           }}
         >
-          <Link to="/">
-            <HourGlassIcon />
-          </Link>
+          <Fade>
+            <Link to="/">
+              <HourGlassIcon />
+            </Link>
+          </Fade>
           {this.props.auth.user && this.props.auth.user.admin === true && (
             <Link to="/projects">
-              <Menu.Item
-                name="projects"
-                id="projects"
-                style={{ color: "white" }}
-                active={
-                  pathname === "/projects" ||
-                  pathname === "/projects/new" ||
-                  pathname === `/projects/${this.props.match.params.id}`
-                }
-              />
+              <TextSize>
+                <Menu.Item
+                  name="projects"
+                  id="projects"
+                  style={{ color: "white" }}
+                  active={
+                    pathname === "/projects" ||
+                    pathname === "/projects/new" ||
+                    pathname === `/projects/${this.props.match.params.id}`
+                  }
+                />
+              </TextSize>
             </Link>
           )}
           <Link to="/timesheet">
-            <Menu.Item
-              name="timesheet"
-              id="timesheet"
-              style={{ color: "white" }}
-              active={
-                pathname === "/timesheet" ||
-                pathname === "/timesheet/approve_timesheets" ||
-                pathname === "/timesheet/unsubmitted"
-              }
-            />
+            <TextSize>
+              <Menu.Item
+                name="timesheet"
+                id="timesheet"
+                style={{ color: "white" }}
+                active={
+                  pathname === "/timesheet" ||
+                  pathname === "/timesheet/approve_timesheets" ||
+                  pathname === "/timesheet/unsubmitted"
+                }
+              />
+            </TextSize>
           </Link>
           {this.props.auth.user && this.props.auth.user.admin === true && (
             <Link to="/users">
-              <Menu.Item
-                name="users"
-                id="users"
-                style={{ color: "white" }}
-                active={pathname === "/users"}
-              />
+              <TextSize>
+                <Menu.Item
+                  name="users"
+                  id="users"
+                  style={{ color: "white" }}
+                  active={pathname === "/users"}
+                />
+              </TextSize>
             </Link>
           )}
           {this.rightNavItems()}
         </Menu>
-      </div>
+      </Styled>
     );
   }
 }
@@ -138,5 +157,31 @@ export class ConnectedNavbar extends React.Component {
     );
   }
 }
+
+const Styled = styled.div`
+  @media (max-width: 700px) {
+    display: inline-block;
+    width: 100%;
+  }
+`;
+
+const TextSize = styled.div`
+  @media (max-width: 700px) {
+    font-size: .8em
+    float: left;
+  }
+`;
+
+const SwitchDisplay = styled.div`
+  @media (max-width: 700px) {
+    justify-content: space-around;
+  }
+`;
+
+const Fade = styled.div`
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
 
 export default withRouter(ConnectedNavbar);
