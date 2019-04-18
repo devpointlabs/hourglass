@@ -50,6 +50,33 @@ ON cte.id = tuh.id
 GROUP BY cte.id, cte.project_id, cte.name, tuh.total_hours
 ", id])
   end
+
+  def self.total_task_hours(id)
+    find_by_sql(["
+      WITH cte AS (
+        SELECT u.name AS user_name, 
+          t.name AS task_name, 
+          p.name AS project_name, 
+          date_part('hour', tb.end_time - tb.start_time) AS hours, 
+          t.id AS task_id,
+          p.client_name
+        FROM users AS u
+        LEFT JOIN assignments AS a 
+        ON u.id = a.user_id
+        LEFT JOIN projects AS p 
+        ON a.project_id = p.id
+        LEFT JOIN tasks AS t 
+        ON p.id = t.project_id
+        LEFT JOIN timeblocks AS tb 
+        ON tb.task_id = t.id
+        WHERE u.id = #{id}
+      )
+      SELECT 
+          sum(hours) AS total_task_hours, user_name, task_name, project_name, task_id, client_name
+      FROM cte
+      GROUP BY cte.user_name, cte.task_name, cte.project_name, cte.task_id, cte.client_name
+    "])
+  end
 end
 
 

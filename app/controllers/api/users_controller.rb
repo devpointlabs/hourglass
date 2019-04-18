@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:projects, :find_timeblocks, :employee]
+  before_action :set_user, only: [:projects, :find_timeblocks, :employee, :user_task_hours]
 
   def index
     if current_user.admin == true
@@ -76,6 +76,10 @@ class Api::UsersController < ApplicationController
 
   def find_timeblocks
     render json: @user.timeblocks
+  end
+
+  def total_task_hours
+    render json: User.total_task_hours(params[:id])
   end
 
   def toggle_admin
