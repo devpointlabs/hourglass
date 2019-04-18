@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import TaskForm from "./TaskForm";
-import { Table, Header, Button, Modal, Accordion } from "semantic-ui-react";
+import { Table, Header, } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
 
@@ -25,8 +25,8 @@ class TaskView extends React.Component {
             return b
         })
         this.setState({
-          billableTotals: billable[0],
-          unbillableTotals: unbillable[0]
+          billableTotals: billable ? billable[0] : 0,
+          unbillableTotals: unbillable ? unbillable[0] : 0
         })
       })
   };
@@ -173,7 +173,7 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                ${this.state.unbillableTotals.total_billable_cost ? (this.state.unbillableTotals.total_billable_cost).toFixed(2) : '0'}
+                {/* ${this.state.unbillableTotals.total_billable_cost ? (this.state.unbillableTotals.total_billable_cost).toFixed(2) : '0'} */}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
