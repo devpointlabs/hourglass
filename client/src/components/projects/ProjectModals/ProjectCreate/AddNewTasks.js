@@ -93,12 +93,20 @@ class AddNewTasks extends React.Component {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Checkbox label="Billable" onClick={this.handleBillable} />
+                  <Checkbox
+                    style={{ marginTop: "22px" }}
+                    label="Billable"
+                    onClick={this.handleBillable}
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   <Button
                     circular
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      marginTop: "20px",
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}
                     onClick={() => this.handleSubmit()}
                     size="mini"
                     icon="plus"
