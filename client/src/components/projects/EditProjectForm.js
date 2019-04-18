@@ -10,7 +10,7 @@ import {
   Container
 } from "semantic-ui-react";
 import axios from "axios";
-import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
+import CalendarPickerForProjectForm from "./ProjectModals/ProjectCreate/CalendarPickerForProjectForm";
 import TaskView from './TaskView/TaskView'
 import ProjectNavbar from './ProjectNavbar'
 import BudgetView from './BudgetView'
