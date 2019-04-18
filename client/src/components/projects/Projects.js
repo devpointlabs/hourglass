@@ -13,7 +13,6 @@ import {
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
 
-
 class Projects extends React.Component {
   state = { projects: [], toggleForm: false, project: {} };
 
@@ -22,7 +21,7 @@ class Projects extends React.Component {
       .get("api/project/projects_with_data")
       .then(res => this.setState({ projects: res.data }));
   }
-  handleToggle = (project) => {
+  handleToggle = project => {
     this.setState({ toggleForm: !this.state.toggleForm, project: project });
   };
 
@@ -41,18 +40,22 @@ class Projects extends React.Component {
           <Table.Cell>{p.client_name}</Table.Cell>
           <Table.Cell>{p.budget}</Table.Cell>
           <Table.Cell>{p.total_project_cost}</Table.Cell>
-          <Table.Cell style={{ paddingTop: '35px', }}>
+          <Table.Cell style={{ paddingTop: "35px" }}>
             <Progress color="violet" percent={p.percent_spent} />
           </Table.Cell>
-          <Table.Cell>{p.percent_spent ? (p.percent_spent).toFixed(2) : 0}%</Table.Cell>
+          <Table.Cell>
+            {p.percent_spent ? p.percent_spent.toFixed(2) : 0}%
+          </Table.Cell>
           <Table.Cell>
             <Link to={`/project/${p.project_id}/edit`}>
-              <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
+              <Icon
+                name="cog"
+                style={{ color: "RebeccaPurple" }}
+                onClick={() => this.handleToggle(p)}
+              />
             </Link>
           </Table.Cell>
-
         </Table.Row>
-
       </>
     ));
   };
@@ -73,8 +76,8 @@ class Projects extends React.Component {
               resetState={this.resetState}
             />
           ) : (
-              ""
-            )}
+            ""
+          )}
 
           <Grid>
             {/* <Grid.Row> */}
@@ -88,18 +91,14 @@ class Projects extends React.Component {
                     <th>Spent</th>
                     <th />
                     <th>Percent Spent</th>
-                    <th style={{ width: '5%' }}>Edit</th>
+                    <th style={{ width: "5%" }}>Edit</th>
                   </tr>
                 </thead>
                 {this.showProjects()}
-
-
               </table>
-
             </Grid.Column>
             {/* </Grid.Row> */}
           </Grid>
-
         </Container>
       </>
     );

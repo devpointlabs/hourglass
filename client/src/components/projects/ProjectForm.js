@@ -74,16 +74,15 @@ class ProjectForm extends React.Component {
   handleSubmit = e => {
     const { project } = this.state;
     // e.preventDefault();
-    if (this.props.project) {
-      const { id } = this.state.project;
-      axios
-        .put(`/api/projects/${id}`, project)
-        .then(res => this.props.updateSubmit(res.data));
-    } else {
-      axios.post(`/api/projects`, project).then(res => {
-        this.setState({ ...this.state, project_id: res.data.id });
-      });
-    }
+    // if (this.props.project) {
+    //   const { id } = this.state.project;
+    //   axios
+    //     .put(`/api/projects/${id}`, project)
+    //     .then(res => this.props.updateSubmit(res.data));
+    // } else {
+    axios.post(`/api/projects`, project).then(res => {
+      this.setState({ ...this.state, project_id: res.data.id });
+    });
   };
 
   render() {
@@ -202,8 +201,8 @@ class ProjectForm extends React.Component {
             <br />
           </div>
         ) : (
-            <div />
-          )}
+          <div />
+        )}
       </>
     );
   }
