@@ -12,6 +12,7 @@ import {
   Progress
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
+import ModalForms from './ProjectModals/ModalForms'
 
 
 class Projects extends React.Component {
@@ -29,6 +30,7 @@ class Projects extends React.Component {
   showProjects = () => {
     return this.state.projects.map(p => (
       <>
+
         <Table.Row key={p.project_id}>
           <Table.Cell>
             <Link
@@ -60,11 +62,8 @@ class Projects extends React.Component {
   render() {
     return (
       <>
-        <Menu style={{ marginTop: "0" }}>
-          <Link to="/projects/new">
-            <Menu.Item>Add New Project</Menu.Item>
-          </Link>
-        </Menu>
+        <ModalForms />
+
 
         <Container>
           {this.state.editing ? (

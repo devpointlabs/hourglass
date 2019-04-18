@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     get "projectdata/:project_id/tasks_with_data", to:"tasks#tasks_with_data"
     get "user/:project_id/total_project_hours", to: "users#users_with_project_hours"
     get "billable/:project_id", to: "tasks#billable_task_totals"
+    get "getlastproject", to: "projects#get_last_project"
   end
   
 
