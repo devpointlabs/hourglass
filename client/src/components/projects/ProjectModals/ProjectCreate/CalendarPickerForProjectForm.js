@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker2 from "../timeblocks/CalenderPicker/DatePicker2";
+import DatePicker2 from "../../../timeblocks/CalenderPicker/DatePicker2";
 import moment from "moment";
 
 class DatePicker extends React.Component {

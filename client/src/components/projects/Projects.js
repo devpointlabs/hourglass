@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import ProjectForm from "./ProjectForm";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -12,6 +11,8 @@ import {
   Progress
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
+import ModalForms from './ProjectModals/ProjectCreate/ModalForms'
+import EditProjectModal from './ProjectModals/ProjectEdit/EditModalForms'
 
 
 class Projects extends React.Component {
@@ -29,6 +30,7 @@ class Projects extends React.Component {
   showProjects = () => {
     return this.state.projects.map(p => (
       <>
+
         <Table.Row key={p.project_id}>
           <Table.Cell>
             <Link
@@ -46,9 +48,7 @@ class Projects extends React.Component {
           </Table.Cell>
           <Table.Cell>{p.percent_spent ? (p.percent_spent).toFixed(2) : 0}%</Table.Cell>
           <Table.Cell>
-            <Link to={`/project/${p.project_id}/edit`}>
-              <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
-            </Link>
+            <EditProjectModal project={p} />
           </Table.Cell>
 
         </Table.Row>
@@ -60,22 +60,10 @@ class Projects extends React.Component {
   render() {
     return (
       <>
-        <Menu style={{ marginTop: "0" }}>
-          <Link to="/projects/new">
-            <Menu.Item>Add New Project</Menu.Item>
-          </Link>
-        </Menu>
+        <ModalForms />
+
 
         <Container>
-          {this.state.editing ? (
-            <ProjectForm
-              toggleEdit={this.toggleEdit}
-              resetState={this.resetState}
-            />
-          ) : (
-              ""
-            )}
-
           <Grid>
             {/* <Grid.Row> */}
             <Grid.Column columns={2} style={{ marginTop: "30px" }}>

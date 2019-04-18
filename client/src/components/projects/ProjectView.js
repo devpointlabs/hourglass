@@ -16,7 +16,7 @@ import {
 import TaskView from "./TaskView/TaskView";
 import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
-import ProjectForm from "./ProjectForm";
+import ProjectForm from "./ProjectLegacy/ProjectForm";
 
 class ProjectView extends React.Component {
   state = {

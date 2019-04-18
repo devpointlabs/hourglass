@@ -14,6 +14,10 @@ class Api::ProjectsController < ApplicationController
     render json: Project.project_with_data(params[:id])
   end
 
+  def get_last_project
+    render json: Project.last
+  end
+
   def create
     project = Project.new(project_params)
     if project.save 
