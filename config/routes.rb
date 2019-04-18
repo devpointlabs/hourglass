@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
     get "admin/timeblocks", to: "timeblocks#admin_get_all_timeblocks"
     get "users/timeblocks", to: "users#grab_users_with_timeblocks"
+    get "user/:user_id/pendingtimeblocks", to: "timeblocks#user_pending_timeblocks"
     get ":project_id/view_tasks", to: "tasks#tasks_of_project"
     get "projects/:project_id/users/:user_id", to: "assignments#find_by_u_and_p"
     get "projects/:id/users", to: "projects#u_by_p"
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
     put "toggle_admin", to: "users#toggle_admin"
     delete "assignment/:user_id/:project_id/delete_by_u_and_p", to: "assignments#delete_by_u_and_p"
     get "billable/:project_id", to: "tasks#billable_task_totals"
+    put "approve_all_pending", to: "timeblocks#approve_pending_timeblocks"
     get "getlastproject", to: "projects#get_last_project"
   end
 

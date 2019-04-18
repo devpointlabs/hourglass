@@ -1,17 +1,25 @@
 import React from "react";
-import { Table, Header } from "semantic-ui-react";
+import { Table, Header, Button } from "semantic-ui-react";
 import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 import ApproveTimesheetsRow from "./ApproveTimesheetsRow";
 import axios from "axios";
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 class ApproveTimesheets extends React.Component {
   state = {
     timeblocks: []
   };
   componentDidMount() {
-    axios.get("/api/timeblock/pending").then(res => {
-      this.setState({ timeblocks: res.data });
-    });
+    if (this.props.auth.user.admin === true) {
+      axios.get("/api/timeblock/pending").then(res => {
+        this.setState({ timeblocks: res.data });
+      });
+    } else {
+      const { id } = this.props.auth.user;
+      axios.get(`/api/user/${id}/pendingtimeblocks`).then(res => {
+        this.setState({ timeblocks: res.data });
+      });
+    }
   }
 
   removeTimeblock = id => {
@@ -26,12 +34,17 @@ class ApproveTimesheets extends React.Component {
     ));
   };
 
+  approveAll = () => {
+    axios.put(`/api/approve_all_pending`);
+    this.setState({ timeblocks: [] });
+  };
+
   render() {
     return (
       <>
         <TimeBlockNavbar />
         <Header textAlign="center" as="h1">
-          Approve Timeblocks
+          Pending Approval
         </Header>
         <Table>
           <Table.Header>
@@ -42,7 +55,12 @@ class ApproveTimesheets extends React.Component {
             <Table.HeaderCell> Clocked In</Table.HeaderCell>
             <Table.HeaderCell> Clocked Out</Table.HeaderCell>
             <Table.HeaderCell> Hours</Table.HeaderCell>
-            <Table.HeaderCell> Approve or Edit</Table.HeaderCell>
+            <Table.HeaderCell>
+              {" "}
+              {this.props.auth.user.admin ? (
+                <Button onClick={this.approveAll}>Approve All</Button>
+              ) : null}
+            </Table.HeaderCell>
           </Table.Header>
           <Table.Body>{this.showTimeblocks()}</Table.Body>
         </Table>
@@ -51,4 +69,13 @@ class ApproveTimesheets extends React.Component {
   }
 }
 
-export default ApproveTimesheets;
+export class ConnectedApproveTimesheets extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <ApproveTimesheets {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+export default ConnectedApproveTimesheets;
