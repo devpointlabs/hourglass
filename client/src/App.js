@@ -23,44 +23,52 @@ import EditProjectForm from "./components/projects/EditProjectForm";
 
 const App = () => (
   <Fragment>
-    {/* <div 
-    //   style={{
-    //     backgroundImage: "linear-gradient(to bottom right, #c1c1c1, #341e4f)"
-    //   }}
-    // > */}
-    <FetchUser>
-      <Container style={{ background: "white", minHeight: "100vh" }}>
-        <Navbar />
-        <GreyGradientLine />
-        <Switch>
-          <ProtectedRoute exact path="/" component={TimeSheet} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profile" component={EditForm} />
-          <ProtectedRoute exact path="/projects" component={Projects} />
-          <ProtectedRoute exact path="/projects/new" component={ProjectForm} />
-          <Route exact path="/project/:id/edit" component={EditProjectForm} />
-          <Route exact path="/projects/:id" component={ProjectView} />
-          <Route exact path="/profile" component={EditForm} />
-          <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
-          <Route exact path="/timesheet/unsubmitted" component={Unsubmitted} />
-          <Route
-            exact
-            path="/timesheet/approve_timesheets"
-            component={ApproveTimesheets}
-          />
-          <ProtectedRoute exact path="/taskview" component={TaskView} />
-          <ProtectedRoute exact path="/users" component={Users} />
-          <ProtectedRoute
-            exact
-            path="/employees/:id"
-            component={EmployeeView}
-          />
-          <Route component={NoMatch} />
-        </Switch>
-      </Container>
-    </FetchUser>
-    {/* </div> */}
+    <div
+      style={{
+        backgroundImage: "linear-gradient(to bottom right, #c1c1c1, #341e4f)"
+      }}
+    >
+      <FetchUser>
+        <Container style={{ background: "white", minHeight: "100vh" }}>
+          <Navbar />
+          <GreyGradientLine />
+          <Switch>
+            <ProtectedRoute exact path="/" component={TimeSheet} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={EditForm} />
+            <ProtectedRoute exact path="/projects" component={Projects} />
+            <ProtectedRoute
+              exact
+              path="/projects/new"
+              component={ProjectForm}
+            />
+            <Route exact path="/project/:id/edit" component={EditProjectForm} />
+            <Route exact path="/projects/:id" component={ProjectView} />
+            <Route exact path="/profile" component={EditForm} />
+            <ProtectedRoute exact path="/timesheet" component={TimeSheet} />
+            <Route
+              exact
+              path="/timesheet/unsubmitted"
+              component={Unsubmitted}
+            />
+            <Route
+              exact
+              path="/timesheet/approve_timesheets"
+              component={ApproveTimesheets}
+            />
+            <ProtectedRoute exact path="/taskview" component={TaskView} />
+            <ProtectedRoute exact path="/users" component={Users} />
+            <ProtectedRoute
+              exact
+              path="/employees/:id"
+              component={EmployeeView}
+            />
+            <Route component={NoMatch} />
+          </Switch>
+        </Container>
+      </FetchUser>
+    </div>
   </Fragment>
 );
 
