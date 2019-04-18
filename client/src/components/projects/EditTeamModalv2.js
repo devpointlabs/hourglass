@@ -7,14 +7,15 @@ class EditTeamModalv2 extends React.Component {
   state = { allUsers: [], assignedUsers: this.props.users };
 
   componentDidMount() {
-    axios.get(`/api/projects/${this.props.project_id}/users`)
-      .then(res => this.setState(
-        { assignedUsers: res.data }, () => axios.get("/api/users").then(res =>
+    axios.get(`/api/projects/${this.props.project_id}/users`).then(res =>
+      this.setState({ assignedUsers: res.data }, () =>
+        axios.get("/api/users").then(res =>
           this.setState({
             allUsers: this.filterAssignedUsersFromAllUsers(res.data)
           })
-        )));
-
+        )
+      )
+    );
   }
 
   filterAssignedUsersFromAllUsers = allUsers => {

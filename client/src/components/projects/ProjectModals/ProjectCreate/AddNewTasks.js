@@ -126,8 +126,8 @@ export default AddNewTasks;
 const styles = {
   modal: {
     position: "relative",
-    maxWidth: "100%",
+    maxWidth: "93%",
     textAlign: "center",
-    padding: "20px"
+    paddingLeft: "25px"
   }
 };

@@ -1,19 +1,18 @@
 import React from "react";
 
-import { Table, Button, } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import axios from "axios";
-import AddNewTasks from "./AddNewTasks"
-
+import AddNewTasks from "./AddNewTasks";
 
 class EditTaskTable extends React.Component {
   state = { tasks: [], project: this.props.project };
 
   componentDidMount = () => {
     this.getProjectTasks();
-  }
+  };
 
   getProjectTasks = () => {
-    const { project, } = this.state;
+    const { project } = this.state;
     axios
       .get(`/api/projectdata/${this.props.project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
@@ -24,13 +23,17 @@ class EditTaskTable extends React.Component {
     return billableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
+        <Table.Cell
+          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
+        >
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px", }}>
+        <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: "center" }}>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -40,25 +43,32 @@ class EditTaskTable extends React.Component {
     return UnbillableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
+        <Table.Cell
+          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
+        >
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: "center" }}>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
 
   handleSubmit2 = () => {
-    this.props.openModal3()
-  }
+    this.props.openModal3();
+  };
 
   render() {
     return (
       <>
-        <AddNewTasks project={this.props.project} getProjectTasks={this.getProjectTasks} />
+        <AddNewTasks
+          project={this.props.project}
+          getProjectTasks={this.getProjectTasks}
+        />
         <Table>
           <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
@@ -78,10 +88,8 @@ class EditTaskTable extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div style={{ textAlign: 'center' }}>Hours</div>
-                <div
-                  style={{ textAlign: 'center' }}
-                >
+                <div style={{ textAlign: "center" }}>Hours</div>
+                <div style={{ textAlign: "center" }}>
                   {/* {this.state.billableTotals.total_billable_hours &&
                     (this.state.billableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
@@ -138,10 +146,8 @@ class EditTaskTable extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div style={{ textAlign: 'center' }}>Hours</div>
-                <div
-                  style={{ textAlign: 'center' }}
-                >
+                <div style={{ textAlign: "center" }}>Hours</div>
+                <div style={{ textAlign: "center" }}>
                   {/* {this.state.unbillableTotals.total_billable_hours &&
                     (this.state.unbillableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
@@ -202,15 +208,14 @@ class EditTaskTable extends React.Component {
           onClick={() => this.props.closeModal2()}
         >
           Close
-            </Button>
+        </Button>
         <Button
           floated="right"
           style={{ background: "RebeccaPurple", color: "white" }}
           onClick={() => this.handleSubmit2()}
         >
           Next
-            </Button>
-
+        </Button>
       </>
     );
   }

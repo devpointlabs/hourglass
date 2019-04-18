@@ -114,35 +114,26 @@ class NewProject extends React.Component {
                 ) : null}
               </span>
             </Form.Group>
+            <span>
+              <Button
+                floated="left"
+                style={{ background: "RebeccaPurple", color: "white" }}
+                onClick={() => this.props.handleClose()}
+              >
+                Close
+              </Button>
+            </span>
+            <span>
+              <Button
+                floated="right"
+                style={{ background: "RebeccaPurple", color: "white" }}
+                onClick={() => this.handleSubmit()}
+              >
+                Next
+              </Button>
+            </span>
+            <div style={{ padding: "15px" }} />
           </span>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              width: "100%",
-              marginTop: "10px"
-            }}
-          >
-            <Button
-              style={{
-                width: "100px"
-              }}
-              onClick={() => this.props.handleClose()}
-            >
-              Cancel
-            </Button>
-            <Button
-              style={{
-                width: "100px",
-                color: "white",
-                background: "RebeccaPurple",
-                marginLeft: "10px"
-              }}
-              onClick={() => this.handleSubmit()}
-            >
-              Next
-            </Button>
-          </div>
         </Form>
       </>
     );
