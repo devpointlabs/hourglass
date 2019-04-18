@@ -17,6 +17,7 @@ class DayViewTableRow extends React.Component {
         onClick={() => {
           timeBlock.status === "unSubmitted" && handleOpen(timeBlock);
           timeBlock.status === "pending" && handleOpen2(timeBlock);
+          timeBlock.status === "approved" && handleOpen2(timeBlock);
         }}
       >
         <Table.Cell

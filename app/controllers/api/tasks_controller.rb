@@ -1,7 +1,7 @@
 class Api::TasksController < ApplicationController
   before_action :set_project, except: [:destroy, :tasks_with_data]
-  before_action :set_task, only: [ :show, :update, :destroy]
-  
+  before_action :set_task, only: [:show, :update, :destroy]
+
   def index
     render json: @project.tasks
   end
@@ -12,19 +12,19 @@ class Api::TasksController < ApplicationController
 
   def create
     task = @project.tasks.new(task_params)
-    if task.save 
+    if task.save
       render json: task
-    else  
+    else
       render json: task.errors, status: 422
-    end  
+    end
   end
 
   def update
     if @task.update(task_params)
       render json: @task
-    else   
+    else
       render json: @task.errors, status: 422
-    end    
+    end
   end
 
   def tasks_with_data
@@ -36,14 +36,14 @@ class Api::TasksController < ApplicationController
   end
 
   def tasks_of_project
-   render json: @project.tasks.find_with_hours
+    render json: @project.tasks
   end
 
   def billable_task_totals
     render json: Task.billable_task_totals(params[:project_id])
   end
 
-  private 
+  private
 
   def set_project
     @project = Project.find(params[:project_id])
@@ -53,7 +53,7 @@ class Api::TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def task_params 
+  def task_params
     params.require(:task).permit(:name, :description, :billable, :price_per_hour)
-  end  
+  end
 end

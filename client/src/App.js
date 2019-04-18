@@ -14,12 +14,11 @@ import EditForm from "./components/projects/EditForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
 import Unsubmitted from "./components/timeblocks/Unsubmitted/Unsubmitted";
 import TaskView from "./components/projects/TaskView/TaskView";
-import ProjectForm from "./components/projects/ProjectForm";
 import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
-import EditProjectForm from './components/projects/EditProjectForm'
+import EditProjectForm from "./components/projects/EditProjectForm";
 
 const App = () => (
   <Fragment>
@@ -38,11 +37,6 @@ const App = () => (
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={EditForm} />
             <ProtectedRoute exact path="/projects" component={Projects} />
-            <ProtectedRoute
-              exact
-              path="/projects/new"
-              component={ProjectForm}
-            />
             <Route exact path="/project/:id/edit" component={EditProjectForm} />
             <Route exact path="/projects/:id" component={ProjectView} />
             <Route exact path="/profile" component={EditForm} />

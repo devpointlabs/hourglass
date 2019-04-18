@@ -45,10 +45,10 @@ class Task < ApplicationRecord
     SELECT tth.*
     FROM total_task_hours AS tth
         ", project_id])
-    end
+  end
 
-    def self.billable_task_totals(project_id)
-        find_by_sql(["
+  def self.billable_task_totals(project_id)
+    find_by_sql(["
     WITH cte AS (
     SELECT
         tb.task_id,
@@ -88,9 +88,7 @@ class Task < ApplicationRecord
     billable,
     total_billable_hours,
     total_billable_cost
-    FROM total_billable_hours
-           
+    FROM total_billable_hours      
         ", project_id])
-    end
-
+  end
 end

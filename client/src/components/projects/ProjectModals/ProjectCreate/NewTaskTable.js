@@ -1,31 +1,23 @@
-import React, { Fragment } from "react";
-import TaskForm from "./TaskForm";
-import { Table, Header } from "semantic-ui-react";
+import React from "react";
+
+import { Table, Button } from "semantic-ui-react";
 import axios from "axios";
-import AddTask from "./AddTask";
+import AddNewTasks from "./AddNewTasks";
 
-class TaskView extends React.Component {
-  state = { tasks: [], billableTotals: {}, unbillableTotals: {} };
+class NewTaskTable extends React.Component {
+  state = { tasks: [], project: {} };
 
-  componentDidMount() {
-    this.getProjectTasks();
-  }
+  componentDidMount = () => {
+    axios
+      .get("/api/getlastproject")
+      .then(res => this.setState({ project: res.data }));
+  };
 
   getProjectTasks = () => {
-    const { project } = this.props;
+    const { project } = this.state;
     axios
-      .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
+      .get(`/api/projectdata/${project.id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
-    axios.get(`/api/billable/${project.project_id}`).then(response => {
-      const billable = response.data.filter(b => b.billable && b);
-      const unbillable = response.data.filter(b => {
-        if (b.billable === false) return b;
-      });
-      this.setState({
-        billableTotals: billable[0],
-        unbillableTotals: unbillable[0]
-      });
-    });
   };
 
   showBillableTasks = () => {
@@ -68,10 +60,17 @@ class TaskView extends React.Component {
     ));
   };
 
+  handleSubmit2 = () => {
+    this.props.openModal3();
+  };
+
   render() {
     return (
       <>
-        <Header as="h1">Tasks</Header>
+        <AddNewTasks
+          project={this.state.project}
+          getProjectTasks={this.getProjectTasks}
+        />
         <Table>
           <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
@@ -92,10 +91,6 @@ class TaskView extends React.Component {
                 }}
               >
                 <div style={{ textAlign: "center" }}>Hours</div>
-                <div style={{ textAlign: "center" }}>
-                  {/* {this.state.billableTotals.total_billable_hours &&
-                    (this.state.billableTotals.total_billable_hours).toFixed(1)} */}
-                </div>
               </Table.Cell>
               <Table.Cell
                 style={{
@@ -116,7 +111,6 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                {/* ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'} */}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -150,10 +144,6 @@ class TaskView extends React.Component {
                 }}
               >
                 <div style={{ textAlign: "center" }}>Hours</div>
-                <div style={{ textAlign: "center" }}>
-                  {/* {this.state.unbillableTotals.total_billable_hours &&
-                    (this.state.unbillableTotals.total_billable_hours).toFixed(1)} */}
-                </div>
               </Table.Cell>
               <Table.Cell
                 style={{
@@ -174,11 +164,9 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                {/* ${this.state.unbillableTotals.total_billable_cost ? (this.state.unbillableTotals.total_billable_cost).toFixed(2) : '0'} */}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
             <Table.Row>
               <Table.Cell colSpan="4" />
@@ -188,34 +176,24 @@ class TaskView extends React.Component {
               <Table.Cell colSpan="4" />
             </Table.Row>
           </Table.Body>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell colSpan="3" />
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>$
-                {this.props.project.total_project_cost
-                  ? this.props.project.total_project_cost.toFixed(2)
-                  : "0"}
-              </Table.Cell>
-            </Table.Row>
-          </Table.Header>
         </Table>
-        <AddTask
-          project={this.props.project}
-          getProjectTasks={this.getProjectTasks}
-        />
-        <br />
-        <br />
+        <Button
+          floated="left"
+          style={{ background: "RebeccaPurple", color: "white" }}
+          onClick={() => this.props.closeModal2()}
+        >
+          Close
+        </Button>
+        <Button
+          floated="right"
+          style={{ background: "RebeccaPurple", color: "white" }}
+          onClick={() => this.handleSubmit2()}
+        >
+          Next
+        </Button>
       </>
     );
   }
 }
 
-export default TaskView;
+export default NewTaskTable;

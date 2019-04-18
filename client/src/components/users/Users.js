@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import AdminCheckbox from "./AdminCheckbox";
 import "./usersPage.css";
 
+const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
+
 class Users extends React.Component {
   state = { users: [] };
 
@@ -25,9 +27,9 @@ class Users extends React.Component {
             <Table.Row className="usersTableRow">
               <Table.Cell>
                 <Header as="h4" image>
-                  <Image src={u.image} rounded size="mini" />
+                  <Image src={u.image || defaultImage} rounded size="mini" />
                   <Link to={`/employees/${u.id}`}>
-                    <Header.Content style={{ color: "purple" }}>
+                    <Header.Content style={{ color: "RebeccaPurple" }}>
                       {u.name}
                       <Header.Subheader>{u.nickname}</Header.Subheader>
                     </Header.Content>

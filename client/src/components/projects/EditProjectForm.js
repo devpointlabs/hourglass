@@ -10,25 +10,24 @@ import {
   Container
 } from "semantic-ui-react";
 import axios from "axios";
-import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
-import TaskView from './TaskView/TaskView'
-import ProjectNavbar from './ProjectNavbar'
-import BudgetView from './BudgetView'
-import TeamView from './TeamView'
+import CalendarPickerForProjectForm from "./ProjectModals/ProjectCreate/CalendarPickerForProjectForm";
+import TaskView from "./TaskView/TaskView";
+import ProjectNavbar from "./ProjectNavbar";
+import BudgetView from "./BudgetView";
+import TeamView from "./TeamView";
 
 class EditProjectForm extends React.Component {
   state = {
     project: {},
     taskShown: false,
-    page: 'budget',
+    page: "budget"
   };
 
   componentDidMount() {
-    axios.get(`/api/projects/${this.props.match.params.id}`)
-      .then(res => this.setState({ project: res.data }))
+    axios
+      .get(`/api/projects/${this.props.match.params.id}`)
+      .then(res => this.setState({ project: res.data }));
   }
-
-
 
   setEndDate = newdate =>
     this.setState({ project: { ...this.state.project, planned_end: newdate } });
@@ -50,11 +49,11 @@ class EditProjectForm extends React.Component {
     e && e.preventDefault();
     axios
       .put(`/api/projects/${project.project_id}`, project)
-      .then(this.props.history.push('/projects'));
+      .then(this.props.history.push("/projects"));
   };
 
   deleteProject = () => {
-    const { project_id } = this.state.project
+    const { project_id } = this.state.project;
     axios.delete(`/api/projects/${project_id}`).then(res => {
       this.props.history.push("/projects");
     });
@@ -101,9 +100,7 @@ class EditProjectForm extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-
         <Form style={{ marginTop: "30px", textAlign: "center" }}>
-
           <Header as="h1" icon>
             <Icon name="sitemap" circular />
             <Header.Content>{project_name}</Header.Content>
@@ -170,36 +167,31 @@ class EditProjectForm extends React.Component {
                 {end_date}
               </Label>
             ) : null}
-
           </div>
           <br />
           <span>
             <Button
-              floated='center'
+              floated="center"
               style={{
-                color: 'white',
-                background: "RebeccaPurple",
+                color: "white",
+                background: "RebeccaPurple"
               }}
               onClick={() => this.handleSubmit()}
             >
               Save
             </Button>
-            <Button
-              color='red'
-              onClick={() => this.deleteProject()}
-            >
+            <Button color="red" onClick={() => this.deleteProject()}>
               Delete Project
             </Button>
           </span>
           <br />
           <br />
-
         </Form>
         <ProjectNavbar setPage={this.setPage} />
-        <div style={{ padding: '35px' }}>
-
-          {this.state.project.project_name && <Segment>{this.renderPage()}</Segment>}
-
+        <div style={{ padding: "35px" }}>
+          {this.state.project.project_name && (
+            <Segment>{this.renderPage()}</Segment>
+          )}
         </div>
 
         {/* <div>
@@ -208,7 +200,6 @@ class EditProjectForm extends React.Component {
             handleToggle={this.props.handleToggle}
           />
         </div> */}
-
       </>
     );
   }
