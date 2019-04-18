@@ -1,9 +1,9 @@
 class Api::ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [ :show, :update, :destroy, :u_by_p]
-  
+  before_action :set_project, only: [:show, :update, :destroy, :u_by_p]
+
   def index
-    render json: Project.all 
+    render json: Project.all
   end
 
   def projects_with_data
@@ -20,11 +20,11 @@ class Api::ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    if project.save 
+    if project.save
       render json: project
-    else  
+    else
       render json: project.errors, status: 422
-    end  
+    end
   end
 
   def update
@@ -32,7 +32,7 @@ class Api::ProjectsController < ApplicationController
       render json: @project
     else
       render json: @project.errors, status: 422
-    end    
+    end
   end
 
   def destroy
@@ -43,18 +43,18 @@ class Api::ProjectsController < ApplicationController
   #   project = Project.find(id)
   #   render json: project.users
   # end
-  
+
   def u_by_p
     render json: @project.users
   end
 
-  private 
+  private
 
   def set_project
     @project = Project.find(params[:id])
   end
 
-  def project_params 
+  def project_params
     params.require(:project).permit(:name, :client_name, :planned_start, :planned_end, :budget)
-  end  
+  end
 end
