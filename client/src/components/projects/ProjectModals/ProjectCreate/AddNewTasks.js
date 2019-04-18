@@ -8,8 +8,7 @@ import {
   Table
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from './NewTaskTable'
-
+import NewTaskTable from "./NewTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -18,28 +17,28 @@ class AddNewTasks extends React.Component {
       description: "",
       billable: false,
       price_per_hour: "",
-      project_id: ''
-    },
+      project_id: ""
+    }
   };
 
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
     axios.post(`/api/projects/${project.id}/tasks`, { task }).then(res => {
-      this.setState({
-        task: {
-          ...this.state.task,
-          name: "",
-          description: "",
-          billable: false,
-          price_per_hour: "",
-
-        }
-      }, () => this.props.getProjectTasks());
+      this.setState(
+        {
+          task: {
+            ...this.state.task,
+            name: "",
+            description: "",
+            billable: false,
+            price_per_hour: ""
+          }
+        },
+        () => this.props.getProjectTasks()
+      );
     });
   };
-
-
 
   handleBillable = () => {
     this.setState({
@@ -95,6 +94,7 @@ class AddNewTasks extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Checkbox
+                    style={{ marginTop: "22px" }}
                     label="Billable"
                     onClick={this.handleBillable}
                   />
@@ -102,7 +102,11 @@ class AddNewTasks extends React.Component {
                 <Table.Cell>
                   <Button
                     circular
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      marginTop: "20px",
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}
                     onClick={() => this.handleSubmit()}
                     size="mini"
                     icon="plus"
@@ -112,9 +116,6 @@ class AddNewTasks extends React.Component {
             </Table.Body>
           </Table>
         </Form>
-
-
-
       </>
     );
   }
@@ -124,9 +125,9 @@ export default AddNewTasks;
 
 const styles = {
   modal: {
-    position: 'relative',
-    maxWidth: '93%',
-    textAlign: 'center',
-    paddingLeft: '25px'
+    position: "relative",
+    maxWidth: "100%",
+    textAlign: "center",
+    padding: "20px"
   }
-}
+};

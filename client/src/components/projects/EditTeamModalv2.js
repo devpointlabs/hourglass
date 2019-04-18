@@ -72,7 +72,7 @@ class EditTeamModalv2 extends React.Component {
           axios
             .delete(
               `/api/assignment/${u.id}/${
-              this.props.project_id
+                this.props.project_id
               }/delete_by_u_and_p`
             )
             .then(res => {
@@ -180,7 +180,7 @@ class EditTeamModalv2 extends React.Component {
             marginTop: "10px"
           }}
         >
-          {!this.props.newProjectType &&
+          {!this.props.newProjectType && (
             <Button
               style={{
                 width: "100px"
@@ -188,7 +188,8 @@ class EditTeamModalv2 extends React.Component {
               onClick={() => this.props.handleClose()}
             >
               Cancel
-          </Button>}
+            </Button>
+          )}
           <Button
             style={{
               width: "100px",

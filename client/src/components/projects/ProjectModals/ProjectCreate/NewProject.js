@@ -1,23 +1,18 @@
 import React from "react";
-import {
-  Form,
-  Button,
-  Header,
-  Label,
-} from "semantic-ui-react";
+import { Form, Button, Header, Label } from "semantic-ui-react";
 import axios from "axios";
-import CalendarPickerForProjectForm from './CalendarPickerForProjectForm'
+import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
 
 class NewProject extends React.Component {
   state = {
     project: {
-      name: '',
-      client_name: '',
-      planned_start: '',
-      planned_end: '',
-      budget: ''
+      name: "",
+      client_name: "",
+      planned_start: "",
+      planned_end: "",
+      budget: ""
     }
-  }
+  };
 
   setEndDate = newdate =>
     this.setState({ project: { ...this.state.project, planned_end: newdate } });
@@ -37,14 +32,11 @@ class NewProject extends React.Component {
   handleSubmit = e => {
     const { project } = this.state;
     e && e.preventDefault();
-    axios.post(`/api/projects`, project)
-      .then(res => {
-        project.name &&
-          this.props.openModal2()
-        this.props.setProjectId(res.data.id)
-      }
-      )
-  }
+    axios.post(`/api/projects`, project).then(res => {
+      project.name && this.props.openModal2();
+      this.props.setProjectId(res.data.id);
+    });
+  };
 
   render() {
     const {
@@ -58,8 +50,7 @@ class NewProject extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Form style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
-
+        <Form style={{ textAlign: "center" }}>
           <Form.Group style={styles.modal}>
             <Form.Input
               label="Name"
@@ -75,7 +66,6 @@ class NewProject extends React.Component {
               name="client_name"
               value={client_name}
               placeholder="Client Name"
-
               onChange={this.handleChange}
             />
             <Form.Input
@@ -86,7 +76,6 @@ class NewProject extends React.Component {
               }}
               value={budget}
               placeholder="Budget"
-
               labelPosition="right"
               type="number"
               onChange={this.handleChange}
@@ -94,13 +83,10 @@ class NewProject extends React.Component {
               <Label basic>$</Label>
               <input />
               <Label>.00</Label>
-
             </Form.Input>
-
           </Form.Group>
           <span>
             <Form.Group style={{ justifyContent: "center" }}>
-
               <span style={{ paddingRight: "70px" }}>
                 <Header as="h4">Start Date</Header>
                 <CalendarPickerForProjectForm setDate={this.setStartDate} />
@@ -126,31 +112,37 @@ class NewProject extends React.Component {
                     {end_date}
                   </Label>
                 ) : null}
-
               </span>
-
             </Form.Group>
-            <span >
-              <Button
-                floated="left"
-                style={{ background: 'RebeccaPurple', color: 'white' }}
-                onClick={() => this.props.handleClose()}
-              >
-                Close
-                  </Button>
-            </span>
-            <span>
-              <Button
-                floated="right"
-                style={{ background: 'RebeccaPurple', color: 'white' }}
-                onClick={() => this.handleSubmit()}
-              >
-                Next
-                  </Button>
-            </span>
-            <div style={{ padding: '15px' }} />
           </span>
-
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "100%",
+              marginTop: "10px"
+            }}
+          >
+            <Button
+              style={{
+                width: "100px"
+              }}
+              onClick={() => this.props.handleClose()}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{
+                width: "100px",
+                color: "white",
+                background: "RebeccaPurple",
+                marginLeft: "10px"
+              }}
+              onClick={() => this.handleSubmit()}
+            >
+              Next
+            </Button>
+          </div>
         </Form>
       </>
     );
@@ -161,9 +153,9 @@ export default NewProject;
 
 const styles = {
   modal: {
-    position: 'relative',
-    maxWidth: '93%',
-    textAlign: 'center',
-    paddingLeft: '25px'
+    position: "relative",
+    maxWidth: "93%",
+    textAlign: "center",
+    paddingLeft: "25px"
   }
-}
+};
