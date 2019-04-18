@@ -67,6 +67,8 @@ class TimeSheet extends React.Component {
     }
   };
 
+  // wrap in case statement that checks if modal is open then runs
+
   getCurrentUserTimeBlocks = () => {
     if (this.props.auth.user.admin === true)
       axios.get("api/admin/timeblocks").then(res =>

@@ -2,15 +2,21 @@ class Timeblock < ApplicationRecord
   belongs_to :user
   belongs_to :task
 
-  def self.week_timeblocks(user_id)
+  def self.weekly_project_hours(user_id)
     find_by_sql(["
-      SELECT timeblocks.start_time, timeblocks.end_time, u.name
-      FROM timeblocks
-      LEFT JOIN users AS u 
-      ON u.id = timeblocks.user_id
-      WHERE timeblocks.start_time BETWEEN NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7
-      AND NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER   
-      AND u.id = #{user_id} 
+      WITH cte AS (
+        SELECT DATE_PART('hour', timeblocks.end_time - timeblocks.start_time) AS hours, u.name AS user_name, t.name AS task_name, t.id AS task_id
+              FROM timeblocks
+              LEFT JOIN users AS u 
+              ON u.id = timeblocks.user_id
+              LEFT JOIN tasks AS t 
+              ON timeblocks.task_id = t.id
+              WHERE timeblocks.start_time BETWEEN NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7
+              AND NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER   
+              AND u.id = #{user_id}
+        )
+        SELECT sum(hours) AS weekly_project_hours
+        FROM cte
     "])
   end
 
@@ -79,19 +85,19 @@ def self.timeblocks_by_task(task_id)
 # ON timeblocks.user_id = u.id")
 # .where("timeblocks.id = task_id")
 Timeblock.find_by_sql("SELECT 
-u.name,
-t.start_time,
-t.end_time,
-DATE_PART('hour', t.end_time - t.start_time) AS hours,
-t.id AS timeblock_id
-FROM 
-timeblocks AS t 
-LEFT JOIN 
-users AS u
-ON 
-t.user_id = u.id
-WHERE 
-t.id = #{task_id}")
+  u.name,
+  t.start_time,
+  t.end_time,
+  DATE_PART('hour', t.end_time - t.start_time) AS hours,
+  t.id AS timeblock_id
+  FROM 
+  timeblocks AS t 
+  LEFT JOIN 
+  users AS u
+  ON 
+  t.user_id = u.id
+  WHERE 
+  t.id = #{task_id}")
 end
 
 end

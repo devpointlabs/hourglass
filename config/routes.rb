@@ -30,10 +30,13 @@ Rails.application.routes.draw do
     # post "projects/users", to: "projects#u_by_p"
     get "project/projects_with_data", to: "projects#projects_with_data"
     get "projectdata/:project_id/tasks_with_data", to: "tasks#tasks_with_data"
+    get "users/:id/tasks", to: "users#total_task_hours"
+    get "users/:id/weekly_project_hours", to: "timeblocks#weekly_project_hours"
     get "user/:project_id/total_project_hours", to: "users#users_with_project_hours"
     put "toggle_admin", to: "users#toggle_admin"
     delete "assignment/:user_id/:project_id/delete_by_u_and_p", to: "assignments#delete_by_u_and_p"
     get "billable/:project_id", to: "tasks#billable_task_totals"
+    get "getlastproject", to: "projects#get_last_project"
   end
 
   get "*other", to: "static#index"
