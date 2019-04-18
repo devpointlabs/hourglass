@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import ProjectForm from "./ProjectForm";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -66,15 +65,6 @@ class Projects extends React.Component {
 
 
         <Container>
-          {this.state.editing ? (
-            <ProjectForm
-              toggleEdit={this.toggleEdit}
-              resetState={this.resetState}
-            />
-          ) : (
-              ""
-            )}
-
           <Grid>
             {/* <Grid.Row> */}
             <Grid.Column columns={2} style={{ marginTop: "30px" }}>

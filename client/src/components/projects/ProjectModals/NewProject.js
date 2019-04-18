@@ -11,7 +11,7 @@ import CalendarPickerForProjectForm from './CalendarPickerForProjectForm'
 class NewProject extends React.Component {
   state = {
     project: {
-      name: " ",
+      name: "",
       client_name: "",
       planned_start: "",
       planned_end: "",
@@ -39,10 +39,9 @@ class NewProject extends React.Component {
     e && e.preventDefault();
     axios.post(`/api/projects`, project)
       .then(res =>
-        this.props.openModal2()
+        project.name && this.props.openModal2()
       )
   }
-
 
   render() {
     const {
@@ -56,7 +55,7 @@ class NewProject extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Form style={{ textAlign: "center" }}>
+        <Form style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
 
           <Form.Group style={styles.modal}>
             <Form.Input

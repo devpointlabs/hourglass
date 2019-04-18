@@ -25,8 +25,8 @@ class TaskView extends React.Component {
             return b
         })
         this.setState({
-          billableTotals: billable ? billable[0] : 0,
-          unbillableTotals: unbillable ? unbillable[0] : 0
+          billableTotals: billable[0],
+          unbillableTotals: unbillable[0]
         })
       })
   };
@@ -90,8 +90,8 @@ class TaskView extends React.Component {
                 <div
                   style={{ textAlign: 'center' }}
                 >
-                  {this.state.billableTotals.total_billable_hours &&
-                    (this.state.billableTotals.total_billable_hours).toFixed(1)}
+                  {/* {this.state.billableTotals.total_billable_hours &&
+                    (this.state.billableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
               </Table.Cell>
               <Table.Cell
@@ -113,7 +113,7 @@ class TaskView extends React.Component {
                 }}
               >
                 <div>Total</div>
-                ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'}
+                {/* ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'} */}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -150,8 +150,8 @@ class TaskView extends React.Component {
                 <div
                   style={{ textAlign: 'center' }}
                 >
-                  {this.state.unbillableTotals.total_billable_hours &&
-                    (this.state.unbillableTotals.total_billable_hours).toFixed(1)}
+                  {/* {this.state.unbillableTotals.total_billable_hours &&
+                    (this.state.unbillableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
               </Table.Cell>
               <Table.Cell
