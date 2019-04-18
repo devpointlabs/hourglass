@@ -38,8 +38,11 @@ class NewProject extends React.Component {
     const { project } = this.state;
     e && e.preventDefault();
     axios.post(`/api/projects`, project)
-      .then(res =>
-        project.name && this.props.openModal2()
+      .then(res => {
+        project.name &&
+          this.props.openModal2()
+        this.props.setProjectId(res.data.id)
+      }
       )
   }
 
@@ -72,7 +75,7 @@ class NewProject extends React.Component {
               name="client_name"
               value={client_name}
               placeholder="Client Name"
-              required
+
               onChange={this.handleChange}
             />
             <Form.Input
@@ -83,7 +86,7 @@ class NewProject extends React.Component {
               }}
               value={budget}
               placeholder="Budget"
-              required
+
               labelPosition="right"
               type="number"
               onChange={this.handleChange}
