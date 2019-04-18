@@ -46,7 +46,7 @@ class EditModalForms extends React.Component {
           open={this.state.modalOpen}
           onClose={() => this.handleClose()}
           centered={false} style={{ width: '700px' }}>
-          <Modal.Header style={{ background: 'RebeccaPurple', color: 'white' }}>{this.props.project.project_name}</Modal.Header>
+          <Modal.Header style={{ background: 'RebeccaPurple', color: 'white' }}>Edit {this.props.project.project_name}</Modal.Header>
           <Modal.Content>
             <EditProject
               openModal2={this.openModal2}
