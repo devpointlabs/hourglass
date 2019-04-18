@@ -7,15 +7,18 @@ class EditTeamModalv2 extends React.Component {
   state = { allUsers: [], assignedUsers: this.props.users };
 
   componentDidMount() {
-    axios.get("/api/users").then(res =>
-      this.setState({
-        allUsers: this.filterAssignedUsersFromAllUsers(res.data)
-      })
-    );
+    axios.get(`/api/projects/${this.props.project_id}/users`)
+      .then(res => this.setState(
+        { assignedUsers: res.data }, () => axios.get("/api/users").then(res =>
+          this.setState({
+            allUsers: this.filterAssignedUsersFromAllUsers(res.data)
+          })
+        )));
+
   }
 
   filterAssignedUsersFromAllUsers = allUsers => {
-    const assignedUserIds = this.props.users.map(u => u.id);
+    const assignedUserIds = this.state.assignedUsers.map(u => u.id);
     return allUsers.filter(u => !assignedUserIds.includes(u.id));
   };
 
@@ -72,7 +75,7 @@ class EditTeamModalv2 extends React.Component {
           axios
             .delete(
               `/api/assignment/${u.id}/${
-              this.props.project_id
+                this.props.project_id
               }/delete_by_u_and_p`
             )
             .then(res => {
@@ -180,7 +183,7 @@ class EditTeamModalv2 extends React.Component {
             marginTop: "10px"
           }}
         >
-          {!this.props.newProjectType &&
+          {!this.props.newProjectType && (
             <Button
               style={{
                 width: "100px"
@@ -188,7 +191,8 @@ class EditTeamModalv2 extends React.Component {
               onClick={() => this.props.handleClose()}
             >
               Cancel
-          </Button>}
+            </Button>
+          )}
           <Button
             style={{
               width: "100px",
