@@ -11,7 +11,8 @@ import {
   Progress
 } from "semantic-ui-react";
 import BudgetView from "./BudgetView";
-import ModalForms from './ProjectModals/ModalForms'
+import ModalForms from './ProjectModals/ProjectCreate/ModalForms'
+import EditProjectModal from './ProjectModals/ProjectEdit/EditModalForms'
 
 
 class Projects extends React.Component {
@@ -47,9 +48,7 @@ class Projects extends React.Component {
           </Table.Cell>
           <Table.Cell>{p.percent_spent ? (p.percent_spent).toFixed(2) : 0}%</Table.Cell>
           <Table.Cell>
-            <Link to={`/project/${p.project_id}/edit`}>
-              <Icon name='cog' style={{ color: "RebeccaPurple" }} onClick={() => this.handleToggle(p)} />
-            </Link>
+            <EditProjectModal project={p} />
           </Table.Cell>
 
         </Table.Row>

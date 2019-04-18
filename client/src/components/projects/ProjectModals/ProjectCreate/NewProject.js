@@ -11,11 +11,11 @@ import CalendarPickerForProjectForm from './CalendarPickerForProjectForm'
 class NewProject extends React.Component {
   state = {
     project: {
-      name: "",
-      client_name: "",
-      planned_start: "",
-      planned_end: "",
-      budget: ""
+      name: '',
+      client_name: '',
+      planned_start: '',
+      planned_end: '',
+      budget: ''
     }
   }
 
