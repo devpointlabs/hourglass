@@ -18,14 +18,14 @@ class AddNewTasks extends React.Component {
       description: "",
       billable: false,
       price_per_hour: "",
-      project_id: ''
+      project_id: this.props.project.project_id
     },
   };
 
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
-    axios.post(`/api/projects/${project.id}/tasks`, { task }).then(res => {
+    axios.post(`/api/projects/${project.project_id}/tasks`, { task }).then(res => {
       this.setState({
         task: {
           ...this.state.task,
