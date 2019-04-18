@@ -2,3 +2,9 @@
   background: #f2f2f2 !important;
   font-weight: bold !important;
 }
+
+.editTeamCell:hover {
+  background: #f2f2f2 !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+}

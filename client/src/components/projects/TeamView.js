@@ -55,7 +55,11 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan="1" onClick={() => this.handleOpen()}>
+              <Table.HeaderCell
+                colSpan="1"
+                onClick={() => this.handleOpen()}
+                className="editTeamCell"
+              >
                 Current Team
               </Table.HeaderCell>
               <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>
@@ -95,7 +99,7 @@ class TeamView extends React.Component {
           </Table>
         )}
         <Modal open={this.state.modalOpen} onClose={() => this.handleClose()}>
-          <Modal.Header>
+          <Modal.Header style={{ background: "rebeccapurple", color: "white" }}>
             <div>Edit Team</div>
           </Modal.Header>
           <div>
