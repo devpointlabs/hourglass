@@ -1,6 +1,8 @@
 import React from "react";
 import { Table, Button, Form } from "semantic-ui-react";
 import axios from "axios";
+import { AuthConsumer } from "../../providers/AuthProvider";
+import { withRouter } from "react-router-dom";
 
 class ApproveTimesheetsRow extends React.Component {
   state = {
@@ -55,7 +57,8 @@ class ApproveTimesheetsRow extends React.Component {
   };
 
   render() {
-    const { tb } = this.props;
+    const { tb, auth } = this.props;
+
     return (
       <Table.Row>
         <Table.Cell>{tb.name}</Table.Cell>
@@ -88,44 +91,56 @@ class ApproveTimesheetsRow extends React.Component {
           )}
         </Table.Cell>
         <Table.Cell>{tb.hours}</Table.Cell>
-        <Table.Cell>
-          {this.state.editing ? (
-            <Button
-              color="blue"
-              icon="plus"
-              size="mini"
-              circular
-              onClick={() => this.handleSubmit(tb.id)}
-            />
-          ) : (
-            <div>
-              <Button
-                color="green"
-                icon="check"
-                size="mini"
-                circular
-                onClick={() => this.approveTimeblock(tb.id)}
-              />
-              <Button
-                color="red"
-                icon="pencil"
-                size="mini"
-                circular
-                onClick={() => this.toggleEdit()}
-              />
+        {this.props.auth.user && this.props.auth.user.admin === true && (
+          <Table.Cell>
+            {this.state.editing ? (
               <Button
                 color="blue"
-                icon="redo"
+                icon="plus"
                 size="mini"
                 circular
-                onClick={() => this.sendBack(tb.id)}
+                onClick={() => this.handleSubmit(tb.id)}
               />
-            </div>
-          )}
-        </Table.Cell>
+            ) : (
+              <div>
+                <Button
+                  color="green"
+                  icon="check"
+                  size="mini"
+                  circular
+                  onClick={() => this.approveTimeblock(tb.id)}
+                />
+                <Button
+                  color="red"
+                  icon="pencil"
+                  size="mini"
+                  circular
+                  onClick={() => this.toggleEdit()}
+                />
+                <Button
+                  color="blue"
+                  icon="redo"
+                  size="mini"
+                  circular
+                  onClick={() => this.sendBack(tb.id)}
+                />
+              </div>
+            )}
+          </Table.Cell>
+        )}
       </Table.Row>
     );
   }
 }
 
-export default ApproveTimesheetsRow;
+export class ConnectedApprovedTimesheetsRow extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <ApproveTimesheetsRow {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default withRouter(ConnectedApprovedTimesheetsRow);
