@@ -202,8 +202,8 @@ class ProjectForm extends React.Component {
             <br />
           </div>
         ) : (
-            <div />
-          )}
+          <div />
+        )}
       </>
     );
   }

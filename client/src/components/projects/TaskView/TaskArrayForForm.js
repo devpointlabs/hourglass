@@ -28,19 +28,16 @@ class TaskArrayForForm extends React.Component {
   };
 
   showTasks = () => {
-    return (
-      this.state.tasks &&
-      this.state.tasks.map(task => (
-        <>
-          <TaskViewForForm
-            resetState={this.resetState}
-            task={task}
-            removeTask={this.removeTask}
-            project_id={this.props.project_id}
-          />
-        </>
-      ))
-    );
+    return this.state.tasks.map(task => (
+      <>
+        <TaskViewForForm
+          resetState={this.resetState}
+          task={task}
+          removeTask={this.removeTask}
+          project_id={this.props.project_id}
+        />
+      </>
+    ));
   };
 
   removeTask = id => {

@@ -29,10 +29,11 @@ Rails.application.routes.draw do
     get "task/:id/timeblocks_by_task", to: "timeblocks#timeblocks_by_task"
     # post "projects/users", to: "projects#u_by_p"
     get "project/projects_with_data", to: "projects#projects_with_data"
-    get "projectdata/:project_id/tasks_with_data", to:"tasks#tasks_with_data"
-    get "user/:project_id/total_project_hours", to: "users#users_with_project_hours" 
+    get "projectdata/:project_id/tasks_with_data", to: "tasks#tasks_with_data"
+    get "user/:project_id/total_project_hours", to: "users#users_with_project_hours"
+    put "toggle_admin", to: "users#toggle_admin"
+    delete "assignment/:user_id/:project_id/delete_by_u_and_p", to: "assignments#delete_by_u_and_p"
   end
-  
 
   get "*other", to: "static#index"
 end

@@ -27,7 +27,7 @@ class Users extends React.Component {
                 <Header as="h4" image>
                   <Image src={u.image} rounded size="mini" />
                   <Link to={`/employees/${u.id}`}>
-                    <Header.Content style={{ color: "purple" }}>
+                    <Header.Content style={{ color: "RebeccaPurple" }}>
                       {u.name}
                       <Header.Subheader>{u.nickname}</Header.Subheader>
                     </Header.Content>

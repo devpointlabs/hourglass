@@ -44,6 +44,5 @@ ORDER BY t.id
 SELECT tth.*
 FROM total_task_hours AS tth
     ", project_id])
-end
-
+  end
 end

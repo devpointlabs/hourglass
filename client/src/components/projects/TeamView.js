@@ -3,60 +3,136 @@ import { Table, Header, Modal, Button } from "semantic-ui-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
-import EditTeam from "./EditTeam";
+import EditTeamModalv2 from "./EditTeamModalv2";
 
 class TeamView extends React.Component {
   state = {
     users: [],
-    project: this.props.project
+    project: this.props.project,
+    hours: [],
+    modalOpen: false
   };
 
   componentDidMount() {
-    const { project_id } = this.props.project;
-    axios.get(`/api/user/${project_id}/total_project_hours`).then(res => {
-      this.setState({ users: res.data });
-    });
+    this.getUsersAndHours();
   }
 
-  showTeam = () => {
-    return this.state.users.map(user => (
-      <Table.Row key={user.id}>
-        <Table.Cell>{user.name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px" }}>
-          {user.total_hours}
-        </Table.Cell>
-      </Table.Row>
-    ));
+  getUsersAndHours = () => {
+    const { project_id } = this.props.project;
+    axios
+      .get(`/api/projects/${project_id}/users`)
+      .then(res => this.setState({ users: res.data }));
+    axios.get(`/api/user/${project_id}/total_project_hours`).then(res => {
+      this.setState({ hours: res.data });
+    });
+  };
+
+  handleOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleClose = () => {
+    this.setState({ modalOpen: false });
   };
 
   render() {
+    const { hours, users } = this.state;
+    const usersIds = users.map(u => u.id);
+    const hoursUserIds = hours.map(u => u.id);
+    const usersNotIncludedInHours = this.state.users.filter(
+      u => !hoursUserIds.includes(u.id)
+    );
+    const combinedUsers = [...hours, ...usersNotIncludedInHours];
+    const currentUsersWithHours = combinedUsers.filter(u =>
+      usersIds.includes(u.id)
+    );
+    const previousUsersWithHours = combinedUsers.filter(
+      u => !usersIds.includes(u.id)
+    );
+
     return (
-      <Fragment>
+      <>
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan="2">Assigned Members</Table.HeaderCell>
+              <Table.HeaderCell colSpan="1" onClick={() => this.handleOpen()}>
+                Current Team
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          <Table.Body>{this.showTeam()}</Table.Body>
+          <Table.Body>
+            {currentUsersWithHours.map(user => (
+              <Table.Row key={user.id}>
+                <Table.Cell>{user.name}</Table.Cell>
+                <Table.Cell>
+                  {user.total_hours && user.total_hours.toFixed(2)}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
         </Table>
-        <Modal
-          trigger={
-            <Button
-              circular
-              color="violet"
-              onClick={this.handleNew}
-              icon="edit"
-              size="mini"
-            />
-          }
-        >
-          <Modal.Header>Edit Team</Modal.Header>
+        {previousUsersWithHours.length > 0 && (
+          <Table celled compact>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell colSpan="1">
+                  Previously Assigned
+                </Table.HeaderCell>
+                <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {previousUsersWithHours.map(user => (
+                <Table.Row key={user.id}>
+                  <Table.Cell>{user.name}</Table.Cell>
+                  <Table.Cell>
+                    {user.total_hours && user.total_hours.toFixed(2)}
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        )}
+        <Modal open={this.state.modalOpen} onClose={() => this.handleClose()}>
+          <Modal.Header>
+            <div>Edit Team</div>
+          </Modal.Header>
+          <div>
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  width: "50%",
+                  textAlign: "left",
+                  padding: "10px",
+                  paddingLeft: "40px",
+                  fontWeight: "bold"
+                }}
+              >
+                Users
+              </div>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  width: "50%",
+                  textAlign: "left",
+                  padding: "10px"
+                }}
+              >
+                Assigned To Project
+              </div>
+            </div>
+          </div>
           <Modal.Content>
-            <EditTeam />
+            <EditTeamModalv2
+              users={this.state.users}
+              project_id={this.props.project.project_id}
+              handleClose={this.handleClose}
+              getUsersAndHours={this.getUsersAndHours}
+            />
           </Modal.Content>
         </Modal>
-      </Fragment>
+      </>
     );
   }
 }
