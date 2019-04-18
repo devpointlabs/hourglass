@@ -27,30 +27,28 @@ class Navbar extends React.Component {
           <Fade>
             <Clock />
           </Fade>
-          <SwitchDisplay>
-            <Link to="/profile">
-              <Menu.Item
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginRight: ".5em"
-                }}
-              >
-                <Fade style={{ paddingRight: "1em" }}>
-                  <Image
-                    size="mini"
-                    src={this.props.auth.user.image || defaultImage}
-                    avatar
-                  />
-                </Fade>
-                <TextSize>
-                  <span style={{ color: "white" }}>
-                    {this.props.auth.user.name}
-                  </span>
-                </TextSize>
-              </Menu.Item>
-            </Link>
-          </SwitchDisplay>
+          <Link to="/profile">
+            <Menu.Item
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: ".5em"
+              }}
+            >
+              <Fade style={{ paddingRight: "1em" }}>
+                <Image
+                  size="mini"
+                  src={this.props.auth.user.image || defaultImage}
+                  avatar
+                />
+              </Fade>
+              <TextSize>
+                <SwitchDisplay style={{ color: "white" }}>
+                  {this.props.auth.user.name}
+                </SwitchDisplay>
+              </TextSize>
+            </Menu.Item>
+          </Link>
         </Menu.Menu>
       );
     } else {
@@ -159,27 +157,29 @@ export class ConnectedNavbar extends React.Component {
 }
 
 const Styled = styled.div`
-  @media (max-width: 700px) {
+  @media (max-width: 550px) {
     display: inline-block;
     width: 100%;
   }
 `;
 
 const TextSize = styled.div`
-  @media (max-width: 700px) {
+  @media (max-width: 550px) {
     font-size: .8em
-    float: left;
+    display: flex;
+    justify-content: center;
+    margin-left: .7em
   }
 `;
 
 const SwitchDisplay = styled.div`
-  @media (max-width: 700px) {
-    justify-content: space-around;
+  @media (max-width: 550px) {
+    transform: translate(-0.5em, 0);
   }
 `;
 
 const Fade = styled.div`
-  @media (max-width: 700px) {
+  @media (max-width: 550px) {
     display: none;
   }
 `;
