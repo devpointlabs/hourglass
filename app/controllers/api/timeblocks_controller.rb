@@ -65,10 +65,6 @@ class Api::TimeblocksController < ApplicationController
     render json: Timeblock.timeblocks_by_task(params[:id])
   end
 
-  def week_timeblocks
-    render json: Timeblock.week_timeblocks(@user.id)
-  end
-  
   def weekly_project_hours
     render json: Timeblock.weekly_project_hours(params[:id])
   end
