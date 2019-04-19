@@ -53,7 +53,6 @@ class WeekViewTableData extends React.Component {
     const {
       currentWeekTimeBlocks,
       tasks,
-      selectedDate,
       monday,
       setSelectedDate,
       setSelectedWeek,
