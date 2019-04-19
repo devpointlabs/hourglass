@@ -56,7 +56,8 @@ class WeekViewTableData extends React.Component {
       selectedDate,
       monday,
       setSelectedDate,
-      setSelectedWeek
+      setSelectedWeek,
+      filteredProjectIds
     } = this.props;
     const {
       mondayHours,
@@ -91,6 +92,8 @@ class WeekViewTableData extends React.Component {
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              filteredProjectIds={filteredProjectIds}
+              tasks={tasks}
             />
           ))}
 
@@ -115,19 +118,19 @@ class WeekViewTableData extends React.Component {
                   </Button>
                 </div>
               ) : (
-                <div style={{ textAlign: "left" }}>
-                  <Button
-                    onClick={() => this.submitRow()}
-                    style={{
-                      background: "RebeccaPurple",
-                      color: "white",
-                      marginLeft: "10px"
-                    }}
-                  >
-                    Save
+                  <div style={{ textAlign: "left" }}>
+                    <Button
+                      onClick={() => this.submitRow()}
+                      style={{
+                        background: "RebeccaPurple",
+                        color: "white",
+                        marginLeft: "10px"
+                      }}
+                    >
+                      Save
                   </Button>
-                </div>
-              )}
+                  </div>
+                )}
             </Table.Cell>
             <Table.Cell
               style={{
