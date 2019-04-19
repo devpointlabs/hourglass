@@ -6,6 +6,19 @@ import TimeSheet from "../timeblocks/TimeSheet";
 class BudgetView extends React.Component {
   state = { project: {}, timesheet: [] };
 
+  renderProgress = percent_spent => {
+    switch (true) {
+      case percent_spent > 70 && percent_spent < 100:
+        return "orange";
+      case percent_spent < 70:
+        return "green";
+      case percent_spent > 100:
+        return "red";
+      case percent_spent === 0:
+        return "grey";
+    }
+  };
+
   render() {
     const { project } = this.props;
     return (
@@ -23,10 +36,15 @@ class BudgetView extends React.Component {
           <Table.Row>
             <Table.Cell>${project.budget}</Table.Cell>
             <Table.Cell>${project.total_project_cost}</Table.Cell>
-            <Table.Cell>{project.percent_spent ? (project.percent_spent).toFixed(2) : 0}%</Table.Cell>
+            <Table.Cell>
+              {project.percent_spent ? project.percent_spent.toFixed(2) : 0}%
+            </Table.Cell>
             <Table.Cell>
               <Segment>
-                <Progress percent={project.percent_spent} color="violet" />
+                <Progress
+                  color={this.renderProgress(project.percent_spent)}
+                  percent={project.percent_spent}
+                />
               </Segment>
             </Table.Cell>
           </Table.Row>
