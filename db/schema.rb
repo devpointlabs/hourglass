@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_221512) do
+ActiveRecord::Schema.define(version: 2019_04_19_161221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 2019_04_11_221512) do
     t.string "description"
     t.boolean "billable"
     t.bigint "project_id"
-    t.string "price_per_hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "price_per_hour"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
