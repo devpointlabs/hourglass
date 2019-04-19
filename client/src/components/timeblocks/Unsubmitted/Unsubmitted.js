@@ -103,14 +103,6 @@ class Unsubmitted extends React.Component {
     );
   };
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   this.getTimeBlocks()
-  //   if (prevState !== this.state)
-  //     debugger
-  //   this.setState({ reset: !this.state.reset })
-
-  // }
-
   render() {
     const { timeBlocks, tasks, projects } = this.state;
     return (

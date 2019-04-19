@@ -37,7 +37,7 @@ class Task < ApplicationRecord
             billable,
             price_per_hour,
             SUM(hours) as total_hours,
-            CAST(price_per_hour AS FLOAT) * SUM(hours) AS total_cost,
+            price_per_hour * SUM(hours) AS total_cost,
             project_id
         FROM cte
         GROUP BY task_id, task_name, description, billable, price_per_hour, project_id
@@ -59,9 +59,9 @@ class Task < ApplicationRecord
         t.project_id,
         t.billable,
         t.price_per_hour,
-        (DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60 AS hours
-    FROM timeblocks AS tb
-    LEFT JOIN tasks AS t
+        coalesce((DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60, 0) AS hours
+    FROM tasks AS t
+    LEFT JOIN timeblocks AS tb
     ON tb.task_id = t.id
     WHERE t.project_id = ?
     ),
@@ -71,7 +71,7 @@ class Task < ApplicationRecord
         billable,
         price_per_hour,
         SUM(hours) as total_task_hours,
-        CAST(price_per_hour AS FLOAT) * SUM(hours) AS total_task_cost,
+        price_per_hour * SUM(hours) AS total_task_cost,
         project_id
     FROM cte
     GROUP BY task_id, billable, price_per_hour, project_id
@@ -88,7 +88,11 @@ class Task < ApplicationRecord
     billable,
     total_billable_hours,
     total_billable_cost
-    FROM total_billable_hours      
-        ", project_id])
+    FROM total_billable_hours       
+        ", project_id]).map do |n|
+            {billable: n.billable,
+        total_billable_hours: sprintf("%.2f", n.total_billable_hours),
+        total_billable_cost: ActiveSupport::NumberHelper::number_to_currency(n.total_billable_cost)}
+        end
   end
 end

@@ -7,20 +7,31 @@ import { withRouter } from "react-router-dom";
 class ApproveTimesheetsRow extends React.Component {
   state = {
     editing: false,
-    start_time: "",
-    end_time: "",
-    manualEntry: "",
-    hours: ""
+    start_time: this.props.tb.start_time,
+    end_time: this.props.tb.end_time,
+    manualEntry: this.props.tb.manualEntry,
+    hours: this.props.tb.hours,
+    updated: false
   };
 
-  componentDidMount() {
-    this.setState({
-      start_time: this.props.tb.start_time,
-      end_time: this.props.tb.end_time,
-      manualEntry: this.props.tb.manualEntry,
-      hours: this.props.tb.hours.toFixed(2)
-    });
-  }
+  updateTimesheet = () => {
+    if (this.state.updated === true) {
+      const timeblock_id = this.props.tb.id;
+      axios.get(`/api/timeblock/${timeblock_id}/pendingTB`).then(res => {
+        this.setState({
+          ...this.state,
+          hours: res.data[0].hours,
+          start_time: res.data[0].start_time,
+          end_time: res.data[0].end_time,
+          updated: false
+        });
+      });
+    }
+  };
+
+  toggleUpdate = () => {
+    this.setState({ updated: true }, () => this.updateTimesheet());
+  };
 
   toggleEdit = () => {
     this.setState({ editing: !this.state.editing });
@@ -41,11 +52,13 @@ class ApproveTimesheetsRow extends React.Component {
   handleSubmit = id => {
     const { start_time, end_time, manualEntry } = this.state;
     this.setState({ manualEntry: true });
-    axios.put(`/api/timeblocks/${id}`, {
-      start_time: start_time,
-      end_time: end_time,
-      manualEntry: manualEntry
-    });
+    axios
+      .put(`/api/timeblocks/${id}`, {
+        start_time: start_time,
+        end_time: end_time,
+        manualEntry: manualEntry
+      })
+      .then(res => this.toggleUpdate());
     this.toggleEdit();
   };
 
@@ -91,7 +104,7 @@ class ApproveTimesheetsRow extends React.Component {
           )}
         </Table.Cell>
 
-        <Table.Cell>{tb.hours}</Table.Cell>
+        <Table.Cell>{this.state.hours}</Table.Cell>
         {this.props.auth.user && this.props.auth.user.admin === true && (
           <Table.Cell>
             {this.state.editing ? (
@@ -134,9 +147,7 @@ class ApproveTimesheetsRow extends React.Component {
   }
 }
 
-
 export class ConnectedApprovedTimesheetsRow extends React.Component {
-
   render() {
     return (
       <AuthConsumer>
@@ -146,6 +157,4 @@ export class ConnectedApprovedTimesheetsRow extends React.Component {
   }
 }
 
-
 export default withRouter(ConnectedApprovedTimesheetsRow);
-

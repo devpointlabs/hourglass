@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get "users/:id/timeblocks", to: "users#find_timeblocks"
     get "users/:id/projects", to: "users#projects"
     get "timeblock/pending", to: "timeblocks#pending_timeblocks"
+    get "timeblock/:timeblock_id/pendingTB", to: "timeblocks#pending_timeblock"
     get "task/:id/timeblocks_by_task", to: "timeblocks#timeblocks_by_task"
     # post "projects/users", to: "projects#u_by_p"
     get "project/projects_with_data", to: "projects#projects_with_data"

@@ -17,6 +17,10 @@ class Api::TimeblocksController < ApplicationController
     render json: data
   end
 
+  def pending_timeblock
+    render json: Timeblock.pending_timeblock(params[:timeblock_id])
+  end
+
   def admin_get_all_timeblocks
     projects = Project.all
     tasks = []
