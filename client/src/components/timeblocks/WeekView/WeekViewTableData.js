@@ -41,13 +41,8 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  addRow = () => {
-    this.setState({ showNewRow: true, showButton: !this.state.showButton });
-  };
-
-  submitRow = () => {
-    this.setState({ showNewRow: false, showButton: !this.state.showButton });
-  };
+  toggleShowNewRow = () => {	  addRow = () => {
+    this.setState({ showNewRow: !this.state.showNewRow });
 
   render() {
     const {
