@@ -128,6 +128,6 @@ const styles = {
     position: "relative",
     maxWidth: "100%",
     textAlign: "center",
-    paddingLeft: "25px"
+    padding: "20px"
   }
 };
