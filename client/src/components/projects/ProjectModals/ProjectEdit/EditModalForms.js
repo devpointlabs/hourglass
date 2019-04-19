@@ -41,6 +41,7 @@ class EditModalForms extends React.Component {
       <>
         <Icon
           name="cog"
+          size="large"
           style={{ color: "RebeccaPurple" }}
           onClick={() => this.handleOpen()}
         />
