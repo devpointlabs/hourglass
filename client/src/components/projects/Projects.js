@@ -13,6 +13,8 @@ import {
 import BudgetView from "./BudgetView";
 import ModalForms from "./ProjectModals/ProjectCreate/ModalForms";
 import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
+import "./Projects.css";
+import { withRouter } from "react-router-dom";
 
 class Projects extends React.Component {
   state = { projects: [], toggleForm: false, project: {} };
@@ -34,23 +36,27 @@ class Projects extends React.Component {
   showProjects = () => {
     return this.state.projects.map(p => (
       <>
-        <Table.Row key={p.project_id}>
-          <Table.Cell>
-            <Link
-              style={{ color: "RebeccaPurple", fontWeight: "bold" }}
-              to={`/projects/${p.project_id}`}
-            >
-              {p.project_name ? p.project_name : "Project has no name"}
-            </Link>
+        <Table.Row key={p.project_id} className="projectRow">
+          <Table.Cell
+            onClick={() => this.props.history.push(`/projects/${p.project_id}`)}
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.2em"
+            }}
+          >
+            {p.project_name
+              ? p.project_name + (p.client_name && ` (${p.client_name})`)
+              : "Project"}
           </Table.Cell>
-          <Table.Cell>{p.client_name}</Table.Cell>
-          <Table.Cell>{p.budget}</Table.Cell>
-          <Table.Cell>{p.total_project_cost}</Table.Cell>
-          <Table.Cell style={{ paddingTop: "35px" }}>
+          <Table.Cell>{p.budget && `$${p.budget}`}</Table.Cell>
+          <Table.Cell style={{ width: "5%" }}>
+            {p.total_project_cost && `$${p.total_project_cost.toFixed(0)}`}
+          </Table.Cell>
+          <Table.Cell>
             <Progress color="violet" percent={p.percent_spent} />
           </Table.Cell>
           <Table.Cell>
-            {p.percent_spent ? p.percent_spent.toFixed(2) : 0}%
+            {p.percent_spent ? p.percent_spent.toFixed(0) : 0}%
           </Table.Cell>
           <Table.Cell>
             <EditProjectModal getProjects={this.getProjects} project={p} />
@@ -64,32 +70,29 @@ class Projects extends React.Component {
     return (
       <>
         <ModalForms getProjects={this.getProjects} />
-
-        <Container>
-          <Grid>
-            {/* <Grid.Row> */}
-            <Grid.Column columns={2} style={{ marginTop: "30px" }}>
-              <table class="ui fixed table">
-                <thead>
-                  <tr>
-                    <th>Project</th>
-                    <th>Client</th>
-                    <th>Budget</th>
-                    <th>Spent</th>
-                    <th />
-                    <th>Percent Spent</th>
-                    <th style={{ width: "5%" }}>Edit</th>
-                  </tr>
-                </thead>
-                {this.showProjects()}
-              </table>
-            </Grid.Column>
-            {/* </Grid.Row> */}
-          </Grid>
-        </Container>
+        <div style={{ padding: "20px" }}>
+          <Table basic collapsing style={{ width: "100%" }}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Project</Table.HeaderCell>
+                <Table.HeaderCell>Budget</Table.HeaderCell>
+                <Table.HeaderCell
+                  colSpan="2"
+                  style={{ width: "25%" }}
+                  textAlign="center"
+                >
+                  Current Cost
+                </Table.HeaderCell>
+                <Table.HeaderCell />
+                <Table.HeaderCell style={{ width: "5%" }} />
+              </Table.Row>
+            </Table.Header>
+            {this.showProjects()}
+          </Table>
+        </div>
       </>
     );
   }
 }
 
-export default Projects;
+export default withRouter(Projects);
