@@ -109,8 +109,8 @@ class ApproveTimesheetsRow extends React.Component {
           <Table.Cell>
             {this.state.editing ? (
               <Button
-                color="blue"
-                icon="plus"
+                color="black"
+                icon="save outline"
                 size="mini"
                 circular
                 onClick={() => this.handleSubmit(tb.id)}
@@ -118,22 +118,22 @@ class ApproveTimesheetsRow extends React.Component {
             ) : (
               <div>
                 <Button
-                  color="green"
+                  color="black"
                   icon="check"
                   size="mini"
                   circular
                   onClick={() => this.approveTimeblock(tb.id)}
                 />
                 <Button
-                  color="red"
+                  color="grey"
                   icon="pencil"
                   size="mini"
                   circular
                   onClick={() => this.toggleEdit()}
                 />
                 <Button
-                  color="blue"
-                  icon="redo"
+                  color="violet"
+                  icon="send"
                   size="mini"
                   circular
                   onClick={() => this.sendBack(tb.id)}
