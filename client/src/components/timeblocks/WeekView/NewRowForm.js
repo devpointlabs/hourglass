@@ -40,38 +40,70 @@ class NewRowForm extends React.Component {
       sundayTotal
     } = this.state;
 
-    let weekTotal =
+    let weekTotal = parseFloat(
       (mondayTotal && parseFloat(mondayTotal)) +
-      (tuesdayTotal && parseFloat(tuesdayTotal)) +
-      (wednesdayTotal && parseFloat(wednesdayTotal)) +
-      (thursdayTotal && parseFloat(thursdayTotal)) +
-      (fridayTotal && parseFloat(fridayTotal)) +
-      (saturdayTotal && parseFloat(saturdayTotal)) +
-      (sundayTotal && parseFloat(sundayTotal));
+        (tuesdayTotal && parseFloat(tuesdayTotal)) +
+        (wednesdayTotal && parseFloat(wednesdayTotal)) +
+        (thursdayTotal && parseFloat(thursdayTotal)) +
+        (fridayTotal && parseFloat(fridayTotal)) +
+        (saturdayTotal && parseFloat(saturdayTotal)) +
+        (sundayTotal && parseFloat(sundayTotal))
+    ).toFixed(2);
 
     this.setState({ weekTotal });
   };
 
   handleSubmit = e => {
-    // this.state.mondayTotal && this.submitBlock(this.state.mondayTotal);
-    // this.state.tuesdayTotal && this.submitBlock(this.state.tuesdayTotal);
-    // this.state.wednesdayTotal && this.submitBlock(this.state.wednesdayTotal);
-    // this.state.thursdayTotal && this.submitBlock(this.state.thursdayTotal);
-    // this.state.fridayTotal && this.submitBlock(this.state.fridayTotal);
-    // this.state.saturdayTotal && this.submitBlock(this.state.saturdayTotal);
-    // this.state.sundayTotal && this.submitBlock(this.state.sundayTotal);
+    const { monday } = this.props;
+    const mondayStartOfDay = moment(monday).startOf("day");
+    this.state.mondayTotal &&
+      this.submitBlock(this.state.mondayTotal, mondayStartOfDay);
+    this.state.tuesdayTotal &&
+      this.submitBlock(
+        this.state.tuesdayTotal,
+        moment(mondayStartOfDay).add(1, "days")
+      );
+    this.state.wednesdayTotal &&
+      this.submitBlock(
+        this.state.wednesdayTotal,
+        moment(mondayStartOfDay).add(2, "days")
+      );
+    this.state.thursdayTotal &&
+      this.submitBlock(
+        this.state.thursdayTotal,
+        moment(mondayStartOfDay).add(3, "days")
+      );
+    this.state.fridayTotal &&
+      this.submitBlock(
+        this.state.fridayTotal,
+        moment(mondayStartOfDay).add(4, "days")
+      );
+    this.state.saturdayTotal &&
+      this.submitBlock(
+        this.state.saturdayTotal,
+        moment(mondayStartOfDay).add(5, "days")
+      );
+    this.state.sundayTotal &&
+      this.submitBlock(
+        this.state.sundayTotal,
+        moment(mondayStartOfDay).add(6, "days")
+      );
+    this.props.toggleShowNewRow();
   };
 
-  submitBlock = hours => {
-    //   const start_time = moment(this.props.dateSelected + "09:00 am")
-    //   console.log(start_time)
-    //   debugger
-    //   let block = {
-    //     task_id: this.state.task.id,
-    //     user_id: this.props.auth.user.id, start_time, end_time, status: "unSubmitted", manualEntry: "true"
-    //   };
-    //   axios.post(`/api/timeblocks`, block).then(res => console.log(res));
-    // };
+  submitBlock = (hours, date) => {
+    const start_time = moment(date).add(9, "hours");
+    const end_time = moment(start_time).add(hours, "hours");
+    let block = {
+      task_id: this.state.task.value,
+      user_id: this.props.auth.user.id,
+      start_time,
+      end_time,
+      status: "unSubmitted",
+      manualEntry: true
+    };
+
+    axios.post(`/api/timeblocks`, block).then(res => console.log(res));
   };
 
   handleCancel = e => {
@@ -94,8 +126,8 @@ class NewRowForm extends React.Component {
       );
       this.setState({
         task: {
-          value: selectedProjectTasks[0].id,
-          label: selectedProjectTasks[0].name
+          value: selectedProjectTasks.length > 0 && selectedProjectTasks[0].id,
+          label: selectedProjectTasks.length > 0 && selectedProjectTasks[0].name
         }
       });
     });
@@ -286,4 +318,4 @@ export class ConnectedNewRowForm extends React.Component {
   }
 }
 
-export default NewRowForm;
+export default ConnectedNewRowForm;
