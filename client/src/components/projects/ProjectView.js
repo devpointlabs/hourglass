@@ -21,7 +21,7 @@ import ProjectForm from "./ProjectLegacy/ProjectForm";
 class ProjectView extends React.Component {
   state = {
     project: [],
-    page: "",
+    page: ""
   };
 
   componentDidMount() {
@@ -29,7 +29,6 @@ class ProjectView extends React.Component {
     axios.get(`/api/projects/${id}`).then(res => {
       this.setState({ project: res.data });
     });
-
   }
 
   setPage = page => {
@@ -80,8 +79,9 @@ class ProjectView extends React.Component {
           }}
         >
           <Header as={Link} to={`/project/${project_id}/edit`}>
-            <h1 style={{ marginLeft: "20px" }}>{project_name}
-              <span style={{ fontSize: '.8em' }}> ({client_name})</span>
+            <h1 style={{ marginLeft: "20px" }}>
+              {project_name}
+              <span style={{ fontSize: ".8em" }}> ({client_name})</span>
             </h1>
             <h4 style={{ marginLeft: "20px" }}>
               {" "}
