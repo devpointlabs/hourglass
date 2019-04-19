@@ -18,6 +18,9 @@ import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
+import Flash from './components/Flash'
+import Error from './components/Error'
+import {Modal} from 'semantic-ui-react'
 
 
 const App = () => (
@@ -27,6 +30,7 @@ const App = () => (
         backgroundImage: "linear-gradient(to bottom right, #c1c1c1, #341e4f)"
       }}
     >
+      <Error />
       <FetchUser>
         <Container style={{ background: "white", minHeight: "100vh" }}>
           <Navbar />
@@ -61,6 +65,7 @@ const App = () => (
           </Switch>
         </Container>
       </FetchUser>
+      <Flash />
     </div>
   </Fragment>
 );
