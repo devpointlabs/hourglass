@@ -53,7 +53,10 @@ class Projects extends React.Component {
             {p.total_project_cost && `$${p.total_project_cost.toFixed(0)}`}
           </Table.Cell>
           <Table.Cell>
-            <Progress color="violet" percent={p.percent_spent} />
+            <Progress
+              color={this.renderProgress(p.percent_spent)}
+              percent={p.percent_spent}
+            />
           </Table.Cell>
           <Table.Cell>
             {p.percent_spent ? p.percent_spent.toFixed(0) : 0}%
@@ -64,6 +67,19 @@ class Projects extends React.Component {
         </Table.Row>
       </>
     ));
+  };
+
+  renderProgress = percent_spent => {
+    switch (true) {
+      case percent_spent > 70 && percent_spent < 100:
+        return "orange";
+      case percent_spent < 70:
+        return "green";
+      case percent_spent > 100:
+        return "red";
+      case percent_spent === 0:
+        return "grey";
+    }
   };
 
   render() {
