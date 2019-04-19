@@ -37,7 +37,9 @@ class Unsubmitted extends React.Component {
       axios.get("/api/admin/timeblocks").then(res =>
         this.setState({
           timeBlocks: AddUserInfoToBlocks(
-            CalculateHoursAndWeek(res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")),
+            CalculateHoursAndWeek(
+              res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
+            ),
             res.data.users
           ),
           users: res.data.users,
@@ -95,8 +97,7 @@ class Unsubmitted extends React.Component {
       axios
         .put(`/api/timeblocks/${tb.id}`, { status: tb.status })
         .then(
-          res =>
-            this.setState({ reset: !this.state.reset }),
+          res => this.setState({ reset: !this.state.reset }),
           this.getTimeBlocks()
         )
     );
@@ -118,7 +119,7 @@ class Unsubmitted extends React.Component {
         <Header textAlign="center" as="h1">
           Unsubmitted
         </Header>
-        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+        <div style={{ padding: "10px" }}>
           <Table style={{ marginBottom: "45px" }}>
             <UnsubmittedTableBody
               timeBlocks={timeBlocks}

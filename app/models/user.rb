@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 SELECT 
 users.id,
 users.name,
+users.nickname,
+users.image,
 timeblocks.start_time,
 timeblocks.end_time,
 timeblocks.task_id,
@@ -43,11 +45,13 @@ SELECT
 cte.project_id,
 cte.name,
 cte.id,
+cte.nickname,
+cte.image,
 tuh.total_hours
 FROM cte
 LEFT JOIN total_user_hours AS tuh
 ON cte.id = tuh.id
-GROUP BY cte.id, cte.project_id, cte.name, tuh.total_hours
+GROUP BY cte.id, cte.project_id, cte.name, cte.nickname, cte.image, tuh.total_hours
 ", id])
   end
 
@@ -78,6 +82,5 @@ GROUP BY cte.id, cte.project_id, cte.name, tuh.total_hours
     "])
   end
 end
-
 
 # find teams based on task_id, which a user and a project will have
