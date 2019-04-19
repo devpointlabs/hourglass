@@ -106,34 +106,20 @@ class WeekViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
-            <Table.Cell colSpan="1">
-              {this.state.showButton ? (
-                <div style={{ textAlign: "left" }}>
-                  <Button
-                    style={{
-                      background: "RebeccaPurple",
-                      color: "white",
-                      marginLeft: "10px"
-                    }}
-                    onClick={() => this.addRow()}
-                  >
-                    New Row
-                  </Button>
-                </div>
-              ) : (
-                  <div style={{ textAlign: "left" }}>
-                    <Button
-                      onClick={() => this.submitRow()}
-                      style={{
-                        background: "RebeccaPurple",
-                        color: "white",
-                        marginLeft: "10px"
-                      }}
-                    >
-                      Save
-                  </Button>
-                  </div>
-                )}
+             <Table.Cell colSpan="1">
+              <div style={{ textAlign: "left" }}>
+                <Button
+                  style={{
+                    background: "RebeccaPurple",
+                    color: "white",
+                    marginLeft: "10px",
+                    visibility: this.state.showNewRow ? "hidden" : "visible"
+                  }}
+                  onClick={() => this.toggleShowNewRow()}
+                >
+                  New Row
+                </Button>
+              </div>
             </Table.Cell>
             <Table.Cell
               style={{
