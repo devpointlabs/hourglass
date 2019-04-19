@@ -52,7 +52,9 @@ class WeekViewTableData extends React.Component {
       monday,
       setSelectedDate,
       setSelectedWeek,
+      filteredProjectIds,
       projects
+
     } = this.props;
     const {
       mondayHours,
@@ -87,6 +89,8 @@ class WeekViewTableData extends React.Component {
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              filteredProjectIds={filteredProjectIds}
+              tasks={tasks}
             />
           ))}
 
