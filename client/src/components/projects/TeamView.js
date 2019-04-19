@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
-import { Table, Header, Modal, Button } from "semantic-ui-react";
+import React from "react";
+import { Table, Header, Modal, Image } from "semantic-ui-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import EditTeamModalv2 from "./EditTeamModalv2";
 
@@ -55,11 +54,7 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell
-                colSpan="1"
-                onClick={() => this.handleOpen()}
-                className="editTeamCell"
-              >
+              <Table.HeaderCell colSpan="1" onClick={() => this.handleOpen()}>
                 Current Team
               </Table.HeaderCell>
               <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>
@@ -67,8 +62,20 @@ class TeamView extends React.Component {
           </Table.Header>
           <Table.Body>
             {currentUsersWithHours.map(user => (
-              <Table.Row key={user.id}>
-                <Table.Cell>{user.name}</Table.Cell>
+              <Table.Row
+                key={user.id}
+                className="editTeamCell"
+                onClick={() => this.handleOpen()}
+              >
+                <Table.Cell onClick={() => console.log("clicked")}>
+                  <Header as="h4" image>
+                    <Image src={user.image} rounded size="mini" />
+                    <Header.Content>
+                      {user.name}
+                      <Header.Subheader>{user.nickname}</Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                </Table.Cell>
                 <Table.Cell>
                   {user.total_hours && user.total_hours.toFixed(2)}
                 </Table.Cell>
@@ -89,7 +96,15 @@ class TeamView extends React.Component {
             <Table.Body>
               {previousUsersWithHours.map(user => (
                 <Table.Row key={user.id}>
-                  <Table.Cell>{user.name}</Table.Cell>
+                  <Table.Cell onClick={() => console.log("clicked")}>
+                    <Header as="h4" image>
+                      <Image src={user.image} rounded size="mini" />
+                      <Header.Content>
+                        {user.name}
+                        <Header.Subheader>{user.nickname}</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                  </Table.Cell>
                   <Table.Cell>
                     {user.total_hours && user.total_hours.toFixed(2)}
                   </Table.Cell>
@@ -113,7 +128,7 @@ class TeamView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                Users
+                All Users
               </div>
               <div
                 style={{
