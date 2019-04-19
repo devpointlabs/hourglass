@@ -95,7 +95,7 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   {this.state.billableTotals !== undefined
                     ? this.state.billableTotals.total_billable_hours
-                    : 0}
+                    : "0.00"}
                 </div>
               </Table.Cell>
               <Table.Cell
@@ -118,8 +118,8 @@ class TaskView extends React.Component {
               >
                 <div>Total</div>
                 {this.state.billableTotals === undefined
-                  ? this.state.billableTotals.total_billable_cost
-                  : 0}
+                  ? "$0.00"
+                  : this.state.billableTotals.total_billable_cost}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -179,7 +179,7 @@ class TaskView extends React.Component {
               >
                 <div>Total</div>
                 {this.state.unbillableTotals === undefined
-                  ? 0
+                  ? "$0.00"
                   : this.state.unbillableTotals.total_billable_cost}
               </Table.Cell>
             </Table.Row>
