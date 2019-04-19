@@ -17,7 +17,7 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false
+    showNewRow: false,
   };
 
   componentDidMount = () => {
@@ -25,7 +25,8 @@ class WeekViewTableData extends React.Component {
       currentWeekTimeBlocks,
       monday,
       setSelectedWeek,
-      setSelectedDate
+      setSelectedDate,
+      tasks
     } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
@@ -40,15 +41,14 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  toggleShowNewRow = () => {
-    this.setState({ showNewRow: !this.state.showNewRow });
+  toggleShowNewRow = () => {	  
+    this.setState({ showNewRow: !this.state.showNewRow });	  
   };
 
   render() {
     const {
       currentWeekTimeBlocks,
       tasks,
-      selectedDate,
       monday,
       setSelectedDate,
       setSelectedWeek,
@@ -66,6 +66,13 @@ class WeekViewTableData extends React.Component {
       total
     } = this.state.dayHours;
 
+    ;
+    const filteredTasks = filteredProjectIds.length > 0 ?
+      tasks.filter(t =>
+        filteredProjectIds.includes(t.project_id)
+      ) :
+      tasks
+
     return (
       <>
         <Table.Header>
@@ -80,7 +87,8 @@ class WeekViewTableData extends React.Component {
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
-          {tasks.map(t => (
+
+          {filteredTasks.map(t =>
             <WeekViewTableRow
               key={t.id}
               task={t}
@@ -89,15 +97,16 @@ class WeekViewTableData extends React.Component {
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               filteredProjectIds={filteredProjectIds}
-              tasks={tasks}
             />
-          ))}
+          )}
+
+          {this.state.showNewRow && <NewRowForm />}
 
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
-            <Table.Cell colSpan="1">
+             <Table.Cell colSpan="1">
               <div style={{ textAlign: "left" }}>
                 <Button
                   style={{
