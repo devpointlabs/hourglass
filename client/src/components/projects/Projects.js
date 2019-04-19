@@ -70,7 +70,7 @@ class Projects extends React.Component {
     return (
       <>
         <ModalForms getProjects={this.getProjects} />
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "10px" }}>
           <Table basic collapsing style={{ width: "100%" }}>
             <Table.Header>
               <Table.Row>

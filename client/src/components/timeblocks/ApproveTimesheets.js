@@ -46,24 +46,26 @@ class ApproveTimesheets extends React.Component {
         <Header textAlign="center" as="h1">
           Pending Approval
         </Header>
-        <Table>
-          <Table.Header>
-            <Table.HeaderCell> Employee</Table.HeaderCell>
-            <Table.HeaderCell> Project</Table.HeaderCell>
-            <Table.HeaderCell> Task</Table.HeaderCell>
-            <Table.HeaderCell> Input Type</Table.HeaderCell>
-            <Table.HeaderCell> Clocked In</Table.HeaderCell>
-            <Table.HeaderCell> Clocked Out</Table.HeaderCell>
-            <Table.HeaderCell> Hours</Table.HeaderCell>
-            <Table.HeaderCell>
-              {" "}
-              {this.props.auth.user.admin ? (
-                <Button onClick={this.approveAll}>Approve All</Button>
-              ) : null}
-            </Table.HeaderCell>
-          </Table.Header>
-          <Table.Body>{this.showTimeblocks()}</Table.Body>
-        </Table>
+        <div style={{ padding: "10px" }}>
+          <Table>
+            <Table.Header>
+              <Table.HeaderCell>User</Table.HeaderCell>
+              <Table.HeaderCell>Project</Table.HeaderCell>
+              <Table.HeaderCell>Task</Table.HeaderCell>
+              <Table.HeaderCell>Input Type</Table.HeaderCell>
+              <Table.HeaderCell>Clocked In</Table.HeaderCell>
+              <Table.HeaderCell>Clocked Out</Table.HeaderCell>
+              <Table.HeaderCell>Hours</Table.HeaderCell>
+              <Table.HeaderCell>
+                {" "}
+                {this.props.auth.user.admin ? (
+                  <Button onClick={this.approveAll}>Approve All</Button>
+                ) : null}
+              </Table.HeaderCell>
+            </Table.Header>
+            <Table.Body>{this.showTimeblocks()}</Table.Body>
+          </Table>
+        </div>
       </>
     );
   }
