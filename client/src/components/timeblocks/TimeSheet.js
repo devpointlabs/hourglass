@@ -14,6 +14,7 @@ import {
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
+import NewRowForm from "./WeekView/NewRowForm";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";

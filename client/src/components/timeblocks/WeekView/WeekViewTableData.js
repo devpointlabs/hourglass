@@ -17,8 +17,7 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false,
-    showButton: true
+    showNewRow: false
   };
 
   componentDidMount = () => {
@@ -41,12 +40,8 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  addRow = () => {
-    this.setState({ showNewRow: true, showButton: !this.state.showButton });
-  };
-
-  submitRow = () => {
-    this.setState({ showNewRow: false, showButton: !this.state.showButton });
+  toggleShowNewRow = () => {
+    this.setState({ showNewRow: !this.state.showNewRow });
   };
 
   render() {
@@ -57,7 +52,9 @@ class WeekViewTableData extends React.Component {
       monday,
       setSelectedDate,
       setSelectedWeek,
-      filteredProjectIds
+      filteredProjectIds,
+      projects
+
     } = this.props;
     const {
       mondayHours,
@@ -97,40 +94,24 @@ class WeekViewTableData extends React.Component {
             />
           ))}
 
-          {this.state.showNewRow && <NewRowForm />}
-
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
             <Table.Cell colSpan="1">
-              {this.state.showButton ? (
-                <div style={{ textAlign: "left" }}>
-                  <Button
-                    style={{
-                      background: "RebeccaPurple",
-                      color: "white",
-                      marginLeft: "10px"
-                    }}
-                    onClick={() => this.addRow()}
-                  >
-                    New Row
-                  </Button>
-                </div>
-              ) : (
-                  <div style={{ textAlign: "left" }}>
-                    <Button
-                      onClick={() => this.submitRow()}
-                      style={{
-                        background: "RebeccaPurple",
-                        color: "white",
-                        marginLeft: "10px"
-                      }}
-                    >
-                      Save
-                  </Button>
-                  </div>
-                )}
+              <div style={{ textAlign: "left" }}>
+                <Button
+                  style={{
+                    background: "RebeccaPurple",
+                    color: "white",
+                    marginLeft: "10px",
+                    visibility: this.state.showNewRow ? "hidden" : "visible"
+                  }}
+                  onClick={() => this.toggleShowNewRow()}
+                >
+                  New Row
+                </Button>
+              </div>
             </Table.Cell>
             <Table.Cell
               style={{
@@ -205,6 +186,14 @@ class WeekViewTableData extends React.Component {
               {total.toFixed(2)}
             </Table.Cell>
           </Table.Row>
+          {this.state.showNewRow && (
+            <NewRowForm
+              toggleShowNewRow={this.toggleShowNewRow}
+              projects={projects}
+              tasks={tasks}
+              selectedDate={selectedDate}
+            />
+          )}
         </Table.Body>
       </>
     );
