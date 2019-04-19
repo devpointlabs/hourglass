@@ -1,0 +1,10 @@
+.projectRow:hover {
+  background: #f2f2f2 !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+}
+
+.div.ui.violet.progress {
+  margin: 0 !important;
+  padding: 0;
+}

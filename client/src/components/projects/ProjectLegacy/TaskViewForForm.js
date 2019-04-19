@@ -38,30 +38,30 @@ class TaskViewForForm extends React.Component {
             />
           </Segment>
         ) : (
-          <Table.Row key={task.id}>
-            <Table.Cell>{task.name}</Table.Cell>
-            <Table.Cell>{task.description}</Table.Cell>
-            <Table.Cell>{task.price_per_hour}</Table.Cell>
-            <Table.Cell>{task.billable ? "Billable" : "Unbillable"}</Table.Cell>
-            <Table.Cell>
-              <Button
-                circular
-                color="red"
-                onClick={this.handleDelete}
-                icon="times"
-                size="mini"
-              />
-              <Button
-                circular
-                color="blue"
-                onClick={this.toggleEdit}
-                icon="pencil"
-                size="mini"
-                style={{ alignItems: "right" }}
-              />
-            </Table.Cell>
-          </Table.Row>
-        )}
+            <Table.Row key={task.id}>
+              <Table.Cell>{task.name}</Table.Cell>
+              <Table.Cell>{task.description}</Table.Cell>
+              <Table.Cell>{task.price_per_hour}</Table.Cell>
+              <Table.Cell>{task.billable ? "Billable" : "Unbillable"}</Table.Cell>
+              <Table.Cell>
+                <Button
+                  circular
+                  color="red"
+                  onClick={this.handleDelete}
+                  icon="times"
+                  size="mini"
+                />
+                <Button
+                  circular
+                  color="blue"
+                  onClick={this.toggleEdit}
+                  icon="pencil"
+                  size="mini"
+                  style={{ alignItems: "right" }}
+                />
+              </Table.Cell>
+            </Table.Row>
+          )}
       </>
     );
   }

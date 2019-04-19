@@ -18,7 +18,8 @@ class AddNewTasks extends React.Component {
       billable: false,
       price_per_hour: "",
       project_id: ""
-    }
+    },
+    checkboxStatus: false
   };
 
   handleSubmit = () => {
@@ -33,7 +34,8 @@ class AddNewTasks extends React.Component {
             description: "",
             billable: false,
             price_per_hour: ""
-          }
+          },
+          checkboxStatus: false
         },
         () => this.props.getProjectTasks()
       );
@@ -42,6 +44,7 @@ class AddNewTasks extends React.Component {
 
   handleBillable = () => {
     this.setState({
+      checkboxStatus: !this.statecheckboxStatus,
       task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };
@@ -97,6 +100,7 @@ class AddNewTasks extends React.Component {
                     style={{ marginTop: "22px" }}
                     label="Billable"
                     onClick={this.handleBillable}
+                    checked={this.state.checkboxStatus}
                   />
                 </Table.Cell>
                 <Table.Cell>

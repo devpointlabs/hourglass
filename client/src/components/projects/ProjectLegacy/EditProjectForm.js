@@ -6,47 +6,27 @@ import {
   Icon,
   Header,
   Label,
-  Divider
+  Divider,
+  Container
 } from "semantic-ui-react";
 import axios from "axios";
-import TaskForm from "./TaskView/TaskForm";
-import TaskArrayForForm from "./TaskView/TaskArrayForForm";
-import AddUserToTask from "../AddUserToTask";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
+import CalendarPickerForProjectForm from "../ProjectModals/ProjectCreate/CalendarPickerForProjectForm";
+import TaskView from "../TaskView/TaskView";
+import ProjectNavbar from "../ProjectNavbar";
+import BudgetView from "../BudgetView";
+import TeamView from "../TeamView";
 
-class ProjectForm extends React.Component {
+class EditProjectForm extends React.Component {
   state = {
-    project: {
-      name: " ",
-      client_name: "",
-      planned_start: "",
-      planned_end: "",
-      notes: "",
-      budget: ""
-    },
-    project_id: "",
-    taskShown: false
+    project: {},
+    taskShown: false,
+    page: "budget"
   };
 
   componentDidMount() {
-    if (this.props.project) {
-      this.setState({
-        project: this.props.project,
-        project_id: this.props.project.id
-      });
-    } else {
-      this.setState({
-        project: {
-          name: " ",
-          client_name: "",
-          planned_start: "",
-          planned_end: "",
-          notes: ""
-        }
-      });
-    }
+    axios
+      .get(`/api/projects/${this.props.match.params.id}`)
+      .then(res => this.setState({ project: res.data }));
   }
 
   setEndDate = newdate =>
@@ -57,13 +37,6 @@ class ProjectForm extends React.Component {
       project: { ...this.state.project, planned_start: newdate }
     });
 
-  toggleTask = () => (
-    this.setState({
-      taskShown: { ...this.state, taskShown: !this.state.taskShown }
-    }),
-    this.handleSubmit()
-  );
-
   handleChange = e => {
     const {
       target: { name, value }
@@ -73,22 +46,51 @@ class ProjectForm extends React.Component {
 
   handleSubmit = e => {
     const { project } = this.state;
-    // e.preventDefault();
-    if (this.props.project) {
-      const { id } = this.state.project;
-      axios
-        .put(`/api/projects/${id}`, project)
-        .then(res => this.props.updateSubmit(res.data));
-    } else {
-      axios.post(`/api/projects`, project).then(res => {
-        this.setState({ ...this.state, project_id: res.data.id });
-      });
+    e && e.preventDefault();
+    axios
+      .put(`/api/projects/${project.project_id}`, project)
+      .then(this.props.history.push("/projects"));
+  };
+
+  deleteProject = () => {
+    const { project_id } = this.state.project;
+    axios.delete(`/api/projects/${project_id}`).then(res => {
+      this.props.history.push("/projects");
+    });
+  };
+
+  setPage = page => {
+    switch (page) {
+      case "task":
+        this.setState({ page: "task" });
+        break;
+      case "team":
+        this.setState({ page: "team" });
+        break;
+      case "budget":
+        this.setState({ page: "budget" });
+        break;
+      default:
+        return null;
+    }
+  };
+
+  renderPage = () => {
+    switch (this.state.page) {
+      case "task":
+        return <TaskView project={this.state.project} />;
+      case "team":
+        return <TeamView project={this.state.project} />;
+      case "budget":
+        return <BudgetView project={this.state.project} />;
+      default:
+        return <BudgetView project={this.state.project} />;
     }
   };
 
   render() {
     const {
-      name,
+      project_name,
       client_name,
       planned_start,
       planned_end,
@@ -98,30 +100,17 @@ class ProjectForm extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Link to="/projects">
-          <Button
-            animated
-            style={{ marginTop: "15px" }}
-            inverted
-            color="violet"
-          >
-            <Button.Content visible>Back</Button.Content>
-            <Button.Content hidden>
-              <Icon name="angle left" />
-            </Button.Content>
-          </Button>
-        </Link>
         <Form style={{ marginTop: "30px", textAlign: "center" }}>
           <Header as="h1" icon>
             <Icon name="sitemap" circular />
-            <Header.Content>New Project</Header.Content>
+            <Header.Content>{project_name}</Header.Content>
           </Header>
           <Divider hidden />
           <Form.Group style={{ justifyContent: "center" }}>
             <Form.Input
               label="Name"
-              name="name"
-              value={name}
+              name="project_name"
+              value={project_name}
               placeholder="Name of Project"
               required
               autoFocus
@@ -180,33 +169,40 @@ class ProjectForm extends React.Component {
             ) : null}
           </div>
           <br />
-          <Button
-            color="violet"
-            animated="fade"
-            inverted
-            onClick={() => this.toggleTask()}
-          >
-            <Button.Content visible>Add Tasks and Employees</Button.Content>
-            <Button.Content hidden>
-              <Icon name="angle double down" />
-            </Button.Content>
-          </Button>
+          <span>
+            <Button
+              floated="center"
+              style={{
+                color: "white",
+                background: "RebeccaPurple"
+              }}
+              onClick={() => this.handleSubmit()}
+            >
+              Save
+            </Button>
+            <Button color="red" onClick={() => this.deleteProject()}>
+              Delete Project
+            </Button>
+          </span>
+          <br />
+          <br />
         </Form>
+        <ProjectNavbar setPage={this.setPage} />
+        <div style={{ padding: "35px" }}>
+          {this.state.project.project_name && (
+            <Segment>{this.renderPage()}</Segment>
+          )}
+        </div>
 
-        {this.state.taskShown ? (
-          <div>
-            <TaskArrayForForm
-              project_id={this.state.project_id}
-              handleToggle={this.props.handleToggle}
-            />{" "}
-            <br />
-          </div>
-        ) : (
-          <div />
-        )}
+        {/* <div>
+          <TaskArrayForForm
+            project_id={this.state.project_id}
+            handleToggle={this.props.handleToggle}
+          />
+        </div> */}
       </>
     );
   }
 }
 
-export default ProjectForm;
+export default EditProjectForm;

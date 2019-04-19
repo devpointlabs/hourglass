@@ -8,8 +8,7 @@ import {
   Table
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from './EditTaskTable'
-
+import NewTaskTable from "./EditTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -20,29 +19,34 @@ class AddNewTasks extends React.Component {
       price_per_hour: "",
       project_id: this.props.project.project_id
     },
+    checkboxStatus: false
   };
 
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
-    axios.post(`/api/projects/${project.project_id}/tasks`, { task }).then(res => {
-      this.setState({
-        task: {
-          ...this.state.task,
-          name: "",
-          description: "",
-          billable: false,
-          price_per_hour: "",
-
-        }
-      }, () => this.props.getProjectTasks());
-    });
+    axios
+      .post(`/api/projects/${project.project_id}/tasks`, { task })
+      .then(res => {
+        this.setState(
+          {
+            task: {
+              ...this.state.task,
+              name: "",
+              description: "",
+              billable: false,
+              price_per_hour: ""
+            },
+            checkboxStatus: false
+          },
+          () => this.props.getProjectTasks()
+        );
+      });
   };
-
-
 
   handleBillable = () => {
     this.setState({
+      checkboxStatus: !this.state.checkboxStatus,
       task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };
@@ -94,10 +98,7 @@ class AddNewTasks extends React.Component {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Checkbox
-                    label="Billable"
-                    onClick={this.handleBillable}
-                  />
+                  <Checkbox label="Billable" onClick={this.handleBillable} checked={this.state.checkboxStatus} />
                 </Table.Cell>
                 <Table.Cell>
                   <Button
@@ -112,9 +113,6 @@ class AddNewTasks extends React.Component {
             </Table.Body>
           </Table>
         </Form>
-
-
-
       </>
     );
   }
@@ -124,9 +122,9 @@ export default AddNewTasks;
 
 const styles = {
   modal: {
-    position: 'relative',
-    maxWidth: '93%',
-    textAlign: 'center',
-    paddingLeft: '25px'
+    position: "relative",
+    maxWidth: "93%",
+    textAlign: "center",
+    paddingLeft: "25px"
   }
-}
+};

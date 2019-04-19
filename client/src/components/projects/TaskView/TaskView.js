@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import TaskForm from "./TaskForm";
-import { Table, Header, } from "semantic-ui-react";
+import TaskForm from "../ProjectLegacy/TaskForm";
+import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
 
@@ -12,23 +12,20 @@ class TaskView extends React.Component {
   }
 
   getProjectTasks = () => {
-    const { project, } = this.props;
+    const { project } = this.props;
     axios
       .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
-    axios
-      .get(`/api/billable/${project.project_id}`)
-      .then(response => {
-        const billable = response.data.filter(b => b.billable && b)
-        const unbillable = response.data.filter(b => {
-          if (b.billable === false)
-            return b
-        })
-        this.setState({
-          billableTotals: billable[0],
-          unbillableTotals: unbillable[0]
-        })
-      })
+    axios.get(`/api/billable/${project.project_id}`).then(response => {
+      const billable = response.data.filter(b => b.billable && b);
+      const unbillable = response.data.filter(b => {
+        if (b.billable === false) return b;
+      });
+      this.setState({
+        billableTotals: billable[0],
+        unbillableTotals: unbillable[0]
+      });
+    });
   };
 
   showBillableTasks = () => {
@@ -36,13 +33,17 @@ class TaskView extends React.Component {
     return billableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
+        <Table.Cell
+          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
+        >
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px", }}>
+        <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: "center" }}>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -52,13 +53,17 @@ class TaskView extends React.Component {
     return UnbillableTasks.map(task => (
       <Table.Row key={task.task_name}>
         <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell style={{ borderRight: "solid grey 0.5px", textAlign: 'center' }}>
+        <Table.Cell
+          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
+        >
           {task.total_hours ? task.total_hours : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell style={{ textAlign: 'center' }}>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell style={{ textAlign: "center" }}>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -86,10 +91,8 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div style={{ textAlign: 'center' }}>Hours</div>
-                <div
-                  style={{ textAlign: 'center' }}
-                >
+                <div style={{ textAlign: "center" }}>Hours</div>
+                <div style={{ textAlign: "center" }}>
                   {/* {this.state.billableTotals.total_billable_hours &&
                     (this.state.billableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
@@ -146,10 +149,8 @@ class TaskView extends React.Component {
                   fontWeight: "bold"
                 }}
               >
-                <div style={{ textAlign: 'center' }}>Hours</div>
-                <div
-                  style={{ textAlign: 'center' }}
-                >
+                <div style={{ textAlign: "center" }}>Hours</div>
+                <div style={{ textAlign: "center" }}>
                   {/* {this.state.unbillableTotals.total_billable_hours &&
                     (this.state.unbillableTotals.total_billable_hours).toFixed(1)} */}
                 </div>
@@ -198,16 +199,20 @@ class TaskView extends React.Component {
                   textAlign: "center"
                 }}
               >
-                <div>Total</div>
-                ${this.props.project.total_project_cost ? (this.props.project.total_project_cost).toFixed(2) : '0'}
+                <div>Total</div>$
+                {this.props.project.total_project_cost
+                  ? this.props.project.total_project_cost.toFixed(2)
+                  : "0"}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
         </Table>
-        <AddTask project={this.props.project} getProjectTasks={this.getProjectTasks} />
+        <AddTask
+          project={this.props.project}
+          getProjectTasks={this.getProjectTasks}
+        />
         <br />
         <br />
-
       </>
     );
   }

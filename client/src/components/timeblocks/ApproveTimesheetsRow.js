@@ -18,7 +18,7 @@ class ApproveTimesheetsRow extends React.Component {
       start_time: this.props.tb.start_time,
       end_time: this.props.tb.end_time,
       manualEntry: this.props.tb.manualEntry,
-      hours: this.props.tb.hours
+      hours: this.props.tb.hours.toFixed(2)
     });
   }
 
@@ -90,6 +90,7 @@ class ApproveTimesheetsRow extends React.Component {
             this.state.end_time
           )}
         </Table.Cell>
+
         <Table.Cell>{tb.hours}</Table.Cell>
         {this.props.auth.user && this.props.auth.user.admin === true && (
           <Table.Cell>
@@ -133,7 +134,9 @@ class ApproveTimesheetsRow extends React.Component {
   }
 }
 
+
 export class ConnectedApprovedTimesheetsRow extends React.Component {
+
   render() {
     return (
       <AuthConsumer>
@@ -143,4 +146,6 @@ export class ConnectedApprovedTimesheetsRow extends React.Component {
   }
 }
 
+
 export default withRouter(ConnectedApprovedTimesheetsRow);
+
