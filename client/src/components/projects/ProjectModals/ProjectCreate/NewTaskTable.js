@@ -71,126 +71,140 @@ class NewTaskTable extends React.Component {
           project={this.state.project}
           getProjectTasks={this.getProjectTasks}
         />
-        <Table>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold"
-                }}
-              >
-                Billable Tasks
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold"
-                }}
-              >
-                <div style={{ textAlign: "center" }}>Hours</div>
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold",
-                  paddingLeft: "200px"
-                }}
-              >
-                Price per Hour
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-            {this.showBillableTasks()}
-            <Table.Row>
-              <Table.Cell colSpan="6" />
-            </Table.Row>
-          </Table.Body>
-        </Table>
-        <Table>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold"
-                }}
-              >
-                Unbillable Tasks
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold"
-                }}
-              >
-                <div style={{ textAlign: "center" }}>Hours</div>
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold",
-                  paddingLeft: "200px"
-                }}
-              >
-                Price per Hour
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-            {this.showUnBillableTasks()}
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-          </Table.Body>
-        </Table>
-        <Button
-          floated="left"
-          style={{ background: "RebeccaPurple", color: "white" }}
-          onClick={() => this.props.closeModal2()}
+        <div
+          style={{
+            height: "50vh",
+            overflowY: "scroll",
+            padding: "0 10px 0 20px"
+          }}
         >
-          Close
-        </Button>
-        <Button
-          floated="right"
-          style={{ background: "RebeccaPurple", color: "white" }}
-          onClick={() => this.handleSubmit2()}
+          <Table>
+            <Table.Header>
+              <Table.Row style={{ background: "#e2e2e2" }}>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Billable Tasks
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>Hours</div>
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold",
+                    paddingLeft: "200px"
+                  }}
+                >
+                  Price per Hour
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div>Total</div>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+              {this.showBillableTasks()}
+              <Table.Row>
+                <Table.Cell colSpan="6" />
+              </Table.Row>
+            </Table.Body>
+          </Table>
+          <Table>
+            <Table.Header>
+              <Table.Row style={{ background: "#e2e2e2" }}>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Unbillable Tasks
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>Hours</div>
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold",
+                    paddingLeft: "200px"
+                  }}
+                >
+                  Price per Hour
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div>Total</div>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+              {this.showUnBillableTasks()}
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            marginTop: "10px"
+          }}
         >
-          Next
-        </Button>
+          <Button
+            style={{
+              width: "100px",
+              color: "white",
+              background: "RebeccaPurple",
+              marginLeft: "10px"
+            }}
+            onClick={() => this.handleSubmit2()}
+          >
+            Next
+          </Button>
+        </div>
       </>
     );
   }
