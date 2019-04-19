@@ -17,7 +17,7 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false,
+    showNewRow: false
   };
 
   componentDidMount = () => {
@@ -41,8 +41,8 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  toggleShowNewRow = () => {	  
-    this.setState({ showNewRow: !this.state.showNewRow });	  
+  toggleShowNewRow = () => {
+    this.setState({ showNewRow: !this.state.showNewRow });
   };
 
   render() {
@@ -53,7 +53,8 @@ class WeekViewTableData extends React.Component {
       setSelectedDate,
       setSelectedWeek,
       filteredProjectIds,
-      projects
+      projects,
+      selectedDate
     } = this.props;
     const {
       mondayHours,
@@ -66,12 +67,10 @@ class WeekViewTableData extends React.Component {
       total
     } = this.state.dayHours;
 
-    ;
-    const filteredTasks = filteredProjectIds.length > 0 ?
-      tasks.filter(t =>
-        filteredProjectIds.includes(t.project_id)
-      ) :
-      tasks
+    const filteredTasks =
+      filteredProjectIds.length > 0
+        ? tasks.filter(t => filteredProjectIds.includes(t.project_id))
+        : tasks;
 
     return (
       <>
@@ -88,7 +87,7 @@ class WeekViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
 
-          {filteredTasks.map(t =>
+          {filteredTasks.map(t => (
             <WeekViewTableRow
               key={t.id}
               task={t}
@@ -98,7 +97,7 @@ class WeekViewTableData extends React.Component {
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               filteredProjectIds={filteredProjectIds}
             />
-          )}
+          ))}
 
           {this.state.showNewRow && <NewRowForm />}
 
@@ -106,7 +105,7 @@ class WeekViewTableData extends React.Component {
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
-             <Table.Cell colSpan="1">
+            <Table.Cell colSpan="1">
               <div style={{ textAlign: "left" }}>
                 <Button
                   style={{
