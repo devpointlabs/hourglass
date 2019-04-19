@@ -76,6 +76,7 @@ class Api::TimeblocksController < ApplicationController
   def approve_pending_timeblocks
     Timeblock.approve_pending_timeblocks
   end
+
   private
 
   def set_task
@@ -91,6 +92,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status)
+    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status, :manualEntry)
   end
 end

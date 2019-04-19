@@ -54,7 +54,6 @@ class WeekViewTableData extends React.Component {
       setSelectedWeek,
       filteredProjectIds,
       projects
-
     } = this.props;
     const {
       mondayHours,
@@ -191,7 +190,7 @@ class WeekViewTableData extends React.Component {
               toggleShowNewRow={this.toggleShowNewRow}
               projects={projects}
               tasks={tasks}
-              selectedDate={selectedDate}
+              monday={monday}
             />
           )}
         </Table.Body>
