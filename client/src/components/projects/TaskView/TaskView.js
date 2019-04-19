@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import TaskForm from "./TaskForm";
+import TaskForm from "../ProjectLegacy/TaskForm";
 import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import AddTask from "./AddTask";
