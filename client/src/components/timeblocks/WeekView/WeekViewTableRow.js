@@ -7,25 +7,9 @@ import { Link } from "react-router-dom";
 
 class WeekViewTableRow extends React.Component {
   render() {
-    const { task, tasks } = this.props;
+    const { task } = this.props;
     const { currentWeekTimeBlocks, monday } = this.props;
-
-
     const weekTimeBlocks = returnTaskTotalsByDay(currentWeekTimeBlocks, monday);
-
-    // const filteredWeekTimeBlocks = this.props.filteredProjectIds.length > 0 ?
-    //   currentWeekTimeBlocks.map(cwtb => {
-    //     let new_array =
-    //       cwtb.filter(cw =>
-    //         this.props.filteredProjectIds.includes(cw.taskInfo.project_id)
-    //       )
-    //     return new_array
-    //   }) :
-    //   currentWeekTimeBlocks
-
-    // console.log(filteredWeekTimeBlocks)
-
-
     const totals = weekTimeBlocks.map(w =>
       w.reduce((acc, b) => {
         return b.task_id === this.props.task.id

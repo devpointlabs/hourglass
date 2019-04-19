@@ -17,7 +17,8 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false
+    showNewRow: false,
+    showButton: true
   };
 
   componentDidMount = () => {
@@ -25,7 +26,8 @@ class WeekViewTableData extends React.Component {
       currentWeekTimeBlocks,
       monday,
       setSelectedWeek,
-      setSelectedDate
+      setSelectedDate,
+      tasks
     } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
@@ -40,8 +42,12 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  toggleShowNewRow = () => {
-    this.setState({ showNewRow: !this.state.showNewRow });
+  addRow = () => {
+    this.setState({ showNewRow: true, showButton: !this.state.showButton });
+  };
+
+  submitRow = () => {
+    this.setState({ showNewRow: false, showButton: !this.state.showButton });
   };
 
   render() {
@@ -66,6 +72,13 @@ class WeekViewTableData extends React.Component {
       total
     } = this.state.dayHours;
 
+    ;
+    const filteredTasks = filteredProjectIds.length > 0 ?
+      tasks.filter(t =>
+        filteredProjectIds.includes(t.project_id)
+      ) :
+      tasks
+
     return (
       <>
         <Table.Header>
@@ -80,7 +93,8 @@ class WeekViewTableData extends React.Component {
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
-          {tasks.map(t => (
+
+          {filteredTasks.map(t =>
             <WeekViewTableRow
               key={t.id}
               task={t}
@@ -89,28 +103,43 @@ class WeekViewTableData extends React.Component {
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
               filteredProjectIds={filteredProjectIds}
-              tasks={tasks}
             />
-          ))}
+          )}
+
+          {this.state.showNewRow && <NewRowForm />}
 
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
             <Table.Cell colSpan="1">
-              <div style={{ textAlign: "left" }}>
-                <Button
-                  style={{
-                    background: "RebeccaPurple",
-                    color: "white",
-                    marginLeft: "10px",
-                    visibility: this.state.showNewRow ? "hidden" : "visible"
-                  }}
-                  onClick={() => this.toggleShowNewRow()}
-                >
-                  New Row
-                </Button>
-              </div>
+              {this.state.showButton ? (
+                <div style={{ textAlign: "left" }}>
+                  <Button
+                    style={{
+                      background: "RebeccaPurple",
+                      color: "white",
+                      marginLeft: "10px"
+                    }}
+                    onClick={() => this.addRow()}
+                  >
+                    New Row
+                  </Button>
+                </div>
+              ) : (
+                  <div style={{ textAlign: "left" }}>
+                    <Button
+                      onClick={() => this.submitRow()}
+                      style={{
+                        background: "RebeccaPurple",
+                        color: "white",
+                        marginLeft: "10px"
+                      }}
+                    >
+                      Save
+                  </Button>
+                  </div>
+                )}
             </Table.Cell>
             <Table.Cell
               style={{
