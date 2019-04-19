@@ -19,7 +19,8 @@ class TaskForm extends React.Component {
       project_id: this.props.project.project_id
     },
     usersShown: false,
-    modalOpen: false
+    modalOpen: false,
+    checkboxStatus: false
   };
 
   handleSubmit = () => {
@@ -33,8 +34,9 @@ class TaskForm extends React.Component {
           description: "",
           billable: false,
           price_per_hour: "",
+        },
+        checkboxStatus: false
 
-        }
       }, () => this.props.getProjectTasks());
     });
 
@@ -43,7 +45,8 @@ class TaskForm extends React.Component {
 
   handleBillable = () => {
     this.setState({
-      task: { ...this.state.task, billable: !this.state.task.billable }
+      checkboxStatus: !this.state.checkboxStatus,
+      task: { ...this.state.task, billable: !this.state.task.billable, }
     });
   };
 
@@ -116,6 +119,7 @@ class TaskForm extends React.Component {
                       <Checkbox
                         label="Billable"
                         onClick={this.handleBillable}
+                        checked={this.state.checkboxStatus}
                       />
                     </Table.Cell>
                     <Table.Cell>
