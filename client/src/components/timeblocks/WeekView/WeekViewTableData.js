@@ -99,7 +99,7 @@ class WeekViewTableData extends React.Component {
             />
           ))}
 
-          {this.state.showNewRow && <NewRowForm />}
+
 
           <Table.Row>
             <Table.Cell colSpan="10" />
