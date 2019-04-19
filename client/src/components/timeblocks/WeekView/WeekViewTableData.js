@@ -18,7 +18,6 @@ class WeekViewTableData extends React.Component {
       total: 0
     },
     showNewRow: false,
-    showButton: true
   };
 
   componentDidMount = () => {
