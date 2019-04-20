@@ -13,11 +13,12 @@ class EditModalForms extends React.Component {
 
   handleClose = () => {
     this.setState({ modalOpen: false });
-    this.props.getProjects();
+    this.props.getProjects && this.props.getProjects();
   };
   handleOpen = () => {
     this.setState({ modalOpen: true });
   };
+
 
   openModal2 = () => {
     this.setState({ modalOpen2: true, modalOpen: false });
@@ -33,18 +34,27 @@ class EditModalForms extends React.Component {
 
   closeModal3 = () => {
     this.setState({ modalOpen3: false });
-    this.props.getProjects();
+    this.props.getProjects && this.props.getProjects();
   };
 
   render() {
+
     return (
       <>
-        <Icon
+        {!this.props.budget && this.props.getProjects ? <Icon
           name="cog"
           size="large"
           style={{ color: "RebeccaPurple" }}
           onClick={() => this.handleOpen()}
         />
+          :
+          <div onClick={() => this.handleOpen()} >
+            {this.props.projectInfo}
+          </div>}
+        {this.props.budget &&
+          <div onClick={() => this.handleOpen()} style={{ cursor: 'pointer' }}>
+            ${this.props.budget}
+          </div>}
         <Modal
           open={this.state.modalOpen}
           onClose={() => this.handleClose()}
@@ -58,6 +68,7 @@ class EditModalForms extends React.Component {
               openModal2={this.openModal2}
               handleClose={this.handleClose}
               project={this.props.project}
+              budget={this.props.budget}
             />
           </Modal.Content>
         </Modal>

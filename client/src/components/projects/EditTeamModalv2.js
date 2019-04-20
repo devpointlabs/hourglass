@@ -76,7 +76,7 @@ class EditTeamModalv2 extends React.Component {
           axios
             .delete(
               `/api/assignment/${u.id}/${
-                this.props.project_id
+              this.props.project_id
               }/delete_by_u_and_p`
             )
             .then(res => {
@@ -130,7 +130,7 @@ class EditTeamModalv2 extends React.Component {
           >
             <Table.Body>
               {rowData.map(row => (
-                <Table.Row>
+                <Table.Row style={{ cursor: 'pointer' }}>
                   <Table.Cell
                     className="userTableCell"
                     style={{ width: "50%" }}
@@ -142,7 +142,7 @@ class EditTeamModalv2 extends React.Component {
                         rounded
                         size="mini"
                       />
-                      <Header.Content>
+                      <Header.Content >
                         {row.user && row.user.name}
                         <Header.Subheader>
                           {row.user && row.user.nickname}
