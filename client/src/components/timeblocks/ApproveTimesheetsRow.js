@@ -89,8 +89,8 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-            this.state.start_time
-          )}
+              this.state.start_time
+            )}
         </Table.Cell>
         <Table.Cell>
           {this.state.editing ? (
@@ -100,11 +100,11 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-            this.state.end_time
-          )}
+              this.state.end_time
+            )}
         </Table.Cell>
 
-        <Table.Cell>{this.state.hours}</Table.Cell>
+        <Table.Cell>{this.state.hours.toFixed(2)}</Table.Cell>
         {this.props.auth.user && this.props.auth.user.admin === true && (
           <Table.Cell>
             {this.state.editing ? (
@@ -116,30 +116,30 @@ class ApproveTimesheetsRow extends React.Component {
                 onClick={() => this.handleSubmit(tb.id)}
               />
             ) : (
-              <div>
-                <Button
-                  color="black"
-                  icon="check"
-                  size="mini"
-                  circular
-                  onClick={() => this.approveTimeblock(tb.id)}
-                />
-                <Button
-                  color="grey"
-                  icon="pencil"
-                  size="mini"
-                  circular
-                  onClick={() => this.toggleEdit()}
-                />
-                <Button
-                  color="violet"
-                  icon="send"
-                  size="mini"
-                  circular
-                  onClick={() => this.sendBack(tb.id)}
-                />
-              </div>
-            )}
+                <div>
+                  <Button
+                    color="black"
+                    icon="check"
+                    size="mini"
+                    circular
+                    onClick={() => this.approveTimeblock(tb.id)}
+                  />
+                  <Button
+                    color="grey"
+                    icon="pencil"
+                    size="mini"
+                    circular
+                    onClick={() => this.toggleEdit()}
+                  />
+                  <Button
+                    color="violet"
+                    icon="send"
+                    size="mini"
+                    circular
+                    onClick={() => this.sendBack(tb.id)}
+                  />
+                </div>
+              )}
           </Table.Cell>
         )}
       </Table.Row>

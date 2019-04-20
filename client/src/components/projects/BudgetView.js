@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Segment, Progress, Header } from "semantic-ui-react";
 import axios from "axios";
 import TimeSheet from "../timeblocks/TimeSheet";
+import styled from 'styled-components'
 
 class BudgetView extends React.Component {
   state = { project: {}, timesheet: [] };
@@ -34,17 +35,19 @@ class BudgetView extends React.Component {
             <Table.Cell>Progress</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>${project.budget}</Table.Cell>
-            <Table.Cell>${project.total_project_cost}</Table.Cell>
+            <Table.Cell>${parseFloat(project.budget).toFixed(2)}</Table.Cell>
+            <Table.Cell>${project.total_project_cost ? project.total_project_cost.toFixed(2) : 0}</Table.Cell>
             <Table.Cell>
-              {project.percent_spent ? project.percent_spent.toFixed(2) : 0}%
+              {project.percent_spent ? parseFloat(project.percent_spent).toFixed(2) : 0}%
             </Table.Cell>
             <Table.Cell>
               <Segment>
-                <Progress
-                  color={this.renderProgress(project.percent_spent)}
-                  percent={project.percent_spent}
-                />
+                <StyledProgressBar>
+                  <Progress
+                    color={this.renderProgress(project.percent_spent)}
+                    percent={project.percent_spent}
+                  />
+                </StyledProgressBar>
               </Segment>
             </Table.Cell>
           </Table.Row>
@@ -55,3 +58,20 @@ class BudgetView extends React.Component {
 }
 
 export default BudgetView;
+
+const StyledProgressBar = styled.div`
+.ui.progress .bar {
+  display: block;
+  line-height: 1;
+  position: relative;
+  width: 0%;
+  min-width: .2em;
+  background: #888;
+  border-radius: .28571429rem;
+  transition: width .1s ease,background-color .1s ease;
+  transition-property: width, background-color;
+  transition-duration: 0.1s, 0.1s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
+}
+`
