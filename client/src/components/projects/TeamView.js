@@ -54,7 +54,7 @@ class TeamView extends React.Component {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan="1" onClick={() => this.handleOpen()}>
+              <Table.HeaderCell style={{ cursor: 'pointer' }} colSpan="1" onClick={() => this.handleOpen()}>
                 Current Team
               </Table.HeaderCell>
               <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>

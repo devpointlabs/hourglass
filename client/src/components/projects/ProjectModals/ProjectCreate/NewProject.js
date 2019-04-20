@@ -35,6 +35,7 @@ class NewProject extends React.Component {
     axios.post(`/api/projects`, project).then(res => {
       project.name && this.props.openModal2();
       this.props.setProjectId(res.data.id);
+      this.props.getProjects()
     });
   };
 

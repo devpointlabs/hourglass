@@ -82,14 +82,14 @@ class ProjectView extends React.Component {
             <EditProjectModal project={this.state.project} projectInfo={
               <span style={{ marginLeft: "20px", cursor: 'pointer' }}>
                 <span style={{ fontSize: "1.3em" }}>{project_name}</span>
-                <span style={{ fontSize: ".8em" }}> ({client_name})</span>
+                <span style={{ fontSize: ".8em" }}> {client_name && "(" + client_name + ")"}</span>
               </span>}
             >
             </EditProjectModal>
 
             <h4 style={{ marginLeft: "20px" }}>
               {" "}
-              {planned_start} - {planned_end}
+              {planned_start} {planned_start && '-'} {planned_end}
             </h4>
 
           </Header>

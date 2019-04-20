@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Form } from "semantic-ui-react";
+import { Table, Button, Form, Popup } from "semantic-ui-react";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
@@ -108,36 +108,61 @@ class ApproveTimesheetsRow extends React.Component {
         {this.props.auth.user && this.props.auth.user.admin === true && (
           <Table.Cell>
             {this.state.editing ? (
-              <Button
-                color="black"
-                icon="save outline"
-                size="mini"
-                circular
-                onClick={() => this.handleSubmit(tb.id)}
+              <Popup
+                trigger={
+                  <Button
+                    color="black"
+                    icon="save outline"
+                    size="mini"
+                    circular
+                    onClick={() => this.handleSubmit(tb.id)}
+                  />
+                }
+                content={"Save Changes"}
+                basic
               />
             ) : (
                 <div>
-                  <Button
-                    color="black"
-                    icon="check"
-                    size="mini"
-                    circular
-                    onClick={() => this.approveTimeblock(tb.id)}
+                  <Popup
+                    trigger={
+                      <Button
+                        color="black"
+                        icon="check"
+                        size="mini"
+                        circular
+                        onClick={() => this.approveTimeblock(tb.id)}
+                      />
+                    }
+                    content={"Approve"}
+                    basic
                   />
-                  <Button
-                    color="grey"
-                    icon="pencil"
-                    size="mini"
-                    circular
-                    onClick={() => this.toggleEdit()}
+                  <Popup
+                    trigger={
+                      <Button
+                        color="grey"
+                        icon="pencil"
+                        size="mini"
+                        circular
+                        onClick={() => this.toggleEdit()}
+                      />
+                    }
+                    content={"Edit Time"}
+                    basic
                   />
-                  <Button
-                    color="violet"
-                    icon="send"
-                    size="mini"
-                    circular
-                    onClick={() => this.sendBack(tb.id)}
+                  <Popup
+                    trigger={
+                      <Button
+                        color="violet"
+                        icon="send"
+                        size="mini"
+                        circular
+                        onClick={() => this.sendBack(tb.id)}
+                      />
+                    }
+                    content={"Send back to user"}
+                    basic
                   />
+
                 </div>
               )}
           </Table.Cell>
@@ -158,3 +183,4 @@ export class ConnectedApprovedTimesheetsRow extends React.Component {
 }
 
 export default withRouter(ConnectedApprovedTimesheetsRow);
+

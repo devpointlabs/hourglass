@@ -41,7 +41,7 @@ class EditModalForms extends React.Component {
 
     return (
       <>
-        {this.props.getProjects ? <Icon
+        {!this.props.budget && this.props.getProjects ? <Icon
           name="cog"
           size="large"
           style={{ color: "RebeccaPurple" }}
@@ -50,6 +50,10 @@ class EditModalForms extends React.Component {
           :
           <div onClick={() => this.handleOpen()} >
             {this.props.projectInfo}
+          </div>}
+        {this.props.budget &&
+          <div onClick={() => this.handleOpen()} style={{ cursor: 'pointer' }}>
+            ${this.props.budget}
           </div>}
         <Modal
           open={this.state.modalOpen}
@@ -64,6 +68,7 @@ class EditModalForms extends React.Component {
               openModal2={this.openModal2}
               handleClose={this.handleClose}
               project={this.props.project}
+              budget={this.props.budget}
             />
           </Modal.Content>
         </Modal>
