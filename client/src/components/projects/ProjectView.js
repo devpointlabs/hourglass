@@ -1,26 +1,20 @@
 import React from "react";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import ProjectNavbar from "./ProjectNavbar";
 import {
   Header,
-  Button,
   Container,
-  Card,
-  Icon,
-  ButtonGroup,
-  Table,
   Segment,
-  Progress
 } from "semantic-ui-react";
 import TaskView from "./TaskView/TaskView";
 import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
-import ProjectForm from "./ProjectLegacy/ProjectForm";
+import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
 
 class ProjectView extends React.Component {
   state = {
-    project: [],
+    project: {},
     page: ""
   };
 
@@ -57,8 +51,12 @@ class ProjectView extends React.Component {
         return <BudgetView project={this.state.project} />;
       default:
         return <BudgetView project={this.state.project} />;
+
     }
   };
+
+
+
 
   render() {
     const {
@@ -78,15 +76,22 @@ class ProjectView extends React.Component {
             margin: "0px"
           }}
         >
-          <Header as={Link} to={`/project/${project_id}/edit`}>
-            <h1 style={{ marginLeft: "20px" }}>
-              {project_name}
-              <span style={{ fontSize: ".8em" }}> ({client_name})</span>
-            </h1>
+
+          <EditProjectModal project={this.state.project} passHandleOpen={this.passHandleOpen}></EditProjectModal>
+          <Header>
+            <EditProjectModal project={this.state.project} projectInfo={
+              <span style={{ marginLeft: "20px", cursor: 'pointer' }}>
+                <span style={{ fontSize: "1.3em" }}>{project_name}</span>
+                <span style={{ fontSize: ".8em" }}> ({client_name})</span>
+              </span>}
+            >
+            </EditProjectModal>
+
             <h4 style={{ marginLeft: "20px" }}>
               {" "}
               {planned_start} - {planned_end}
             </h4>
+
           </Header>
 
           <Segment>{this.renderPage()}</Segment>
