@@ -61,6 +61,7 @@ class ModalForms extends React.Component {
               openModal2={this.openModal2}
               handleClose={this.handleClose}
               setProjectId={this.setProjectId}
+              getProjects={this.props.getProjects}
             />
           </Modal.Content>
         </Modal>
