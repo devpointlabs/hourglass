@@ -81,6 +81,7 @@ class TableData extends React.Component {
               setSelectedDate={setSelectedDate}
               setSelectedWeek={setSelectedWeek}
               filteredProjectIds={filteredProjectIds}
+              getCurrentUserTimeBlocks={getCurrentUserTimeBlocks}
             />
           </>
         );

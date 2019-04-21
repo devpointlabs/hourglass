@@ -115,7 +115,6 @@ class TimeSheet extends React.Component {
     const TimeBlocksWithTaskInfo = timeBlocks.map(b => {
       return {
         ...b,
-        // {start: '', end: '', taskInfo: tasks}
         taskInfo: tasks
           .filter(t => t.id === b.task_id)
           .reduce((acc, task) => acc + task)
@@ -123,7 +122,13 @@ class TimeSheet extends React.Component {
     });
     let grabCurrentWeek = TimeBlocksWithTaskInfo.filter(
       tb =>
-        moment(week).format("yyyy w") === moment(tb.start_time).format("yyyy w")
+        (moment(week).format("yyyy w") ===
+          moment(tb.start_time).format("yyyy w") &&
+          moment(tb.start_time).format("dd") !== "Su") ||
+        moment(week)
+          .startOf("week")
+          .add(1, "week")
+          .format("yyyy MM DD") === moment(tb.start_time).format("yyyy MM DD")
     );
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
@@ -160,9 +165,9 @@ class TimeSheet extends React.Component {
       .then(res => this.getCurrentUserTimeBlocks());
   };
 
-  filterUser = (e, { value }) => this.setState({ filteredUserIds: value })
-  filterProject = (e, { value }) => this.setState({ filteredProjectIds: value })
-
+  filterUser = (e, { value }) => this.setState({ filteredUserIds: value });
+  filterProject = (e, { value }) =>
+    this.setState({ filteredProjectIds: value });
 
   render() {
     const {
@@ -176,21 +181,17 @@ class TimeSheet extends React.Component {
       filteredProjectIds
     } = this.state;
 
-    const options = this.state.users.map(u =>
-      ({
-        key: u.id,
-        text: u.name,
-        value: u.id
-      })
-    )
+    const options = this.state.users.map(u => ({
+      key: u.id,
+      text: u.name,
+      value: u.id
+    }));
 
-    const projectOptions = this.state.projects.map(u =>
-      ({
-        key: u.id,
-        text: u.name + " " + "(" + u.client_name + ")",
-        value: u.id
-      })
-    )
+    const projectOptions = this.state.projects.map(u => ({
+      key: u.id,
+      text: u.name + " " + "(" + u.client_name + ")",
+      value: u.id
+    }));
 
     return (
       <>
@@ -203,32 +204,33 @@ class TimeSheet extends React.Component {
           setSelectedWeek={this.setSelectedWeek}
         />
         <br />
-        {this.state.view === "day" ?
+        {this.state.view === "day" ? (
           <Dropdown
             onChange={this.filterUser}
             placeholder="Teammates"
             fluid
-            multiple selection
+            multiple
+            selection
             options={options}
             style={{ borderRadius: 0 }}
             clearable
             scrolling
             value={this.state.filteredUserIds}
           />
-
-          :
-
+        ) : (
           <Dropdown
             onChange={this.filterProject}
             placeholder="Projects"
             fluid
-            multiple selection
+            multiple
+            selection
             options={projectOptions}
             style={{ borderRadius: 0 }}
             clearable
             scrolling
             value={this.state.filteredProjectIds}
-          />}
+          />
+        )}
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton
             projects={projects}
