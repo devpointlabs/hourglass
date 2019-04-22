@@ -19,7 +19,7 @@ import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
-import EditProjectForm from './components/projects/EditProjectForm'
+import EditProjectForm from "./components/projects/EditProjectForm";
 
 const App = () => (
   <Fragment>

@@ -3,6 +3,7 @@ import { Table, Header } from "semantic-ui-react";
 import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 import ApproveTimesheetsRow from "./ApproveTimesheetsRow";
 import axios from "axios";
+// import styled from "styled-components";
 
 class ApproveTimesheets extends React.Component {
   state = {
@@ -30,25 +31,35 @@ class ApproveTimesheets extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
+
         <Header textAlign="center" as="h1">
           Approve Timeblocks
         </Header>
-        <Table>
-          <Table.Header>
-            <Table.HeaderCell> Employee</Table.HeaderCell>
-            <Table.HeaderCell> Project</Table.HeaderCell>
-            <Table.HeaderCell> Task</Table.HeaderCell>
-            <Table.HeaderCell> Input Type</Table.HeaderCell>
-            <Table.HeaderCell> Clocked In</Table.HeaderCell>
-            <Table.HeaderCell> Clocked Out</Table.HeaderCell>
-            <Table.HeaderCell> Hours</Table.HeaderCell>
-            <Table.HeaderCell> Approve or Edit</Table.HeaderCell>
-          </Table.Header>
+        {/* <MobileContainer> */}
+        <Table stackable>
+          <Table.Row>
+            <Table.Cell> Employee</Table.Cell>
+            <Table.Cell> Project</Table.Cell>
+            <Table.Cell> Task</Table.Cell>
+            <Table.Cell> Input Type</Table.Cell>
+            <Table.Cell> Clocked In</Table.Cell>
+            <Table.Cell> Clocked Out</Table.Cell>
+            <Table.Cell> Hours</Table.Cell>
+            <Table.Cell> Approve or Edit</Table.Cell>
+          </Table.Row>
           <Table.Body>{this.showTimeblocks()}</Table.Body>
         </Table>
+        {/* </MobileContainer> */}
       </>
     );
   }
 }
+
+// const MobileContainer = styled.div`
+//   @media (max-width: 425px) {
+//     display: flex;
+//     flex-direction: column;
+//   }
+// `;
 
 export default ApproveTimesheets;

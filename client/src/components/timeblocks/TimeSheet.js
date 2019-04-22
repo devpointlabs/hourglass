@@ -176,7 +176,13 @@ class TimeSheet extends React.Component {
             stopTimer={this.stopTimer}
             timeBlock={this.state.activeTimerTimeBlock}
           />
-          <Table basic="very" celled collapsing style={{ width: "100%" }}>
+          <Table
+            stackable
+            basic="very"
+            celled
+            collapsing
+            style={{ width: "100%" }}
+          >
             <TableData
               view={view}
               timeBlocks={timeBlocks}

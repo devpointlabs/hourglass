@@ -111,7 +111,7 @@ class ProjectForm extends React.Component {
             </Button.Content>
           </Button>
         </Link>
-        <Form style={{ marginTop: "30px", textAlign: "center" }}>
+        <Form stackable style={{ marginTop: "30px", textAlign: "center" }}>
           <Header as="h1" icon>
             <Icon name="sitemap" circular />
             <Header.Content>New Project</Header.Content>
@@ -202,8 +202,8 @@ class ProjectForm extends React.Component {
             <br />
           </div>
         ) : (
-            <div />
-          )}
+          <div />
+        )}
       </>
     );
   }

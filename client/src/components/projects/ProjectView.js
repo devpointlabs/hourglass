@@ -21,7 +21,7 @@ import ProjectForm from "./ProjectForm";
 class ProjectView extends React.Component {
   state = {
     project: [],
-    page: "",
+    page: ""
   };
 
   componentDidMount() {
@@ -73,14 +73,16 @@ class ProjectView extends React.Component {
         <ProjectNavbar setPage={this.setPage} />
 
         <Container
+          stackable
           style={{
             paddingTop: "0px",
             margin: "0px"
           }}
         >
           <Header as={Link} to={`/project/${project_id}/edit`}>
-            <h1 style={{ marginLeft: "20px" }}>{project_name}
-              <span style={{ fontSize: '.8em' }}> ({client_name})</span>
+            <h1 style={{ marginLeft: "20px" }}>
+              {project_name}
+              <span style={{ fontSize: ".8em" }}> ({client_name})</span>
             </h1>
             <h4 style={{ marginLeft: "20px" }}>
               {" "}

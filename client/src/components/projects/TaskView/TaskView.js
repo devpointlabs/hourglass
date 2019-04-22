@@ -5,14 +5,14 @@ import axios from "axios";
 import AddTask from "./AddTask";
 
 class TaskView extends React.Component {
-  state = { tasks: [], };
+  state = { tasks: [] };
 
   componentDidMount() {
     this.getProjectTasks();
   }
 
   getProjectTasks = () => {
-    const { project, } = this.props;
+    const { project } = this.props;
     axios
       .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));
@@ -29,7 +29,9 @@ class TaskView extends React.Component {
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -45,7 +47,9 @@ class TaskView extends React.Component {
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
-        <Table.Cell>{task.total_cost ? ('$' + task.total_cost) : '$0'}</Table.Cell>
+        <Table.Cell>
+          {task.total_cost ? "$" + task.total_cost : "$0"}
+        </Table.Cell>
       </Table.Row>
     ));
   };
@@ -54,7 +58,7 @@ class TaskView extends React.Component {
     return (
       <>
         <Header as="h1">Tasks</Header>
-        <Table>
+        <Table stackable>
           <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
               <Table.Cell
@@ -89,12 +93,10 @@ class TaskView extends React.Component {
                 style={{
                   fontSize: "1.1em",
                   width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
+                  fontWeight: "bold"
                 }}
               >
-                <div>Total</div>
-                ${this.props.project.total_project_cost}
+                <div>Total</div>${this.props.project.total_project_cost}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -143,12 +145,10 @@ class TaskView extends React.Component {
                 style={{
                   fontSize: "1.1em",
                   width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
+                  fontWeight: "bold"
                 }}
               >
-                <div>Total</div>
-                ${this.props.project.total_project_cost}
+                <div>Total</div>${this.props.project.total_project_cost}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
@@ -173,16 +173,17 @@ class TaskView extends React.Component {
                   textAlign: "center"
                 }}
               >
-                <div>Total</div>
-                ${this.props.project.total_project_cost}
+                <div>Total</div>${this.props.project.total_project_cost}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
         </Table>
-        <AddTask project={this.props.project} getProjectTasks={this.getProjectTasks} />
+        <AddTask
+          project={this.props.project}
+          getProjectTasks={this.getProjectTasks}
+        />
         <br />
         <br />
-
       </>
     );
   }

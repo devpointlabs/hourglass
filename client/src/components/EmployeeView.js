@@ -55,7 +55,7 @@ class Employee extends React.Component {
 
     return (
       <>
-        <Segment>
+        <Segment stackable>
           <Image circular centered src={user.image || defaultImage} />
           <Header textAlign="center">{user.name}</Header>
         </Segment>
@@ -64,7 +64,7 @@ class Employee extends React.Component {
           <Header.Subheader>{this.totals()}</Header.Subheader>
         </Header>
         <Divider />
-        <Table celled>
+        <Table celled stackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Client</Table.HeaderCell>

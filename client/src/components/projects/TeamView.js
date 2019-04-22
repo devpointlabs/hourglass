@@ -40,7 +40,7 @@ class TeamView extends React.Component {
   render() {
     return (
       <Fragment>
-        <Table celled compact>
+        <Table stackable celled compact>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell colSpan="2">Assigned Members</Table.HeaderCell>
