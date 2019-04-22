@@ -128,7 +128,7 @@ const StyledProgressBar = styled.div`
     background: #888;
     border-radius: 0.28571429rem;
     transition: width 0.1s ease, background-color 0.1s ease;
-    transition-property: width, background-color;
+    transition-property: width;
     transition-duration: 0.1s, 0.1s;
     transition-timing-function: ease, ease;
     transition-delay: 0s, 0s;
