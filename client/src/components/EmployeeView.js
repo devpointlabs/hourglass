@@ -33,7 +33,7 @@ const Employee = props => {
   return (
     <>
       <Segment>
-        <Image circular centered src={user.image || defaultImage} />
+        <Image circular size='medium' centered src={user.image || defaultImage} />
         <Header textAlign="center">{user.name}</Header>
       </Segment>
       <Header as="h1" textAlign="center">
