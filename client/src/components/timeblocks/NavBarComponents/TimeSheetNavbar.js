@@ -21,23 +21,24 @@ class TimeSheetNavbar extends React.Component {
           style={{
             display: "flex",
             justifyContent: "space-around",
-            alignItems: "center",
-            flexWrap: "wrap"
+            flexWrap: "wrap",
+            alighItems: "flex-end"
           }}
         >
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "row"
-            }}
-          >
+          <div style={{ width: "250px" }}>
             {/* <mobileContainer> */}
             <h1>{moment(selectedDate).format("dddd MMM DD")}</h1>
             {/* <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
           </Button> */}
-          </span>
-          <div style={{ display: "flex", alignItems: "flex-start" }}>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end"
+            }}
+          >
             <Button
               onClick={() =>
                 clickHandler(
@@ -156,43 +157,44 @@ class TimeSheetNavbar extends React.Component {
                 style={{ margin: 0 }}
               />
             </Button>
+            <div style={{ padding: "0 20px 0 20px" }}>
+              <CalendarPicker
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <span>
+              <Button
+                onClick={() => clickHandler(null, "day", setView)}
+                style={{
+                  background: view === "day" ? "lightgrey" : "white",
+                  border: "solid gray 1px",
+                  marginRight: 0,
+                  marginLeft: "5px",
+                  borderRadius: 0,
+                  padding: "4px",
+                  width: "50px",
+                  height: "3em"
+                }}
+              >
+                Day
+              </Button>
+              <Button
+                onClick={() => clickHandler(null, "week", setView)}
+                style={{
+                  background: view === "week" ? "lightgrey" : "white",
+                  border: "solid gray 1px",
+                  width: "50px",
+                  marginLeft: 0,
+                  borderRadius: 0,
+                  padding: "4px",
+                  height: "3em"
+                }}
+              >
+                Week
+              </Button>
+            </span>
           </div>
-          <CalendarPicker
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          <span>
-            <Button
-              onClick={() => clickHandler(null, "day", setView)}
-              style={{
-                background: view === "day" ? "lightgrey" : "white",
-                border: "solid gray 1px",
-                marginRight: 0,
-                marginLeft: "5px",
-                borderRadius: 0,
-                padding: "4px",
-                width: "50px",
-                height: "3em"
-              }}
-            >
-              Day
-            </Button>
-            <Button
-              onClick={() => clickHandler(null, "week", setView)}
-              style={{
-                background: view === "week" ? "lightgrey" : "white",
-                border: "solid gray 1px",
-                width: "50px",
-                marginLeft: 0,
-                borderRadius: 0,
-                padding: "4px",
-                height: "3em"
-              }}
-            >
-              Week
-            </Button>
-          </span>
-          <div style={{ width: "40%" }} />
           {/* </mobileContainer> */}
         </div>
       </>

@@ -51,7 +51,7 @@ class ModalForms extends React.Component {
         <Modal
           open={this.state.modalOpen}
           onClose={() => this.handleClose()}
-          style={{ width: "700px" }}
+          style={{ maxWidth: "100%" }}
         >
           <Modal.Header style={{ background: "RebeccaPurple", color: "white" }}>
             New Project
@@ -68,7 +68,7 @@ class ModalForms extends React.Component {
         <Modal
           open={this.state.modalOpen2}
           onClose={() => this.closeModal2()}
-          style={{ width: "850px" }}
+          style={{ maxWidth: "100%" }}
         >
           <Modal.Header style={{ background: "RebeccaPurple", color: "white" }}>
             Add Tasks
