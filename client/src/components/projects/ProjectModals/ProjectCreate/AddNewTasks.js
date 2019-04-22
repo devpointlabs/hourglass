@@ -91,7 +91,7 @@ class AddNewTasks extends React.Component {
                     label="Price per hour"
                     placeholder="Price per hour"
                     value={price_per_hour}
-                    required
+                    type="number"
                     onChange={this.handleChange}
                   />
                 </Table.Cell>

@@ -12,7 +12,6 @@ class EditTaskTable extends React.Component {
   };
 
   getProjectTasks = () => {
-    const { project } = this.state;
     axios
       .get(`/api/projectdata/${this.props.project.project_id}/tasks_with_data`)
       .then(response => this.setState({ tasks: response.data }));

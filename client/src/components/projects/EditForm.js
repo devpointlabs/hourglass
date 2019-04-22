@@ -13,7 +13,6 @@ import {
   Image
 } from "semantic-ui-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Dropzone from "react-dropzone";
 import styled from "styled-components";
@@ -118,8 +117,8 @@ class EditForm extends React.Component {
                   {isDragActive ? (
                     <p>Drop files here...</p>
                   ) : (
-                    <p>Select a file</p>
-                  )}
+                      <p>Select a file</p>
+                    )}
                 </div>
               );
             }}

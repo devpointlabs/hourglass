@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Home from "./components/Home";
 import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import Register from "./components/Register";
