@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { AuthConsumer } from "../../providers/AuthProvider";
 import {
   Grid,
   Button,
@@ -90,8 +91,21 @@ class Projects extends React.Component {
   render() {
     return (
       <>
-        <ModalForms getProjects={this.getProjects} />
-        <div style={{ padding: "10px" }}>
+      {!this.props.auth.user.admin ? 
+      (
+        <div style={{ marginTop: "20px", textAlign: "center", width: "100%"}}>
+        <h1 >You do not have access to this page.</h1>
+        <Link to="/timesheet">
+        <Button style={{
+                     
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}> Return Home </Button>
+        </Link>
+        </div> ):
+     (
+     <div style={{ padding: "10px" }}>
+       <ModalForms getProjects={this.getProjects} />
           <Table stackable basic collapsing style={{ width: "100%" }}>
             <Table.Header>
               <Table.Row>
@@ -111,12 +125,28 @@ class Projects extends React.Component {
             {this.showProjects()}
           </Table>
         </div>
+       )
+      
+     }
       </>
     );
   }
 }
 
-export default withRouter(Projects);
+
+
+export class ConnectedProjects extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <Projects {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+
+export default withRouter(ConnectedProjects);
 
 const StyledProgressBar = styled.div`
   .ui.progress .bar {
@@ -135,4 +165,7 @@ const StyledProgressBar = styled.div`
   }
 `;
 
-//
+
+
+
+

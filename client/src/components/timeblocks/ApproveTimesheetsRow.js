@@ -179,7 +179,7 @@ class ApproveTimesheetsRow extends React.Component {
             <Popup
               trigger={
                 <Button
-                  color="violet"
+                  style={{background:"RebeccaPurple", color: "white"}}
                   icon="send"
                   size="mini"
                   circular

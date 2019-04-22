@@ -89,7 +89,11 @@ class ApproveTimesheets extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   {this.props.auth.user.admin ? (
-                    <Button onClick={this.approveAll}>Approve All</Button>
+                     <Button style={{
+                     
+                      background: "RebeccaPurple",
+                      color: "white"}} 
+                      onClick={this.approveAll}>Approve All</Button>
                   ) : null}
                 </Table.Cell>
               </Table.Row>
