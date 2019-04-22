@@ -56,12 +56,12 @@ class Projects extends React.Component {
             {p.total_project_cost && `$${p.total_project_cost.toFixed(0)}`}
           </Table.Cell>
           <Table.Cell>
-            <StyledProgressBar>
-              <Progress
-                color={this.renderProgress(p.percent_spent)}
-                percent={p.percent_spent}
-              />
-            </StyledProgressBar>
+            {/* <StyledProgressBar> */}
+            <Progress
+              color={this.renderProgress(p.percent_spent)}
+              percent={p.percent_spent}
+            />
+            {/* </StyledProgressBar> */}
           </Table.Cell>
           <Table.Cell>
             {p.percent_spent ? p.percent_spent.toFixed(0) : 0}%
@@ -77,13 +77,13 @@ class Projects extends React.Component {
   renderProgress = percent_spent => {
     switch (true) {
       case percent_spent > 70 && percent_spent < 100:
-        return "orange !important";
+        return "orange";
       case percent_spent < 70:
-        return "green !important";
+        return "green";
       case percent_spent > 100:
-        return "red !important";
+        return "red";
       case percent_spent === 0:
-        return "grey !important";
+        return "grey";
     }
   };
 
@@ -120,18 +120,18 @@ export default withRouter(Projects);
 
 const StyledProgressBar = styled.div`
   .ui.progress .bar {
-    display: block;
-    line-height: 1;
-    position: relative;
-    width: 0%;
-    min-width: 0.2em;
-    background: #888;
-    border-radius: 0.28571429rem;
-    transition: width 0.1s ease, background-color 0.1s ease;
-    transition-property: width;
-    transition-duration: 0.1s, 0.1s;
-    transition-timing-function: ease, ease;
-    transition-delay: 0s, 0s;
+    // display: block;
+    // line-height: 1;
+    // position: relative;
+    // width: 0%;
+    // min-width: 0.2em;
+    // background: #888;
+    // border-radius: 0.28571429rem;
+    // transition: width 0.1s ease, background-color 0.1s ease;
+    // transition-property: width;
+    // transition-duration: 0.1s, 0.1s;
+    // transition-timing-function: ease, ease;
+    // transition-delay: 0s, 0s;
   }
 `;
 
