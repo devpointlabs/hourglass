@@ -7,19 +7,15 @@ import { TimerProvider } from "./providers/TimerProvider";
 import "semantic-ui-css/semantic.min.css";
 import { initMiddleware } from "devise-axios";
 
-
 initMiddleware();
-
 
 ReactDOM.render(
   <AuthProvider>
- 
-      <TimerProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </TimerProvider>
-
+    <TimerProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TimerProvider>
   </AuthProvider>,
   document.getElementById("root")
 );

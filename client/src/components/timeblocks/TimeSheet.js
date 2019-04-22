@@ -14,10 +14,6 @@ import {
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
-import NewRowForm from "./WeekView/NewRowForm";
-// import DateRange from "./DateRange";
-// import UserWeek from "./UserWeek";
-// import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
 
 class TimeSheet extends React.Component {
   state = {
@@ -207,7 +203,6 @@ class TimeSheet extends React.Component {
           setView={this.setView}
           setSelectedWeek={this.setSelectedWeek}
         />
-        <br />
         {this.state.view === "day" ? (
           <Dropdown
             onChange={this.filterUser}
@@ -222,19 +217,19 @@ class TimeSheet extends React.Component {
             value={this.state.filteredUserIds}
           />
         ) : (
-          <Dropdown
-            onChange={this.filterProject}
-            placeholder="Projects"
-            fluid
-            multiple
-            selection
-            options={projectOptions}
-            style={{ borderRadius: 0 }}
-            clearable
-            scrolling
-            value={this.state.filteredProjectIds}
-          />
-        )}
+            <Dropdown
+              onChange={this.filterProject}
+              placeholder="Projects"
+              fluid
+              multiple
+              selection
+              options={projectOptions}
+              style={{ borderRadius: 0 }}
+              clearable
+              scrolling
+              value={this.state.filteredProjectIds}
+            />
+          )}
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton
             projects={projects}
@@ -247,8 +242,13 @@ class TimeSheet extends React.Component {
             stopTimer={this.stopTimer}
             timeBlock={this.state.activeTimerTimeBlock}
           />
-
-          <Table basic="very" celled collapsing style={{ width: "100%" }}>
+          <Table
+            stackable
+            basic="very"
+            celled
+            collapsing
+            style={{ width: "100%" }}
+          >
             <TableData
               view={view}
               timeBlocks={timeBlocks}

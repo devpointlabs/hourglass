@@ -76,7 +76,7 @@ class EditTeamModalv2 extends React.Component {
           axios
             .delete(
               `/api/assignment/${u.id}/${
-              this.props.project_id
+                this.props.project_id
               }/delete_by_u_and_p`
             )
             .then(res => {
@@ -123,6 +123,7 @@ class EditTeamModalv2 extends React.Component {
       <>
         <div style={{ height: "70vh", overflowY: "scroll" }}>
           <Table
+            unstackable
             basic="very"
             celled
             collapsing
@@ -130,10 +131,10 @@ class EditTeamModalv2 extends React.Component {
           >
             <Table.Body>
               {rowData.map(row => (
-                <Table.Row style={{ cursor: 'pointer' }}>
+                <Table.Row style={{ cursor: "pointer" }}>
                   <Table.Cell
                     className="userTableCell"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", maxWidth: "50%" }}
                     onClick={() => row.user && this.toggleIn(row.user)}
                   >
                     <Header as="h4" image>
@@ -142,7 +143,7 @@ class EditTeamModalv2 extends React.Component {
                         rounded
                         size="mini"
                       />
-                      <Header.Content >
+                      <Header.Content>
                         {row.user && row.user.name}
                         <Header.Subheader>
                           {row.user && row.user.nickname}
@@ -152,7 +153,7 @@ class EditTeamModalv2 extends React.Component {
                   </Table.Cell>
                   <Table.Cell
                     className="userTableCell"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", maxWidth: "50%" }}
                     onClick={() =>
                       row.assignedUser && this.toggleOut(row.assignedUser)
                     }

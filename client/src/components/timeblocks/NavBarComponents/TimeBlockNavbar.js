@@ -1,22 +1,42 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, NavLink } from "react-router-dom";
 import { AuthConsumer } from "../../../providers/AuthProvider";
 
 class TimeBlockNavbar extends React.Component {
+  
   render() {
+    const {pathname} =this.props.location
     return (
       <>
         <Menu style={{ marginTop: "0" }}>
-          <Link to="/timesheet">
-            <Menu.Item>Time Sheet</Menu.Item>
-          </Link>
-          <Link to="/timesheet/unsubmitted">
-            <Menu.Item>Unsubmitted</Menu.Item>
-          </Link>
-          <Link to="/timesheet/approve_timesheets">
-            <Menu.Item>Pending Approval</Menu.Item>
-          </Link>
+          <NavLink to="/timesheet" 
+          >
+            <Menu.Item 
+            name='timesheet' 
+            active={pathname === '/timesheet'} 
+           
+            >Time Sheet
+            </Menu.Item>
+          </NavLink>
+          <NavLink to="/timesheet/unsubmitted" 
+          >
+            <Menu.Item 
+            name='unsubmitted' 
+            active={pathname === '/timesheet/unsubmitted'} 
+            
+            >Unsubmitted
+            </Menu.Item>
+          </NavLink>
+          <NavLink to="/timesheet/approve_timesheets" 
+          >
+            <Menu.Item 
+            name='pending' 
+            active={pathname === '/timesheet/approve_timesheets'} 
+            
+            >Pending Approval
+            </Menu.Item>
+          </NavLink>
         </Menu>
       </>
     );

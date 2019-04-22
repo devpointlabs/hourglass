@@ -28,7 +28,7 @@ class Users extends React.Component {
               <Table.Cell>
                 <Header as="h4" image>
                   <Image src={u.image || defaultImage} rounded size="mini" />
-                  <Link to={`/employees/${u.id}`}>
+                  <Link to={`/users/${u.id}`}>
                     <Header.Content style={{ color: "RebeccaPurple" }}>
                       {u.name}
                       <Header.Subheader>{u.nickname}</Header.Subheader>

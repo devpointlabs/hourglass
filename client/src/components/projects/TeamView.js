@@ -51,10 +51,14 @@ class TeamView extends React.Component {
 
     return (
       <>
-        <Table celled compact>
+        <Table stackable celled compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell style={{ cursor: 'pointer' }} colSpan="1" onClick={() => this.handleOpen()}>
+              <Table.HeaderCell
+                style={{ cursor: "pointer" }}
+                colSpan="1"
+                onClick={() => this.handleOpen()}
+              >
                 Current Team
               </Table.HeaderCell>
               <Table.HeaderCell colSpan="1">hours</Table.HeaderCell>

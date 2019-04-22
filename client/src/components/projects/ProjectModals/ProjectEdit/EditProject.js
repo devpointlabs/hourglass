@@ -35,7 +35,11 @@ class EditProject extends React.Component {
     e && e.preventDefault();
     axios
       .put(`/api/projects/${project.project_id}`, project)
-      .then(res => project.name && this.props.budget ? this.props.handleClose() : this.props.openModal2());
+      .then(res =>
+        project.name && this.props.budget
+          ? this.props.handleClose()
+          : this.props.openModal2()
+      );
   };
 
   deleteProject = () => {
@@ -61,8 +65,14 @@ class EditProject extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Form style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
-          <Form.Group style={styles.modal}>
+        <Form style={{ textAlign: "center" }} >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
+            }}
+          >
             <Form.Input
               label="Name"
               name="name"
@@ -77,7 +87,6 @@ class EditProject extends React.Component {
               name="client_name"
               value={client_name}
               placeholder="Client Name"
-              required
               onChange={this.handleChange}
             />
             <Form.Input
@@ -88,16 +97,10 @@ class EditProject extends React.Component {
               }}
               value={budget}
               placeholder="Budget"
-              required
-              labelPosition="right"
               type="number"
               onChange={this.handleChange}
-            >
-              <Label basic>$</Label>
-              <input />
-              <Label>.00</Label>
-            </Form.Input>
-          </Form.Group>
+            />
+          </div>
           <span>
             <Form.Group style={{ justifyContent: "center" }}>
               <span style={{ paddingRight: "70px" }}>
@@ -183,7 +186,6 @@ export default EditProject;
 
 const styles = {
   modal: {
-    position: "relative",
     maxWidth: "93%",
     textAlign: "center",
     paddingLeft: "25px"

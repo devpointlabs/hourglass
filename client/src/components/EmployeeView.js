@@ -41,21 +41,20 @@ const Employee = props => {
         <Header.Subheader>{totals()}</Header.Subheader>
       </Header>
       <Divider />
-      <Table celled>
+      <Table celled compact stackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Client</Table.HeaderCell>
             <Table.HeaderCell>Project</Table.HeaderCell>
+            <Table.HeaderCell>Client</Table.HeaderCell>
             <Table.HeaderCell>Task</Table.HeaderCell>
             <Table.HeaderCell>Hours</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           {tasks.map(task => (
             <Table.Row>
-              <Table.Cell>{task.client_name}</Table.Cell>
               <Table.Cell>{task.project_name}</Table.Cell>
+              <Table.Cell>{task.client_name}</Table.Cell>
               <Table.Cell>{task.task_name}</Table.Cell>
               <Table.Cell>{task.total_task_hours}</Table.Cell>
             </Table.Row>

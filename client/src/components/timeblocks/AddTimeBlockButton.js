@@ -95,8 +95,8 @@ class AddTimeBlockButton extends React.Component {
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
           this.state.endHourMinute.length === 8,
-        5 && this.state.startHourMinute.length === 8,
-        5)
+          5 && this.state.startHourMinute.length === 8,
+          5)
       ) {
         this.setState({
           hours: moment(
@@ -137,7 +137,7 @@ class AddTimeBlockButton extends React.Component {
       user_id,
       stopTimer
     } = this.props;
-    const { task, endMonthDay, startMonthDay, year } = this.state;
+    const { task, startMonthDay, year } = this.state;
 
     if (timerRunning) {
       let timeNow = moment();
@@ -333,7 +333,7 @@ class AddTimeBlockButton extends React.Component {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap" }}>
                       <div style={{ width: "100px", marginLeft: "10px" }}>
                         <Form.Input
                           maxLength="5"

@@ -13,7 +13,6 @@ import {
   Image
 } from "semantic-ui-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Dropzone from "react-dropzone";
 import styled from "styled-components";
@@ -100,6 +99,7 @@ class EditForm extends React.Component {
     } = this.state;
     return (
       <Form
+        stackable
         onSubmit={this.handleSubmit}
         widths="equal"
         style={{
@@ -117,8 +117,8 @@ class EditForm extends React.Component {
                   {isDragActive ? (
                     <p>Drop files here...</p>
                   ) : (
-                    <p>Select a file</p>
-                  )}
+                      <p>Select a file</p>
+                    )}
                 </div>
               );
             }}
@@ -225,9 +225,9 @@ class EditForm extends React.Component {
             <div>
               <Header textAlign="center">Current Projects</Header>
               <Divider />
-              <List textAlign="center" link>
+              <List textAlign="center">
                 {this.state.projects.map(project => (
-                  <List.Item as={Link} to={`/projects/${project.id}`}>
+                  <List.Item>
                     {project.name} - {project.client_name}
                   </List.Item>
                 ))}

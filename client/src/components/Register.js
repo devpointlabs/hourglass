@@ -50,7 +50,7 @@ class Register extends React.Component {
     } = this.state;
 
     return (
-      <Segment basic>
+      <Segment basic stackable>
         <Header as="h1" textAlign="center">
           Register
         </Header>

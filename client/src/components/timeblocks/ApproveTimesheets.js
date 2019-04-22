@@ -43,10 +43,12 @@ class ApproveTimesheets extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
+
         <Header textAlign="center" as="h1">
           Pending Approval
         </Header>
-          <Table>
+        <div style={{ padding: "0 10px 0 10px" }}>
+          <Table stackable>
             <Table.Header>
               <Table.Row style={{ background: "#e2e2e2" }}>
                 <Table.Cell
@@ -87,13 +89,19 @@ class ApproveTimesheets extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   {this.props.auth.user.admin ? (
-                    <Button onClick={this.approveAll}>Approve All</Button>
+                     <Button style={{
+                     
+                      background: "RebeccaPurple",
+                      color: "white"}} 
+                      onClick={this.approveAll}>Approve All</Button>
                   ) : null}
                 </Table.Cell>
               </Table.Row>
             </Table.Header>
             <Table.Body>{this.showTimeblocks()}</Table.Body>
           </Table>
+        </div>
+
       </>
     );
   }

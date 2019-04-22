@@ -59,48 +59,19 @@ class Unsubmitted extends React.Component {
       );
   };
 
-  handleCheckMarks = (checkedStatus, blockId) => {
-    if (checkedStatus) this.handleUnChecked(blockId);
-    else this.handleChecked(blockId);
-  };
-
-  handleChecked = blockId => {
-    const currentTimeBlocks = this.state.timeBlocks.map(tb => {
-      if (tb.id === blockId) {
-        return {
-          ...tb,
-          status: "pending"
-        };
-      } else {
-        return tb;
-      }
+  updateTimeblockState = block => {
+    this.setState({
+      timeBlocks: this.state.timeBlocks.filter(b => b.id !== block.id)
     });
-    this.setState({ timeBlocks: currentTimeBlocks });
   };
 
-  handleUnChecked = blockId => {
-    const currentTimeBlocks = this.state.timeBlocks.map(tb => {
-      if (tb.id === blockId) {
-        return {
-          ...tb,
-          status: "unSubmitted"
-        };
-      } else {
-        return tb;
-      }
-    });
-    this.setState({ timeBlocks: currentTimeBlocks });
-  };
-
-  submitTimeBlocks = () => {
-    this.state.timeBlocks.map(tb =>
+  submitAllTimeBlocks = () => {
+    this.state.timeBlocks.map(block => {
       axios
-        .put(`/api/timeblocks/${tb.id}`, { status: tb.status })
-        .then(
-          res => this.setState({ reset: !this.state.reset }),
-          this.getTimeBlocks()
-        )
-    );
+        .put(`/api/timeblocks/${block.id}`, { status: "pending" })
+        .then(res => null);
+    });
+    this.setState({ timeBlocks: [] });
   };
 
   render() {
@@ -117,12 +88,10 @@ class Unsubmitted extends React.Component {
               timeBlocks={timeBlocks}
               tasks={tasks}
               projects={projects}
-              getTimeBlocks={this.getTimeBlocks}
-              timeBlocks={this.state.timeBlocks}
-              handleCheckMarks={this.handleCheckMarks}
-              reset={this.state.reset}
               handleOpen={this.handleOpen}
               submitTimeBlocks={this.submitTimeBlocks}
+              updateTimeblockState={this.updateTimeblockState}
+              submitAllTimeBlocks={this.submitAllTimeBlocks}
             />
           </Table>
           <EditTimeEntryModal

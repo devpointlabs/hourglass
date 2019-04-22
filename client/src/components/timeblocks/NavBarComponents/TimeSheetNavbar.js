@@ -2,7 +2,6 @@ import React from "react";
 import { Icon, Button } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
-import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
 import CalendarPicker from "../CalenderPicker/CalendarPicker";
 
@@ -21,19 +20,25 @@ class TimeSheetNavbar extends React.Component {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            wrap: "nowrap"
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+            alighItems: "flex-end"
           }}
         >
-          <div style={{ width: "8%" }} />
-          <h1 style={{ margin: 0, width: "30%" }}>
-            {moment(selectedDate).format("dddd MMM DD")}
-          </h1>
-          <Button style={{ height: "1.5em", padding: 0 }}>
+          <div style={{ width: "250px" }}>
+            {/* <mobileContainer> */}
+            <h1>{moment(selectedDate).format("dddd MMM DD")}</h1>
+            {/* <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
-          </Button>
-          <div style={{ display: "flex", alignItems: "flex-start" }}>
+          </Button> */}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end"
+            }}
+          >
             <Button
               onClick={() =>
                 clickHandler(
@@ -44,6 +49,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: 0,
@@ -69,6 +75,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: 0,
@@ -90,6 +97,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 border: "solid gray 1px",
                 marginRight: 0,
                 marginLeft: 0,
@@ -110,6 +118,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginLeft: 0,
@@ -132,6 +141,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: "5px",
@@ -147,72 +157,59 @@ class TimeSheetNavbar extends React.Component {
                 style={{ margin: 0 }}
               />
             </Button>
+            <div style={{ padding: "0 20px 0 20px" }}>
+              <CalendarPicker
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <span>
+              <Button
+                onClick={() => clickHandler(null, "day", setView)}
+                style={{
+                  background: view === "day" ? "lightgrey" : "white",
+                  border: "solid gray 1px",
+                  marginRight: 0,
+                  marginLeft: "5px",
+                  borderRadius: 0,
+                  padding: "4px",
+                  width: "50px",
+                  height: "3em"
+                }}
+              >
+                Day
+              </Button>
+              <Button
+                onClick={() => clickHandler(null, "week", setView)}
+                style={{
+                  background: view === "week" ? "lightgrey" : "white",
+                  border: "solid gray 1px",
+                  width: "50px",
+                  marginLeft: 0,
+                  borderRadius: 0,
+                  padding: "4px",
+                  height: "3em"
+                }}
+              >
+                Week
+              </Button>
+            </span>
           </div>
-          <CalendarPicker
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          {/* <Button
-            style={{
-              background: "white",
-              border: "solid gray 1px",
-              borderRadius: 0,
-              padding: 0,
-              margin: 0,
-              height: "3em",
-              width: "2.5em"
-            }}
-          >
-            <Icon style={{ margin: 0 }} name="calendar alternate outline" />
-          </Button> */}
-          {/* <DatePicker /> */}
-          <span>
-            <Button
-              onClick={() => clickHandler(null, "day", setView)}
-              style={{
-                background: view === "day" ? "lightgrey" : "white",
-                border: "solid gray 1px",
-                marginRight: 0,
-                marginLeft: "5px",
-                borderRadius: 0,
-                padding: "4px",
-                width: "50px",
-                height: "3em"
-              }}
-            >
-              Day
-            </Button>
-            <Button
-              onClick={() => clickHandler(null, "week", setView)}
-              style={{
-                background: view === "week" ? "lightgrey" : "white",
-                border: "solid gray 1px",
-                width: "50px",
-                marginLeft: 0,
-                borderRadius: 0,
-                padding: "4px",
-                height: "3em"
-              }}
-            >
-              Week
-            </Button>
-          </span>
-
-          <div style={{ width: "20%" }} />
+          {/* </mobileContainer> */}
         </div>
-        <SelectStyler>
-          <Drop />
-        </SelectStyler>
       </>
     );
   }
 }
 
-export default TimeSheetNavbar;
 
-const SelectStyler = styled.div`
-  .ui.selection.dropdown {
-    min-width: 7em;
-    padding: 0;
-  }
-`;
+// const mobileContainer = styled.div`
+//   @media (max-width: 425px) {
+//     display: flex;
+//     flex-direction: column;
+//   }
+//   display: flex;
+//   flex-direction: row;
+// `;
+
+export default TimeSheetNavbar;

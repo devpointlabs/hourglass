@@ -79,7 +79,16 @@ class Task < ApplicationRecord
         )
     SELECT tth.*
     FROM total_task_hours AS tth
-        ", project_id])
+        ", project_id]).map do |t|
+          {task_id: t.task_id,
+          name: t.task_name,
+          description: t.description,
+          billable: t.billable,
+          price_per_hour: t.price_per_hour,
+          total_hours: t.total_hours,
+          total_cost: t.total_cost,
+          project_id: t.project_id}
+        end
   end
 
   def self.billable_task_totals(project_id)

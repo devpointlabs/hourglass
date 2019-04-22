@@ -19,11 +19,11 @@ export default class Clock extends React.Component {
   }
   componentDidMount() {
     setInterval(() => {
-      if (this.state.one == true) {
+      if (this.state.one === true) {
         this.setState({
           time: moment().format("LTS")
         });
-      } else if (this.state.four == true) {
+      } else if (this.state.four === true) {
         this.setState({
           time: moment().format("LT")
         });
@@ -36,7 +36,7 @@ export default class Clock extends React.Component {
         backgroundColor: "#violet"
       }
     });
-    if (this.state.one == true) {
+    if (this.state.one === true) {
       this.setState({ class: "faded" });
       setTimeout(() => {
         this.setState({
@@ -46,7 +46,7 @@ export default class Clock extends React.Component {
           class: ""
         });
       }, 200);
-    } else if (this.state.two == true) {
+    } else if (this.state.two === true) {
       this.setState({ class: "faded" });
       setTimeout(() => {
         this.setState({
@@ -56,7 +56,7 @@ export default class Clock extends React.Component {
           class: ""
         });
       }, 200);
-    } else if (this.state.three == true) {
+    } else if (this.state.three === true) {
       this.setState({ class: "faded" });
       setTimeout(() => {
         this.setState({
@@ -66,7 +66,7 @@ export default class Clock extends React.Component {
           class: ""
         });
       }, 200);
-    } else if (this.state.four == true) {
+    } else if (this.state.four === true) {
       this.setState({ class: "faded" });
       setTimeout(() => {
         this.setState({

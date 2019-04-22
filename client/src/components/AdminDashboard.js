@@ -49,7 +49,7 @@ class hoursTable extends React.Component {
     const { projects } = this.state;
     return (
       <>
-        <Table celled padded>
+        <Table celled padded stackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell singleLine>Employees</Table.HeaderCell>

@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Home from "./components/Home";
 import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -18,10 +17,9 @@ import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
-import Flash from './components/Flash'
-import Error from './components/Error'
-import {Modal} from 'semantic-ui-react'
-
+import Flash from "./components/Flash";
+import Error from "./components/Error";
+import { Modal } from "semantic-ui-react";
 
 const App = () => (
   <Fragment>
@@ -56,11 +54,7 @@ const App = () => (
             />
             <ProtectedRoute exact path="/taskview" component={TaskView} />
             <ProtectedRoute exact path="/users" component={Users} />
-            <ProtectedRoute
-              exact
-              path="/employees/:id"
-              component={EmployeeView}
-            />
+            <ProtectedRoute exact path="/users/:id" component={EmployeeView} />
             <Route component={NoMatch} />
           </Switch>
         </Container>

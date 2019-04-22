@@ -10,7 +10,7 @@ class NewProject extends React.Component {
       client_name: "",
       planned_start: "",
       planned_end: "",
-      budget: ""
+      budget: 0
     }
   };
 
@@ -35,7 +35,7 @@ class NewProject extends React.Component {
     axios.post(`/api/projects`, project).then(res => {
       project.name && this.props.openModal2();
       this.props.setProjectId(res.data.id);
-      this.props.getProjects()
+      this.props.getProjects();
     });
   };
 
@@ -52,7 +52,13 @@ class NewProject extends React.Component {
     return (
       <>
         <Form style={{ textAlign: "center" }}>
-          <Form.Group style={styles.modal}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
+            }}
+          >
             <Form.Input
               label="Name"
               name="name"
@@ -77,15 +83,10 @@ class NewProject extends React.Component {
               }}
               value={budget}
               placeholder="Budget"
-              labelPosition="right"
               type="number"
               onChange={this.handleChange}
-            >
-              <Label basic>$</Label>
-              <input />
-              <Label>.00</Label>
-            </Form.Input>
-          </Form.Group>
+            />
+          </div>
           <span>
             <Form.Group style={{ justifyContent: "center" }}>
               <span style={{ paddingRight: "70px" }}>

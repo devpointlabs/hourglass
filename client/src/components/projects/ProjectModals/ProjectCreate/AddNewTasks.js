@@ -5,10 +5,10 @@ import {
   Header,
   Checkbox,
   Modal,
-  Table
+  Table,
+  Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from "./NewTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -44,7 +44,7 @@ class AddNewTasks extends React.Component {
 
   handleBillable = () => {
     this.setState({
-      checkboxStatus: !this.statecheckboxStatus,
+      checkboxStatus: !this.state.checkboxStatus,
       task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };
@@ -59,12 +59,20 @@ class AddNewTasks extends React.Component {
   render() {
     const { name, description, price_per_hour } = this.state.task;
     const { task } = this.props;
+    const options = [
+      {key: 1, text: 'Programming', value: 1},
+      {key: 2, text: 'Design', value: 2},
+      {key: 3, text: 'Project Management', value: 3},
+      {key: 4, text: 'Business Development', value: 4},
+    ]
     return (
       <>
         <Form style={styles.modal}>
           <Table>
             <Table.Body>
               <Table.Row key={"new"}>
+                {/* <Table.Cell>
+                </Table.Cell> */}
                 <Table.Cell>
                   <Form.Input
                     name="name"
@@ -72,9 +80,9 @@ class AddNewTasks extends React.Component {
                     placeholder="Task Name"
                     value={name}
                     autoFocus
-                    required
                     onChange={this.handleChange}
                   />
+                <Dropdown clearable options={options} selection placeholder='Default Tasks...'/>
                 </Table.Cell>
                 <Table.Cell>
                   <Form.Input
@@ -91,7 +99,7 @@ class AddNewTasks extends React.Component {
                     label="Price per hour"
                     placeholder="Price per hour"
                     value={price_per_hour}
-                    required
+                    type="number"
                     onChange={this.handleChange}
                   />
                 </Table.Cell>
