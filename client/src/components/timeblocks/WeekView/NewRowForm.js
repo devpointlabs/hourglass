@@ -253,9 +253,8 @@ class NewRowForm extends React.Component {
               options={selectOptions.taskSelectOptions}
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -270,9 +269,8 @@ class NewRowForm extends React.Component {
               type="float"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -285,9 +283,8 @@ class NewRowForm extends React.Component {
               maxLength="5"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -300,9 +297,8 @@ class NewRowForm extends React.Component {
               maxLength="5"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -315,9 +311,8 @@ class NewRowForm extends React.Component {
               maxLength="5"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -330,9 +325,8 @@ class NewRowForm extends React.Component {
               maxLength="5"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
@@ -345,9 +339,8 @@ class NewRowForm extends React.Component {
               maxLength="5"
             />
           </Table.Cell>
-          <Table.Cell textAlign="center" style={{ padding: "2px" }}>
+          <Table.Cell style={{ padding: "2px" }}>
             <Form.Input
-              textAlign="center"
               style={{
                 width: "10ch",
                 padding: "1px",
