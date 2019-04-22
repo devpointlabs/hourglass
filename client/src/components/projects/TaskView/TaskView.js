@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import TaskForm from "../ProjectLegacy/TaskForm";
-import { Table, Header } from "semantic-ui-react";
+import { Table, Header, Button } from "semantic-ui-react";
 import axios from "axios";
-import AddTask from "./AddTask";
+import EditModalForm from '../ProjectModals/ProjectEdit/EditModalForms'
+
 
 class TaskView extends React.Component {
-  state = { tasks: [], billableTotals: {}, unbillableTotals: {} };
+  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, taskview: true };
 
   componentDidMount() {
     this.getProjectTasks();
@@ -73,8 +74,12 @@ class TaskView extends React.Component {
   render() {
     return (
       <>
-        <Header as="h1">Tasks</Header>
-        <Table stackable>
+        <Header as="h1">
+          Tasks
+          <EditModalForm project={this.props.project} taskView={this.state.taskview} />
+        </Header>
+
+        <Table>
           <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
               <Table.Cell
@@ -97,8 +102,8 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   {this.state.billableTotals !== undefined
                     ? parseFloat(
-                        this.state.billableTotals.total_billable_hours
-                      ).toFixed(2)
+                      this.state.billableTotals.total_billable_hours
+                    ).toFixed(2)
                     : "0.00"}
                 </div>
               </Table.Cell>
@@ -215,10 +220,6 @@ class TaskView extends React.Component {
             </Table.Row>
           </Table.Header>
         </Table>
-        <AddTask
-          project={this.props.project}
-          getProjectTasks={this.getProjectTasks}
-        />
         <br />
         <br />
       </>
