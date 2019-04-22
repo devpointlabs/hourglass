@@ -26,13 +26,6 @@
     )
   end
 
-  Timeblock.create(
-    start_time: Faker::Date.between(1.week.ago, 2.days.from_now),
-    end_time: Faker::Date.between(2.days.from_now, 2.weeks.from_now),
-    user_id: @user.id,
-    task_id: @task.id
-  )
-
   Assignment.create(
     user_id: @user.id,
     project_id: @project.id,

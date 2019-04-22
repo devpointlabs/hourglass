@@ -17,8 +17,7 @@ class WeekViewTableData extends React.Component {
       sundayHours: 0,
       total: 0
     },
-    showNewRow: false,
-    showButton: true
+    showNewRow: false
   };
 
   componentDidMount = () => {
@@ -26,7 +25,8 @@ class WeekViewTableData extends React.Component {
       currentWeekTimeBlocks,
       monday,
       setSelectedWeek,
-      setSelectedDate
+      setSelectedDate,
+      tasks
     } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)
@@ -41,22 +41,21 @@ class WeekViewTableData extends React.Component {
       });
   };
 
-  addRow = () => {
-    this.setState({ showNewRow: true, showButton: !this.state.showButton });
-  };
-
-  submitRow = () => {
-    this.setState({ showNewRow: false, showButton: !this.state.showButton });
+  toggleShowNewRow = () => {
+    this.setState({ showNewRow: !this.state.showNewRow });
   };
 
   render() {
     const {
       currentWeekTimeBlocks,
       tasks,
-      selectedDate,
       monday,
       setSelectedDate,
-      setSelectedWeek
+      setSelectedWeek,
+      filteredProjectIds,
+      projects,
+      selectedDate,
+      getCurrentUserTimeBlocks
     } = this.props;
     const {
       mondayHours,
@@ -68,6 +67,11 @@ class WeekViewTableData extends React.Component {
       sundayHours,
       total
     } = this.state.dayHours;
+
+    const filteredTasks =
+      filteredProjectIds.length > 0
+        ? tasks.filter(t => filteredProjectIds.includes(t.project_id))
+        : tasks;
 
     return (
       <>
@@ -83,7 +87,8 @@ class WeekViewTableData extends React.Component {
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
-          {tasks.map(t => (
+
+          {filteredTasks.map(t => (
             <WeekViewTableRow
               key={t.id}
               task={t}
@@ -91,43 +96,28 @@ class WeekViewTableData extends React.Component {
               monday={monday}
               dayHours={this.state.dayHours}
               currentWeekTimeBlocks={currentWeekTimeBlocks}
+              filteredProjectIds={filteredProjectIds}
             />
           ))}
-
-          {this.state.showNewRow && <NewRowForm />}
 
           <Table.Row>
             <Table.Cell colSpan="10" />
           </Table.Row>
           <Table.Row style={{ background: "#e2e2e2" }}>
             <Table.Cell colSpan="1">
-              {this.state.showButton ? (
-                <div style={{ textAlign: "left" }}>
-                  <Button
-                    style={{
-                      background: "RebeccaPurple",
-                      color: "white",
-                      marginLeft: "10px"
-                    }}
-                    onClick={() => this.addRow()}
-                  >
-                    New Row
-                  </Button>
-                </div>
-              ) : (
-                <div style={{ textAlign: "left" }}>
-                  <Button
-                    onClick={() => this.submitRow()}
-                    style={{
-                      background: "RebeccaPurple",
-                      color: "white",
-                      marginLeft: "10px"
-                    }}
-                  >
-                    Save
-                  </Button>
-                </div>
-              )}
+              <div style={{ textAlign: "left" }}>
+                <Button
+                  style={{
+                    background: "RebeccaPurple",
+                    color: "white",
+                    marginLeft: "10px",
+                    visibility: this.state.showNewRow ? "hidden" : "visible"
+                  }}
+                  onClick={() => this.toggleShowNewRow()}
+                >
+                  New Row
+                </Button>
+              </div>
             </Table.Cell>
             <Table.Cell
               style={{
@@ -202,6 +192,15 @@ class WeekViewTableData extends React.Component {
               {total.toFixed(2)}
             </Table.Cell>
           </Table.Row>
+          {this.state.showNewRow && (
+            <NewRowForm
+              toggleShowNewRow={this.toggleShowNewRow}
+              projects={projects}
+              tasks={tasks}
+              monday={monday}
+              getCurrentUserTimeBlocks={getCurrentUserTimeBlocks}
+            />
+          )}
         </Table.Body>
       </>
     );
@@ -209,3 +208,5 @@ class WeekViewTableData extends React.Component {
 }
 
 export default WeekViewTableData;
+
+//

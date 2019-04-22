@@ -51,7 +51,6 @@ class AddUserToTask extends React.Component {
     return (
       <Form>
         <Form.Select control={this.employeeDropdown} />
-
         {this.props.handleToggle ? (
           <>
             <div style={{ transform: "translate(45.75%)" }}>
@@ -82,17 +81,30 @@ class AddUserToTask extends React.Component {
             </div>
           </>
         ) : (
-          <Link to={"/projects"}>
-            <Button
-              onClick={this.handleSubmit}
-              color="violet"
-              style={{ marginBottom: "20px" }}
-            >
-              <Icon name="arrow alternate circle left outline" />
-              Save
-            </Button>
-          </Link>
+          <Button
+            onClick={this.handleSubmit}
+            color="violet"
+            style={{ marginBottom: "20px" }}
+          >
+            <Icon name="arrow alternate circle left outline" />
+            Add User
+          </Button>
         )}
+        <Link to={"/projects"}>
+          <Button>Save Project</Button>
+        </Link>
+        <Button
+          onClick={this.handleSubmit}
+          color="violet"
+          style={{ marginBottom: "20px" }}
+        >
+          <Icon name="arrow alternate circle left outline" />
+          Add User
+        </Button>
+        )}
+        <Link to={"/projects"}>
+          <Button>Save Project</Button>
+        </Link>
       </Form>
     );
   }

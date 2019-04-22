@@ -2,7 +2,7 @@ import React from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import TimeSheetNavbar from "./NavBarComponents/TimeSheetNavbar";
 import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
-import { Table } from "semantic-ui-react";
+import { Table, Dropdown } from "semantic-ui-react";
 import AddTimeBlockButton from "./AddTimeBlockButton";
 import TableData from "./TableData";
 import moment from "moment";
@@ -14,6 +14,7 @@ import {
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
+import NewRowForm from "./WeekView/NewRowForm";
 // import DateRange from "./DateRange";
 // import UserWeek from "./UserWeek";
 // import groupTimeBlocksByWeek from "./groupTimeBlocksByWeek";
@@ -27,7 +28,10 @@ class TimeSheet extends React.Component {
     timeBlocks: [],
     currentWeekTimeBlocks: [],
     activeTimerTimeBlock: {},
-    keyboardShortcutKeys: true
+    keyboardShortcutKeys: true,
+    users: [],
+    filteredUserIds: [],
+    filteredProjectIds: []
   };
 
   componentDidMount() {
@@ -67,6 +71,8 @@ class TimeSheet extends React.Component {
     }
   };
 
+  // wrap in case statement that checks if modal is open then runs
+
   getCurrentUserTimeBlocks = () => {
     if (this.props.auth.user.admin === true)
       axios.get("api/admin/timeblocks").then(res =>
@@ -104,11 +110,29 @@ class TimeSheet extends React.Component {
 
   //Run this with an if else statement that will grab the initial data with axios if it doesn't exist yet?
   getWeekTimeBlocks = week => {
-    const { timeBlocks } = this.state;
+    const { timeBlocks, tasks } = this.state;
 
-    let grabCurrentWeek = timeBlocks.filter(
+    const timeBlocksWithTaskInfo = timeBlocks.map(b => {
+      return {
+        ...b,
+        taskInfo: tasks
+          .filter(t => t.id === b.task_id)
+          .reduce((acc, task) => acc + task)
+      };
+    });
+    let referenceDay = week;
+    if (moment(referenceDay).format("dd") === "Su")
+      referenceDay = moment(referenceDay).subtract(1, "days");
+
+    let grabCurrentWeek = timeBlocksWithTaskInfo.filter(
       tb =>
-        moment(week).format("yyyy w") === moment(tb.start_time).format("yyyy w")
+        (moment(referenceDay).format("yyyy w") ===
+          moment(tb.start_time).format("yyyy w") &&
+          moment(tb.start_time).format("dd") !== "Su") ||
+        moment(referenceDay)
+          .startOf("week")
+          .add(1, "week")
+          .format("yyyy MM DD") === moment(tb.start_time).format("yyyy MM DD")
     );
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
@@ -145,6 +169,10 @@ class TimeSheet extends React.Component {
       .then(res => this.getCurrentUserTimeBlocks());
   };
 
+  filterUser = (e, { value }) => this.setState({ filteredUserIds: value });
+  filterProject = (e, { value }) =>
+    this.setState({ filteredProjectIds: value });
+
   render() {
     const {
       view,
@@ -152,8 +180,23 @@ class TimeSheet extends React.Component {
       timeBlocks,
       tasks,
       projects,
-      currentWeekTimeBlocks
+      currentWeekTimeBlocks,
+      filteredUserIds,
+      filteredProjectIds
     } = this.state;
+
+    const options = this.state.users.map(u => ({
+      key: u.id,
+      text: u.name,
+      value: u.id
+    }));
+
+    const projectOptions = this.state.projects.map(u => ({
+      key: u.id,
+      text: u.name + " " + "(" + u.client_name + ")",
+      value: u.id
+    }));
+
     return (
       <>
         <TimeBlockNavbar />
@@ -164,6 +207,34 @@ class TimeSheet extends React.Component {
           setView={this.setView}
           setSelectedWeek={this.setSelectedWeek}
         />
+        <br />
+        {this.state.view === "day" ? (
+          <Dropdown
+            onChange={this.filterUser}
+            placeholder="Teammates"
+            fluid
+            multiple
+            selection
+            options={options}
+            style={{ borderRadius: 0 }}
+            clearable
+            scrolling
+            value={this.state.filteredUserIds}
+          />
+        ) : (
+          <Dropdown
+            onChange={this.filterProject}
+            placeholder="Projects"
+            fluid
+            multiple
+            selection
+            options={projectOptions}
+            style={{ borderRadius: 0 }}
+            clearable
+            scrolling
+            value={this.state.filteredProjectIds}
+          />
+        )}
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton
             projects={projects}
@@ -195,6 +266,8 @@ class TimeSheet extends React.Component {
               setSelectedDate={this.setSelectedDate}
               setSelectedWeek={this.setSelectedWeek}
               setKeyboardShortcutKeys={this.setKeyboardShortcutKeys}
+              filteredUserIds={filteredUserIds}
+              filteredProjectIds={filteredProjectIds}
             />
           </Table>
         </div>

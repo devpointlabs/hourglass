@@ -1,13 +1,18 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header, Icon, Image } from "semantic-ui-react";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 
 class Login extends React.Component {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", message: "" };
 
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { auth } = this.props;
     this.props.auth.handleLogin({ email, password }, this.props.history);
   };
 
@@ -58,6 +63,7 @@ class Login extends React.Component {
                 />
               </Button.Content>
             </Button>
+            <NotificationContainer />
           </Segment>
         </Form>
       </Segment>
@@ -74,3 +80,4 @@ export default class ConnectedLogin extends React.Component {
     );
   }
 }
+//

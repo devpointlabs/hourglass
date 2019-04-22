@@ -16,6 +16,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Dropzone from "react-dropzone";
+import styled from "styled-components";
 
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
@@ -73,7 +74,14 @@ class EditForm extends React.Component {
       <Fragment>
         <br />
         <Card>
-          <Label style={{ background: "RebeccaPurple", color: "white" }} ribbon>
+          <Label
+            style={{
+              background: "RebeccaPurple",
+              color: "white",
+              transform: "translate(1.2em, 0)"
+            }}
+            ribbon
+          >
             {user.email}
           </Label>
           <Image src={user.image || defaultImage} />
@@ -94,13 +102,14 @@ class EditForm extends React.Component {
       <Form
         stackable
         onSubmit={this.handleSubmit}
+        widths="equal"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center"
         }}
       >
-        <Grid.Column width={4} style={{ margin: "2em" }}>
+        <Grid.Column mobile={1} width={4} style={{ margin: "2em" }}>
           <Dropzone onDrop={this.onDrop} multiple={false}>
             {({ getRootProps, getInputProps, isDragActive }) => {
               return (
@@ -116,41 +125,43 @@ class EditForm extends React.Component {
             }}
           </Dropzone>
         </Grid.Column>
-        <Grid.Column width={8}>
-          <Form.Input
-            label="New Email"
-            autoFocus
-            name="email"
-            value={email}
-            placeholder="Email"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="New Name"
-            name="name"
-            value={name}
-            placeholder="Name"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="New Nickname"
-            name="nickname"
-            value={nickname}
-            placeholder="Nickname"
-            onChange={this.handleChange}
-          />
-          <Button
-            type="submit"
-            animated="fade"
-            style={{ background: "RebeccaPurple", color: "white" }}
-          >
-            <Button.Content visible>Submit</Button.Content>
-            <Button.Content hidden>
-              <Icon name="cloud upload" />
-            </Button.Content>
-          </Button>
-          <br />
-          <br />
+        <Grid.Column stackable mobile={1} width={8}>
+          <Mobile>
+            <Form.Input
+              label="New Email"
+              autoFocus
+              name="email"
+              value={email}
+              placeholder="Email"
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              label="New Name"
+              name="name"
+              value={name}
+              placeholder="Name"
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              label="New Nickname"
+              name="nickname"
+              value={nickname}
+              placeholder="Nickname"
+              onChange={this.handleChange}
+            />
+            <Button
+              type="submit"
+              animated="fade"
+              style={{ background: "RebeccaPurple", color: "white" }}
+            >
+              <Button.Content visible>Submit</Button.Content>
+              <Button.Content hidden>
+                <Icon name="cloud upload" />
+              </Button.Content>
+            </Button>
+            <br />
+            <br />
+          </Mobile>
         </Grid.Column>
       </Form>
     );
@@ -197,7 +208,7 @@ class EditForm extends React.Component {
       return (
         <Container style={{ display: "flex", justifyContent: "center" }}>
           <Divider hidden />
-          <div>
+          <Mobile>
             {editing ? this.editView() : this.profileView()}
             <Button.Group attached="bottom">
               <Button
@@ -223,7 +234,7 @@ class EditForm extends React.Component {
                 ))}
               </List>
             </div>
-          </div>
+          </Mobile>
         </Container>
       );
     else return <div>nothing</div>;
@@ -233,7 +244,7 @@ class EditForm extends React.Component {
 const styles = {
   dropzone: {
     height: "150px",
-    width: "150px",
+    width: "100px",
     border: "1px dashed black",
     borderRadius: "flex",
     display: "flex",
@@ -252,3 +263,9 @@ export default class ConnectedEditForm extends React.Component {
     );
   }
 }
+
+const Mobile = styled.div`
+  @media (max-width: 550px) {
+    width: 50%;
+  }
+`;

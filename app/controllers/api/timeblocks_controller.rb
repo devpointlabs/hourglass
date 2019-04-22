@@ -17,6 +17,10 @@ class Api::TimeblocksController < ApplicationController
     render json: data
   end
 
+  def pending_timeblock
+    render json: Timeblock.pending_timeblock(params[:timeblock_id])
+  end
+
   def admin_get_all_timeblocks
     projects = Project.all
     tasks = []
@@ -61,12 +65,20 @@ class Api::TimeblocksController < ApplicationController
     render json: Timeblock.pending_timeblocks
   end
 
+  def user_pending_timeblocks
+    render json: Timeblock.user_pending_timeblocks(params[:user_id])
+  end
+
   def timeblocks_by_task
     render json: Timeblock.timeblocks_by_task(params[:id])
   end
 
-  def week_timeblocks
-    render json: Timeblock.week_timeblocks(@user.id)
+  def weekly_project_hours
+    render json: Timeblock.weekly_project_hours(params[:id])
+  end
+
+  def approve_pending_timeblocks
+    Timeblock.approve_pending_timeblocks
   end
 
   private
@@ -84,6 +96,6 @@ class Api::TimeblocksController < ApplicationController
   end
 
   def timeblock_params
-    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status)
+    params.require(:timeblock).permit(:start_time, :end_time, :user_id, :task_id, :status, :manualEntry)
   end
 end

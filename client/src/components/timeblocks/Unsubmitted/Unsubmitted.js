@@ -103,14 +103,6 @@ class Unsubmitted extends React.Component {
     );
   };
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   this.getTimeBlocks()
-  //   if (prevState !== this.state)
-  //     debugger
-  //   this.setState({ reset: !this.state.reset })
-
-  // }
-
   render() {
     const { timeBlocks, tasks, projects } = this.state;
     return (
@@ -119,8 +111,8 @@ class Unsubmitted extends React.Component {
         <Header textAlign="center" as="h1">
           Unsubmitted
         </Header>
-        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
-          <Table stackable style={{ marginBottom: "45px" }} stackable>
+        <div style={{ padding: "10px" }}>
+          <Table style={{ marginBottom: "45px" }}>
             <UnsubmittedTableBody
               timeBlocks={timeBlocks}
               tasks={tasks}
