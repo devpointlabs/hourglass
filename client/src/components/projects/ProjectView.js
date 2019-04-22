@@ -2,11 +2,13 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import ProjectNavbar from "./ProjectNavbar";
-import { Header, Container, Segment } from "semantic-ui-react";
+import { Header, Container, Segment, Button } from "semantic-ui-react";
 import TaskView from "./TaskView/TaskView";
 import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
 import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
+import { AuthConsumer } from "../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 class ProjectView extends React.Component {
   state = {
@@ -68,8 +70,8 @@ class ProjectView extends React.Component {
     } = this.state.project;
     return (
       <>
+{this.props.auth.user.admin ? (<div>
         <ProjectNavbar setPage={this.setPage} />
-
         <Container
           stackable
           style={{
@@ -99,9 +101,35 @@ class ProjectView extends React.Component {
 
           <Segment>{this.renderPage()}</Segment>
         </Container>
+        </div>
+) : 
+  (
+    <div style={{ marginTop: "20px", textAlign: "center", width: "100%"}}>
+        <h1 >You do not have access to this page.</h1>
+        <Link to="/timesheet">
+        <Button style={{
+                     
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}> Return Home </Button>
+        </Link>
+        </div> 
+        )
+
+  }
       </>
+
+    )
+}
+}
+export class ConnectedProjectView extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {auth => <ProjectView {...this.props} auth={auth} />}
+      </AuthConsumer>
     );
   }
 }
 
-export default withRouter(ProjectView);
+export default withRouter(ConnectedProjectView);
