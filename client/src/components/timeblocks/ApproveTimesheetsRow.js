@@ -1,8 +1,9 @@
 import React from "react";
-import { Table, Button, Form, Popup } from "semantic-ui-react";
+import { Table, Button, Form, Popup, Icon, TabPane } from "semantic-ui-react";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
+import moment from "moment";
 
 class ApproveTimesheetsRow extends React.Component {
   state = {
@@ -74,37 +75,68 @@ class ApproveTimesheetsRow extends React.Component {
 
     return (
       <Table.Row>
-        <Table.Cell>{tb.name}</Table.Cell>
-        <Table.Cell>{tb.project_name}</Table.Cell>
-        <Table.Cell>{tb.task_name}</Table.Cell>
-        <Table.Cell>
-          {this.state.manualEntry ? "Manual Entry" : "Clocked In/Out"}
-        </Table.Cell>
+        <Table.Cell
+              style={{ width: "150px", cursor: "pointer" }}
+            >
+              {moment(tb.start_time).format("L")}
+            </Table.Cell>
+       
+        <Table.Cell
+              style={{
+                width: "1100px",
+                cursor: "pointer"
+              }}
+            >
+                <div>
+                  <Icon name="user" style={{ color: "RebeccaPurple" }} />
+                  {tb.name}
+                </div>
+            
+              <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
+                {tb.project_name}
+              </div>
+              <div>({tb.task_name})</div>
+            </Table.Cell>
 
-        <Table.Cell>
-          {this.state.editing ? (
+
+            <Table.Cell
+              style={{ width: "350px", cursor: "pointer" }}
+            >
+             {this.state.editing ? (
             <Form.Input
               name="start_time"
               value={this.state.start_time}
               onChange={this.handleChange}
             />
           ) : (
-              this.state.start_time
-            )}
-        </Table.Cell>
-        <Table.Cell>
-          {this.state.editing ? (
+              moment(this.state.start_time).format("h:mm a")
+              )}
+            </Table.Cell>
+          
+
+      <Table.Cell
+              style={{ width: "350px", cursor: "pointer" }}
+            >
+            {this.state.editing ? (
             <Form.Input
               name="end_time"
               value={this.state.end_time}
               onChange={this.handleChange}
             />
           ) : (
-              this.state.end_time
-            )}
-        </Table.Cell>
+              moment(tb.end_time).format("h:mm a")
+          )}
+          </Table.Cell>
 
-        <Table.Cell>{this.state.hours.toFixed(2)}</Table.Cell>
+          <Table.Cell
+            
+              style={{ width: "50px", cursor: "pointer" }}
+            >
+               {this.state.hours.toFixed(2)}
+            </Table.Cell>
+
+
+       
         {this.props.auth.user && this.props.auth.user.admin === true && (
           <Table.Cell>
             {this.state.editing ? (
