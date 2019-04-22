@@ -19,7 +19,6 @@ class EditModalForms extends React.Component {
     this.setState({ modalOpen: true });
   };
 
-
   openModal2 = () => {
     this.setState({ modalOpen2: true, modalOpen: false });
   };
@@ -38,23 +37,23 @@ class EditModalForms extends React.Component {
   };
 
   render() {
-
     return (
       <>
-        {!this.props.budget && this.props.getProjects ? <Icon
-          name="cog"
-          size="large"
-          style={{ color: "RebeccaPurple" }}
-          onClick={() => this.handleOpen()}
-        />
-          :
-          <div onClick={() => this.handleOpen()} >
-            {this.props.projectInfo}
-          </div>}
-        {this.props.budget &&
-          <div onClick={() => this.handleOpen()} style={{ cursor: 'pointer' }}>
+        {!this.props.budget && this.props.getProjects ? (
+          <Icon
+            name="cog"
+            size="large"
+            style={{ color: "RebeccaPurple" }}
+            onClick={() => this.handleOpen()}
+          />
+        ) : (
+          <div onClick={() => this.handleOpen()}>{this.props.projectInfo}</div>
+        )}
+        {this.props.budget && (
+          <div onClick={() => this.handleOpen()} style={{ cursor: "pointer" }}>
             ${this.props.budget}
-          </div>}
+          </div>
+        )}
         <Modal
           open={this.state.modalOpen}
           onClose={() => this.handleClose()}

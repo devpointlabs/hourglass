@@ -5,11 +5,7 @@ class TimeSheetNavbarDropdown extends React.Component {
   state = { teammates: "" };
 
   render() {
-    return (
-      <>
-
-      </>
-    );
+    return <></>;
   }
 }
 

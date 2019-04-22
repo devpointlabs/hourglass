@@ -98,7 +98,11 @@ class AddNewTasks extends React.Component {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Checkbox label="Billable" onClick={this.handleBillable} checked={this.state.checkboxStatus} />
+                  <Checkbox
+                    label="Billable"
+                    onClick={this.handleBillable}
+                    checked={this.state.checkboxStatus}
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   <Button

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
 import CalendarPicker from "../CalenderPicker/CalendarPicker";
+import AddTimeBlockButton from "../AddTimeBlockButton";
 
 class TimeSheetNavbar extends React.Component {
   render() {
@@ -21,18 +22,23 @@ class TimeSheetNavbar extends React.Component {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             alignItems: "center",
-            wrap: "nowrap"
+            flexWrap: "wrap"
           }}
         >
-          <div style={{ width: "8%" }} />
-          <h1 style={{ margin: 0, width: "30%" }}>
-            {moment(selectedDate).format("dddd MMM DD")}
-          </h1>
-          <Button style={{ height: "1.5em", padding: 0 }}>
+          <span
+            style={{
+              display: "flex",
+              flexDirection: "row"
+            }}
+          >
+            {/* <mobileContainer> */}
+            <h1>{moment(selectedDate).format("dddd MMM DD")}</h1>
+            {/* <Button style={{ height: "1.5em", padding: 0 }}>
             pending approval
-          </Button>
+          </Button> */}
+          </span>
           <div style={{ display: "flex", alignItems: "flex-start" }}>
             <Button
               onClick={() =>
@@ -44,6 +50,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: 0,
@@ -69,6 +76,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: 0,
@@ -90,6 +98,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 border: "solid gray 1px",
                 marginRight: 0,
                 marginLeft: 0,
@@ -110,6 +119,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginLeft: 0,
@@ -132,6 +142,7 @@ class TimeSheetNavbar extends React.Component {
                 )
               }
               style={{
+                flexWrap: "wrap",
                 background: "white",
                 border: "solid gray 1px",
                 marginRight: "5px",
@@ -152,20 +163,6 @@ class TimeSheetNavbar extends React.Component {
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
-          {/* <Button
-            style={{
-              background: "white",
-              border: "solid gray 1px",
-              borderRadius: 0,
-              padding: 0,
-              margin: 0,
-              height: "3em",
-              width: "2.5em"
-            }}
-          >
-            <Icon style={{ margin: 0 }} name="calendar alternate outline" />
-          </Button> */}
-          {/* <DatePicker /> */}
           <span>
             <Button
               onClick={() => clickHandler(null, "day", setView)}
@@ -197,8 +194,8 @@ class TimeSheetNavbar extends React.Component {
               Week
             </Button>
           </span>
-
-          <div style={{ width: "20%" }} />
+          <div style={{ width: "40%" }} />
+          {/* </mobileContainer> */}
         </div>
         <SelectStyler>
           <Drop />
@@ -208,11 +205,20 @@ class TimeSheetNavbar extends React.Component {
   }
 }
 
-export default TimeSheetNavbar;
-
 const SelectStyler = styled.div`
   .ui.selection.dropdown {
     min-width: 7em;
     padding: 0;
   }
 `;
+
+// const mobileContainer = styled.div`
+//   @media (max-width: 425px) {
+//     display: flex;
+//     flex-direction: column;
+//   }
+//   display: flex;
+//   flex-direction: row;
+// `;
+
+export default TimeSheetNavbar;
