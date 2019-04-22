@@ -46,26 +46,54 @@ class ApproveTimesheets extends React.Component {
         <Header textAlign="center" as="h1">
           Pending Approval
         </Header>
-        <div style={{ padding: "10px" }}>
           <Table>
             <Table.Header>
-              <Table.HeaderCell>User</Table.HeaderCell>
-              <Table.HeaderCell>Project</Table.HeaderCell>
-              <Table.HeaderCell>Task</Table.HeaderCell>
-              <Table.HeaderCell>Input Type</Table.HeaderCell>
-              <Table.HeaderCell>Clocked In</Table.HeaderCell>
-              <Table.HeaderCell>Clocked Out</Table.HeaderCell>
-              <Table.HeaderCell>Hours</Table.HeaderCell>
-              <Table.HeaderCell>
-                {" "}
-                {this.props.auth.user.admin ? (
-                  <Button onClick={this.approveAll}>Approve All</Button>
-                ) : null}
-              </Table.HeaderCell>
+              <Table.Row style={{ background: "#e2e2e2" }}>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "50px",
+                    fontWeight: "bold"
+                  }}
+                />
+                <Table.Cell style={{ width: "1100px", fontWeight: "bold" }} />
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "350px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Start Time
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "350px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  End Time
+                </Table.Cell>
+
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "50px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Hours
+                </Table.Cell>
+                <Table.Cell>
+                  {this.props.auth.user.admin ? (
+                    <Button onClick={this.approveAll}>Approve All</Button>
+                  ) : null}
+                </Table.Cell>
+              </Table.Row>
             </Table.Header>
             <Table.Body>{this.showTimeblocks()}</Table.Body>
           </Table>
-        </div>
       </>
     );
   }
