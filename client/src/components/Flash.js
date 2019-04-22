@@ -29,11 +29,13 @@ class Flash extends Component {
     }
   }
 
-  fadeFlash = () => {
-    setTimeout(() => {
-      this.props.auth.clearFlash();
-    }, 5000);
-  };
+
+    fadeFlash = () => {
+        setTimeout(() => {
+            this.props.auth.clearFlash()
+        }, 2000)
+    }
+
 
   toggleModal = () => {
     this.setState({ showModal: !this.state.showModals });
