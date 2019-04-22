@@ -32,8 +32,8 @@ class TaskView extends React.Component {
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
-      <Table.Row key={task.task_name}>
-        <Table.Cell>{task.task_name}</Table.Cell>
+      <Table.Row key={task.name}>
+        <Table.Cell>{task.name}</Table.Cell>
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
@@ -52,8 +52,8 @@ class TaskView extends React.Component {
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
     return UnbillableTasks.map(task => (
-      <Table.Row key={task.task_name}>
-        <Table.Cell>{task.task_name}</Table.Cell>
+      <Table.Row key={task.name}>
+        <Table.Cell>{task.name}</Table.Cell>
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
