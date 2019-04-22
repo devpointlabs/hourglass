@@ -93,7 +93,9 @@ class ApproveTimesheetsRow extends React.Component {
           <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
             {tb.project_name}
           </div>
+
           <div>{tb.task_name}</div>
+
         </Table.Cell>
 
         <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
@@ -124,11 +126,13 @@ class ApproveTimesheetsRow extends React.Component {
           {this.state.hours.toFixed(2)}
         </Table.Cell>
 
+
         <Table.Cell>
           <div>
             {this.props.auth.user &&
               this.props.auth.user.admin === true &&
               (this.state.editing ? (
+
                 <Popup
                   trigger={
                     <Button
@@ -187,6 +191,7 @@ class ApproveTimesheetsRow extends React.Component {
             />
           </div>
         </Table.Cell>
+
       </Table.Row>
     );
   }

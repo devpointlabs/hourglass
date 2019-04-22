@@ -100,6 +100,7 @@ class EditForm extends React.Component {
     } = this.state;
     return (
       <Form
+        stackable
         onSubmit={this.handleSubmit}
         widths="equal"
         style={{

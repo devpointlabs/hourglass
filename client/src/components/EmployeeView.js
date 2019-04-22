@@ -32,16 +32,16 @@ const Employee = props => {
 
   return (
     <>
-      <Segment>
+      <Segment stackable>
         <Image circular centered src={user.image || defaultImage} />
         <Header textAlign="center">{user.name}</Header>
       </Segment>
       <Header as="h1" textAlign="center">
         <Header.Content>Hours This Week</Header.Content>
-        <Header.Subheader>{totals()}</Header.Subheader>
+        <Header.Subheader>{this.totals()}</Header.Subheader>
       </Header>
       <Divider />
-      <Table celled>
+      <Table celled compact stackable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Client</Table.HeaderCell>
@@ -50,7 +50,6 @@ const Employee = props => {
             <Table.HeaderCell>Hours</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           {tasks.map(task => (
             <Table.Row>
