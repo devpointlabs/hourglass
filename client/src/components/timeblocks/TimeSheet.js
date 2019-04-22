@@ -207,7 +207,6 @@ class TimeSheet extends React.Component {
           setView={this.setView}
           setSelectedWeek={this.setSelectedWeek}
         />
-        <br />
         {this.state.view === "day" ? (
           <Dropdown
             onChange={this.filterUser}

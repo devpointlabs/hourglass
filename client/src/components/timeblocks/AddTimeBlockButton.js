@@ -333,7 +333,7 @@ class AddTimeBlockButton extends React.Component {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap" }}>
                       <div style={{ width: "100px", marginLeft: "10px" }}>
                         <Form.Input
                           maxLength="5"

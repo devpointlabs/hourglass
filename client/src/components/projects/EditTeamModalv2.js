@@ -123,6 +123,7 @@ class EditTeamModalv2 extends React.Component {
       <>
         <div style={{ height: "70vh", overflowY: "scroll" }}>
           <Table
+            unstackable
             basic="very"
             celled
             collapsing
@@ -133,7 +134,7 @@ class EditTeamModalv2 extends React.Component {
                 <Table.Row style={{ cursor: "pointer" }}>
                   <Table.Cell
                     className="userTableCell"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", maxWidth: "50%" }}
                     onClick={() => row.user && this.toggleIn(row.user)}
                   >
                     <Header as="h4" image>
@@ -152,7 +153,7 @@ class EditTeamModalv2 extends React.Component {
                   </Table.Cell>
                   <Table.Cell
                     className="userTableCell"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", maxWidth: "50%" }}
                     onClick={() =>
                       row.assignedUser && this.toggleOut(row.assignedUser)
                     }

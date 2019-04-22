@@ -14,7 +14,7 @@ class EditModalForms extends React.Component {
   handleClose = () => {
     this.setState({ modalOpen: false });
     this.props.getProjects && this.props.getProjects();
-    this.props.getProject && this.props.getProject()
+    this.props.getProject && this.props.getProject();
   };
   handleOpen = () => {
     this.setState({ modalOpen: true });
@@ -40,27 +40,34 @@ class EditModalForms extends React.Component {
   render() {
     return (
       <>
-        {this.props.taskView &&
-          <Button onClick={this.openModal2} floated="right" style={{ background: "rebeccaPurple", color: 'white' }}>Add/Edit Tasks</Button>}
-        {!this.props.budget && this.props.getProjects ? <Icon
-          name="cog"
-          size="large"
-          style={{ color: "RebeccaPurple" }}
-          onClick={() => this.handleOpen()}
-        />
-          :
-          <div onClick={() => this.handleOpen()} >
-            {this.props.projectInfo}
-          </div>}
-        {this.props.budget &&
-          <div onClick={() => this.handleOpen()} style={{ cursor: 'pointer' }}>
+        {this.props.taskView && (
+          <Button
+            onClick={this.openModal2}
+            floated="right"
+            style={{ background: "rebeccaPurple", color: "white" }}
+          >
+            Add/Edit Tasks
+          </Button>
+        )}
+        {!this.props.budget && this.props.getProjects ? (
+          <Icon
+            name="cog"
+            size="large"
+            style={{ color: "RebeccaPurple" }}
+            onClick={() => this.handleOpen()}
+          />
+        ) : (
+          <div onClick={() => this.handleOpen()}>{this.props.projectInfo}</div>
+        )}
+        {this.props.budget && (
+          <div onClick={() => this.handleOpen()} style={{ cursor: "pointer" }}>
             ${this.props.budget}
           </div>
-        }
+        )}
         <Modal
           open={this.state.modalOpen}
           onClose={() => this.handleClose()}
-          style={{ width: "700px" }}
+          style={{ maxWidth: "100%" }}
         >
           <Modal.Header style={{ background: "RebeccaPurple", color: "white" }}>
             Edit {this.props.project.project_name}
@@ -77,7 +84,7 @@ class EditModalForms extends React.Component {
         <Modal
           open={this.state.modalOpen2}
           onClose={() => this.closeModal2()}
-          style={{ width: "850px" }}
+          style={{ maxWidth: "100%" }}
         >
           <Modal.Header style={{ background: "RebeccaPurple", color: "white" }}>
             Add Tasks
