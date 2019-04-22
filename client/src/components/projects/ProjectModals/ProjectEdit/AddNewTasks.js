@@ -5,7 +5,8 @@ import {
   Header,
   Checkbox,
   Modal,
-  Table
+  Table,
+  Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
 import NewTaskTable from "./EditTaskTable";
@@ -58,9 +59,19 @@ class AddNewTasks extends React.Component {
     this.setState({ task: { ...this.state.task, [name]: value } });
   };
 
+  handleDropdown = (e, { name, value }) => {
+    this.setState({ task: { ...this.state.task, [name]: value } })
+  }
+
   render() {
     const { name, description, price_per_hour } = this.state.task;
     const { task } = this.props;
+    const options = [
+      { key: 1, text: 'Programming', value: 'Programming' },
+      { key: 2, text: 'Design', value: 'Design' },
+      { key: 3, text: 'Project Management', value: 'Project Management' },
+      { key: 4, text: 'Business Development', value: 'Business Development' },
+    ]
     return (
       <>
         <Form style={styles.modal}>
@@ -74,8 +85,18 @@ class AddNewTasks extends React.Component {
                     placeholder="Task Name"
                     value={name}
                     autoFocus
-                    required
+                    // required
                     onChange={this.handleChange}
+                  />
+                  <Dropdown
+                    clearable
+                    options={options}
+                    selection
+                    placeholder='Default Tasks...'
+                    onChange={this.handleDropdown}
+                    value={name}
+                    name='name'
+
                   />
                 </Table.Cell>
                 <Table.Cell>

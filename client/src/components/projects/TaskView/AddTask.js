@@ -5,7 +5,8 @@ import {
   Header,
   Checkbox,
   Modal,
-  Table
+  Table,
+  Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
 
@@ -60,6 +61,12 @@ class AddNewTasks extends React.Component {
   render() {
     const { name, description, price_per_hour } = this.state.task;
     const { task } = this.props;
+    const options = [
+      {key: 1, text: 'Programming', value: 1},
+      {key: 2, text: 'Design', value: 2},
+      {key: 3, text: 'Project Management', value: 3},
+      {key: 4, text: 'Business Development', value: 4},
+    ]
     return (
       <>
         <Form style={styles.modal}>
@@ -75,6 +82,17 @@ class AddNewTasks extends React.Component {
                     autoFocus
                     required
                     onChange={this.handleChange}
+                  />
+                  
+                  <Dropdown 
+                      clearable 
+                      options={options} 
+                      selection 
+                      placeholder='Default Tasks...'
+                      value={name}
+                      style={{
+                        width: '300px'
+                      }}
                   />
                 </Table.Cell>
                 <Table.Cell>
