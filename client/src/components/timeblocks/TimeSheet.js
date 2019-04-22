@@ -112,7 +112,7 @@ class TimeSheet extends React.Component {
   getWeekTimeBlocks = week => {
     const { timeBlocks, tasks } = this.state;
 
-    const TimeBlocksWithTaskInfo = timeBlocks.map(b => {
+    const timeBlocksWithTaskInfo = timeBlocks.map(b => {
       return {
         ...b,
         taskInfo: tasks
@@ -120,16 +120,30 @@ class TimeSheet extends React.Component {
           .reduce((acc, task) => acc + task)
       };
     });
-    let grabCurrentWeek = TimeBlocksWithTaskInfo.filter(
+    console.log(week);
+    console.log(timeBlocks);
+    console.log(timeBlocksWithTaskInfo);
+    console.log(moment(week).format("yyyy w"));
+    console.log(
+      moment(
+        timeBlocksWithTaskInfo[0] && timeBlocksWithTaskInfo[0].start_time
+      ).format("yyyy w")
+    );
+    let referenceDay = week;
+    if (moment(referenceDay).format("dd") === "Su")
+      referenceDay = moment(referenceDay).subtract(1, "days");
+
+    let grabCurrentWeek = timeBlocksWithTaskInfo.filter(
       tb =>
-        (moment(week).format("yyyy w") ===
+        (moment(referenceDay).format("yyyy w") ===
           moment(tb.start_time).format("yyyy w") &&
           moment(tb.start_time).format("dd") !== "Su") ||
-        moment(week)
+        moment(referenceDay)
           .startOf("week")
           .add(1, "week")
           .format("yyyy MM DD") === moment(tb.start_time).format("yyyy MM DD")
     );
+    console.log(grabCurrentWeek);
     this.setState({ currentWeekTimeBlocks: grabCurrentWeek });
   };
 
