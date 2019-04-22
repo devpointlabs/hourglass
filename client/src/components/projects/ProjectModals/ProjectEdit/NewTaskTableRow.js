@@ -8,6 +8,7 @@ class NewTaskTableRow extends React.Component {
     task: this.props.task
   }
 
+
   handleEdit = () => {
     this.setState({ editing: true })
   }
@@ -63,13 +64,14 @@ class NewTaskTableRow extends React.Component {
               value={task.price_per_hour}
               required
               onChange={this.handleChange}
+
             /> :
               parseFloat(task.price_per_hour).toFixed(2)}
           </Table.Cell>
           <Table.Cell style={{ width: "11%" }}>
             {task.total_cost ? "$" + task.total_cost : "$0"}
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell style={{ width: "15%" }}>
             {editing ? <Button
               circular
               style={{
@@ -82,7 +84,9 @@ class NewTaskTableRow extends React.Component {
             /> : <div>
                 <Icon style={{ color: 'grey' }} onClick={() => this.handleEdit()} name="pencil"></Icon>
                 <Icon
-                  onClick={() => this.props.handleDelete(task.task_id)}
+                  onClick={() =>
+                    this.props.handleDelete(task.task_id)
+                  }
                   name="trash alternate"
                   style={{ color: "RebeccaPurple", paddingLeft: '10px' }}
                 />
@@ -93,13 +97,6 @@ class NewTaskTableRow extends React.Component {
     )
   }
 }
-const styles = {
-  modal: {
-    position: "relative",
-    maxWidth: "100%",
-    textAlign: "center",
-    padding: "20px"
-  }
-}
+
 
 export default NewTaskTableRow
