@@ -1,11 +1,12 @@
 import React from "react";
-
-import { Table, Button } from "semantic-ui-react";
+import { Table, Button, TableCell } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
+import NewTaskTableRow from "./NewTaskTableRow";
 
 class NewTaskTable extends React.Component {
-  state = { tasks: [], project: {} };
+  state = { tasks: [], project: {}, 
+  defaultTasks: [] };
 
   componentDidMount = () => {
     axios
@@ -20,43 +21,26 @@ class NewTaskTable extends React.Component {
       .then(response => this.setState({ tasks: response.data }));
   };
 
+  handleDelete = (task_id) => {
+    const { project, tasks } = this.state;
+    axios.delete(`/api/projects/${project.id}/tasks/${task_id}`).then(
+    this.setState({tasks: tasks.filter(t => t.task_id !== task_id )})
+    )}
+  
+  handleEdit = () => {
+    }
+
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
-      <Table.Row key={task.task_name}>
-        <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell
-          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
-        >
-          {task.total_hours ? task.total_hours : 0}
-        </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px" }}>
-          ${parseFloat(task.price_per_hour).toFixed(2)}
-        </Table.Cell>
-        <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost : "$0"}
-        </Table.Cell>
-      </Table.Row>
+     <NewTaskTableRow task={task} handleDelete={this.handleDelete}/>
     ));
   };
 
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
     return UnbillableTasks.map(task => (
-      <Table.Row key={task.task_name}>
-        <Table.Cell>{task.task_name}</Table.Cell>
-        <Table.Cell
-          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
-        >
-          {task.total_hours ? task.total_hours : 0}
-        </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px" }}>
-          ${parseFloat(task.price_per_hour).toFixed(2)}
-        </Table.Cell>
-        <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost : "$0"}
-        </Table.Cell>
-      </Table.Row>
+      <NewTaskTableRow task={task} handleDelete={this.handleDelete} project={this.state.project}/>
     ));
   };
 
@@ -119,6 +103,16 @@ class NewTaskTable extends React.Component {
                 >
                   <div>Total</div>
                 </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div></div>
+                </Table.Cell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -171,6 +165,16 @@ class NewTaskTable extends React.Component {
                   }}
                 >
                   <div>Total</div>
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div></div>
                 </Table.Cell>
               </Table.Row>
             </Table.Header>
