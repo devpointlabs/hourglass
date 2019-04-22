@@ -1,7 +1,7 @@
 import React from "react";
-import { Table, Checkbox } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 
-const UnsubmittedTableHeader = () => (
+const UnsubmittedTableHeader = ({ submitAllTimeBlocks }) => (
   <>
     <Table.Header>
       <Table.Row style={{ background: "#e2e2e2" }}>
@@ -26,9 +26,23 @@ const UnsubmittedTableHeader = () => (
           Hours
         </Table.Cell>
         <Table.Cell
-          style={{ fontSize: "1.1em", width: "5px", fontWeight: "bold" }}
+          style={{
+            width: "180px",
+            fontSize: "1.1em",
+            fontWeight: "bold"
+          }}
         >
-          Verify
+          <Button
+            floated="right"
+            style={{
+              marginRight: "10px",
+              background: "RebeccaPurple",
+              color: "white"
+            }}
+            onClick={() => submitAllTimeBlocks()}
+          >
+            Submit All
+          </Button>
         </Table.Cell>
       </Table.Row>
     </Table.Header>

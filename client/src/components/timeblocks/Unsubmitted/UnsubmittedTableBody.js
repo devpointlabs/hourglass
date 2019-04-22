@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 const UnsubmittedTableBody = props => (
   <>
-    <UnsubmittedTableHeader />
+    <UnsubmittedTableHeader submitAllTimeBlocks={props.submitAllTimeBlocks} />
     <Table.Body>
       <Table.Row>
         <Table.Cell colSpan="6" />
@@ -15,15 +15,12 @@ const UnsubmittedTableBody = props => (
         timeBlocks={props.timeBlocks}
         tasks={props.tasks}
         projects={props.projects}
-        getTimeBlocks={props.getTimeBlocks}
-        handleCheckMarks={props.handleCheckMarks}
-        reset={props.reset}
         handleOpen={props.handleOpen}
+        updateTimeblockState={props.updateTimeblockState}
       />
       <Table.Row>
         <Table.Cell colSpan="6" />
       </Table.Row>
-      <Footer submitTimeBlocks={props.submitTimeBlocks} />
     </Table.Body>
   </>
 );
