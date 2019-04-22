@@ -38,14 +38,14 @@ const Employee = props => {
       </Segment>
       <Header as="h1" textAlign="center">
         <Header.Content>Hours This Week</Header.Content>
-        <Header.Subheader>{this.totals()}</Header.Subheader>
+        <Header.Subheader>{totals()}</Header.Subheader>
       </Header>
       <Divider />
       <Table celled compact stackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Client</Table.HeaderCell>
             <Table.HeaderCell>Project</Table.HeaderCell>
+            <Table.HeaderCell>Client</Table.HeaderCell>
             <Table.HeaderCell>Task</Table.HeaderCell>
             <Table.HeaderCell>Hours</Table.HeaderCell>
           </Table.Row>
@@ -53,8 +53,8 @@ const Employee = props => {
         <Table.Body>
           {tasks.map(task => (
             <Table.Row>
-              <Table.Cell>{task.client_name}</Table.Cell>
               <Table.Cell>{task.project_name}</Table.Cell>
+              <Table.Cell>{task.client_name}</Table.Cell>
               <Table.Cell>{task.task_name}</Table.Cell>
               <Table.Cell>{task.total_task_hours}</Table.Cell>
             </Table.Row>
