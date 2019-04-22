@@ -75,86 +75,75 @@ class ApproveTimesheetsRow extends React.Component {
 
     return (
       <Table.Row>
-        <Table.Cell
-              style={{ width: "150px", cursor: "pointer" }}
-            >
-              {moment(tb.start_time).format("L")}
-            </Table.Cell>
-       
-        <Table.Cell
-              style={{
-                width: "1100px",
-                cursor: "pointer"
-              }}
-            >
-                <div>
-                  <Icon name="user" style={{ color: "RebeccaPurple" }} />
-                  {tb.name}
-                </div>
-            
-              <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
-                {tb.project_name}
-              </div>
-              <div>({tb.task_name})</div>
-            </Table.Cell>
+        <Table.Cell style={{ width: "150px", cursor: "pointer" }}>
+          {moment(tb.start_time).format("L")}
+        </Table.Cell>
 
+        <Table.Cell
+          style={{
+            width: "1100px",
+            cursor: "pointer"
+          }}
+        >
+          <div>
+            <Icon name="user" style={{ color: "RebeccaPurple" }} />
+            {tb.name}
+          </div>
 
-            <Table.Cell
-              style={{ width: "350px", cursor: "pointer" }}
-            >
-             {this.state.editing ? (
+          <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
+            {tb.project_name}
+          </div>
+          <div>{tb.task_name}</div>
+        </Table.Cell>
+
+        <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
+          {this.state.editing ? (
             <Form.Input
               name="start_time"
               value={this.state.start_time}
               onChange={this.handleChange}
             />
           ) : (
-              moment(this.state.start_time).format("h:mm a")
-              )}
-            </Table.Cell>
-          
+            moment(this.state.start_time).format("h:mm a")
+          )}
+        </Table.Cell>
 
-      <Table.Cell
-              style={{ width: "350px", cursor: "pointer" }}
-            >
-            {this.state.editing ? (
+        <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
+          {this.state.editing ? (
             <Form.Input
               name="end_time"
               value={this.state.end_time}
               onChange={this.handleChange}
             />
           ) : (
-              moment(tb.end_time).format("h:mm a")
+            moment(tb.end_time).format("h:mm a")
           )}
-          </Table.Cell>
+        </Table.Cell>
 
-          <Table.Cell
-            
-              style={{ width: "50px", cursor: "pointer" }}
-            >
-               {this.state.hours.toFixed(2)}
-            </Table.Cell>
+        <Table.Cell style={{ width: "50px", cursor: "pointer" }}>
+          {this.state.hours.toFixed(2)}
+        </Table.Cell>
 
-
-       
-        {this.props.auth.user && this.props.auth.user.admin === true && (
-          <Table.Cell>
-            {this.state.editing ? (
-              <Popup
-                trigger={
-                  <Button
-                    color="black"
-                    icon="save outline"
-                    size="mini"
-                    circular
-                    onClick={() => this.handleSubmit(tb.id)}
-                  />
-                }
-                content={"Save Changes"}
-                basic
-              />
-            ) : (
-                <div>
+        <Table.Cell>
+          <div>
+            {this.props.auth.user &&
+              this.props.auth.user.admin === true &&
+              (this.state.editing ? (
+                <Popup
+                  trigger={
+                    <Button
+                      color="black"
+                      icon="save outline"
+                      size="mini"
+                      circular
+                      onClick={() => this.handleSubmit(tb.id)}
+                    />
+                  }
+                  content={"Save Changes"}
+                  basic
+                />
+              ) : (
+                <>
                   <Popup
                     trigger={
                       <Button
@@ -181,24 +170,23 @@ class ApproveTimesheetsRow extends React.Component {
                     content={"Edit Time"}
                     basic
                   />
-                  <Popup
-                    trigger={
-                      <Button
-                        color="violet"
-                        icon="send"
-                        size="mini"
-                        circular
-                        onClick={() => this.sendBack(tb.id)}
-                      />
-                    }
-                    content={"Send back to user"}
-                    basic
-                  />
-
-                </div>
-              )}
-          </Table.Cell>
-        )}
+                </>
+              ))}
+            <Popup
+              trigger={
+                <Button
+                  color="violet"
+                  icon="send"
+                  size="mini"
+                  circular
+                  onClick={() => this.sendBack(tb.id)}
+                />
+              }
+              content={"Send back to user"}
+              basic
+            />
+          </div>
+        </Table.Cell>
       </Table.Row>
     );
   }
@@ -215,4 +203,3 @@ export class ConnectedApprovedTimesheetsRow extends React.Component {
 }
 
 export default withRouter(ConnectedApprovedTimesheetsRow);
-

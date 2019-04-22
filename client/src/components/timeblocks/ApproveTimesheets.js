@@ -46,6 +46,7 @@ class ApproveTimesheets extends React.Component {
         <Header textAlign="center" as="h1">
           Pending Approval
         </Header>
+        <div style={{ padding: "0 10px 0 10px" }}>
           <Table>
             <Table.Header>
               <Table.Row style={{ background: "#e2e2e2" }}>
@@ -94,6 +95,7 @@ class ApproveTimesheets extends React.Component {
             </Table.Header>
             <Table.Body>{this.showTimeblocks()}</Table.Body>
           </Table>
+        </div>
       </>
     );
   }
