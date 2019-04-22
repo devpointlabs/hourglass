@@ -5,7 +5,42 @@ class Task < ApplicationRecord
 
   has_many :timeblocks, dependent: :destroy
 
-  def self.find_with_hours
+  def self.find_by_date(start_date, end_date, project_id)
+    find_by_sql(["
+        WITH cte AS (
+        SELECT
+            p.id AS project_id,
+            t.id AS task_id,
+            t.name AS task_name,
+            t.price_per_hour,
+            t.description,
+            t.billable,
+            tb.start_time,
+            (DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60 AS hours
+        FROM tasks AS t
+        LEFT JOIN projects AS p
+            ON p.id = t.project_id
+        LEFT JOIN timeblocks AS tb
+            ON t.id = tb.task_id
+        WHERE tb.start_time >= ? AND tb.start_time < ? AND p.id = ?
+        )
+        ,total_task_hours AS (
+            SELECT 
+                task_id,
+                task_name,
+                description,
+                billable,
+                price_per_hour,
+                start_time,
+                SUM(hours) as total_hours,
+                CAST(price_per_hour AS FLOAT) * SUM(hours) AS total_cost,
+                project_id
+            FROM cte
+            GROUP BY task_id, task_name, description, billable, price_per_hour, project_id, start_time
+            )
+        SELECT tth.*
+        FROM total_task_hours AS tth
+    ", start_date, end_date, project_id])
   end
 
   def self.tasks_with_data(project_id)

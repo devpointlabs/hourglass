@@ -1,6 +1,7 @@
 import React from 'react'
+import { Dropdown } from 'semantic-ui-react'
 
-class SelectParamsDropdown extends React.Compnent {
+class SelectParamsDropdown extends React.Component {
   state = {
     key: 'allTime',
     text: 'All Time',
@@ -9,21 +10,18 @@ class SelectParamsDropdown extends React.Compnent {
 
   render() {
     return (
-      <>
-
-      </>
+      <Dropdown
+        placeholder="Dates"
+        fluid
+        multiple
+        selection
+        options={options}
+        style={{ borderRadius: 0 }}
+      />
     )
   }
 }
 
-<Dropdown
-  placeholder="Teammates"
-  fluid
-  multiple
-  selection
-  options={options}
-  style={{ borderRadius: 0 }}
-/>;
 
 const options = [
   { key: "allTime", text: "All Time", value: "allTime" },
@@ -31,3 +29,5 @@ const options = [
   { key: "thisMonth", text: "This Month", value: "ThisMonth" },
 
 ];
+
+export default SelectParamsDropdown
