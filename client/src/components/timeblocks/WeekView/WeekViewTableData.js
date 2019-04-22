@@ -24,9 +24,6 @@ class WeekViewTableData extends React.Component {
     const {
       currentWeekTimeBlocks,
       monday,
-      setSelectedWeek,
-      setSelectedDate,
-      tasks
     } = this.props;
     this.setState({
       dayHours: returnHoursSplitByDay(currentWeekTimeBlocks, monday)

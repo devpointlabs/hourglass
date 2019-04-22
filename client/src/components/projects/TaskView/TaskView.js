@@ -1,6 +1,5 @@
-import React, { Fragment } from "react";
-import TaskForm from "../ProjectLegacy/TaskForm";
-import { Table, Header, Button } from "semantic-ui-react";
+import React from "react";
+import { Table, Header } from "semantic-ui-react";
 import axios from "axios";
 import EditModalForm from '../ProjectModals/ProjectEdit/EditModalForms'
 
@@ -20,7 +19,8 @@ class TaskView extends React.Component {
     axios.get(`/api/billable/${project.project_id}`).then(response => {
       const billable = response.data.filter(b => b.billable && b);
       const unbillable = response.data.filter(b => {
-        if (b.billable === false) return b;
+        if (b.billable === false)
+          return b;
       });
       this.setState({
         billableTotals: billable[0],

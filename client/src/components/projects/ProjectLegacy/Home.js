@@ -1,6 +1,6 @@
 import React from "react";
 import { Header, Menu } from "semantic-ui-react";
-import { AuthConsumer } from "../providers/AuthProvider";
+import { AuthConsumer } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Clock from "react-clock";

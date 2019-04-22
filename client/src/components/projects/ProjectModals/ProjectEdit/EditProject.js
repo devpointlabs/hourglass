@@ -81,7 +81,6 @@ class EditProject extends React.Component {
               name="client_name"
               value={client_name}
               placeholder="Client Name"
-              required
               onChange={this.handleChange}
             />
             <Form.Input
@@ -92,7 +91,6 @@ class EditProject extends React.Component {
               }}
               value={budget}
               placeholder="Budget"
-              required
               labelPosition="right"
               type="number"
               onChange={this.handleChange}

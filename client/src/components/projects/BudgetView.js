@@ -12,7 +12,7 @@ class BudgetView extends React.Component {
   renderProgress = percent_spent => {
     switch (true) {
       case percent_spent > 70 && percent_spent < 100:
-        return "orange";
+        return "yellow";
       case percent_spent < 70:
         return "green";
       case percent_spent > 100:
@@ -41,7 +41,7 @@ class BudgetView extends React.Component {
               <EditModalForms
                 project={this.props.project}
                 budget={
-                  parseFloat(project.budget).toFixed(2)}
+                  project.budget ? parseFloat(project.budget).toFixed(2) : 0}
                 getProject={this.props.getProject}
               >
               </EditModalForms>

@@ -10,7 +10,7 @@ class NewProject extends React.Component {
       client_name: "",
       planned_start: "",
       planned_end: "",
-      budget: ""
+      budget: 0
     }
   };
 
