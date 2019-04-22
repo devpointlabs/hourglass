@@ -11,13 +11,13 @@ class BudgetView extends React.Component {
   renderProgress = percent_spent => {
     switch (true) {
       case percent_spent > 70 && percent_spent < 100:
-        return "orange";
+        return "orange !important";
       case percent_spent < 70:
-        return "green";
+        return "green !important";
       case percent_spent > 100:
-        return "red";
+        return "red !important";
       case percent_spent === 0:
-        return "grey";
+        return "grey !important";
     }
   };
 
