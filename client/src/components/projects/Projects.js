@@ -77,7 +77,7 @@ class Projects extends React.Component {
   renderProgress = percent_spent => {
     switch (true) {
       case percent_spent > 70 && percent_spent < 100:
-        return "orange";
+        return "yellow";
       case percent_spent < 70:
         return "green";
       case percent_spent > 100:

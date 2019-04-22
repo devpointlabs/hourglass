@@ -2,10 +2,8 @@ import React from "react";
 import { Icon, Button } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
 import styled from "styled-components";
-import Drop from "./TimeSheetNavBarDropdown";
 import moment from "moment";
 import CalendarPicker from "../CalenderPicker/CalendarPicker";
-import AddTimeBlockButton from "../AddTimeBlockButton";
 
 class TimeSheetNavbar extends React.Component {
   render() {
@@ -197,20 +195,11 @@ class TimeSheetNavbar extends React.Component {
           <div style={{ width: "40%" }} />
           {/* </mobileContainer> */}
         </div>
-        <SelectStyler>
-          <Drop />
-        </SelectStyler>
       </>
     );
   }
 }
 
-const SelectStyler = styled.div`
-  .ui.selection.dropdown {
-    min-width: 7em;
-    padding: 0;
-  }
-`;
 
 // const mobileContainer = styled.div`
 //   @media (max-width: 425px) {

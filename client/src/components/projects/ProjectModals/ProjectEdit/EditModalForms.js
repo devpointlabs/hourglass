@@ -122,7 +122,6 @@ class EditModalForms extends React.Component {
           </div>
           <Modal.Content>
             <EditTeamModalv2
-              users={this.state.users}
               project_id={this.props.project.project_id}
               handleClose={this.closeModal3}
               getUsersAndHours={this.closeModal3}
