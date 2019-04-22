@@ -26,27 +26,29 @@ class TaskForm extends React.Component {
   handleSubmit = () => {
     const { task } = this.state;
     const { project } = this.props;
-    axios.post(`/api/projects/${project.project_id}/tasks`, { task }).then(res => {
-      this.setState({
-        task: {
-          ...this.state.task,
-          name: "",
-          description: "",
-          billable: false,
-          price_per_hour: "",
-        },
-        checkboxStatus: false
-
-      }, () => this.props.getProjectTasks());
-    });
-
-
+    axios
+      .post(`/api/projects/${project.project_id}/tasks`, { task })
+      .then(res => {
+        this.setState(
+          {
+            task: {
+              ...this.state.task,
+              name: "",
+              description: "",
+              billable: false,
+              price_per_hour: ""
+            },
+            checkboxStatus: false
+          },
+          () => this.props.getProjectTasks()
+        );
+      });
   };
 
   handleBillable = () => {
     this.setState({
       checkboxStatus: !this.state.checkboxStatus,
-      task: { ...this.state.task, billable: !this.state.task.billable, }
+      task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };
 
@@ -82,7 +84,7 @@ class TaskForm extends React.Component {
           <Modal.Header>Create a New Task</Modal.Header>
           <Modal.Content>
             <Form>
-              <Table>
+              <Table stackable>
                 <Table.Body>
                   <Table.Row key={"new"}>
                     <Table.Cell>

@@ -35,7 +35,11 @@ class EditProject extends React.Component {
     e && e.preventDefault();
     axios
       .put(`/api/projects/${project.project_id}`, project)
-      .then(res => project.name && this.props.budget ? this.props.handleClose() : this.props.openModal2());
+      .then(res =>
+        project.name && this.props.budget
+          ? this.props.handleClose()
+          : this.props.openModal2()
+      );
   };
 
   deleteProject = () => {

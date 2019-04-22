@@ -43,57 +43,71 @@ class ApproveTimesheets extends React.Component {
     return (
       <>
         <TimeBlockNavbar />
+
         <Header textAlign="center" as="h1">
           Pending Approval
         </Header>
-          <Table>
-            <Table.Header>
-              <Table.Row style={{ background: "#e2e2e2" }}>
-                <Table.Cell
-                  style={{
-                    fontSize: "1.1em",
-                    width: "50px",
-                    fontWeight: "bold"
-                  }}
-                />
-                <Table.Cell style={{ width: "1100px", fontWeight: "bold" }} />
-                <Table.Cell
-                  style={{
-                    fontSize: "1.1em",
-                    width: "350px",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Start Time
-                </Table.Cell>
-                <Table.Cell
-                  style={{
-                    fontSize: "1.1em",
-                    width: "350px",
-                    fontWeight: "bold"
-                  }}
-                >
-                  End Time
-                </Table.Cell>
+        <Table stackable>
+          <Table.Row>
+            <Table.Cell> Employee</Table.Cell>
+            <Table.Cell> Project</Table.Cell>
+            <Table.Cell> Task</Table.Cell>
+            <Table.Cell> Input Type</Table.Cell>
+            <Table.Cell> Clocked In</Table.Cell>
+            <Table.Cell> Clocked Out</Table.Cell>
+            <Table.Cell> Hours</Table.Cell>
+            <Table.Cell> Approve or Edit</Table.Cell>
+          </Table.Row>
+          <Table.Body>{this.showTimeblocks()}</Table.Body>
+        </Table>
+        <Table stackable>
+          <Table.Header>
+            <Table.Row style={{ background: "#e2e2e2" }}>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "50px",
+                  fontWeight: "bold"
+                }}
+              />
+              <Table.Cell style={{ width: "1100px", fontWeight: "bold" }} />
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "350px",
+                  fontWeight: "bold"
+                }}
+              >
+                Start Time
+              </Table.Cell>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "350px",
+                  fontWeight: "bold"
+                }}
+              >
+                End Time
+              </Table.Cell>
 
-                <Table.Cell
-                  style={{
-                    fontSize: "1.1em",
-                    width: "50px",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Hours
-                </Table.Cell>
-                <Table.Cell>
-                  {this.props.auth.user.admin ? (
-                    <Button onClick={this.approveAll}>Approve All</Button>
-                  ) : null}
-                </Table.Cell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>{this.showTimeblocks()}</Table.Body>
-          </Table>
+              <Table.Cell
+                style={{
+                  fontSize: "1.1em",
+                  width: "50px",
+                  fontWeight: "bold"
+                }}
+              >
+                Hours
+              </Table.Cell>
+              <Table.Cell>
+                {this.props.auth.user.admin ? (
+                  <Button onClick={this.approveAll}>Approve All</Button>
+                ) : null}
+              </Table.Cell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{this.showTimeblocks()}</Table.Body>
+        </Table>
       </>
     );
   }
