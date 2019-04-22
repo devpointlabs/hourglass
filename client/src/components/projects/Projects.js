@@ -15,7 +15,7 @@ import ModalForms from "./ProjectModals/ProjectCreate/ModalForms";
 import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
 import "./Projects.css";
 import { withRouter } from "react-router-dom";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 class Projects extends React.Component {
   state = { projects: [], toggleForm: false, project: {} };
@@ -49,17 +49,19 @@ class Projects extends React.Component {
               ? p.project_name + (p.client_name && ` (${p.client_name})`)
               : "Project"}
           </Table.Cell>
-          <Table.Cell>{p.budget && `$${parseFloat(p.budget).toFixed(2)}`}</Table.Cell>
+          <Table.Cell>
+            {p.budget && `$${parseFloat(p.budget).toFixed(2)}`}
+          </Table.Cell>
           <Table.Cell style={{ width: "5%" }}>
             {p.total_project_cost && `$${p.total_project_cost.toFixed(0)}`}
           </Table.Cell>
           <Table.Cell>
-            <StyledProgressBar>
-              <Progress
-                color={this.renderProgress(p.percent_spent)}
-                percent={p.percent_spent}
-              />
-            </StyledProgressBar>
+            {/* <StyledProgressBar> */}
+            <Progress
+              color={this.renderProgress(p.percent_spent)}
+              percent={p.percent_spent}
+            />
+            {/* </StyledProgressBar> */}
           </Table.Cell>
           <Table.Cell>
             {p.percent_spent ? p.percent_spent.toFixed(0) : 0}%
@@ -117,18 +119,20 @@ class Projects extends React.Component {
 export default withRouter(Projects);
 
 const StyledProgressBar = styled.div`
-.ui.progress .bar {
-  display: block;
-  line-height: 1;
-  position: relative;
-  width: 0%;
-  min-width: .2em;
-  background: #888;
-  border-radius: .28571429rem;
-  transition: width .1s ease,background-color .1s ease;
-  transition-property: width, background-color;
-  transition-duration: 0.1s, 0.1s;
-  transition-timing-function: ease, ease;
-  transition-delay: 0s, 0s;
-}
-`
+  .ui.progress .bar {
+    // display: block;
+    // line-height: 1;
+    // position: relative;
+    // width: 0%;
+    // min-width: 0.2em;
+    // background: #888;
+    // border-radius: 0.28571429rem;
+    // transition: width 0.1s ease, background-color 0.1s ease;
+    // transition-property: width;
+    // transition-duration: 0.1s, 0.1s;
+    // transition-timing-function: ease, ease;
+    // transition-delay: 0s, 0s;
+  }
+`;
+
+//
