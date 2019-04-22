@@ -225,9 +225,9 @@ class EditForm extends React.Component {
             <div>
               <Header textAlign="center">Current Projects</Header>
               <Divider />
-              <List textAlign="center" link>
+              <List textAlign="center">
                 {this.state.projects.map(project => (
-                  <List.Item as={Link} to={`/projects/${project.id}`}>
+                  <List.Item>
                     {project.name} - {project.client_name}
                   </List.Item>
                 ))}
