@@ -2,11 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import ProjectNavbar from "./ProjectNavbar";
-import {
-  Header,
-  Container,
-  Segment,
-} from "semantic-ui-react";
+import { Header, Container, Segment } from "semantic-ui-react";
 import TaskView from "./TaskView/TaskView";
 import BudgetView from "./BudgetView";
 import TeamView from "./TeamView";
@@ -51,12 +47,8 @@ class ProjectView extends React.Component {
         return <BudgetView project={this.state.project} />;
       default:
         return <BudgetView project={this.state.project} />;
-
     }
   };
-
-
-
 
   render() {
     const {
@@ -71,27 +63,34 @@ class ProjectView extends React.Component {
         <ProjectNavbar setPage={this.setPage} />
 
         <Container
+          stackable
           style={{
             paddingTop: "0px",
             margin: "0px"
           }}
         >
-
-          <EditProjectModal project={this.state.project} passHandleOpen={this.passHandleOpen}></EditProjectModal>
+          <EditProjectModal
+            project={this.state.project}
+            passHandleOpen={this.passHandleOpen}
+          />
           <Header>
-            <EditProjectModal project={this.state.project} projectInfo={
-              <span style={{ marginLeft: "20px", cursor: 'pointer' }}>
-                <span style={{ fontSize: "1.3em" }}>{project_name}</span>
-                <span style={{ fontSize: ".8em" }}> {client_name && "(" + client_name + ")"}</span>
-              </span>}
-            >
-            </EditProjectModal>
+            <EditProjectModal
+              project={this.state.project}
+              projectInfo={
+                <span style={{ marginLeft: "20px", cursor: "pointer" }}>
+                  <span style={{ fontSize: "1.3em" }}>{project_name}</span>
+                  <span style={{ fontSize: ".8em" }}>
+                    {" "}
+                    {client_name && "(" + client_name + ")"}
+                  </span>
+                </span>
+              }
+            />
 
             <h4 style={{ marginLeft: "20px" }}>
               {" "}
-              {planned_start} {planned_start && '-'} {planned_end}
+              {planned_start} {planned_start && "-"} {planned_end}
             </h4>
-
           </Header>
 
           <Segment>{this.renderPage()}</Segment>
