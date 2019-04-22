@@ -15,6 +15,7 @@ import { withRouter } from "react-router-dom";
 import TimerStartStopButton from "./TimerStartStopButton";
 import parsedInput from "./parsedInput";
 import { sortSelectOptions } from "./sortSelectOptions";
+import selectStyles from "./selectStyles";
 
 class AddTimeBlockButton extends React.Component {
   state = {
@@ -95,8 +96,8 @@ class AddTimeBlockButton extends React.Component {
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
           this.state.endHourMinute.length === 8,
-          5 && this.state.startHourMinute.length === 8,
-          5)
+        5 && this.state.startHourMinute.length === 8,
+        5)
       ) {
         this.setState({
           hours: moment(
@@ -309,6 +310,7 @@ class AddTimeBlockButton extends React.Component {
                 >
                   Project
                   <Select
+                    styles={selectStyles}
                     value={this.state.project}
                     onChange={this.handleChange1}
                     options={selectOptions.projectSelectOptions}
@@ -324,6 +326,7 @@ class AddTimeBlockButton extends React.Component {
                 >
                   Task
                   <Select
+                    styles={selectStyles}
                     value={this.state.task}
                     onChange={this.handleChange2}
                     options={selectOptions.taskSelectOptions}
