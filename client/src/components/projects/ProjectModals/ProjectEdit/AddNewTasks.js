@@ -120,6 +120,7 @@ class AddNewTasks extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Checkbox
+                    style={{ marginTop: "22px" }}
                     label="Billable"
                     onClick={this.handleBillable}
                     checked={this.state.checkboxStatus}
@@ -128,7 +129,11 @@ class AddNewTasks extends React.Component {
                 <Table.Cell>
                   <Button
                     circular
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      marginTop: "20px",
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}
                     onClick={() => this.handleSubmit()}
                     size="mini"
                     icon="plus"

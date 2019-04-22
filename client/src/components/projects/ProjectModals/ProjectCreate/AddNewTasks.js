@@ -9,7 +9,6 @@ import {
   Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from "./NewTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -45,7 +44,7 @@ class AddNewTasks extends React.Component {
 
   handleBillable = () => {
     this.setState({
-      checkboxStatus: !this.statecheckboxStatus,
+      checkboxStatus: !this.state.checkboxStatus,
       task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };

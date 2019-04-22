@@ -3,6 +3,7 @@ import React from "react";
 import { Table, Button } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
+import NewTaskTableRow from "./NewTaskTableRow"
 
 class EditTaskTable extends React.Component {
   state = { tasks: [], project: this.props.project };
@@ -20,40 +21,14 @@ class EditTaskTable extends React.Component {
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map(task => (
-      <Table.Row key={task.name}>
-        <Table.Cell>{task.name}</Table.Cell>
-        <Table.Cell
-          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
-        >
-          {task.total_hours ? task.total_hours : 0}
-        </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px" }}>
-          ${parseFloat(task.price_per_hour).toFixed(2)}
-        </Table.Cell>
-        <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost.toFixed(2) : "$0"}
-        </Table.Cell>
-      </Table.Row>
+      <NewTaskTableRow task={task} handleDelete={this.handleDelete} />
     ));
   };
 
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
     return UnbillableTasks.map(task => (
-      <Table.Row key={task.name}>
-        <Table.Cell>{task.name}</Table.Cell>
-        <Table.Cell
-          style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
-        >
-          {task.total_hours ? task.total_hours : 0}
-        </Table.Cell>
-        <Table.Cell style={{ paddingLeft: "200px" }}>
-          ${parseFloat(task.price_per_hour).toFixed(2)}
-        </Table.Cell>
-        <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost.toFixed(2) : "$0"}
-        </Table.Cell>
-      </Table.Row>
+      <NewTaskTableRow task={task} handleDelete={this.handleDelete} project={this.props.project} />
     ));
   };
 
@@ -81,7 +56,7 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "40%",
                     fontWeight: "bold"
                   }}
                 >
@@ -90,19 +65,18 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "10%",
                     fontWeight: "bold"
                   }}
                 >
-                  <div style={{ textAlign: "center" }}>Hours</div>
+                  <div>Hours</div>
 
                 </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "30%",
                     fontWeight: "bold",
-                    paddingLeft: "200px"
                   }}
                 >
                   Price per Hour
@@ -110,23 +84,25 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "11%",
                     fontWeight: "bold",
-                    textAlign: "center"
                   }}
                 >
                   <div>Total</div>
-                  {/* ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'} */}
                 </Table.Cell>
+                <Table.Cell
+                  style={{
+                    width: "15%"
+                  }} />
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
               {this.showBillableTasks()}
               <Table.Row>
-                <Table.Cell colSpan="6" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
             </Table.Body>
           </Table>
@@ -136,7 +112,7 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "35%",
                     fontWeight: "bold"
                   }}
                 >
@@ -145,19 +121,18 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "10%",
                     fontWeight: "bold"
                   }}
                 >
-                  <div style={{ textAlign: "center" }}>Hours</div>
+                  <div>Hours</div>
 
                 </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "30%",
                     fontWeight: "bold",
-                    paddingLeft: "200px"
                   }}
                 >
                   Price per Hour
@@ -165,26 +140,30 @@ class EditTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "11%",
                     fontWeight: "bold",
-                    textAlign: "center"
                   }}
                 >
                   <div>Total</div>
                 </Table.Cell>
+                <Table.Cell
+                  style={{
+                    width: "15%"
+                  }} />
               </Table.Row>
             </Table.Header>
 
             <Table.Body>
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
               {this.showUnBillableTasks()}
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
             </Table.Body>
           </Table>
+          <br />
         </div>
         <div
           style={{
