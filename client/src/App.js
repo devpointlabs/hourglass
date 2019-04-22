@@ -54,11 +54,7 @@ const App = () => (
             />
             <ProtectedRoute exact path="/taskview" component={TaskView} />
             <ProtectedRoute exact path="/users" component={Users} />
-            <ProtectedRoute
-              exact
-              path="/employees/:id"
-              component={EmployeeView}
-            />
+            <ProtectedRoute exact path="/users/:id" component={EmployeeView} />
             <Route component={NoMatch} />
           </Switch>
         </Container>
