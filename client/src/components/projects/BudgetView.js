@@ -6,7 +6,8 @@ import styled from "styled-components";
 import EditModalForms from "./ProjectModals/ProjectEdit/EditModalForms";
 
 class BudgetView extends React.Component {
-  state = { project: {}, timesheet: [] };
+  state = { project: {}, timesheet: [], };
+
 
   renderProgress = percent_spent => {
     switch (true) {
@@ -39,8 +40,11 @@ class BudgetView extends React.Component {
             <Table.Cell>
               <EditModalForms
                 project={this.props.project}
-                budget={parseFloat(project.budget).toFixed(2)}
-              />
+                budget={
+                  parseFloat(project.budget).toFixed(2)}
+                getProject={this.props.getProject}
+              >
+              </EditModalForms>
             </Table.Cell>
             <Table.Cell>
               $

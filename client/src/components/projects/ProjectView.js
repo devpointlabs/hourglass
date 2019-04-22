@@ -11,10 +11,15 @@ import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
 class ProjectView extends React.Component {
   state = {
     project: {},
-    page: ""
+    page: "",
+
   };
 
   componentDidMount() {
+    this.getProject()
+  }
+
+  getProject = () => {
     const { id } = this.props.match.params;
     axios.get(`/api/projects/${id}`).then(res => {
       this.setState({ project: res.data });
@@ -37,6 +42,8 @@ class ProjectView extends React.Component {
     }
   };
 
+
+
   renderPage = () => {
     switch (this.state.page) {
       case "task":
@@ -44,9 +51,10 @@ class ProjectView extends React.Component {
       case "team":
         return <TeamView project={this.state.project} />;
       case "budget":
-        return <BudgetView project={this.state.project} />;
+        return <BudgetView project={this.state.project} getProject={this.getProject} />;
       default:
-        return <BudgetView project={this.state.project} />;
+        return <BudgetView project={this.state.project} getProject={this.getProject} />;
+
     }
   };
 
@@ -69,10 +77,6 @@ class ProjectView extends React.Component {
             margin: "0px"
           }}
         >
-          <EditProjectModal
-            project={this.state.project}
-            passHandleOpen={this.passHandleOpen}
-          />
           <Header>
             <EditProjectModal
               project={this.state.project}

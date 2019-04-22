@@ -18,7 +18,6 @@ import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
-import EditProjectForm from "./components/projects/EditProjectForm";
 import Flash from "./components/Flash";
 import Error from "./components/Error";
 import { Modal } from "semantic-ui-react";

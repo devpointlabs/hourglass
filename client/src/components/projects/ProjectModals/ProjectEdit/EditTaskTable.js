@@ -32,7 +32,7 @@ class EditTaskTable extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost : "$0"}
+          {task.total_cost ? "$" + task.total_cost.toFixed(2) : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -52,14 +52,14 @@ class EditTaskTable extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost : "$0"}
+          {task.total_cost ? "$" + task.total_cost.toFixed(2) : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
   };
 
   handleSubmit2 = () => {
-    this.props.openModal3();
+    this.props.taskView ? this.props.closeModal2() : this.props.openModal3();
   };
 
   render() {
@@ -69,153 +69,151 @@ class EditTaskTable extends React.Component {
           project={this.props.project}
           getProjectTasks={this.getProjectTasks}
         />
-        <Table>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold"
-                }}
-              >
-                Billable Tasks
+        <div
+          style={{
+            height: "50vh",
+            overflowY: "scroll",
+            padding: "0 10px 0 20px"
+          }}
+        >
+          <Table>
+            <Table.Header>
+              <Table.Row style={{ background: "#e2e2e2" }}>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Billable Tasks
               </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold"
-                }}
-              >
-                <div style={{ textAlign: "center" }}>Hours</div>
-                <div style={{ textAlign: "center" }}>
-                  {/* {this.state.billableTotals.total_billable_hours &&
-                    (this.state.billableTotals.total_billable_hours).toFixed(1)} */}
-                </div>
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold",
-                  paddingLeft: "200px"
-                }}
-              >
-                Price per Hour
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>
-                {/* ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'} */}
-              </Table.Cell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-            {this.showBillableTasks()}
-            <Table.Row>
-              <Table.Cell colSpan="6" />
-            </Table.Row>
-          </Table.Body>
-        </Table>
-        <Table>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold"
-                }}
-              >
-                Unbillable Tasks
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold"
-                }}
-              >
-                <div style={{ textAlign: "center" }}>Hours</div>
-                <div style={{ textAlign: "center" }}>
-                  {/* {this.state.unbillableTotals.total_billable_hours &&
-                    (this.state.unbillableTotals.total_billable_hours).toFixed(1)} */}
-                </div>
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "450px",
-                  fontWeight: "bold",
-                  paddingLeft: "200px"
-                }}
-              >
-                Price per Hour
-              </Table.Cell>
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>
-                {/* ${this.state.unbillableTotals.total_billable_cost ? (this.state.unbillableTotals.total_billable_cost).toFixed(2) : '0'} */}
-              </Table.Cell>
-            </Table.Row>
-          </Table.Header>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>Hours</div>
 
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-            {this.showUnBillableTasks()}
-            <Table.Row>
-              <Table.Cell colSpan="4" />
-            </Table.Row>
-          </Table.Body>
-          <Table.Header>
-            <Table.Row style={{ background: "#e2e2e2" }}>
-              <Table.Cell colSpan="3" />
-              <Table.Cell
-                style={{
-                  fontSize: "1.1em",
-                  width: "100px",
-                  fontWeight: "bold",
-                  textAlign: "center"
-                }}
-              >
-                <div>Total</div>
-                {/* ${this.props.project.total_project_cost ? (this.props.project.total_project_cost).toFixed(2) : '0'} */}
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold",
+                    paddingLeft: "200px"
+                  }}
+                >
+                  Price per Hour
               </Table.Cell>
-            </Table.Row>
-          </Table.Header>
-        </Table>
-        <Button
-          floated="left"
-          style={{ background: "RebeccaPurple", color: "white" }}
-          onClick={() => this.props.closeModal2()}
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div>Total</div>
+                  {/* ${this.state.billableTotals.total_billable_cost ? (this.state.billableTotals.total_billable_cost).toFixed(2) : '0'} */}
+                </Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+              {this.showBillableTasks()}
+              <Table.Row>
+                <Table.Cell colSpan="6" />
+              </Table.Row>
+            </Table.Body>
+          </Table>
+          <Table>
+            <Table.Header>
+              <Table.Row style={{ background: "#e2e2e2" }}>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Unbillable Tasks
+              </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>Hours</div>
+
+                </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "450px",
+                    fontWeight: "bold",
+                    paddingLeft: "200px"
+                  }}
+                >
+                  Price per Hour
+              </Table.Cell>
+                <Table.Cell
+                  style={{
+                    fontSize: "1.1em",
+                    width: "100px",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >
+                  <div>Total</div>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+              {this.showUnBillableTasks()}
+              <Table.Row>
+                <Table.Cell colSpan="4" />
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            marginTop: "10px"
+          }}
         >
-          Close
+          <Button
+            floated="left"
+            style={{ width: "100px" }}
+            onClick={() => this.props.closeModal2()}
+          >
+            Close
         </Button>
-        <Button
-          floated="right"
-          style={{ background: "RebeccaPurple", color: "white" }}
-          onClick={() => this.handleSubmit2()}
-        >
-          Next
-        </Button>
+          <Button
+            style={{
+              width: "100px",
+              color: "white",
+              background: "RebeccaPurple",
+              marginLeft: "10px"
+            }}
+            onClick={() => this.handleSubmit2()}
+          >
+            {this.props.taskView ? "Submit" : "Next"}
+          </Button>
+        </div>
       </>
     );
   }
