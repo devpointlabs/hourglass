@@ -1,21 +1,20 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header, Icon, Image } from "semantic-ui-react";
-import { NotificationContainer, NotificationManager } from 'react-notifications'
-
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 
 class Login extends React.Component {
-  state = { email: "", password: "", message: '' };
+  state = { email: "", password: "", message: "" };
 
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    const { auth } = this.props
-    this.props.auth.handleLogin({ email, password }, this.props.history)
-
+    const { auth } = this.props;
+    this.props.auth.handleLogin({ email, password }, this.props.history);
   };
-
-
 
   handleChange = e => {
     const { name, value } = e.target;
@@ -50,15 +49,12 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
           <Segment textAlign="center" basic>
-
             <Button
               animated="fade"
               type="submit"
               style={{ color: "white", background: "RebeccaPurple" }}
             >
-              <Button.Content visible>
-                Submit
-              </Button.Content>
+              <Button.Content visible>Submit</Button.Content>
               <Button.Content hidden>
                 <Image
                   src={require("../images/hourglass_white_inside.png")}
@@ -84,3 +80,4 @@ export default class ConnectedLogin extends React.Component {
     );
   }
 }
+//
