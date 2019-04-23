@@ -213,7 +213,8 @@ class EditTimeEntryModal extends React.Component {
               </div>
               <div
                 style={{
-                  display: "flex"
+                  display: "flex",
+                  flexWrap: "wrap"
                 }}
               >
                 <div
