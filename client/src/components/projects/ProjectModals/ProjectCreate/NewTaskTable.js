@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button, TableCell } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
-import NewTaskTableRow from "./NewTaskTableRow";
+import NewTaskTableRow from "./NewTaskTableRows";
 
 class NewTaskTable extends React.Component {
   state = {
@@ -30,28 +30,13 @@ class NewTaskTable extends React.Component {
     )
   }
 
-  handleEdit = () => {
-  }
-
-  showBillableTasks = () => {
-    const billableTasks = this.state.tasks.filter(t => t.billable === true);
-    return billableTasks.map(task => (
-      <NewTaskTableRow task={task} handleDelete={this.handleDelete} />
-    ));
-  };
-
-  showUnBillableTasks = () => {
-    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
-    return UnbillableTasks.map(task => (
-      <NewTaskTableRow task={task} handleDelete={this.handleDelete} project={this.state.project} />
-    ));
-  };
-
   handleSubmit2 = () => {
     this.props.openModal3();
   };
 
   render() {
+    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false)
+    const billableTasks = this.state.tasks.filter(t => t.billable === true)
     return (
       <>
         <AddNewTasks
@@ -115,7 +100,7 @@ class NewTaskTable extends React.Component {
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showBillableTasks()}
+              <NewTaskTableRow tasks={billableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
@@ -172,7 +157,7 @@ class NewTaskTable extends React.Component {
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showUnBillableTasks()}
+              <NewTaskTableRow tasks={UnbillableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>

@@ -58,6 +58,6 @@ class Api::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :billable, :price_per_hour)
+    params.require(:task).permit(:name, :description, :billable, :price_per_hour, :project_id)
   end
 end

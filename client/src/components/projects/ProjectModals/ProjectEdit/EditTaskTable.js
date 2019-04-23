@@ -3,7 +3,7 @@ import React from "react";
 import { Table, Button } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
-import NewTaskTableRow from "./NewTaskTableRow"
+import NewTaskTableRow from "./EditTaskTableRows"
 
 class EditTaskTable extends React.Component {
   state = { tasks: [], project: this.props.project };
@@ -15,28 +15,25 @@ class EditTaskTable extends React.Component {
   getProjectTasks = () => {
     axios
       .get(`/api/projectdata/${this.props.project.project_id}/tasks_with_data`)
-      .then(response => this.setState({ tasks: response.data }));
+      .then(response => {
+        this.setState({ tasks: response.data })
+      });
   };
 
-  showBillableTasks = () => {
-    const billableTasks = this.state.tasks.filter(t => t.billable === true);
-    return billableTasks.map(task => (
-      <NewTaskTableRow task={task} handleDelete={this.handleDelete} />
-    ));
-  };
-
-  showUnBillableTasks = () => {
-    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
-    return UnbillableTasks.map(task => (
-      <NewTaskTableRow task={task} handleDelete={this.handleDelete} project={this.props.project} />
-    ));
-  };
+  handleDelete = (task_id) => {
+    const { project, tasks } = this.state;
+    axios.delete(`/api/projects/${project.id}/tasks/${task_id}`).then(
+      this.setState({ tasks: tasks.filter(t => t.task_id !== task_id) })
+    )
+  }
 
   handleSubmit2 = () => {
     this.props.taskView ? this.props.closeModal2() : this.props.openModal3();
   };
 
   render() {
+    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false)
+    const billableTasks = this.state.tasks.filter(t => t.billable === true)
     return (
       <>
         <AddNewTasks
@@ -100,7 +97,7 @@ class EditTaskTable extends React.Component {
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showBillableTasks()}
+              <NewTaskTableRow tasks={billableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
@@ -152,12 +149,11 @@ class EditTaskTable extends React.Component {
                   }} />
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showUnBillableTasks()}
+              <NewTaskTableRow tasks={UnbillableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
                 <Table.Cell colSpan="5" />
               </Table.Row>
