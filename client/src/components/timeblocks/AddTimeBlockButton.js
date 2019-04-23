@@ -101,7 +101,7 @@ class AddTimeBlockButton extends React.Component {
       ) {
         this.setState({
           hours: moment(
-            parsedInput(year, endMonthDay, this.state.endHourMinute)
+            parsedInput(year, startMonthDay, this.state.endHourMinute)
           ).diff(
             moment(
               parsedInput(year, startMonthDay, this.state.startHourMinute)
@@ -111,8 +111,9 @@ class AddTimeBlockButton extends React.Component {
           )
         });
       }
-    });
-  };
+      })
+    }
+
 
   handleChange1 = project => {
     this.setState({ project }, () => {
@@ -195,7 +196,7 @@ class AddTimeBlockButton extends React.Component {
       task_id: this.state.task.value,
       start_time: moment(parsedInput(year, startMonthDay, startHourMinute)),
       user_id: this.props.user_id,
-      end_time: moment(parsedInput(year, endMonthDay, endHourMinute)),
+      end_time: moment(parsedInput(year, startMonthDay, endHourMinute)),
       manualEntry: true,
       status: "unSubmitted"
     };

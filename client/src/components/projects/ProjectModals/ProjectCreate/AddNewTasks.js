@@ -73,7 +73,9 @@ class AddNewTasks extends React.Component {
                     value={name}
                     autoFocus
                     onChange={this.handleChange}
-                  />                </Table.Cell>
+
+                  />
+                </Table.Cell>
                 <Table.Cell>
                   <Form.Input
                     name="description"
