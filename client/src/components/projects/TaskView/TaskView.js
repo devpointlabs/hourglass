@@ -59,13 +59,17 @@ class TaskView extends React.Component {
     let monthLast = new Date(month.getFullYear(), month.getMonth() + 1, 0).toUTCString();
 
     if (value === 'allTime') {
-      this.setState({ start_date: '2000-04-14', end_date: '2091-04-15' })
+      this.setState(({ start_date: '2000-04-14', end_date: '2091-04-15' }), () => {
+        this.getProjectTasks()
+      })
     } else if (value === 'thisWeek') {
       this.setState(({ start_date: firstday, end_date: lastday }), () => {
         this.getProjectTasks()
       })
     } else if (value === 'thisMonth') {
-      this.setState({ start_date: monthFirst, end_date: monthLast })
+      this.setState(({ start_date: monthFirst, end_date: monthLast }), () => {
+        this.getProjectTasks()
+      })
     } else {
       console.log('nada')
     }
