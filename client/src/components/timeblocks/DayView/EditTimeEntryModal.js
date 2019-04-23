@@ -5,6 +5,7 @@ import moment from "moment";
 import { sortSelectOptions } from "../sortSelectOptions";
 import axios from "axios";
 import parsedInput from "../parsedInput";
+import selectStyles from "../selectStyles";
 
 class EditTimeEntryModal extends React.Component {
   state = {
@@ -188,6 +189,7 @@ class EditTimeEntryModal extends React.Component {
               >
                 Project
                 <Select
+                  styles={selectStyles}
                   value={this.state.project}
                   onChange={this.handleChange1}
                   options={selectOptions.projectSelectOptions}
@@ -203,6 +205,7 @@ class EditTimeEntryModal extends React.Component {
               >
                 Task
                 <Select
+                  styles={selectStyles}
                   value={this.state.task}
                   onChange={this.handleChange2}
                   options={selectOptions.taskSelectOptions}
