@@ -18,7 +18,6 @@ import Users from "./components/users/Users";
 import GreyGradientLine from "./components/GreyGradientLine";
 import Flash from "./components/Flash";
 import Error from "./components/Error";
-import { Modal } from "semantic-ui-react";
 import "./app.css";
 
 const App = () => (

@@ -4,6 +4,7 @@ import TimeBlockNavbar from "./NavBarComponents/TimeBlockNavbar";
 import ApproveTimesheetsRow from "./ApproveTimesheetsRow";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
+import { CircleCountConsumer } from "../../providers/CircleCountProvider";
 
 class ApproveTimesheets extends React.Component {
   state = {
@@ -12,20 +13,37 @@ class ApproveTimesheets extends React.Component {
   componentDidMount() {
     if (this.props.auth.user.admin === true) {
       axios.get("/api/timeblock/pending").then(res => {
-        this.setState({ timeblocks: res.data });
+        this.setState({ timeblocks: res.data }, () =>
+          this.props.circleCount.setCircle(
+            "pendingCircleCount",
+            this.state.timeblocks.length
+          )
+        );
       });
     } else {
       const { id } = this.props.auth.user;
       axios.get(`/api/user/${id}/pendingtimeblocks`).then(res => {
-        this.setState({ timeblocks: res.data });
+        this.setState({ timeblocks: res.data }, () =>
+          this.props.circleCount.setCircle(
+            "pendingCircleCount",
+            this.state.timeblocks.length
+          )
+        );
       });
     }
   }
 
   removeTimeblock = id => {
-    this.setState({
-      timeblocks: this.state.timeblocks.filter(t => t.id !== id)
-    });
+    this.setState(
+      {
+        timeblocks: this.state.timeblocks.filter(t => t.id !== id)
+      },
+      () =>
+        this.props.circleCount.setCircle(
+          "pendingCircleCount",
+          this.state.timeblocks.length
+        )
+    );
   };
 
   showTimeblocks = () => {
@@ -36,7 +54,12 @@ class ApproveTimesheets extends React.Component {
 
   approveAll = () => {
     axios.put(`/api/approve_all_pending`);
-    this.setState({ timeblocks: [] });
+    this.setState({ timeblocks: [] }, () =>
+      this.props.circleCount.setCircle(
+        "pendingCircleCount",
+        this.state.timeblocks.length
+      )
+    );
   };
 
   render() {
@@ -89,11 +112,15 @@ class ApproveTimesheets extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   {this.props.auth.user.admin ? (
-                     <Button style={{
-                     
-                      background: "RebeccaPurple",
-                      color: "white"}} 
-                      onClick={this.approveAll}>Approve All</Button>
+                    <Button
+                      style={{
+                        background: "RebeccaPurple",
+                        color: "white"
+                      }}
+                      onClick={this.approveAll}
+                    >
+                      Approve All
+                    </Button>
                   ) : null}
                 </Table.Cell>
               </Table.Row>
@@ -101,7 +128,6 @@ class ApproveTimesheets extends React.Component {
             <Table.Body>{this.showTimeblocks()}</Table.Body>
           </Table>
         </div>
-
       </>
     );
   }
@@ -116,4 +142,19 @@ export class ConnectedApproveTimesheets extends React.Component {
     );
   }
 }
-export default ConnectedApproveTimesheets;
+
+export class DoubleConnectedApproveTimesheets extends React.Component {
+  render() {
+    return (
+      <CircleCountConsumer>
+        {circleCount => (
+          <ConnectedApproveTimesheets
+            {...this.props}
+            circleCount={circleCount}
+          />
+        )}
+      </CircleCountConsumer>
+    );
+  }
+}
+export default DoubleConnectedApproveTimesheets;
