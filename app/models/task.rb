@@ -42,13 +42,16 @@ class Task < ApplicationRecord
             GROUP BY task_id, task_name, description, billable, price_per_hour, project_id, start_time, tbt_id
             ),
     cte2 AS (
-        SELECT SUM(total_hours) AS all_hours, task_id, tbt_id, task_name, price_per_hour, total_cost, billable
+        SELECT SUM(total_hours) AS all_hours, task_id, task_name, price_per_hour, total_cost, billable
         FROM total_task_hours AS tth
         WHERE task_id = tbt_id
-        GROUP BY task_id, tbt_id, task_name, price_per_hour, total_cost, billable
+        GROUP BY task_id, task_name, price_per_hour, total_cost, billable
         )
-        SELECT all_hours, task_name, price_per_hour, task_id, total_cost, billable
+        SELECT task_name, t.price_per_hour, task_name, cte2.billable, task_id, sum(total_cost) AS cost, sum(all_hours) AS hours, t.description
         FROM cte2
+        left join tasks as t
+            on cte2.task_id = t.id
+        group by task_name, t.price_per_hour, task_name, cte2.billable, task_id, t.description
     ", start_date, end_date, project_id])
   end
 
