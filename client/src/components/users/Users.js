@@ -28,8 +28,10 @@ class Users extends React.Component {
               <Table.Cell>
                 <Header as="h4" image>
                   <Image src={u.image || defaultImage} rounded size="mini" />
-                  <Link to={`/users/${u.id}`}>
-                    <Header.Content style={{ color: "RebeccaPurple" }}>
+                  <Link as="div" to={`/users/${u.id}`}>
+                    <Header.Content
+                      style={{ color: "RebeccaPurple", paddingLeft: "10px" }}
+                    >
                       {u.name}
                       <Header.Subheader>{u.nickname}</Header.Subheader>
                     </Header.Content>
