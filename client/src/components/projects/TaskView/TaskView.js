@@ -1,11 +1,17 @@
 import React, { Fragment } from "react";
 import { Table, Header, Dropdown } from "semantic-ui-react";
 import axios from "axios";
-import EditModalForm from '../ProjectModals/ProjectEdit/EditModalForms'
-
+import EditModalForm from "../ProjectModals/ProjectEdit/EditModalForms";
 
 class TaskView extends React.Component {
-  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, start_date: '2000-04-14', end_date: '2091-04-15', taskview: true };
+  state = { tasks: [], 
+           billableTotals: {}, 
+           unbillableTotals: {}, 
+           start_date: '2000-04-14', 
+           end_date: '2091-04-15', 
+           taskview: true 
+          };
+
 
   componentDidMount() {
     this.getProjectTasks();
@@ -26,8 +32,7 @@ class TaskView extends React.Component {
     axios.get(`/api/billable/${project.project_id}`).then(response => {
       const billable = response.data.filter(b => b.billable && b);
       const unbillable = response.data.filter(b => {
-        if (b.billable === false)
-          return b;
+        if (b.billable === false) return b;
       });
       this.setState({
         billableTotals: billable[0],
@@ -86,7 +91,7 @@ class TaskView extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? "$" + task.total_cost : "$0"}
+          {task.total_cost ? task.total_cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -106,9 +111,7 @@ class TaskView extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost
-            ? "$" + parseFloat(task.total_cost).toFixed(2)
-            : "$0"}
+          {task.total_cost ? task.total_cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -128,7 +131,10 @@ class TaskView extends React.Component {
         />
         <Header as="h1">
           Tasks
-          <EditModalForm project={this.props.project} taskView={this.state.taskview} />
+          <EditModalForm
+            project={this.props.project}
+            taskView={this.state.taskview}
+          />
         </Header>
         <Table>
           <Table.Header>
@@ -153,8 +159,8 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   {this.state.billableTotals !== undefined
                     ? parseFloat(
-                      this.state.billableTotals.total_billable_hours
-                    ).toFixed(2)
+                        this.state.billableTotals.total_billable_hours
+                      ).toFixed(2)
                     : "0.00"}
                 </div>
               </Table.Cell>
@@ -214,7 +220,7 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>Hours</div>
                 <div style={{ textAlign: "center" }}>
                   {this.state.unbillableTotals === undefined
-                    ? 0
+                    ? 0.0
                     : this.state.unbillableTotals.total_billable_hours}
                 </div>
               </Table.Cell>
@@ -266,7 +272,7 @@ class TaskView extends React.Component {
                 <div>Total</div>$
                 {this.props.project.total_project_cost
                   ? this.props.project.total_project_cost.toFixed(2)
-                  : "0"}
+                  : "0.00"}
               </Table.Cell>
             </Table.Row>
           </Table.Header>
