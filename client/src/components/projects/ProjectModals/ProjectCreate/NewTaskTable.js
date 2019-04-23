@@ -13,8 +13,14 @@ class NewTaskTable extends React.Component {
   componentDidMount = () => {
     axios
       .get("/api/getlastproject")
-      .then(res => this.setState({ project: res.data }));
+      .then(res => this.setState({ project: res.data })
+      )
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.project !== this.state.project)
+      this.getProjectTasks()
+  }
 
   getProjectTasks = () => {
     const { project } = this.state;
