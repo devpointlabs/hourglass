@@ -13,6 +13,7 @@ class TimeBlockNavbar extends React.Component {
           <NavLink to="/timesheet">
             <Menu.Item name="timesheet" active={pathname === "/timesheet"}>
               Time Sheet
+              <div style={{ height: "18px" }} />
             </Menu.Item>
           </NavLink>
           <NavLink to="/timesheet/unsubmitted">
