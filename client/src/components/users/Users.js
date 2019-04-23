@@ -27,7 +27,7 @@ class Users extends React.Component {
             <Table.Row className="usersTableRow">
               <Table.Cell>
                 <Header as="h4" image>
-                  <Image src={u.image || defaultImage} rounded size="mini" />
+                  <Image src={u.image || defaultImage} circular size="mini" />
                   <Link as="div" to={`/users/${u.id}`}>
                     <Header.Content
                       style={{ color: "RebeccaPurple", paddingLeft: "10px" }}
