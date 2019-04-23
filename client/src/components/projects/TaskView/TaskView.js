@@ -1,21 +1,32 @@
-import React from "react";
-import { Table, Header } from "semantic-ui-react";
+import React, { Fragment } from "react";
+import { Table, Header, Dropdown } from "semantic-ui-react";
 import axios from "axios";
 import EditModalForm from '../ProjectModals/ProjectEdit/EditModalForms'
 
 
 class TaskView extends React.Component {
-  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, taskview: true };
+  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, start_date: '2000-04-14', end_date: '2091-04-15' };
 
   componentDidMount() {
     this.getProjectTasks();
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  // }
+
   getProjectTasks = () => {
     const { project } = this.props;
     axios
-      .get(`/api/projectdata/${project.project_id}/tasks_with_data`)
-      .then(response => this.setState({ tasks: response.data }));
+      .get(`/api/projectdata/${project.project_id}/find_by_date`, {
+        params: {
+          start_date: this.state.start_date,
+          end_date: this.state.end_date
+        }
+      })
+      .then(response => {
+        this.setState({ tasks: response.data })
+      });
+
     axios.get(`/api/billable/${project.project_id}`).then(response => {
       const billable = response.data.filter(b => b.billable && b);
       const unbillable = response.data.filter(b => {
@@ -29,11 +40,46 @@ class TaskView extends React.Component {
     });
   };
 
+  getMonday = (d) => {
+    d = new Date(d);
+    var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6 : 1);
+    return new Date(d.setDate(diff));
+  }
+
+
+  filterDates = (e, { value }) => {
+    const curr = new Date()
+    let first = curr.getDate() - curr.getDay();
+    let last = first + 6;
+    let firstday = new Date(curr.setDate(first)).toUTCString();
+    let lastday = new Date(curr.setDate(last)).toUTCString();
+    let month = new Date();
+    let monthFirst = new Date(month.getFullYear(), month.getMonth(), 1).toUTCString();
+    let monthLast = new Date(month.getFullYear(), month.getMonth() + 1, 0).toUTCString();
+
+    if (value === 'allTime') {
+      this.setState(({ start_date: '2000-04-14', end_date: '2091-04-15' }), () => {
+        this.getProjectTasks()
+      })
+    } else if (value === 'thisWeek') {
+      this.setState(({ start_date: firstday, end_date: lastday }), () => {
+        this.getProjectTasks()
+      })
+    } else if (value === 'thisMonth') {
+      this.setState(({ start_date: monthFirst, end_date: monthLast }), () => {
+        this.getProjectTasks()
+      })
+    } else {
+      console.log('nada')
+    }
+  }
+
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
-    return billableTasks.map(task => (
-      <Table.Row key={task.name}>
-        <Table.Cell>{task.name}</Table.Cell>
+    return billableTasks.map((task, i) => (
+      <Table.Row key={i}>
+        <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
@@ -51,9 +97,9 @@ class TaskView extends React.Component {
 
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
-    return UnbillableTasks.map(task => (
-      <Table.Row key={task.name}>
-        <Table.Cell>{task.name}</Table.Cell>
+    return UnbillableTasks.map((task, i) => (
+      <Table.Row key={i}>
+        <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
@@ -74,11 +120,20 @@ class TaskView extends React.Component {
   render() {
     return (
       <>
+        <Dropdown
+          placeholder="Dates"
+          fluid
+          onChange={this.filterDates}
+          selection
+          options={options}
+          style={{ borderRadius: 0 }}
+          value={this.state.start_date}
+        />
+        <Header as="h1">Tasks</Header>
         <Header as="h1">
           Tasks
           <EditModalForm project={this.props.project} taskView={this.state.taskview} />
         </Header>
-
         <Table>
           <Table.Header>
             <Table.Row style={{ background: "#e2e2e2" }}>
@@ -226,5 +281,12 @@ class TaskView extends React.Component {
     );
   }
 }
+
+const options = [
+  { key: "allTime", text: "All Time", value: "allTime" },
+  { key: "thisWeek", text: "This Week", value: "thisWeek" },
+  { key: "thisMonth", text: "This Month", value: "thisMonth" },
+
+];
 
 export default TaskView;

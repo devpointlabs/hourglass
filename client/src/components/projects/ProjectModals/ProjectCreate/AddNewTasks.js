@@ -9,7 +9,6 @@ import {
   Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from "./NewTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -45,7 +44,7 @@ class AddNewTasks extends React.Component {
 
   handleBillable = () => {
     this.setState({
-      checkboxStatus: !this.statecheckboxStatus,
+      checkboxStatus: !this.state.checkboxStatus,
       task: { ...this.state.task, billable: !this.state.task.billable }
     });
   };
@@ -56,19 +55,16 @@ class AddNewTasks extends React.Component {
     } = e;
     this.setState({ task: { ...this.state.task, [name]: value } });
   };
-  handleDropdown = (e, { name, value }) => {
-    this.setState({ task: { ...this.state.task, [name]: value } })
-  }
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
-    const { task } = this.props;
-    const options = [
-      {key: 1, text: 'Programming', value: 'Programming'},
-      {key: 2, text: 'Design', value: 'Design'},
-      {key: 3, text: 'Project Management', value: 'Project Management'},
-      {key: 4, text: 'Business Development', value: 'Business Development'},
-    ]
+
+    // const options = [
+    //   { key: 1, text: 'Programming', value: 1 },
+    //   { key: 2, text: 'Design', value: 2 },
+    //   { key: 3, text: 'Project Management', value: 3 },
+    //   { key: 4, text: 'Business Development', value: 4 },
+    // ]
     return (
       <>
         <Form style={styles.modal}>
@@ -84,15 +80,6 @@ class AddNewTasks extends React.Component {
                     autoFocus
                     onChange={this.handleChange}
                   />
-                <Dropdown 
-                clearable 
-                options={options} 
-                selection 
-                placeholder='Default Tasks...'
-                onChange={this.handleDropdown}
-                value={name}
-                name='name'
-                />
                 </Table.Cell>
                 <Table.Cell>
                   <Form.Input
