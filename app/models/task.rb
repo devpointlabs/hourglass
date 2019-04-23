@@ -50,8 +50,8 @@ class Task < ApplicationRecord
           description: t.description,
           billable: t.billable,
           price_per_hour: t.price_per_hour,
-          total_hours: t.total_hours,
-          total_cost: t.total_cost,
+          total_hours: sprintf("%.2f", t.total_hours),
+          total_cost: ActiveSupport::NumberHelper::number_to_currency(t.total_cost),
           project_id: t.project_id}
         end
   end
