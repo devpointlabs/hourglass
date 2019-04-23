@@ -58,6 +58,7 @@ class AddNewTasks extends React.Component {
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
+
     // const options = [
     //   { key: 1, text: 'Programming', value: 1 },
     //   { key: 2, text: 'Design', value: 2 },
@@ -70,8 +71,6 @@ class AddNewTasks extends React.Component {
           <Table>
             <Table.Body>
               <Table.Row key={"new"}>
-                {/* <Table.Cell>
-                </Table.Cell> */}
                 <Table.Cell>
                   <Form.Input
                     name="name"
@@ -81,7 +80,6 @@ class AddNewTasks extends React.Component {
                     autoFocus
                     onChange={this.handleChange}
                   />
-                  {/* <Dropdown clearable options={options} selection placeholder='Default Tasks...' /> */}
                 </Table.Cell>
                 <Table.Cell>
                   <Form.Input
