@@ -5,7 +5,7 @@ import EditModalForm from '../ProjectModals/ProjectEdit/EditModalForms'
 
 
 class TaskView extends React.Component {
-  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, start_date: '2000-04-14', end_date: '2091-04-15' };
+  state = { tasks: [], billableTotals: {}, unbillableTotals: {}, start_date: '2000-04-14', end_date: '2091-04-15', taskview: true };
 
   componentDidMount() {
     this.getProjectTasks();
@@ -129,7 +129,6 @@ class TaskView extends React.Component {
           style={{ borderRadius: 0 }}
           value={this.state.start_date}
         />
-        <Header as="h1">Tasks</Header>
         <Header as="h1">
           Tasks
           <EditModalForm project={this.props.project} taskView={this.state.taskview} />
