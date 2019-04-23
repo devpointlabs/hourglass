@@ -23,6 +23,11 @@ class TimeBlockNavbar extends React.Component {
               Unsubmitted
               <div
                 style={{
+                  visibility:
+                    parseInt(this.props.circleCount.unSubmittedCircleCount) !==
+                      0 && this.props.circleCount.unSubmittedCircleCount
+                      ? "visible"
+                      : "hidden",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -49,6 +54,11 @@ class TimeBlockNavbar extends React.Component {
               Pending Approval
               <div
                 style={{
+                  visibility:
+                    parseInt(this.props.circleCount.pendingCircleCount) !== 0 &&
+                    this.props.circleCount.pendingCircleCount
+                      ? "visible"
+                      : "hidden",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",

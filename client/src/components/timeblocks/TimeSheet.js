@@ -14,6 +14,7 @@ import {
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
+import { CircleCountConsumer } from "../../providers/CircleCountProvider";
 
 class TimeSheet extends React.Component {
   state = {
@@ -85,6 +86,7 @@ class TimeSheet extends React.Component {
           () => {
             this.checkForTimerRunning();
             this.getWeekTimeBlocks(this.state.selectedDate);
+            this.calculateCircleCount();
           }
         )
       );
@@ -99,6 +101,7 @@ class TimeSheet extends React.Component {
           () => {
             this.checkForTimerRunning();
             this.getWeekTimeBlocks(this.state.selectedDate);
+            this.calculateCircleCount();
           }
         )
       );
@@ -168,6 +171,20 @@ class TimeSheet extends React.Component {
   filterUser = (e, { value }) => this.setState({ filteredUserIds: value });
   filterProject = (e, { value }) =>
     this.setState({ filteredProjectIds: value });
+
+  calculateCircleCount = () => {
+    let unSubmittedCircleCount = this.state.timeBlocks.filter(
+      b => b.status === "unSubmitted"
+    ).length;
+    let pendingCircleCount = this.state.timeBlocks.filter(
+      b => b.status === "pending"
+    ).length;
+    this.props.circleCount.setCircle(
+      "unSubmittedCircleCount",
+      unSubmittedCircleCount
+    );
+    this.props.circleCount.setCircle("pendingCircleCount", pendingCircleCount);
+  };
 
   render() {
     const {
@@ -292,7 +309,19 @@ export class DoubleConnectedTimeSheet extends React.Component {
   }
 }
 
-export default withRouter(DoubleConnectedTimeSheet);
+export class TripleConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <CircleCountConsumer>
+        {circleCount => (
+          <DoubleConnectedTimeSheet {...this.props} circleCount={circleCount} />
+        )}
+      </CircleCountConsumer>
+    );
+  }
+}
+
+export default withRouter(TripleConnectedTimeSheet);
 
 // get blocks
 // add hours to blocks

@@ -79,21 +79,36 @@ class Unsubmitted extends React.Component {
       {
         timeBlocks: this.state.timeBlocks.filter(b => b.id !== block.id)
       },
-      () =>
+      () => {
         this.props.circleCount.setCircle(
           "unSubmittedCircleCount",
           this.state.timeBlocks.length
-        )
+        );
+        this.props.circleCount.setCircle(
+          "pendingCircleCount",
+          parseInt(this.props.circleCount.pendingCircleCount + 1)
+        );
+      }
     );
   };
 
   submitAllTimeBlocks = () => {
+    let count = this.state.timeBlocks.length;
     this.state.timeBlocks.map(block => {
       axios
         .put(`/api/timeblocks/${block.id}`, { status: "pending" })
         .then(res => null);
     });
-    this.setState({ timeBlocks: [] });
+    this.setState({ timeBlocks: [] }, () => {
+      this.props.circleCount.setCircle(
+        "unSubmittedCircleCount",
+        this.state.timeBlocks.length
+      );
+      this.props.circleCount.setCircle(
+        "pendingCircleCount",
+        parseInt(this.props.circleCount.pendingCircleCount) + count
+      );
+    });
   };
 
   render() {

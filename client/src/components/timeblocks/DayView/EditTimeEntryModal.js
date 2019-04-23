@@ -333,7 +333,7 @@ class EditTimeEntryModal extends React.Component {
                     }}
                     onClick={() => this.handleSubmit()}
                   >
-                    Submit
+                    Save
                   </Button>
                 </div>
               </div>
