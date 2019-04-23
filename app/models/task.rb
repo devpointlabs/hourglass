@@ -7,7 +7,8 @@ class Task < ApplicationRecord
 
   def self.find_by_date(start_date, end_date, project_id)
     find_by_sql(["
-        WITH cte AS (
+    WITH RECURSIVE
+    cte1 AS (
         SELECT
             p.id AS project_id,
             t.id AS task_id,
@@ -15,6 +16,7 @@ class Task < ApplicationRecord
             t.price_per_hour,
             t.description,
             t.billable,
+            tb.task_id AS tbt_id,
             tb.start_time,
             (DATE_PART('hour', tb.end_time - tb.start_time)*60 + date_part('minute',tb.end_time - tb.start_time))/ 60 AS hours
         FROM tasks AS t
@@ -27,19 +29,26 @@ class Task < ApplicationRecord
         ,total_task_hours AS (
             SELECT 
                 task_id,
+                tbt_id,
                 task_name,
                 description,
                 billable,
                 price_per_hour,
                 start_time,
-                SUM(hours) as total_hours,
+                SUM(hours) AS total_hours,
                 CAST(price_per_hour AS FLOAT) * SUM(hours) AS total_cost,
                 project_id
-            FROM cte
-            GROUP BY task_id, task_name, description, billable, price_per_hour, project_id, start_time
-            )
-        SELECT tth.*
+            FROM cte1
+            GROUP BY task_id, task_name, description, billable, price_per_hour, project_id, start_time, tbt_id
+            ),
+    cte2 AS (
+        SELECT SUM(total_hours) AS all_hours, task_id, tbt_id, task_name, price_per_hour, total_cost, billable
         FROM total_task_hours AS tth
+        WHERE task_id = tbt_id
+        GROUP BY task_id, tbt_id, task_name, price_per_hour, total_cost, billable
+        )
+        SELECT all_hours, task_name, price_per_hour, task_id, total_cost, billable
+        FROM cte2
     ", start_date, end_date, project_id])
   end
 
