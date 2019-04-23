@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Button, Form, Popup, Icon } from "semantic-ui-react";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
+import { CircleCountConsumer } from "../../providers/CircleCountProvider";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
 
@@ -48,6 +49,10 @@ class ApproveTimesheetsRow extends React.Component {
     const { removeTimeblock } = this.props;
     axios.put(`/api/timeblocks/${id}`, { status: "unSubmitted" });
     removeTimeblock(id);
+    this.props.circleCount.setCircle(
+      "unSubmittedCircleCount",
+      parseInt(this.props.circleCount.unSubmittedCircleCount) + 1
+    );
   };
 
   handleSubmit = id => {
@@ -95,7 +100,6 @@ class ApproveTimesheetsRow extends React.Component {
           </div>
 
           <div>{tb.task_name}</div>
-
         </Table.Cell>
 
         <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
@@ -106,8 +110,8 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-              moment(this.state.start_time).format("h:mm a")
-            )}
+            moment(this.state.start_time).format("h:mm a")
+          )}
         </Table.Cell>
 
         <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
@@ -118,21 +122,19 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-              moment(tb.end_time).format("h:mm a")
-            )}
+            moment(tb.end_time).format("h:mm a")
+          )}
         </Table.Cell>
 
         <Table.Cell style={{ width: "50px", cursor: "pointer" }}>
           {this.state.hours.toFixed(2)}
         </Table.Cell>
 
-
         <Table.Cell>
           <div>
             {this.props.auth.user &&
               this.props.auth.user.admin === true &&
               (this.state.editing ? (
-
                 <Popup
                   trigger={
                     <Button
@@ -147,39 +149,39 @@ class ApproveTimesheetsRow extends React.Component {
                   basic
                 />
               ) : (
-                  <>
-                    <Popup
-                      trigger={
-                        <Button
-                          color="black"
-                          icon="check"
-                          size="mini"
-                          circular
-                          onClick={() => this.approveTimeblock(tb.id)}
-                        />
-                      }
-                      content={"Approve"}
-                      basic
-                    />
-                    <Popup
-                      trigger={
-                        <Button
-                          color="grey"
-                          icon="pencil"
-                          size="mini"
-                          circular
-                          onClick={() => this.toggleEdit()}
-                        />
-                      }
-                      content={"Edit Time"}
-                      basic
-                    />
-                  </>
-                ))}
+                <>
+                  <Popup
+                    trigger={
+                      <Button
+                        color="black"
+                        icon="check"
+                        size="mini"
+                        circular
+                        onClick={() => this.approveTimeblock(tb.id)}
+                      />
+                    }
+                    content={"Approve"}
+                    basic
+                  />
+                  <Popup
+                    trigger={
+                      <Button
+                        color="grey"
+                        icon="pencil"
+                        size="mini"
+                        circular
+                        onClick={() => this.toggleEdit()}
+                      />
+                    }
+                    content={"Edit Time"}
+                    basic
+                  />
+                </>
+              ))}
             <Popup
               trigger={
                 <Button
-                  style={{background:"RebeccaPurple", color: "white"}}
+                  style={{ background: "RebeccaPurple", color: "white" }}
                   icon="send"
                   size="mini"
                   circular
@@ -191,7 +193,6 @@ class ApproveTimesheetsRow extends React.Component {
             />
           </div>
         </Table.Cell>
-
       </Table.Row>
     );
   }
@@ -207,4 +208,19 @@ export class ConnectedApprovedTimesheetsRow extends React.Component {
   }
 }
 
-export default withRouter(ConnectedApprovedTimesheetsRow);
+export class DoubleConnectedApprovedTimesheetsRow extends React.Component {
+  render() {
+    return (
+      <CircleCountConsumer>
+        {circleCount => (
+          <ConnectedApprovedTimesheetsRow
+            {...this.props}
+            circleCount={circleCount}
+          />
+        )}
+      </CircleCountConsumer>
+    );
+  }
+}
+
+export default withRouter(DoubleConnectedApprovedTimesheetsRow);

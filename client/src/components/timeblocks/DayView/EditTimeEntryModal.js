@@ -213,7 +213,8 @@ class EditTimeEntryModal extends React.Component {
               </div>
               <div
                 style={{
-                  display: "flex"
+                  display: "flex",
+                  flexWrap: "wrap"
                 }}
               >
                 <div
@@ -333,7 +334,7 @@ class EditTimeEntryModal extends React.Component {
                     }}
                     onClick={() => this.handleSubmit()}
                   >
-                    Submit
+                    Save
                   </Button>
                 </div>
               </div>

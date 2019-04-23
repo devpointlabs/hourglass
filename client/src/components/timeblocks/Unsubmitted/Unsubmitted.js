@@ -10,6 +10,7 @@ import {
 import UnsubmittedTableBody from "./UnsubmittedTableBody";
 import EditTimeEntryModal from "../DayView/EditTimeEntryModal";
 import { AuthConsumer } from "../../../providers/AuthProvider";
+import { CircleCountConsumer } from "../../../providers/CircleCountProvider";
 
 class Unsubmitted extends React.Component {
   state = {
@@ -35,43 +36,79 @@ class Unsubmitted extends React.Component {
   getTimeBlocks = () => {
     if (this.props.auth.user.admin === true)
       axios.get("/api/admin/timeblocks").then(res =>
-        this.setState({
-          timeBlocks: AddUserInfoToBlocks(
-            CalculateHoursAndWeek(
-              res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
+        this.setState(
+          {
+            timeBlocks: AddUserInfoToBlocks(
+              CalculateHoursAndWeek(
+                res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
+              ),
+              res.data.users
             ),
-            res.data.users
-          ),
-          users: res.data.users,
-          tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-          projects: res.data.projects
-        })
+            users: res.data.users,
+            tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+            projects: res.data.projects
+          },
+          () =>
+            this.props.circleCount.setCircle(
+              "unSubmittedCircleCount",
+              this.state.timeBlocks.length
+            )
+        )
       );
     else
       axios.get("/api/timeblocks").then(res =>
-        this.setState({
-          timeBlocks: CalculateHoursAndWeek(
-            res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
-          ),
-          tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
-          projects: res.data.projects
-        })
+        this.setState(
+          {
+            timeBlocks: CalculateHoursAndWeek(
+              res.data.timeBlocks.filter(tb => tb.status === "unSubmitted")
+            ),
+            tasks: AddProjectInfoToTasks(res.data.projects, res.data.tasks),
+            projects: res.data.projects
+          },
+          () =>
+            this.props.circleCount.setCircle(
+              "unSubmittedCircleCount",
+              this.state.timeBlocks.length
+            )
+        )
       );
   };
 
   updateTimeblockState = block => {
-    this.setState({
-      timeBlocks: this.state.timeBlocks.filter(b => b.id !== block.id)
-    });
+    this.setState(
+      {
+        timeBlocks: this.state.timeBlocks.filter(b => b.id !== block.id)
+      },
+      () => {
+        this.props.circleCount.setCircle(
+          "unSubmittedCircleCount",
+          this.state.timeBlocks.length
+        );
+        this.props.circleCount.setCircle(
+          "pendingCircleCount",
+          parseInt(this.props.circleCount.pendingCircleCount + 1)
+        );
+      }
+    );
   };
 
   submitAllTimeBlocks = () => {
+    let count = this.state.timeBlocks.length;
     this.state.timeBlocks.map(block => {
       axios
         .put(`/api/timeblocks/${block.id}`, { status: "pending" })
         .then(res => null);
     });
-    this.setState({ timeBlocks: [] });
+    this.setState({ timeBlocks: [] }, () => {
+      this.props.circleCount.setCircle(
+        "unSubmittedCircleCount",
+        this.state.timeBlocks.length
+      );
+      this.props.circleCount.setCircle(
+        "pendingCircleCount",
+        parseInt(this.props.circleCount.pendingCircleCount) + count
+      );
+    });
   };
 
   render() {
@@ -118,4 +155,16 @@ export class ConnectedUnsubmitted extends React.Component {
   }
 }
 
-export default ConnectedUnsubmitted;
+export class DoubleConnectedUnsubmitted extends React.Component {
+  render() {
+    return (
+      <CircleCountConsumer>
+        {circleCount => (
+          <ConnectedUnsubmitted {...this.props} circleCount={circleCount} />
+        )}
+      </CircleCountConsumer>
+    );
+  }
+}
+
+export default DoubleConnectedUnsubmitted;

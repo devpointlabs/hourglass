@@ -25,8 +25,8 @@ class DayViewTableData extends React.Component {
     this.props.setKeyboardShortcutKeys(false);
   };
 
-  handleOpen2 = () => {
-    this.setState({ modal2Open: true });
+  handleOpen2 = timeBlock => {
+    this.setState({ modal2Open: true, timeBlock: timeBlock });
   };
 
   render() {
@@ -130,6 +130,7 @@ class DayViewTableData extends React.Component {
           handleOpen2={this.handleOpen2}
           modal2Open={this.state.modal2Open}
           handleClose2={this.handleClose2}
+          timeBlock={this.state.timeBlock}
         />
       </>
     );
