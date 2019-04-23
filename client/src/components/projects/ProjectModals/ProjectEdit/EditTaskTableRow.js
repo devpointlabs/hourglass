@@ -2,15 +2,15 @@ import React from 'react';
 import { Table, Button, Icon, Form, Checkbox } from "semantic-ui-react"
 import axios from 'axios';
 
-class NewTaskTableRow extends React.Component {
+class TaskTableRow extends React.Component {
   state = {
     editing: false,
-    task: this.props.task
+    task: this.props.uniqueTask
   }
 
 
-  handleEdit = () => {
-    this.setState({ editing: true })
+  handleEdit = (uniqueTask) => {
+    this.setState({ editing: true, task: uniqueTask })
   }
 
   handleChange = e => {
@@ -27,19 +27,20 @@ class NewTaskTableRow extends React.Component {
     });
   };
 
-  handleSubmit = (task_id) => {
-    const { project } = this.props
+  handleSubmit = () => {
     const { task } = this.state
     axios.put(`/api/projects/${task.project_id}/tasks/${task.task_id}`, { task }).then(res => {
-      this.setState({ task: task, editing: false })
+      this.setState({ task: task, editing: false }, () => this.props.getProjectTasks())
     })
+
   }
 
   render() {
     const { editing, task } = this.state
+    const { uniqueTask } = this.props
     return (
       <>
-        <Table.Row key={task.name}>
+        <Table.Row key={uniqueTask.name}>
           <Table.Cell style={{ width: "40%" }}>
             {editing ? <Form.Input
               name="name"
@@ -49,7 +50,7 @@ class NewTaskTableRow extends React.Component {
               required
               onChange={this.handleChange}
             /> :
-              task.name
+              uniqueTask.name
             }
           </Table.Cell>
           <Table.Cell
@@ -64,12 +65,13 @@ class NewTaskTableRow extends React.Component {
               value={task.price_per_hour}
               required
               onChange={this.handleChange}
+              type="number"
 
             /> :
-              parseFloat(task.price_per_hour).toFixed(2)}
+              parseFloat(uniqueTask.price_per_hour).toFixed(2)}
           </Table.Cell>
           <Table.Cell style={{ width: "11%" }}>
-            {task.total_cost ? "$" + task.total_cost : "$0"}
+            {uniqueTask.total_cost ? "$" + uniqueTask.total_cost : "$0"}
           </Table.Cell>
           <Table.Cell style={{ width: "15%" }}>
             {editing ? <Button
@@ -78,14 +80,14 @@ class NewTaskTableRow extends React.Component {
                 background: "RebeccaPurple",
                 color: "white"
               }}
-              onClick={() => this.handleSubmit(task.task_id)}
+              onClick={() => this.handleSubmit(uniqueTask.task_id)}
               size="mini"
               icon="plus"
             /> : <div>
-                <Icon style={{ color: 'grey' }} onClick={() => this.handleEdit()} name="pencil"></Icon>
+                <Icon style={{ color: 'grey' }} onClick={() => this.handleEdit(uniqueTask)} name="pencil"></Icon>
                 <Icon
                   onClick={() =>
-                    this.props.handleDelete(task.task_id)
+                    this.props.handleDelete(uniqueTask.task_id)
                   }
                   name="trash alternate"
                   style={{ color: "RebeccaPurple", paddingLeft: '10px' }}
@@ -99,4 +101,4 @@ class NewTaskTableRow extends React.Component {
 }
 
 
-export default NewTaskTableRow
+export default TaskTableRow
