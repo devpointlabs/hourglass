@@ -66,12 +66,12 @@ class AddNewTasks extends React.Component {
   render() {
     const { name, description, price_per_hour } = this.state.task;
     const { task } = this.props;
-    const options = [
-      { key: 1, text: 'Programming', value: 'Programming' },
-      { key: 2, text: 'Design', value: 'Design' },
-      { key: 3, text: 'Project Management', value: 'Project Management' },
-      { key: 4, text: 'Business Development', value: 'Business Development' },
-    ]
+    // const options = [
+    //   { key: 1, text: 'Programming', value: 'Programming' },
+    //   { key: 2, text: 'Design', value: 'Design' },
+    //   { key: 3, text: 'Project Management', value: 'Project Management' },
+    //   { key: 4, text: 'Business Development', value: 'Business Development' },
+    // ]
     return (
       <>
         <Form style={styles.modal}>
@@ -88,7 +88,7 @@ class AddNewTasks extends React.Component {
                     // required
                     onChange={this.handleChange}
                   />
-                  <Dropdown
+                  {/* <Dropdown
                     clearable
                     options={options}
                     selection
@@ -97,7 +97,7 @@ class AddNewTasks extends React.Component {
                     value={name}
                     name='name'
 
-                  />
+                  /> */}
                 </Table.Cell>
                 <Table.Cell>
                   <Form.Input
@@ -120,6 +120,7 @@ class AddNewTasks extends React.Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Checkbox
+                    style={{ marginTop: "22px" }}
                     label="Billable"
                     onClick={this.handleBillable}
                     checked={this.state.checkboxStatus}
@@ -128,7 +129,11 @@ class AddNewTasks extends React.Component {
                 <Table.Cell>
                   <Button
                     circular
-                    style={{ background: "RebeccaPurple", color: "white" }}
+                    style={{
+                      marginTop: "20px",
+                      background: "RebeccaPurple",
+                      color: "white"
+                    }}
                     onClick={() => this.handleSubmit()}
                     size="mini"
                     icon="plus"

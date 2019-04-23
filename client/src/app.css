@@ -1,0 +1,7 @@
+::selection {
+  background: rgba(102, 51, 153, 0.411) !important;
+}
+
+:focus {
+  border-color: grey !important;
+}

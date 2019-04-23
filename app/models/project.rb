@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :assignments, dependent: :destroy
-  has_many :users, through: :assignments
+  has_many :users, through: :assignments, dependent: :destroy
 
 
   def self.projects_with_data
@@ -55,11 +55,16 @@ class Project < ApplicationRecord
             tph.total_project_cost,
             p.id as project_id,
             p.budget,
-            tph.total_project_cost/p.budget*100 AS percent_spent
+            CASE 
+                  WHEN p.budget > 0 
+                     THEN tph.total_project_cost/p.budget*100
+                  ELSE 
+                    0
+             END AS percent_spent
         FROM total_project_hours AS tph
         left join projects as p
             on p.id = project_id
-          ORDER BY project_id   
+          ORDER BY project_id
     "
     )
   end
@@ -115,7 +120,12 @@ class Project < ApplicationRecord
             tph.total_project_cost,
             p.id as project_id,
             p.budget,
-            tph.total_project_cost/p.budget*100 AS percent_spent
+            CASE 
+                  WHEN p.budget > 0 
+                     THEN tph.total_project_cost/p.budget*100
+                  ELSE 
+                    0
+             END AS percent_spent
         FROM total_project_hours AS tph
         left join projects as p
             on p.id = project_id

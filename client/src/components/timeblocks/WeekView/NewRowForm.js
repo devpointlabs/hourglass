@@ -5,6 +5,7 @@ import Select from "react-select";
 import { sortSelectOptions } from "../sortSelectOptions";
 import axios from "axios";
 import { AuthConsumer } from "../../../providers/AuthProvider";
+import selectStyles from "../selectStyles";
 
 class NewRowForm extends React.Component {
   state = {
@@ -58,12 +59,12 @@ class NewRowForm extends React.Component {
 
     let weekTotal = parseFloat(
       (mondayTotal && parseFloat(mondayTotal)) +
-      (tuesdayTotal && parseFloat(tuesdayTotal)) +
-      (wednesdayTotal && parseFloat(wednesdayTotal)) +
-      (thursdayTotal && parseFloat(thursdayTotal)) +
-      (fridayTotal && parseFloat(fridayTotal)) +
-      (saturdayTotal && parseFloat(saturdayTotal)) +
-      (sundayTotal && parseFloat(sundayTotal))
+        (tuesdayTotal && parseFloat(tuesdayTotal)) +
+        (wednesdayTotal && parseFloat(wednesdayTotal)) +
+        (thursdayTotal && parseFloat(thursdayTotal)) +
+        (fridayTotal && parseFloat(fridayTotal)) +
+        (saturdayTotal && parseFloat(saturdayTotal)) +
+        (sundayTotal && parseFloat(sundayTotal))
     ).toFixed(2);
 
     this.setState({ weekTotal });
@@ -88,45 +89,45 @@ class NewRowForm extends React.Component {
           : this.setState({ mondaySubmitComplete: true });
         this.state.tuesdayTotal
           ? this.submitBlock(
-            this.state.tuesdayTotal,
-            moment(mondayStartOfDay).add(1, "days"),
-            "tuesday"
-          )
+              this.state.tuesdayTotal,
+              moment(mondayStartOfDay).add(1, "days"),
+              "tuesday"
+            )
           : this.setState({ tuesdaySubmitComplete: true });
         this.state.wednesdayTotal
           ? this.submitBlock(
-            this.state.wednesdayTotal,
-            moment(mondayStartOfDay).add(2, "days"),
-            "wednesday"
-          )
+              this.state.wednesdayTotal,
+              moment(mondayStartOfDay).add(2, "days"),
+              "wednesday"
+            )
           : this.setState({ wednesdaySubmitComplete: true });
         this.state.thursdayTotal
           ? this.submitBlock(
-            this.state.thursdayTotal,
-            moment(mondayStartOfDay).add(3, "days"),
-            "thursday"
-          )
+              this.state.thursdayTotal,
+              moment(mondayStartOfDay).add(3, "days"),
+              "thursday"
+            )
           : this.setState({ thursdaySubmitComplete: true });
         this.state.fridayTotal
           ? this.submitBlock(
-            this.state.fridayTotal,
-            moment(mondayStartOfDay).add(4, "days"),
-            "friday"
-          )
+              this.state.fridayTotal,
+              moment(mondayStartOfDay).add(4, "days"),
+              "friday"
+            )
           : this.setState({ fridaySubmitComplete: true });
         this.state.saturdayTotal
           ? this.submitBlock(
-            this.state.saturdayTotal,
-            moment(mondayStartOfDay).add(5, "days"),
-            "saturday"
-          )
+              this.state.saturdayTotal,
+              moment(mondayStartOfDay).add(5, "days"),
+              "saturday"
+            )
           : this.setState({ saturdaySubmitComplete: true });
         this.state.sundayTotal
           ? this.submitBlock(
-            this.state.sundayTotal,
-            moment(mondayStartOfDay).add(6, "days"),
-            "sunday"
-          )
+              this.state.sundayTotal,
+              moment(mondayStartOfDay).add(6, "days"),
+              "sunday"
+            )
           : this.setState({ sundaySubmitComplete: true });
       }
     );
@@ -243,12 +244,15 @@ class NewRowForm extends React.Component {
         <Table.Row>
           <Table.Cell>
             <Select
+              styles={selectStyles}
+              autoFocus
               placeholder="Select Project"
               value={this.state.project}
               onChange={this.handleChange1}
               options={selectOptions.projectSelectOptions}
             />
             <Select
+              styles={selectStyles}
               value={this.state.task}
               onChange={this.handleChange2}
               options={selectOptions.taskSelectOptions}
@@ -383,6 +387,9 @@ class NewRowForm extends React.Component {
                   background: "RebeccaPurple",
                   marginLeft: "10px"
                 }}
+                ref={el => {
+                  this.submitButton = el;
+                }}
                 onClick={() => this.handleSubmit()}
               >
                 Submit
@@ -390,6 +397,7 @@ class NewRowForm extends React.Component {
             </div>
           </Table.Cell>
         </Table.Row>
+        <div style={{ height: "25vh" }} />
       </>
     );
   }

@@ -4,6 +4,26 @@ import { withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 
 class ProjectNavbar extends React.Component {
+  state = { page: "budget", }
+
+  setBudget = () => {
+    const { setPage } = this.props;
+    setPage("budget")
+    this.setState({ page: "budget" })
+  }
+
+  setTasks = () => {
+    const { setPage } = this.props;
+    setPage("task")
+    this.setState({ page: "tasks" })
+  }
+
+  setTeam = () => {
+    const { setPage } = this.props;
+    setPage("team")
+    this.setState({ page: "team" })
+  }
+
   render() {
     const { setPage } = this.props;
     return (
@@ -14,17 +34,20 @@ class ProjectNavbar extends React.Component {
             display: "flex",
             justifyContent: "center"
           }}
-          onClick={() => setPage("budget")}
+          active={this.state.page === "budget"}
+          onClick={() => this.setBudget()}
         >
           Budget
         </Menu.Item>
         <Menu.Item
+          name="tasks"
           style={{
             width: "110px",
             display: "flex",
             justifyContent: "center"
           }}
-          onClick={() => setPage("task")}
+          active={this.state.page === "tasks"}
+          onClick={() => this.setTasks()}
         >
           Tasks
         </Menu.Item>
@@ -34,7 +57,8 @@ class ProjectNavbar extends React.Component {
             display: "flex",
             justifyContent: "center"
           }}
-          onClick={() => setPage("team")}
+          active={this.state.page === "team"}
+          onClick={() => this.setTeam()}
         >
           Team
         </Menu.Item>

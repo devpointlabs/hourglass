@@ -2,17 +2,25 @@ import React from "react";
 import { Table, Button, TableCell } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
-import NewTaskTableRow from "./NewTaskTableRow";
+import NewTaskTableRow from "./NewTaskTableRows";
 
 class NewTaskTable extends React.Component {
-  state = { tasks: [], project: {}, 
-  defaultTasks: [] };
+  state = {
+    tasks: [], project: {},
+    defaultTasks: []
+  };
 
   componentDidMount = () => {
     axios
       .get("/api/getlastproject")
-      .then(res => this.setState({ project: res.data }));
+      .then(res => this.setState({ project: res.data })
+      )
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.project !== this.state.project)
+      this.getProjectTasks()
+  }
 
   getProjectTasks = () => {
     const { project } = this.state;
@@ -24,31 +32,17 @@ class NewTaskTable extends React.Component {
   handleDelete = (task_id) => {
     const { project, tasks } = this.state;
     axios.delete(`/api/projects/${project.id}/tasks/${task_id}`).then(
-    this.setState({tasks: tasks.filter(t => t.task_id !== task_id )})
-    )}
-  
-  handleEdit = () => {
-    }
-
-  showBillableTasks = () => {
-    const billableTasks = this.state.tasks.filter(t => t.billable === true);
-    return billableTasks.map(task => (
-     <NewTaskTableRow task={task} handleDelete={this.handleDelete}/>
-    ));
-  };
-
-  showUnBillableTasks = () => {
-    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
-    return UnbillableTasks.map(task => (
-      <NewTaskTableRow task={task} handleDelete={this.handleDelete} project={this.state.project}/>
-    ));
-  };
+      this.setState({ tasks: tasks.filter(t => t.task_id !== task_id) })
+    )
+  }
 
   handleSubmit2 = () => {
     this.props.openModal3();
   };
 
   render() {
+    const UnbillableTasks = this.state.tasks.filter(t => t.billable === false)
+    const billableTasks = this.state.tasks.filter(t => t.billable === true)
     return (
       <>
         <AddNewTasks
@@ -68,60 +62,53 @@ class NewTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "40%",
                     fontWeight: "bold"
                   }}
                 >
                   Billable Tasks
-                </Table.Cell>
+              </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "10%",
                     fontWeight: "bold"
                   }}
                 >
-                  <div style={{ textAlign: "center" }}>Hours</div>
+                  <div>Hours</div>
+
                 </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "30%",
                     fontWeight: "bold",
-                    paddingLeft: "200px"
                   }}
                 >
                   Price per Hour
-                </Table.Cell>
+              </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "11%",
                     fontWeight: "bold",
-                    textAlign: "center"
                   }}
                 >
                   <div>Total</div>
                 </Table.Cell>
                 <Table.Cell
                   style={{
-                    fontSize: "1.1em",
-                    width: "100px",
-                    fontWeight: "bold",
-                    textAlign: "center"
-                  }}
-                >
-                  <div></div>
-                </Table.Cell>
+                    width: "15%"
+                  }} />
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showBillableTasks()}
+              <NewTaskTableRow tasks={billableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
-                <Table.Cell colSpan="6" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
             </Table.Body>
           </Table>
@@ -131,63 +118,58 @@ class NewTaskTable extends React.Component {
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "35%",
                     fontWeight: "bold"
                   }}
                 >
                   Unbillable Tasks
-                </Table.Cell>
+              </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "10%",
                     fontWeight: "bold"
                   }}
                 >
-                  <div style={{ textAlign: "center" }}>Hours</div>
+                  <div>Hours</div>
+
                 </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "450px",
+                    width: "30%",
                     fontWeight: "bold",
-                    paddingLeft: "200px"
                   }}
                 >
                   Price per Hour
-                </Table.Cell>
+              </Table.Cell>
                 <Table.Cell
                   style={{
                     fontSize: "1.1em",
-                    width: "100px",
+                    width: "11%",
                     fontWeight: "bold",
-                    textAlign: "center"
                   }}
                 >
                   <div>Total</div>
                 </Table.Cell>
                 <Table.Cell
                   style={{
-                    fontSize: "1.1em",
-                    width: "100px",
-                    fontWeight: "bold",
-                    textAlign: "center"
-                  }}
-                >
-                  <div></div>
-                </Table.Cell>
+                    width: "15%"
+                  }} />
               </Table.Row>
             </Table.Header>
+
             <Table.Body>
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
-              {this.showUnBillableTasks()}
+              <NewTaskTableRow tasks={UnbillableTasks} getProjectTasks={this.getProjectTasks} handleDelete={this.handleDelete} />
               <Table.Row>
-                <Table.Cell colSpan="4" />
+                <Table.Cell colSpan="5" />
               </Table.Row>
             </Table.Body>
           </Table>
+          <br />
         </div>
         <div
           style={{

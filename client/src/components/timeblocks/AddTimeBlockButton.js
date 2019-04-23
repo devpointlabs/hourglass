@@ -15,6 +15,7 @@ import { withRouter } from "react-router-dom";
 import TimerStartStopButton from "./TimerStartStopButton";
 import parsedInput from "./parsedInput";
 import { sortSelectOptions } from "./sortSelectOptions";
+import selectStyles from "./selectStyles";
 
 class AddTimeBlockButton extends React.Component {
   state = {
@@ -95,12 +96,12 @@ class AddTimeBlockButton extends React.Component {
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
           this.state.endHourMinute.length === 8,
-          5 && this.state.startHourMinute.length === 8,
-          5)
+        5 && this.state.startHourMinute.length === 8,
+        5)
       ) {
         this.setState({
           hours: moment(
-            parsedInput(year, endMonthDay, this.state.endHourMinute)
+            parsedInput(year, startMonthDay, this.state.endHourMinute)
           ).diff(
             moment(
               parsedInput(year, startMonthDay, this.state.startHourMinute)
@@ -110,8 +111,9 @@ class AddTimeBlockButton extends React.Component {
           )
         });
       }
-    });
-  };
+      })
+    }
+
 
   handleChange1 = project => {
     this.setState({ project }, () => {
@@ -194,7 +196,7 @@ class AddTimeBlockButton extends React.Component {
       task_id: this.state.task.value,
       start_time: moment(parsedInput(year, startMonthDay, startHourMinute)),
       user_id: this.props.user_id,
-      end_time: moment(parsedInput(year, endMonthDay, endHourMinute)),
+      end_time: moment(parsedInput(year, startMonthDay, endHourMinute)),
       manualEntry: true,
       status: "unSubmitted"
     };
@@ -309,6 +311,7 @@ class AddTimeBlockButton extends React.Component {
                 >
                   Project
                   <Select
+                    styles={selectStyles}
                     value={this.state.project}
                     onChange={this.handleChange1}
                     options={selectOptions.projectSelectOptions}
@@ -324,6 +327,7 @@ class AddTimeBlockButton extends React.Component {
                 >
                   Task
                   <Select
+                    styles={selectStyles}
                     value={this.state.task}
                     onChange={this.handleChange2}
                     options={selectOptions.taskSelectOptions}
