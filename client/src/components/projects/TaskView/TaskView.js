@@ -91,7 +91,7 @@ class TaskView extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? task.total_cost : "$0"}
+          {task.cost ? task.cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -111,7 +111,7 @@ class TaskView extends React.Component {
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.total_cost ? task.total_cost : "$0"}
+          {task.cost ? task.cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
