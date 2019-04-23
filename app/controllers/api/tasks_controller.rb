@@ -44,7 +44,7 @@ class Api::TasksController < ApplicationController
   end
 
   def billable_task_totals
-    render json: Task.billable_task_totals(params[:project_id])
+    render json: Task.billable_task_totals(params[:project_id], params[:start_date], params[:end_date])
   end
 
   private

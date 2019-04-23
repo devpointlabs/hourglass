@@ -23,7 +23,12 @@ class TaskView extends React.Component {
       .then(response => {
         this.setState({ tasks: response.data })
       });
-    axios.get(`/api/billable/${project.project_id}`).then(response => {
+    axios.get(`/api/billable/${project.project_id}`, {
+      params: {
+        start_date: this.state.start_date,
+        end_date: this.state.end_date
+      }
+    }).then(response => {
       const billable = response.data.filter(b => b.billable && b);
       const unbillable = response.data.filter(b => {
         if (b.billable === false)
@@ -94,13 +99,14 @@ class TaskView extends React.Component {
 
   showUnBillableTasks = () => {
     const UnbillableTasks = this.state.tasks.filter(t => t.billable === false);
+
     return UnbillableTasks.map((task, i) => (
       <Table.Row key={i}>
         <Table.Cell>{task.task_name}</Table.Cell>
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
-          {task.total_hours ? task.total_hours : 0}
+          {task.all_hours ? task.all_hours : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
