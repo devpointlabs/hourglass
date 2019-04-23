@@ -1,7 +1,8 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, } from "react-router-dom";
+
 import HourGlassIcon from "./HourGlassIcon";
 import Clock from "./Clock";
 import styled from "styled-components";
@@ -9,6 +10,14 @@ import styled from "styled-components";
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
 class Navbar extends React.Component {
+  state = { projectId: this.props.location.pathname.split(/projects/) }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.location.pathname !== this.props.location.pathname)
+      this.setState({ projectId: this.props.location.pathname.split(/projects/) })
+  }
+
+
   rightNavItems = () => {
     const {
       auth: {
@@ -106,8 +115,7 @@ class Navbar extends React.Component {
                   style={{ color: "white" }}
                   active={
                     pathname === "/projects" ||
-                    pathname === "/projects/new" ||
-                    pathname === `/projects/${this.props.match.params.id}`
+                    pathname === `/projects${this.state.projectId[1]}`
                   }
                 />
               </TextSize>

@@ -12,7 +12,6 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import EditForm from "./components/projects/EditForm";
 import TimeSheet from "./components/timeblocks/TimeSheet";
 import Unsubmitted from "./components/timeblocks/Unsubmitted/Unsubmitted";
-import TaskView from "./components/projects/TaskView/TaskView";
 import EmployeeView from "./components/EmployeeView";
 import ApproveTimesheets from "./components/timeblocks/ApproveTimesheets";
 import Users from "./components/users/Users";
@@ -20,6 +19,7 @@ import GreyGradientLine from "./components/GreyGradientLine";
 import Flash from "./components/Flash";
 import Error from "./components/Error";
 import { Modal } from "semantic-ui-react";
+import "./app.css";
 
 const App = () => (
   <Fragment>
@@ -52,7 +52,6 @@ const App = () => (
               path="/timesheet/approve_timesheets"
               component={ApproveTimesheets}
             />
-            <ProtectedRoute exact path="/taskview" component={TaskView} />
             <ProtectedRoute exact path="/users" component={Users} />
             <ProtectedRoute exact path="/users/:id" component={EmployeeView} />
             <Route component={NoMatch} />

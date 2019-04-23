@@ -65,7 +65,7 @@ class EditProject extends React.Component {
     const end_date = new Date(planned_end).toDateString();
     return (
       <>
-        <Form style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
+        <Form style={{ textAlign: "center" }} >
           <div
             style={{
               display: "flex",

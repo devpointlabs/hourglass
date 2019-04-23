@@ -39,6 +39,10 @@ class Api::TasksController < ApplicationController
     render json: @project.tasks
   end
 
+  def find_by_date
+    render json: Task.find_by_date(params[:start_date], params[:end_date], params[:project_id])
+  end
+
   def billable_task_totals
     render json: Task.billable_task_totals(params[:project_id])
   end
@@ -54,6 +58,6 @@ class Api::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :billable, :price_per_hour)
+    params.require(:task).permit(:name, :description, :billable, :price_per_hour, :project_id)
   end
 end
