@@ -21,10 +21,14 @@ class Api::ProjectsController < ApplicationController
   def create
     project = Project.new(project_params)
     if project.save
+      Task.create(name: "Programming", billable: true, price_per_hour: 50, project_id: Project.last.id )
+      Task.create(name: "Design", billable: true, price_per_hour: 50, project_id: Project.last.id )
+      Task.create(name: "Project Management", billable: true, price_per_hour: 50, project_id: Project.last.id )
       render json: project
     else
       render json: project.errors, status: 422
     end
+    
   end
 
   def update
