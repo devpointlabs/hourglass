@@ -76,6 +76,7 @@ class TaskView extends React.Component {
   }
 
   showBillableTasks = () => {
+    debugger
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
     return billableTasks.map((task, i) => (
       <Table.Row key={i}>
