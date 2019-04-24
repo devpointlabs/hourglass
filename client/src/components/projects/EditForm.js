@@ -26,9 +26,10 @@ class EditForm extends React.Component {
       name: "",
       nickname: "",
       email: "",
-      file: ""
+      file: "",
     },
-    projects: []
+    projects: [],
+    isDragActive: false
   };
 
   componentDidMount() {
@@ -52,7 +53,10 @@ class EditForm extends React.Component {
   };
 
   onDrop = files => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0] } });
+    let data = files.map(file => Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    }))
+    this.setState({ formValues: { ...this.state.formValues, file: files[0], file_thumbnail: data }, isDragActive: true });
   };
 
   handleChange = e => {
@@ -109,16 +113,20 @@ class EditForm extends React.Component {
         }}
       >
         <Grid.Column mobile={1} width={4} style={{ margin: "2em" }}>
-          <Dropzone onDrop={this.onDrop} multiple={false}>
-            {({ getRootProps, getInputProps, isDragActive }) => {
+          <Dropzone
+            onDrop={this.onDrop}
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps, }) => {
               return (
                 <div {...getRootProps()} style={styles.dropzone}>
                   <input {...getInputProps()} />
-                  {isDragActive ? (
-                    <p>Drop files here...</p>
+                  {this.state.isDragActive ? (
+                    <img alt="thumbnail" style={{ width: '100%' }} src={this.state.formValues.file_thumbnail[0].preview}></img>
                   ) : (
                       <p>Select a file</p>
-                    )}
+                    )
+                  }
                 </div>
               );
             }}
@@ -191,6 +199,7 @@ class EditForm extends React.Component {
     });
     this.setState({
       editing: false,
+      isDragActive: false,
       formValues: {
         ...this.state.formValues,
         file: ""
