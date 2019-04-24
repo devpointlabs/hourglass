@@ -140,8 +140,14 @@ class EditTeamModalv2 extends React.Component {
                     <Header as="h4" image>
                       <Image
                         src={row.user && row.user.image}
-                        rounded
+                        circular
                         size="mini"
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          objectFit: "cover",
+                          marginLeft: "5px"
+                        }}
                       />
                       <Header.Content>
                         {row.user && row.user.name}
@@ -159,11 +165,19 @@ class EditTeamModalv2 extends React.Component {
                     }
                   >
                     <Header as="h4" image>
-                      <Image
-                        src={row.assignedUser && row.assignedUser.image}
-                        rounded
-                        size="mini"
-                      />
+                      {row.assignedUser && (
+                        <Image
+                          src={row.assignedUser.image}
+                          circular
+                          size="mini"
+                          style={{
+                            height: "35px",
+                            width: "35px",
+                            objectFit: "cover",
+                            marginLeft: "5px"
+                          }}
+                        />
+                      )}
                       <Header.Content>
                         {row.assignedUser && row.assignedUser.name}
                         <Header.Subheader>
