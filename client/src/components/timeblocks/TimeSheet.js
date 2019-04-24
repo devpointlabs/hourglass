@@ -49,17 +49,13 @@ class TimeSheet extends React.Component {
           this.setState({
             selectedDate: moment(this.state.selectedDate).subtract(1, "days")
           });
-          this.setSelectedWeek(
-            moment(this.state.selectedDate).subtract(1, "days")
-          );
+          this.setSelectedWeek(moment(this.state.selectedDate));
           break;
         case 39:
           this.setState({
             selectedDate: moment(this.state.selectedDate).add(1, "days")
           });
-          this.setSelectedWeek(
-            moment(this.state.selectedDate).subtract(1, "days")
-          );
+          this.setSelectedWeek(moment(this.state.selectedDate));
           break;
         case 32:
           this.setState({ selectedDate: moment() });
