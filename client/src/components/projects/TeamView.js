@@ -71,7 +71,7 @@ class TeamView extends React.Component {
                 className="editTeamCell"
                 onClick={() => this.handleOpen()}
               >
-                <Table.Cell onClick={() => console.log("clicked")}>
+                <Table.Cell>
                   <Header as="h4" image>
                     <Image
                       src={user.image}

@@ -24,7 +24,7 @@ class Users extends React.Component {
       >
         <Table.Body>
           {this.state.users.map(u => (
-            <Table.Row className="usersTableRow">
+            <Table.Row key={u.id} className="usersTableRow">
               <Table.Cell>
                 <Header as="h4" image>
                   <Image
