@@ -70,7 +70,7 @@ class AddTimeBlockButton extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
   handleChange = e => {
-    const { year, startMonthDay, endMonthDay } = this.state;
+    const { year, startMonthDay, } = this.state;
 
     const targetName = e.target.name;
 
@@ -96,8 +96,8 @@ class AddTimeBlockButton extends React.Component {
       } else if (
         ((targetName === "startHourMinute" || targetName === "endHourMinute") &&
           this.state.endHourMinute.length === 8,
-        5 && this.state.startHourMinute.length === 8,
-        5)
+          5 && this.state.startHourMinute.length === 8,
+          5)
       ) {
         this.setState({
           hours: moment(
@@ -111,8 +111,8 @@ class AddTimeBlockButton extends React.Component {
           )
         });
       }
-      })
-    }
+    })
+  }
 
 
   handleChange1 = project => {
@@ -188,7 +188,6 @@ class AddTimeBlockButton extends React.Component {
     const {
       year,
       startMonthDay,
-      endMonthDay,
       startHourMinute,
       endHourMinute
     } = this.state;

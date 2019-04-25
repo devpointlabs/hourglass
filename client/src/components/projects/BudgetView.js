@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, Segment, Progress, Header } from "semantic-ui-react";
-import styled from "styled-components";
 import EditModalForms from "./ProjectModals/ProjectEdit/EditModalForms";
 
 class BudgetView extends React.Component {
@@ -76,19 +75,19 @@ class BudgetView extends React.Component {
 
 export default BudgetView;
 
-const StyledProgressBar = styled.div`
-  .ui.progress .bar {
-    display: block;
-    line-height: 1;
-    position: relative;
-    width: 0%;
-    min-width: 0.2em;
-    background: #888;
-    border-radius: 0.28571429rem;
-    transition: width 0.1s ease, background-color 0.1s ease;
-    transition-property: width, background-color;
-    transition-duration: 0.1s, 0.1s;
-    transition-timing-function: ease, ease;
-    transition-delay: 0s, 0s;
-  }
-`;
+// const StyledProgressBar = styled.div`
+//   .ui.progress .bar {
+//     display: block;
+//     line-height: 1;
+//     position: relative;
+//     width: 0%;
+//     min-width: 0.2em;
+//     background: #888;
+//     border-radius: 0.28571429rem;
+//     transition: width 0.1s ease, background-color 0.1s ease;
+//     transition-property: width, background-color;
+//     transition-duration: 0.1s, 0.1s;
+//     transition-timing-function: ease, ease;
+//     transition-delay: 0s, 0s;
+//   }
+// `;

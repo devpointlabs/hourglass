@@ -76,7 +76,7 @@ class ApproveTimesheetsRow extends React.Component {
   };
 
   render() {
-    const { tb, auth } = this.props;
+    const { tb } = this.props;
 
     return (
       <Table.Row>
@@ -110,8 +110,8 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-            moment(this.state.start_time).format("h:mm a")
-          )}
+              moment(this.state.start_time).format("h:mm a")
+            )}
         </Table.Cell>
 
         <Table.Cell style={{ width: "350px", cursor: "pointer" }}>
@@ -122,8 +122,8 @@ class ApproveTimesheetsRow extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-            moment(tb.end_time).format("h:mm a")
-          )}
+              moment(tb.end_time).format("h:mm a")
+            )}
         </Table.Cell>
 
         <Table.Cell style={{ width: "50px", cursor: "pointer" }}>
@@ -149,35 +149,35 @@ class ApproveTimesheetsRow extends React.Component {
                   basic
                 />
               ) : (
-                <>
-                  <Popup
-                    trigger={
-                      <Button
-                        color="black"
-                        icon="check"
-                        size="mini"
-                        circular
-                        onClick={() => this.approveTimeblock(tb.id)}
-                      />
-                    }
-                    content={"Approve"}
-                    basic
-                  />
-                  <Popup
-                    trigger={
-                      <Button
-                        color="grey"
-                        icon="pencil"
-                        size="mini"
-                        circular
-                        onClick={() => this.toggleEdit()}
-                      />
-                    }
-                    content={"Edit Time"}
-                    basic
-                  />
-                </>
-              ))}
+                  <>
+                    <Popup
+                      trigger={
+                        <Button
+                          color="black"
+                          icon="check"
+                          size="mini"
+                          circular
+                          onClick={() => this.approveTimeblock(tb.id)}
+                        />
+                      }
+                      content={"Approve"}
+                      basic
+                    />
+                    <Popup
+                      trigger={
+                        <Button
+                          color="grey"
+                          icon="pencil"
+                          size="mini"
+                          circular
+                          onClick={() => this.toggleEdit()}
+                        />
+                      }
+                      content={"Edit Time"}
+                      basic
+                    />
+                  </>
+                ))}
             <Popup
               trigger={
                 <Button
