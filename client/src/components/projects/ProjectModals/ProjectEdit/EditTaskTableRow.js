@@ -71,7 +71,7 @@ class TaskTableRow extends React.Component {
               parseFloat(uniqueTask.price_per_hour).toFixed(2)}
           </Table.Cell>
           <Table.Cell style={{ width: "11%" }}>
-            {uniqueTask.total_cost ? "$" + uniqueTask.total_cost : "$0"}
+            {uniqueTask.total_cost ? uniqueTask.total_cost : "$0"}
           </Table.Cell>
           <Table.Cell style={{ width: "15%" }}>
             {editing ? <Button
