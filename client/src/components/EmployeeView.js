@@ -5,13 +5,15 @@ import { Segment, Header, Image, Divider, Table } from "semantic-ui-react";
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
 const Employee = props => {
-  const [setProjects] = useState([]);
-  const [setTimeblocks] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [timeblocks, setTimeblocks] = useState([]);
   const [user, setUser] = useState({});
   const [tasks, setTasks] = useState([]);
   const [hours, setHours] = useState([]);
 
   useEffect(() => {
+    projects.filter(p => p);
+    timeblocks.filter(t => t);
     const { id } = props;
     axios.get(`/api/users/${id}/projects`).then(res => setProjects(res.data));
     axios.get(`/api/users/${id}/timeblocks`).then(res => {
@@ -27,13 +29,20 @@ const Employee = props => {
   }, []);
 
   const totals = () => {
-    return hours.map(hour => <div>{hour.weekly_project_hours}</div>);
+    return hours.map(hour => (
+      <div key={hour.id}>{hour.weekly_project_hours}</div>
+    ));
   };
 
   return (
     <>
       <Segment>
-        <Image circular size='medium' centered src={user.image || defaultImage} />
+        <Image
+          circular
+          size="medium"
+          centered
+          src={user.image || defaultImage}
+        />
         <Header textAlign="center">{user.name}</Header>
       </Segment>
       <Header as="h1" textAlign="center">
@@ -52,7 +61,7 @@ const Employee = props => {
         </Table.Header>
         <Table.Body>
           {tasks.map(task => (
-            <Table.Row>
+            <Table.Row key={task.id}>
               <Table.Cell>{task.project_name}</Table.Cell>
               <Table.Cell>{task.client_name}</Table.Cell>
               <Table.Cell>{task.task_name}</Table.Cell>
