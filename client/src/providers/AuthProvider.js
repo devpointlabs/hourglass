@@ -42,8 +42,8 @@ export class AuthProvider extends React.Component {
     axios
       .delete("/api/auth/sign_out")
       .then(res => {
-        this.setState({ user: null });
-        history.push("/login");
+        this.setState({ user: null }, () => history.push("/login"));
+        ;
       })
       .catch(res => {
         console.log(res);
@@ -56,9 +56,9 @@ export class AuthProvider extends React.Component {
     axios
       .put(
         `/api/users/${id}?name=${user.name}&email=${user.email}&nickname=${
-          user.nickname
+        user.nickname
         }&password=${user.password}&passwordConfirmation=${
-          user.passwordConfirmation
+        user.passwordConfirmation
         }`,
         data
       )

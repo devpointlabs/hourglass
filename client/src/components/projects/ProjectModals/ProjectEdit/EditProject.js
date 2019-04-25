@@ -2,14 +2,15 @@ import React from "react";
 import { Form, Button, Header, Label, Popup, Icon } from "semantic-ui-react";
 import axios from "axios";
 import CalendarPickerForProjectForm from "./CalendarPickerForProjectForm";
+import moment from 'moment'
 
 class EditProject extends React.Component {
   state = {
     project: {
       name: this.props.project.project_name,
       client_name: this.props.project.client_name,
-      planned_start: this.props.project.planned_start,
-      planned_end: this.props.project.planned_end,
+      planned_start: moment(this.props.project.planned_start).format('YYYY-MM-DD'),
+      planned_end: moment(this.props.project.planned_end).format('YYYY-MM-DD'),
       budget: this.props.project.budget,
       project_id: this.props.project.project_id
     }
@@ -122,7 +123,7 @@ class EditProject extends React.Component {
                 {planned_end !== "" ? (
                   <Label
                     style={{ background: "RebeccaPurple", color: "white" }}
-                    inverted
+
                     pointing="left"
                   >
                     {end_date}

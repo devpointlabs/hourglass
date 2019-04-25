@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Table, Header, Image, Input } from "semantic-ui-react";
+import { Table, Header, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { CalculateHoursAndWeek } from "./timeblocks/Calculations/Calculations";
 

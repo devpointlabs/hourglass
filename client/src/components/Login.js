@@ -23,7 +23,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     return (
-      <Segment basic stackable>
+      <Segment basic>
         <Header as="h1" textAlign="center">
           Login
         </Header>
