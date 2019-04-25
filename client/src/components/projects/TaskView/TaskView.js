@@ -80,13 +80,13 @@ class TaskView extends React.Component {
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
-          {task.hours ? parseFloat(task.hours).toFixed(2) : 0}
+          {task.total_hours ? parseFloat(task.total_hours).toFixed(2) : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.cost ? parseFloat(task.cost).toFixed(2) : "$0"}
+          {task.total_cost ? task.total_cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -100,13 +100,13 @@ class TaskView extends React.Component {
         <Table.Cell
           style={{ borderRight: "solid grey 0.5px", textAlign: "center" }}
         >
-          {task.hours ? parseFloat(task.hours).toFixed(2) : 0}
+          {task.total_hours ? parseFloat(task.total_hours).toFixed(2) : 0}
         </Table.Cell>
         <Table.Cell style={{ paddingLeft: "200px" }}>
           ${parseFloat(task.price_per_hour).toFixed(2)}
         </Table.Cell>
         <Table.Cell style={{ textAlign: "center" }}>
-          {task.cost ? parseFloat(task.cost).toFixed(2) : "$0"}
+          {task.total_cost ? task.total_cost : "$0"}
         </Table.Cell>
       </Table.Row>
     ));
@@ -129,6 +129,7 @@ class TaskView extends React.Component {
           <EditModalForm
             project={this.props.project}
             taskView={this.state.taskview}
+            getProjectTasks={this.getProjectTasks}
           />
         </Header>
         <Table>

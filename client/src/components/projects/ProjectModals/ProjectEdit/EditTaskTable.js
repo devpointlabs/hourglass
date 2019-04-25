@@ -29,6 +29,7 @@ class EditTaskTable extends React.Component {
 
   handleSubmit2 = () => {
     this.props.taskView ? this.props.closeModal2() : this.props.openModal3();
+
   };
 
   render() {
@@ -39,6 +40,7 @@ class EditTaskTable extends React.Component {
         <AddNewTasks
           project={this.props.project}
           getProjectTasks={this.getProjectTasks}
+          getProjectTasksTaskView={this.props.getProjectTasksTaskView}
         />
         <div
           style={{

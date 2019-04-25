@@ -22,7 +22,7 @@ class FetchUser extends React.Component {
           })
           .catch(res => {
             this.loaded();
-            this.props.history.replace("/login");
+            // this.props.history.replace("/login");
           });
       } else {
         this.loaded();

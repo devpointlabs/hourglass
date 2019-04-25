@@ -36,7 +36,10 @@ class AddNewTasks extends React.Component {
             },
             checkboxStatus: false
           },
-          () => this.props.getProjectTasks()
+          () => {
+            this.props.getProjectTasks()
+
+          }
         );
       });
   };
