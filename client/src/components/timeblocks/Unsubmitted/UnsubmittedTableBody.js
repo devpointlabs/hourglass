@@ -2,7 +2,6 @@ import React from "react";
 import UnsubmittedTableRow from "./UnsubmittedTableRow";
 import UnsubmittedTableHeader from "./UnsubmittedTableHeader";
 import { Table } from "semantic-ui-react";
-import Footer from "./Footer";
 
 const UnsubmittedTableBody = props => (
   <>

@@ -183,11 +183,3 @@ class EditProject extends React.Component {
 }
 
 export default EditProject;
-
-const styles = {
-  modal: {
-    maxWidth: "93%",
-    textAlign: "center",
-    paddingLeft: "25px"
-  }
-};

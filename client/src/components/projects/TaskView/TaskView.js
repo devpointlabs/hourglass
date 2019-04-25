@@ -1,16 +1,17 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Table, Header, Dropdown } from "semantic-ui-react";
 import axios from "axios";
 import EditModalForm from "../ProjectModals/ProjectEdit/EditModalForms";
 
 class TaskView extends React.Component {
-  state = { tasks: [], 
-           billableTotals: {}, 
-           unbillableTotals: {}, 
-           start_date: '2000-04-14', 
-           end_date: '2091-04-15', 
-           taskview: true 
-          };
+  state = {
+    tasks: [],
+    billableTotals: {},
+    unbillableTotals: {},
+    start_date: '2000-04-14',
+    end_date: '2091-04-15',
+    taskview: true
+  };
 
 
   componentDidMount() {
@@ -159,8 +160,8 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   {this.state.billableTotals !== undefined
                     ? parseFloat(
-                        this.state.billableTotals.total_billable_hours
-                      ).toFixed(2)
+                      this.state.billableTotals.total_billable_hours
+                    ).toFixed(2)
                     : "0.00"}
                 </div>
               </Table.Cell>

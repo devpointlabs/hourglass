@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Table, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import { returnHoursSplitByDay } from "../Calculations/ReturnHoursSplitByDay";
 import clickHandler from "../NavBarComponents/TimeSheetNavbarClickHandler";
 import "../timeSheetDayView.css";
@@ -39,7 +39,6 @@ class TableHeaderLabels extends React.Component {
   render() {
     const {
       monday,
-      selectedDate,
       setSelectedDate,
       setSelectedWeek
     } = this.props;

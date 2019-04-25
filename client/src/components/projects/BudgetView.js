@@ -1,7 +1,5 @@
 import React from "react";
 import { Table, Segment, Progress, Header } from "semantic-ui-react";
-import axios from "axios";
-import TimeSheet from "../timeblocks/TimeSheet";
 import styled from "styled-components";
 import EditModalForms from "./ProjectModals/ProjectEdit/EditModalForms";
 
@@ -19,6 +17,7 @@ class BudgetView extends React.Component {
         return "red";
       case percent_spent === 0:
         return "grey";
+      // no default
     }
   };
 
