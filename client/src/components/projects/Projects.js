@@ -39,13 +39,19 @@ class Projects extends React.Component {
                 ? p.project_name + (p.client_name && ` (${p.client_name})`)
                 : "Project"}
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell onClick={() =>
+              this.props.history.push(`/projects/${p.project_id}`)
+            }>
               {p.budget && `$${parseFloat(p.budget).toFixed(2)}`}
             </Table.Cell>
-            <Table.Cell style={{ width: "5%" }}>
+            <Table.Cell style={{ width: "5%" }} onClick={() =>
+              this.props.history.push(`/projects/${p.project_id}`)
+            }>
               {p.total_project_cost && `$${p.total_project_cost.toFixed(0)}`}
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell onClick={() =>
+              this.props.history.push(`/projects/${p.project_id}`)
+            }>
               {/* <StyledProgressBar> */}
               <Progress
                 color={this.renderProgress(p.percent_spent)}
@@ -53,7 +59,9 @@ class Projects extends React.Component {
               />
               {/* </StyledProgressBar> */}
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell onClick={() =>
+              this.props.history.push(`/projects/${p.project_id}`)
+            }>
               {p.percent_spent ? p.percent_spent.toFixed(0) : 0}%
             </Table.Cell>
             <Table.Cell>
@@ -100,28 +108,28 @@ class Projects extends React.Component {
             </Link>
           </div>
         ) : (
-          <div style={{ padding: "10px" }}>
-            <ModalForms getProjects={this.getProjects} />
-            <Table stackable basic collapsing style={{ width: "100%" }}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Project</Table.HeaderCell>
-                  <Table.HeaderCell>Budget</Table.HeaderCell>
-                  <Table.HeaderCell
-                    colSpan="2"
-                    style={{ width: "25%" }}
-                    textAlign="center"
-                  >
-                    Current Cost
+            <div style={{ padding: "10px" }}>
+              <ModalForms getProjects={this.getProjects} />
+              <Table stackable basic collapsing style={{ width: "100%" }}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Project</Table.HeaderCell>
+                    <Table.HeaderCell>Budget</Table.HeaderCell>
+                    <Table.HeaderCell
+                      colSpan="2"
+                      style={{ width: "25%" }}
+                      textAlign="center"
+                    >
+                      Current Cost
                   </Table.HeaderCell>
-                  <Table.HeaderCell />
-                  <Table.HeaderCell style={{ width: "5%" }} />
-                </Table.Row>
-              </Table.Header>
-              {this.showProjects()}
-            </Table>
-          </div>
-        )}
+                    <Table.HeaderCell />
+                    <Table.HeaderCell style={{ width: "5%" }} />
+                  </Table.Row>
+                </Table.Header>
+                {this.showProjects()}
+              </Table>
+            </div>
+          )}
       </>
     );
   }
