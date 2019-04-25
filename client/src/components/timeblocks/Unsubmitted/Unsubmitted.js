@@ -95,9 +95,7 @@ class Unsubmitted extends React.Component {
   submitAllTimeBlocks = () => {
     let count = this.state.timeBlocks.length;
     this.state.timeBlocks.map(block => {
-      axios
-        .put(`/api/timeblocks/${block.id}`, { status: "pending" })
-        .then(res => null);
+      return axios.put(`/api/timeblocks/${block.id}`, { status: "pending" }).then(res => null);
     });
     this.setState({ timeBlocks: [] }, () => {
       this.props.circleCount.setCircle(
