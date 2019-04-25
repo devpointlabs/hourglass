@@ -19,7 +19,7 @@ import { CircleCountConsumer } from "../../providers/CircleCountProvider";
 class TimeSheet extends React.Component {
   state = {
     view: "day",
-    selectedDate: moment(),
+    selectedDate: moment().format("YYYY-MM-DD"),
     tasks: [],
     projects: [],
     timeBlocks: [],
