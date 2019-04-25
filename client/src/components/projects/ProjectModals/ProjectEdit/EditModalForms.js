@@ -26,6 +26,7 @@ class EditModalForms extends React.Component {
 
   closeModal2 = () => {
     this.setState({ modalOpen2: false });
+    this.props.getProjectTasks && this.props.getProjectTasks()
   };
 
   openModal3 = () => {
@@ -57,8 +58,8 @@ class EditModalForms extends React.Component {
             onClick={() => this.handleOpen()}
           />
         ) : (
-          <div onClick={() => this.handleOpen()}>{this.props.projectInfo}</div>
-        )}
+            <div onClick={() => this.handleOpen()}>{this.props.projectInfo}</div>
+          )}
         {this.props.budget && (
           <div onClick={() => this.handleOpen()} style={{ cursor: "pointer" }}>
             ${this.props.budget}
