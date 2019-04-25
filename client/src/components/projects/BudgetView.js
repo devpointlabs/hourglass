@@ -28,45 +28,47 @@ class BudgetView extends React.Component {
           Budget
         </Header>
         <Table>
-          <Table.Row>
-            <Table.Cell>Budget</Table.Cell>
-            <Table.Cell>Spent</Table.Cell>
-            <Table.Cell>Percent Spent</Table.Cell>
-            <Table.Cell>Progress</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <EditModalForms
-                project={this.props.project}
-                budget={
-                  project.budget ? parseFloat(project.budget).toFixed(2) : 0}
-                getProject={this.props.getProject}
-              >
-              </EditModalForms>
-            </Table.Cell>
-            <Table.Cell>
-              $
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Budget</Table.Cell>
+              <Table.Cell>Spent</Table.Cell>
+              <Table.Cell>Percent Spent</Table.Cell>
+              <Table.Cell>Progress</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <EditModalForms
+                  project={this.props.project}
+                  budget={
+                    project.budget ? parseFloat(project.budget).toFixed(2) : 0}
+                  getProject={this.props.getProject}
+                >
+                </EditModalForms>
+              </Table.Cell>
+              <Table.Cell>
+                $
               {project.total_project_cost
-                ? project.total_project_cost.toFixed(2)
-                : 0}
+                  ? project.total_project_cost.toFixed(2)
+                  : 0}
+              </Table.Cell>
+              <Table.Cell>
+                {project.percent_spent
+                  ? parseFloat(project.percent_spent).toFixed(2)
+                  : 0}
+                %
             </Table.Cell>
-            <Table.Cell>
-              {project.percent_spent
-                ? parseFloat(project.percent_spent).toFixed(2)
-                : 0}
-              %
-            </Table.Cell>
-            <Table.Cell>
-              <Segment>
-                {/* <StyledProgressBar> */}
-                <Progress
-                  color={this.renderProgress(project.percent_spent)}
-                  percent={project.percent_spent}
-                />
-                {/* </StyledProgressBar> */}
-              </Segment>
-            </Table.Cell>
-          </Table.Row>
+              <Table.Cell>
+                <Segment>
+                  {/* <StyledProgressBar> */}
+                  <Progress
+                    color={this.renderProgress(project.percent_spent)}
+                    percent={project.percent_spent}
+                  />
+                  {/* </StyledProgressBar> */}
+                </Segment>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
         </Table>
       </>
     );
