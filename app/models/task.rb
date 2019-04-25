@@ -92,15 +92,15 @@ class Task < ApplicationRecord
     SELECT tth.*
     FROM total_task_hours AS tth
         ", project_id]).map do |t|
-          {task_id: t.task_id,
-          name: t.task_name,
-          description: t.description,
-          billable: t.billable,
-          price_per_hour: t.price_per_hour,
-          total_hours: sprintf("%.2f", t.total_hours),
-          total_cost: ActiveSupport::NumberHelper::number_to_currency(t.total_cost),
-          project_id: t.project_id}
-        end
+      { task_id: t.task_id,
+       name: t.task_name,
+       description: t.description,
+       billable: t.billable,
+       price_per_hour: t.price_per_hour,
+       total_hours: t.total_hours,
+       total_cost: ActiveSupport::NumberHelper::number_to_currency(t.total_cost),
+       project_id: t.project_id }
+    end
   end
 
   def self.billable_task_totals(project_id)
@@ -146,9 +146,9 @@ class Task < ApplicationRecord
     total_billable_cost
     FROM total_billable_hours       
         ", project_id]).map do |n|
-            {billable: n.billable,
-        total_billable_hours: sprintf("%.2f", n.total_billable_hours),
-        total_billable_cost: ActiveSupport::NumberHelper::number_to_currency(n.total_billable_cost)}
-        end
+      { billable: n.billable,
+       total_billable_hours: sprintf("%.2f", n.total_billable_hours),
+       total_billable_cost: ActiveSupport::NumberHelper::number_to_currency(n.total_billable_cost) }
+    end
   end
 end
