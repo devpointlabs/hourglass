@@ -100,28 +100,28 @@ class Projects extends React.Component {
             </Link>
           </div>
         ) : (
-          <div style={{ padding: "10px" }}>
-            <ModalForms getProjects={this.getProjects} />
-            <Table stackable basic collapsing style={{ width: "100%" }}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Project</Table.HeaderCell>
-                  <Table.HeaderCell>Budget</Table.HeaderCell>
-                  <Table.HeaderCell
-                    colSpan="2"
-                    style={{ width: "25%" }}
-                    textAlign="center"
-                  >
-                    Current Cost
+            <div style={{ padding: "10px" }}>
+              <ModalForms getProjects={this.getProjects} />
+              <Table stackable basic collapsing style={{ width: "100%" }}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Project</Table.HeaderCell>
+                    <Table.HeaderCell>Budget</Table.HeaderCell>
+                    <Table.HeaderCell
+                      colSpan="2"
+                      style={{ width: "25%" }}
+                      textAlign="center"
+                    >
+                      Current Cost
                   </Table.HeaderCell>
-                  <Table.HeaderCell />
-                  <Table.HeaderCell style={{ width: "5%" }} />
-                </Table.Row>
-              </Table.Header>
-              {this.showProjects()}
-            </Table>
-          </div>
-        )}
+                    <Table.HeaderCell />
+                    <Table.HeaderCell style={{ width: "5%" }} />
+                  </Table.Row>
+                </Table.Header>
+                {this.showProjects()}
+              </Table>
+            </div>
+          )}
         {!this.props.auth.user.admin ? (
           <div
             style={{ marginTop: "20px", textAlign: "center", width: "100%" }}
@@ -140,28 +140,28 @@ class Projects extends React.Component {
             </Link>
           </div>
         ) : (
-          <div style={{ padding: "10px" }}>
-            <ModalForms getProjects={this.getProjects} />
-            <Table stackable basic collapsing style={{ width: "100%" }}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Project</Table.HeaderCell>
-                  <Table.HeaderCell>Budget</Table.HeaderCell>
-                  <Table.HeaderCell
-                    colSpan="2"
-                    style={{ width: "25%" }}
-                    textAlign="center"
-                  >
-                    Current Cost
+            <div style={{ padding: "10px" }}>
+              <ModalForms getProjects={this.getProjects} />
+              <Table stackable basic collapsing style={{ width: "100%" }}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Project</Table.HeaderCell>
+                    <Table.HeaderCell>Budget</Table.HeaderCell>
+                    <Table.HeaderCell
+                      colSpan="2"
+                      style={{ width: "25%" }}
+                      textAlign="center"
+                    >
+                      Current Cost
                   </Table.HeaderCell>
-                  <Table.HeaderCell />
-                  <Table.HeaderCell style={{ width: "5%" }} />
-                </Table.Row>
-              </Table.Header>
-              {this.showProjects()}
-            </Table>
-          </div>
-        )}
+                    <Table.HeaderCell />
+                    <Table.HeaderCell style={{ width: "5%" }} />
+                  </Table.Row>
+                </Table.Header>
+                {this.showProjects()}
+              </Table>
+            </div>
+          )}
       </>
     );
   }
@@ -178,22 +178,22 @@ export class ConnectedProjects extends React.Component {
 }
 
 export default withRouter(ConnectedProjects);
-{
-  /* 
- const StyledProgressBar = styled.div`
-   .ui.progress .bar {
-     display: block;
-     line-height: 1;
-     position: relative;
-     width: 0%;
-     min-width: 0.2em;
-     background: #888;
-     border-radius: 0.28571429rem;
-     transition: width 0.1s ease, background-color 0.1s ease;
-     transition-property: width;
-     transition-duration: 0.1s, 0.1s;
-     transition-timing-function: ease, ease;
-     transition-delay: 0s, 0s;
-   }
- `; */
-}
+
+/*
+const StyledProgressBar = styled.div`
+ .ui.progress .bar {
+   display: block;
+   line-height: 1;
+   position: relative;
+   width: 0%;
+   min-width: 0.2em;
+   background: #888;
+   border-radius: 0.28571429rem;
+   transition: width 0.1s ease, background-color 0.1s ease;
+   transition-property: width;
+   transition-duration: 0.1s, 0.1s;
+   transition-timing-function: ease, ease;
+   transition-delay: 0s, 0s;
+ }
+`; */
+
