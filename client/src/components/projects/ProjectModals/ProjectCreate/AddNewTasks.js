@@ -62,12 +62,6 @@ class AddNewTasks extends React.Component {
   render() {
     const { name, description, price_per_hour } = this.state.task;
 
-    // const options = [
-    //   { key: 1, text: 'Programming', value: 1 },
-    //   { key: 2, text: 'Design', value: 2 },
-    //   { key: 3, text: 'Project Management', value: 3 },
-    //   { key: 4, text: 'Business Development', value: 4 },
-    // ]
     return (
       <>
         <Form style={styles.modal}>
@@ -82,6 +76,7 @@ class AddNewTasks extends React.Component {
                     value={name}
                     autoFocus
                     onChange={this.handleChange}
+
                   />
                 </Table.Cell>
                 <Table.Cell>

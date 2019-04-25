@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Image } from "semantic-ui-react";
-import { Link, withRouter, } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import HourGlassIcon from "./HourGlassIcon";
 import Clock from "./Clock";
@@ -10,13 +10,14 @@ import styled from "styled-components";
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
 class Navbar extends React.Component {
-  state = { projectId: this.props.location.pathname.split(/projects/) }
+  state = { projectId: this.props.location.pathname.split(/projects/) };
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     if (prevProps.location.pathname !== this.props.location.pathname)
-      this.setState({ projectId: this.props.location.pathname.split(/projects/) })
-  }
-
+      this.setState({
+        projectId: this.props.location.pathname.split(/projects/)
+      });
+  };
 
   rightNavItems = () => {
     const {
@@ -44,18 +45,24 @@ class Navbar extends React.Component {
                 marginRight: ".5em"
               }}
             >
+              <TextSize>
+                {/* <SwitchDisplay style={{ color: "white" }}>
+                  {this.props.auth.user.name}
+                </SwitchDisplay> */}
+              </TextSize>
               <Fade style={{ paddingRight: "1em" }}>
                 <Image
                   size="mini"
                   src={this.props.auth.user.image || defaultImage}
-                  avatar
+                  circular
+                  style={{
+                    height: "45px",
+                    width: "45px",
+                    objectFit: "cover",
+                    marginLeft: "5px"
+                  }}
                 />
               </Fade>
-              <TextSize>
-                <SwitchDisplay style={{ color: "white" }}>
-                  {this.props.auth.user.name}
-                </SwitchDisplay>
-              </TextSize>
             </Menu.Item>
           </Link>
         </Menu.Menu>

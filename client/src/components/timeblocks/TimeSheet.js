@@ -14,6 +14,7 @@ import {
 } from "./Calculations/Calculations";
 import { withRouter } from "react-router-dom";
 import { TimerConsumer } from "../../providers/TimerProvider";
+import { CircleCountConsumer } from "../../providers/CircleCountProvider";
 
 class TimeSheet extends React.Component {
   state = {
@@ -48,17 +49,13 @@ class TimeSheet extends React.Component {
           this.setState({
             selectedDate: moment(this.state.selectedDate).subtract(1, "days")
           });
-          this.setSelectedWeek(
-            moment(this.state.selectedDate).subtract(1, "days")
-          );
+          this.setSelectedWeek(moment(this.state.selectedDate));
           break;
         case 39:
           this.setState({
             selectedDate: moment(this.state.selectedDate).add(1, "days")
           });
-          this.setSelectedWeek(
-            moment(this.state.selectedDate).subtract(1, "days")
-          );
+          this.setSelectedWeek(moment(this.state.selectedDate));
           break;
         case 32:
           this.setState({ selectedDate: moment() });
@@ -85,6 +82,7 @@ class TimeSheet extends React.Component {
           () => {
             this.checkForTimerRunning();
             this.getWeekTimeBlocks(this.state.selectedDate);
+            this.calculateCircleCount();
           }
         )
       );
@@ -99,6 +97,7 @@ class TimeSheet extends React.Component {
           () => {
             this.checkForTimerRunning();
             this.getWeekTimeBlocks(this.state.selectedDate);
+            this.calculateCircleCount();
           }
         )
       );
@@ -169,6 +168,20 @@ class TimeSheet extends React.Component {
   filterProject = (e, { value }) =>
     this.setState({ filteredProjectIds: value });
 
+  calculateCircleCount = () => {
+    let unSubmittedCircleCount = this.state.timeBlocks.filter(
+      b => b.status === "unSubmitted"
+    ).length;
+    let pendingCircleCount = this.state.timeBlocks.filter(
+      b => b.status === "pending"
+    ).length;
+    this.props.circleCount.setCircle(
+      "unSubmittedCircleCount",
+      unSubmittedCircleCount
+    );
+    this.props.circleCount.setCircle("pendingCircleCount", pendingCircleCount);
+  };
+
   render() {
     const {
       view,
@@ -217,19 +230,19 @@ class TimeSheet extends React.Component {
             value={this.state.filteredUserIds}
           />
         ) : (
-            <Dropdown
-              onChange={this.filterProject}
-              placeholder="Projects"
-              fluid
-              multiple
-              selection
-              options={projectOptions}
-              style={{ borderRadius: 0 }}
-              clearable
-              scrolling
-              value={this.state.filteredProjectIds}
-            />
-          )}
+          <Dropdown
+            onChange={this.filterProject}
+            placeholder="Projects"
+            fluid
+            multiple
+            selection
+            options={projectOptions}
+            style={{ borderRadius: 0 }}
+            clearable
+            scrolling
+            value={this.state.filteredProjectIds}
+          />
+        )}
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton
             projects={projects}
@@ -263,6 +276,7 @@ class TimeSheet extends React.Component {
               setKeyboardShortcutKeys={this.setKeyboardShortcutKeys}
               filteredUserIds={filteredUserIds}
               filteredProjectIds={filteredProjectIds}
+              setCircle={this.setCircle}
             />
           </Table>
         </div>
@@ -291,7 +305,19 @@ export class DoubleConnectedTimeSheet extends React.Component {
   }
 }
 
-export default withRouter(DoubleConnectedTimeSheet);
+export class TripleConnectedTimeSheet extends React.Component {
+  render() {
+    return (
+      <CircleCountConsumer>
+        {circleCount => (
+          <DoubleConnectedTimeSheet {...this.props} circleCount={circleCount} />
+        )}
+      </CircleCountConsumer>
+    );
+  }
+}
+
+export default withRouter(TripleConnectedTimeSheet);
 
 // get blocks
 // add hours to blocks

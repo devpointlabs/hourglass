@@ -73,7 +73,17 @@ class TeamView extends React.Component {
               >
                 <Table.Cell onClick={() => console.log("clicked")}>
                   <Header as="h4" image>
-                    <Image src={user.image} rounded size="mini" />
+                    <Image
+                      src={user.image}
+                      circular
+                      size="mini"
+                      style={{
+                        height: "35px",
+                        width: "35px",
+                        objectFit: "cover",
+                        marginLeft: "5px"
+                      }}
+                    />
                     <Header.Content>
                       {user.name}
                       <Header.Subheader>{user.nickname}</Header.Subheader>
@@ -102,7 +112,17 @@ class TeamView extends React.Component {
                 <Table.Row key={user.id}>
                   <Table.Cell onClick={() => console.log("clicked")}>
                     <Header as="h4" image>
-                      <Image src={user.image} rounded size="mini" />
+                      <Image
+                        src={user.image}
+                        circular
+                        size="mini"
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          objectFit: "cover",
+                          marginLeft: "5px"
+                        }}
+                      />
                       <Header.Content>
                         {user.name}
                         <Header.Subheader>{user.nickname}</Header.Subheader>
