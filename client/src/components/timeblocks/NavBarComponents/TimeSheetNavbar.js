@@ -201,7 +201,6 @@ class TimeSheetNavbar extends React.Component {
   }
 }
 
-
 // const mobileContainer = styled.div`
 //   @media (max-width: 425px) {
 //     display: flex;

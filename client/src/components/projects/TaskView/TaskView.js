@@ -8,11 +8,10 @@ class TaskView extends React.Component {
     tasks: [],
     billableTotals: {},
     unbillableTotals: {},
-    start_date: '2000-04-14',
-    end_date: '2091-04-15',
+    start_date: "2000-04-14",
+    end_date: "2091-04-15",
     taskview: true
   };
-
 
   componentDidMount() {
     this.getProjectTasks();
@@ -28,12 +27,13 @@ class TaskView extends React.Component {
         }
       })
       .then(response => {
-        this.setState({ tasks: response.data })
+        this.setState({ tasks: response.data });
       });
     axios.get(`/api/billable/${project.project_id}`).then(response => {
       const billable = response.data.filter(b => b.billable && b);
       const unbillable = response.data.filter(b => {
         if (b.billable === false) return b;
+        return null;
       });
       this.setState({
         billableTotals: billable[0],
@@ -42,40 +42,50 @@ class TaskView extends React.Component {
     });
   };
 
-  getMonday = (d) => {
+  getMonday = d => {
     d = new Date(d);
     var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6 : 1);
+      diff = d.getDate() - day + (parseInt(day) === 0 ? -6 : 1);
     return new Date(d.setDate(diff));
-  }
-
+  };
 
   filterDates = (e, { value }) => {
-    const curr = new Date()
+    const curr = new Date();
     let first = curr.getDate() - curr.getDay();
     let last = first + 6;
     let firstday = new Date(curr.setDate(first)).toUTCString();
     let lastday = new Date(curr.setDate(last)).toUTCString();
     let month = new Date();
-    let monthFirst = new Date(month.getFullYear(), month.getMonth(), 1).toUTCString();
-    let monthLast = new Date(month.getFullYear(), month.getMonth() + 1, 0).toUTCString();
+    let monthFirst = new Date(
+      month.getFullYear(),
+      month.getMonth(),
+      1
+    ).toUTCString();
+    let monthLast = new Date(
+      month.getFullYear(),
+      month.getMonth() + 1,
+      0
+    ).toUTCString();
 
-    if (value === 'allTime') {
-      this.setState(({ start_date: '2000-04-14', end_date: '2091-04-15' }), () => {
-        this.getProjectTasks()
-      })
-    } else if (value === 'thisWeek') {
-      this.setState(({ start_date: firstday, end_date: lastday }), () => {
-        this.getProjectTasks()
-      })
-    } else if (value === 'thisMonth') {
-      this.setState(({ start_date: monthFirst, end_date: monthLast }), () => {
-        this.getProjectTasks()
-      })
+    if (value === "allTime") {
+      this.setState(
+        { start_date: "2000-04-14", end_date: "2091-04-15" },
+        () => {
+          this.getProjectTasks();
+        }
+      );
+    } else if (value === "thisWeek") {
+      this.setState({ start_date: firstday, end_date: lastday }, () => {
+        this.getProjectTasks();
+      });
+    } else if (value === "thisMonth") {
+      this.setState({ start_date: monthFirst, end_date: monthLast }, () => {
+        this.getProjectTasks();
+      });
     } else {
-      console.log('nada')
+      console.log("nada");
     }
-  }
+  };
 
   showBillableTasks = () => {
     const billableTasks = this.state.tasks.filter(t => t.billable === true);
@@ -160,8 +170,8 @@ class TaskView extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   {this.state.billableTotals !== undefined
                     ? parseFloat(
-                      this.state.billableTotals.total_billable_hours
-                    ).toFixed(2)
+                        this.state.billableTotals.total_billable_hours
+                      ).toFixed(2)
                     : "0.00"}
                 </div>
               </Table.Cell>
@@ -288,8 +298,7 @@ class TaskView extends React.Component {
 const options = [
   { key: "allTime", text: "All Time", value: "allTime" },
   { key: "thisWeek", text: "This Week", value: "thisWeek" },
-  { key: "thisMonth", text: "This Month", value: "thisMonth" },
-
+  { key: "thisMonth", text: "This Month", value: "thisMonth" }
 ];
 
 export default TaskView;

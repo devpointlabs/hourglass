@@ -203,7 +203,7 @@ class TimeSheet extends React.Component {
 
     const projectOptions = this.state.projects.map(u => ({
       key: u.id,
-      text: u.name + " " + "(" + u.client_name + ")",
+      text: `${u.name} (${u.client_name})`,
       value: u.id
     }));
 
@@ -231,19 +231,19 @@ class TimeSheet extends React.Component {
             value={this.state.filteredUserIds}
           />
         ) : (
-            <Dropdown
-              onChange={this.filterProject}
-              placeholder="Projects"
-              fluid
-              multiple
-              selection
-              options={projectOptions}
-              style={{ borderRadius: 0 }}
-              clearable
-              scrolling
-              value={this.state.filteredProjectIds}
-            />
-          )}
+          <Dropdown
+            onChange={this.filterProject}
+            placeholder="Projects"
+            fluid
+            multiple
+            selection
+            options={projectOptions}
+            style={{ borderRadius: 0 }}
+            clearable
+            scrolling
+            value={this.state.filteredProjectIds}
+          />
+        )}
         <div style={{ display: "flex", padding: "10px" }}>
           <AddTimeBlockButton
             projects={projects}
