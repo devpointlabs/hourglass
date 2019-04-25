@@ -76,6 +76,7 @@ class Projects extends React.Component {
         return "red";
       case percent_spent === 0:
         return "grey";
+      // no default
     }
   };
 

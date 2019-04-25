@@ -92,8 +92,8 @@ export default class Clock extends React.Component {
   }
 }
 
-class Instruction extends React.Component {
-  render() {
-    return <p id="instruction">Click anywhere to change formats</p>;
-  }
-}
+// class Instruction extends React.Component {
+//   render() {
+//     return <p id="instruction">Click anywhere to change formats</p>;
+//   }
+// }

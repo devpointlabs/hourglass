@@ -3,7 +3,6 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header, Image } from "semantic-ui-react";
 import {
   NotificationContainer,
-  NotificationManager
 } from "react-notifications";
 
 class Login extends React.Component {
@@ -12,7 +11,6 @@ class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    const { auth } = this.props;
     this.props.auth.handleLogin({ email, password }, this.props.history);
   };
 

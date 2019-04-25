@@ -1,7 +1,6 @@
 import React from "react";
 import { Icon, Button } from "semantic-ui-react";
 import clickHandler from "./TimeSheetNavbarClickHandler";
-import styled from "styled-components";
 import moment from "moment";
 import CalendarPicker from "../CalenderPicker/CalendarPicker";
 

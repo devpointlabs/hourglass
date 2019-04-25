@@ -5,8 +5,8 @@ import { Segment, Header, Image, Divider, Table } from "semantic-ui-react";
 const defaultImage = "https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png";
 
 const Employee = props => {
-  const [projects, setProjects] = useState([]);
-  const [timeblocks, setTimeblocks] = useState([]);
+  const [setProjects] = useState([]);
+  const [setTimeblocks] = useState([]);
   const [user, setUser] = useState({});
   const [tasks, setTasks] = useState([]);
   const [hours, setHours] = useState([]);
