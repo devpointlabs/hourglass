@@ -2,14 +2,10 @@ import React from "react";
 import {
   Form,
   Button,
-  Header,
   Checkbox,
-  Modal,
   Table,
-  Dropdown
 } from "semantic-ui-react";
 import axios from "axios";
-import NewTaskTable from "./EditTaskTable";
 
 class AddNewTasks extends React.Component {
   state = {
@@ -65,13 +61,7 @@ class AddNewTasks extends React.Component {
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
-    const { task } = this.props;
-    // const options = [
-    //   { key: 1, text: 'Programming', value: 'Programming' },
-    //   { key: 2, text: 'Design', value: 'Design' },
-    //   { key: 3, text: 'Project Management', value: 'Project Management' },
-    //   { key: 4, text: 'Business Development', value: 'Business Development' },
-    // ]
+
     return (
       <>
         <Form style={styles.modal}>

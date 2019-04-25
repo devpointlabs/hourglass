@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, TableCell } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import axios from "axios";
 import AddNewTasks from "./AddNewTasks";
 import NewTaskTableRow from "./NewTaskTableRows";

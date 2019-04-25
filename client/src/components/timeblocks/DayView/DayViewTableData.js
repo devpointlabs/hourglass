@@ -1,11 +1,10 @@
 import React from "react";
 import DayViewTableHeaderRow from "./DayViewTableHeaderRow";
 import DayViewTableRow from "./DayViewTableRow";
-import { Table, Dropdown } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import moment from "moment";
 import EditTimeEntryModal from "./EditTimeEntryModal";
 import CannotEditModal from "./CannotEditModal";
-import { returnDayHours, returnDayInfo } from "../Calculations/Calculations";
 
 class DayViewTableData extends React.Component {
   state = { modal1Open: false, modal2Open: false };
@@ -41,7 +40,7 @@ class DayViewTableData extends React.Component {
       stopTimer,
       setSelectedWeek,
       setSelectedDate,
-      setKeyboardShortcutKeys
+
     } = this.props;
     const currentDayBlocks = timeBlocks.filter(
       b =>
@@ -67,8 +66,8 @@ class DayViewTableData extends React.Component {
     const filteredBlocks =
       this.props.filteredUserIds.length > 0
         ? currentDayBlocksWithTaskInfo.filter(u =>
-            this.props.filteredUserIds.includes(u.user_id)
-          )
+          this.props.filteredUserIds.includes(u.user_id)
+        )
         : currentDayBlocksWithTaskInfo;
 
     return (

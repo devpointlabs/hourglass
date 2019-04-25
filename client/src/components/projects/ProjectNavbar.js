@@ -25,7 +25,6 @@ class ProjectNavbar extends React.Component {
   }
 
   render() {
-    const { setPage } = this.props;
     return (
       <Menu style={{ marginTop: "0" }}>
         <Menu.Item

@@ -3,20 +3,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import {
-  Grid,
   Button,
-  Container,
-  Icon,
   Table,
-  Menu,
   Progress
 } from "semantic-ui-react";
-import BudgetView from "./BudgetView";
 import ModalForms from "./ProjectModals/ProjectCreate/ModalForms";
 import EditProjectModal from "./ProjectModals/ProjectEdit/EditModalForms";
 import "./Projects.css";
 import { withRouter } from "react-router-dom";
-import styled from "styled-components";
 
 class Projects extends React.Component {
   state = { projects: [], toggleForm: false, project: {} };
@@ -31,9 +25,6 @@ class Projects extends React.Component {
       .then(res => this.setState({ projects: res.data }));
   };
 
-  // handleToggle = (project) => {
-  //   this.setState({ toggleForm: !this.state.toggleForm, project: project });
-  // };
 
   showProjects = () => {
     return this.state.projects.map(p => (
@@ -91,43 +82,43 @@ class Projects extends React.Component {
   render() {
     return (
       <>
-      {!this.props.auth.user.admin ? 
-      (
-        <div style={{ marginTop: "20px", textAlign: "center", width: "100%"}}>
-        <h1 >You do not have access to this page.</h1>
-        <Link to="/timesheet">
-        <Button style={{
-                     
-                      background: "RebeccaPurple",
-                      color: "white"
-                    }}> Return Home </Button>
-        </Link>
-        </div> ):
-     (
-     <div style={{ padding: "10px" }}>
-       <ModalForms getProjects={this.getProjects} />
-          <Table stackable basic collapsing style={{ width: "100%" }}>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Project</Table.HeaderCell>
-                <Table.HeaderCell>Budget</Table.HeaderCell>
-                <Table.HeaderCell
-                  colSpan="2"
-                  style={{ width: "25%" }}
-                  textAlign="center"
-                >
-                  Current Cost
+        {!this.props.auth.user.admin ?
+          (
+            <div style={{ marginTop: "20px", textAlign: "center", width: "100%" }}>
+              <h1 >You do not have access to this page.</h1>
+              <Link to="/timesheet">
+                <Button style={{
+
+                  background: "RebeccaPurple",
+                  color: "white"
+                }}> Return Home </Button>
+              </Link>
+            </div>) :
+          (
+            <div style={{ padding: "10px" }}>
+              <ModalForms getProjects={this.getProjects} />
+              <Table stackable basic collapsing style={{ width: "100%" }}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Project</Table.HeaderCell>
+                    <Table.HeaderCell>Budget</Table.HeaderCell>
+                    <Table.HeaderCell
+                      colSpan="2"
+                      style={{ width: "25%" }}
+                      textAlign="center"
+                    >
+                      Current Cost
                 </Table.HeaderCell>
-                <Table.HeaderCell />
-                <Table.HeaderCell style={{ width: "5%" }} />
-              </Table.Row>
-            </Table.Header>
-            {this.showProjects()}
-          </Table>
-        </div>
-       )
-      
-     }
+                    <Table.HeaderCell />
+                    <Table.HeaderCell style={{ width: "5%" }} />
+                  </Table.Row>
+                </Table.Header>
+                {this.showProjects()}
+              </Table>
+            </div>
+          )
+
+        }
       </>
     );
   }
@@ -148,22 +139,22 @@ export class ConnectedProjects extends React.Component {
 
 export default withRouter(ConnectedProjects);
 
-const StyledProgressBar = styled.div`
-  .ui.progress .bar {
-    // display: block;
-    // line-height: 1;
-    // position: relative;
-    // width: 0%;
-    // min-width: 0.2em;
-    // background: #888;
-    // border-radius: 0.28571429rem;
-    // transition: width 0.1s ease, background-color 0.1s ease;
-    // transition-property: width;
-    // transition-duration: 0.1s, 0.1s;
-    // transition-timing-function: ease, ease;
-    // transition-delay: 0s, 0s;
-  }
-`;
+// const StyledProgressBar = styled.div`
+//   .ui.progress .bar {
+//     // display: block;
+//     // line-height: 1;
+//     // position: relative;
+//     // width: 0%;
+//     // min-width: 0.2em;
+//     // background: #888;
+//     // border-radius: 0.28571429rem;
+//     // transition: width 0.1s ease, background-color 0.1s ease;
+//     // transition-property: width;
+//     // transition-duration: 0.1s, 0.1s;
+//     // transition-timing-function: ease, ease;
+//     // transition-delay: 0s, 0s;
+//   }
+// `;
 
 
 

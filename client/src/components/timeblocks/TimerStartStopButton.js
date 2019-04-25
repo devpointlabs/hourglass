@@ -32,25 +32,26 @@ const TimerStartStopButton = ({
                   height: "70px"
                 }}
                 src={require("../../images/clockgreyface.gif")}
+                alt="Clock"
               />
             </div>
             Stop
           </div>
         ) : (
-          <div style={{ fontSize: "2em" }}>
-            <div>
-              <Icon
-                name="clock outline"
-                size="large"
-                style={{
-                  margin: 0,
-                  color: "white"
-                }}
-              />
-            </div>
-            Start
+            <div style={{ fontSize: "2em" }}>
+              <div>
+                <Icon
+                  name="clock outline"
+                  size="large"
+                  style={{
+                    margin: 0,
+                    color: "white"
+                  }}
+                />
+              </div>
+              Start
           </div>
-        )}
+          )}
       </Button>
     );
   else
@@ -76,25 +77,26 @@ const TimerStartStopButton = ({
                   height: "20px"
                 }}
                 src={require("../../images/clockgreyface.gif")}
+                alt="Clock"
               />
             </div>
             Stop
           </div>
         ) : (
-          <div style={{ fontSize: "0.9em" }}>
-            <div>
-              <Icon
-                name="clock outline"
-                size="large"
-                style={{
-                  margin: 0,
-                  color: "white"
-                }}
-              />
-            </div>
-            Start
+            <div style={{ fontSize: "0.9em" }}>
+              <div>
+                <Icon
+                  name="clock outline"
+                  size="large"
+                  style={{
+                    margin: 0,
+                    color: "white"
+                  }}
+                />
+              </div>
+              Start
           </div>
-        )}
+          )}
       </Button>
     );
 };
