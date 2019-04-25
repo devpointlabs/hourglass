@@ -103,7 +103,7 @@ class EditForm extends React.Component {
     } = this.state;
     return (
       <Form
-        stackable
+
         onSubmit={this.handleSubmit}
         widths="equal"
         style={{
@@ -112,7 +112,7 @@ class EditForm extends React.Component {
           alignItems: "center"
         }}
       >
-        <Grid.Column mobile={1} width={4} style={{ margin: "2em" }}>
+        <Grid.Column width={4} style={{ margin: "2em" }}>
           <Dropzone
             onDrop={this.onDrop}
             multiple={false}
@@ -132,7 +132,7 @@ class EditForm extends React.Component {
             }}
           </Dropzone>
         </Grid.Column>
-        <Grid.Column stackable mobile={1} width={8}>
+        <Grid.Column width={8} >
           <Mobile>
             <Form.Input
               label="New Email"
@@ -170,7 +170,7 @@ class EditForm extends React.Component {
             <br />
           </Mobile>
         </Grid.Column>
-      </Form>
+      </Form >
     );
   };
 
@@ -232,11 +232,11 @@ class EditForm extends React.Component {
             </Button.Group>
             <br />
             <div>
-              <Header textAlign="center">Current Projects</Header>
+              <Header style={{ textAlign: "center" }}>Current Projects</Header>
               <Divider />
-              <List textAlign="center">
+              <List style={{ textAlign: "center" }}>
                 {this.state.projects.map(project => (
-                  <List.Item>
+                  <List.Item key={project.id}>
                     {project.name} - {project.client_name}
                   </List.Item>
                 ))}

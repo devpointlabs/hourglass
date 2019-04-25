@@ -50,7 +50,7 @@ class Register extends React.Component {
     } = this.state;
 
     return (
-      <Segment basic stackable>
+      <Segment basic>
         <Header as="h1" textAlign="center">
           Register
         </Header>
@@ -75,7 +75,6 @@ class Register extends React.Component {
           />
           <Form.Input
             label="Nickname"
-            required
             autoFocus
             name="nickname"
             value={nickname}
@@ -90,6 +89,7 @@ class Register extends React.Component {
             placeholder="Password"
             type="password"
             onChange={this.handleChange}
+            minLength="8"
           />
           <Form.Input
             label="Password Confirmation"
@@ -99,6 +99,7 @@ class Register extends React.Component {
             placeholder="Password Confirmation"
             type="password"
             onChange={this.handleChange}
+            minLength="8"
           />
           <Segment textAlign="center" basic>
             <Button
