@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Message, Container, Header, Button, Modal } from "semantic-ui-react";
+import { Message, Container, Header, Modal } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
 class Flash extends Component {
@@ -30,11 +30,11 @@ class Flash extends Component {
   }
 
 
-    fadeFlash = () => {
-        setTimeout(() => {
-            this.props.auth.clearFlash()
-        }, 2000)
-    }
+  fadeFlash = () => {
+    setTimeout(() => {
+      this.props.auth.clearFlash()
+    }, 2000)
+  }
 
 
   toggleModal = () => {

@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, Icon, Popup, Button } from "semantic-ui-react";
-import CheckboxComponent from "./CheckboxComponent";
 import "../timeSheetDayView.css";
 import moment from "moment";
 import { AuthConsumer } from "../../../providers/AuthProvider";

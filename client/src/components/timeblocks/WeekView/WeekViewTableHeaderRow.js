@@ -1,7 +1,6 @@
 import React from "react";
 import { Table } from "semantic-ui-react";
 import WeekViewTableHeaderLabels from "./WeekViewTableHeaderLabels";
-import moment from "moment";
 
 class WeekViewTableHeaderRow extends React.Component {
   render() {

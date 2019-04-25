@@ -1,7 +1,6 @@
 import React from "react";
 import DayViewTableHeaderLabels from "./DayViewTableHeaderLabels";
 import { Table } from "semantic-ui-react";
-import moment from "moment";
 
 class DayViewTableHeaderRow extends React.Component {
   render() {

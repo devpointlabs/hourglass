@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Icon, Form, Checkbox } from "semantic-ui-react"
+import { Table, Button, Icon, Form } from "semantic-ui-react"
 import axios from 'axios';
 
 class TaskTableRow extends React.Component {

@@ -153,11 +153,3 @@ class NewProject extends React.Component {
 
 export default NewProject;
 
-const styles = {
-  modal: {
-    position: "relative",
-    maxWidth: "100%",
-    textAlign: "center",
-    paddingLeft: "25px"
-  }
-};

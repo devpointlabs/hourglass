@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { Link, withRouter, NavLink } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { AuthConsumer } from "../../../providers/AuthProvider";
 import { CircleCountConsumer } from "../../../providers/CircleCountProvider";
 
@@ -57,7 +57,7 @@ class TimeBlockNavbar extends React.Component {
                 style={{
                   visibility:
                     parseInt(this.props.circleCount.pendingCircleCount) !== 0 &&
-                    this.props.circleCount.pendingCircleCount
+                      this.props.circleCount.pendingCircleCount
                       ? "visible"
                       : "hidden",
                   display: "flex",

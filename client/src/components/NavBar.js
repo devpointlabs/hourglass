@@ -187,12 +187,6 @@ const TextSize = styled.div`
   }
 `;
 
-const SwitchDisplay = styled.div`
-  @media (max-width: 550px) {
-    transform: translate(-0.5em, 0);
-  }
-`;
-
 const Fade = styled.div`
   @media (max-width: 550px) {
     display: none;
