@@ -48,7 +48,11 @@ class ApproveTimesheets extends React.Component {
 
   showTimeblocks = () => {
     return this.state.timeblocks.map(tb => (
-      <ApproveTimesheetsRow removeTimeblock={this.removeTimeblock} tb={tb} />
+      <ApproveTimesheetsRow
+        key={tb.id}
+        removeTimeblock={this.removeTimeblock}
+        tb={tb}
+      />
     ));
   };
 
