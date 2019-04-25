@@ -56,7 +56,7 @@ class TaskTableRow extends React.Component {
           <Table.Cell
             style={{ borderRight: "solid grey 0.5px", width: "10%" }}
           >
-            {task.total_hours ? task.total_hours : 0}
+            {task.total_hours ? parseFloat(task.total_hours).toFixed(2) : 0}
           </Table.Cell>
           <Table.Cell style={{ width: "30%" }}>
             {editing ? <Form.Input
