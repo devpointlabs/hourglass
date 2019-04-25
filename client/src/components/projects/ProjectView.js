@@ -99,31 +99,37 @@ class ProjectView extends React.Component {
                   }
                 />
 
-            <Segment>{this.renderPage()}</Segment>
-          </Container>
-        </div>
-        ) :
-          (
-            <div style={{ marginTop: "20px", textAlign: "center", width: "100%" }}>
-              <h1 >You do not have access to this page.</h1>
-              <Link to="/timesheet">
-                <Button style={{
+                <h4 style={{ marginLeft: "20px" }}>
+                  {" "}
+                  {planned_start} {planned_start && "-"} {planned_end}
+                </h4>
+              </Header>
 
+              <Segment>{this.renderPage()}</Segment>
+            </Container>
+          </div>
+        ) : (
+          <div
+            style={{ marginTop: "20px", textAlign: "center", width: "100%" }}
+          >
+            <h1>You do not have access to this page.</h1>
+            <Link to="/timesheet">
+              <Button
+                style={{
                   background: "RebeccaPurple",
                   color: "white"
-                }}> Return Home </Button>
-              </Link>
-            </div>
-          )
-
-        }
+                }}
+              >
+                {" "}
+                Return Home{" "}
+              </Button>
+            </Link>
+          </div>
+        )}
       </>
-
-    )
-
+    );
   }
 }
-
 export class ConnectedProjectView extends React.Component {
   render() {
     return (
