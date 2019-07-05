@@ -21,6 +21,7 @@ class FetchUser extends React.Component {
             this.loaded();
           })
           .catch(res => {
+
             this.loaded();
             // this.props.history.replace("/login");
           });

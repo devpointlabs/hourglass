@@ -52,6 +52,9 @@ class AddNewTasks extends React.Component {
     } = e;
     this.setState({ task: { ...this.state.task, [name]: value } });
   };
+  handleDropdown = (e, { name, value }) => {
+    this.setState({ task: { ...this.state.task, [name]: value } })
+  }
 
   render() {
     const { name, description, price_per_hour } = this.state.task;
